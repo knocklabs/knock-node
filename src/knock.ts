@@ -9,9 +9,9 @@ import {
   UnauthorizedException,
   UnprocessableEntityException,
 } from "./common/exceptions";
-import { identify } from "./resources/identify";
 import { notify } from "./resources/notify";
 import { KnockOptions, PostAndPutOptions } from "./common/interfaces";
+import { Users } from "./resources/users";
 
 const DEFAULT_HOSTNAME = "https://api.knock.app";
 
@@ -20,7 +20,7 @@ class Knock {
   private readonly client: AxiosInstance;
 
   readonly notify = notify(this);
-  readonly identify = identify(this);
+  readonly users = new Users(this);
 
   constructor(readonly key?: string, readonly options: KnockOptions = {}) {
     if (!key) {

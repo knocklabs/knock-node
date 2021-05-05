@@ -25,7 +25,7 @@ KNOCK_API_KEY="sk_12345"
 Or, you can set it before your application starts:
 
 ```javascript
-const Knock = require("@knocklabs/node");
+const { Knock } = require("@knocklabs/node");
 
 const knockClient = new Knock("sk_12345");
 ```
