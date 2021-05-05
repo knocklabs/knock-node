@@ -29,3 +29,73 @@ const { Knock } = require("@knocklabs/node");
 
 const knockClient = new Knock("sk_12345");
 ```
+
+## Usage
+
+### Identifying users
+
+```javascript
+const { Knock } = require("@knocklabs/node");
+const knockClient = new Knock("sk_12345");
+
+await knockClient.users.identify("jhammond", {
+  name: "John Hammond",
+  email: "jhammond@ingen.net",
+});
+```
+
+### Retrieving users
+
+```javascript
+const { Knock } = require("@knocklabs/node");
+const knockClient = new Knock("sk_12345");
+
+await knockClient.users.getUser("jhammond");
+```
+
+### Sending notifies
+
+```javascript
+const { Knock } = require("@knocklabs/node");
+const knockClient = new Knock("sk_12345");
+
+// The key of the notify (from Knock dashboard)
+await knockClient.notify("dinosaurs-loose", {
+  // user id of who performed the action
+  actor: "dnedry",
+  // list of user ids for who should receive the notif
+  recipients: ["jhammond", "agrant", "imalcolm", "esattler"],
+  // data payload to send through
+  data: {
+    type: "trex",
+    priority: 1,
+  },
+});
+```
+
+### Signing JWTs
+
+You can use the `jsonwebtoken` package to [sign JWTs easily](https://www.npmjs.com/package/jsonwebtoken#jwtsignpayload-secretorprivatekey-options-callback).
+You will need to generate an environment specific signing key, which you can find in the Knock dashboard.
+
+If you're using a signing token you will need to pass this to your client to perform authentication.
+You can read more about [clientside authentication here](https://docs.knock.app/client-integration/authenticating-users).
+
+```javascript
+const jwt = require("jsonwebtoken");
+
+const currentTime = Math.floor(Date.now() / 1000);
+
+const token = jwt.sign(
+  {
+    // The user id to sign this key for
+    sub: "jhammond",
+    // When the token was issued
+    iat: currentTime,
+    // When the token expires (1 hour)
+    exp: currentTime + 60 * 60,
+  },
+  process.env.KNOCK_SIGNING_KEY,
+  { algorithm: "RS256" },
+);
+```
