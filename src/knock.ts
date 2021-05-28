@@ -9,7 +9,7 @@ import {
   UnauthorizedException,
   UnprocessableEntityException,
 } from "./common/exceptions";
-import { notify } from "./resources/notify";
+import { cancelNotify, notify } from "./resources/notify";
 import { KnockOptions, PostAndPutOptions } from "./common/interfaces";
 import { Users } from "./resources/users";
 
@@ -20,6 +20,7 @@ class Knock {
   private readonly client: AxiosInstance;
 
   readonly notify = notify(this);
+  readonly cancelNotify = cancelNotify(this);
   readonly users = new Users(this);
 
   constructor(readonly key?: string, readonly options: KnockOptions = {}) {

@@ -70,6 +70,20 @@ await knockClient.notify("dinosaurs-loose", {
     type: "trex",
     priority: 1,
   },
+  // an optional key to provide to cancel a notify
+  cancelationKey: triggerAlert.id,
+});
+```
+
+### Canceling notifies
+
+```javascript
+const { Knock } = require("@knocklabs/node");
+const knockClient = new Knock("sk_12345");
+
+await knockClient.cancelNotify("dinosaurs-loose", triggerAlert.id, {
+  // optionally you can specify recipients here
+  recipients: ["jhammond"],
 });
 ```
 
