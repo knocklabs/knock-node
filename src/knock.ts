@@ -9,9 +9,11 @@ import {
   UnauthorizedException,
   UnprocessableEntityException,
 } from "./common/exceptions";
-import { cancelNotify, notify } from "./resources/notify";
+import { notify } from "./resources/notify";
 import { KnockOptions, PostAndPutOptions } from "./common/interfaces";
 import { Users } from "./resources/users";
+import { Preferences } from "./resources/preferences";
+import { Workflows } from "./resources/workflows";
 
 const DEFAULT_HOSTNAME = "https://api.knock.app";
 
@@ -20,8 +22,9 @@ class Knock {
   private readonly client: AxiosInstance;
 
   readonly notify = notify(this);
-  readonly cancelNotify = cancelNotify(this);
   readonly users = new Users(this);
+  readonly preferences = new Preferences(this);
+  readonly workflows = new Workflows(this);
 
   constructor(readonly key?: string, readonly options: KnockOptions = {}) {
     if (!key) {
@@ -38,7 +41,7 @@ class Knock {
       baseURL: this.host,
       headers: {
         Authorization: `Bearer ${this.key}`,
-        "User-Agent": `knocklabs/knock@${version}`,
+        "User-Agent": `knocklabs/node@${version}`,
       },
     });
   }
@@ -66,6 +69,17 @@ class Knock {
     try {
       return await this.client.put(path, entity, {
         params: options.query,
+      });
+    } catch (error) {
+      this.handleErrorResponse(path, error);
+      throw error;
+    }
+  }
+
+  async delete(path: string, entity: any = {}): Promise<AxiosResponse> {
+    try {
+      return await this.client.delete(path, {
+        params: entity,
       });
     } catch (error) {
       this.handleErrorResponse(path, error);
