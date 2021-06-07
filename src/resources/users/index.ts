@@ -4,23 +4,32 @@ import { IdentifyProperties } from "./interfaces";
 export class Users {
   constructor(readonly knock: Knock) {}
 
-  async identify(id: string, properties: IdentifyProperties = {}) {
-    if (!id) {
+  async identify(userId: string, properties: IdentifyProperties = {}) {
+    if (!userId) {
       throw new Error(
-        `Incomplete arguments. At a minimum you need to specify 'id'.`,
+        `Incomplete arguments. At a minimum you need to specify 'userId'.`,
       );
     }
 
-    const { data } = await this.knock.put(`/v1/users/${id}`, properties);
+    const { data } = await this.knock.put(`/v1/users/${userId}`, properties);
     return data;
   }
 
-  async getUser(id: string) {
-    if (!id) {
-      throw new Error(`Incomplete arguments. You must provide a 'id'`);
+  async get(userId: string) {
+    if (!userId) {
+      throw new Error(`Incomplete arguments. You must provide a 'userId'`);
     }
 
-    const { data } = await this.knock.get(`/v1/users/${id}`);
+    const { data } = await this.knock.get(`/v1/users/${userId}`);
+    return data;
+  }
+
+  async delete(userId: string) {
+    if (!userId) {
+      throw new Error(`Incomplete arguments. You must provide a 'userId'`);
+    }
+
+    const { data } = await this.knock.delete(`/v1/users/${userId}`);
     return data;
   }
 }

@@ -44,22 +44,13 @@ await knockClient.users.identify("jhammond", {
 });
 ```
 
-### Retrieving users
+### Sending notifies (triggering workflows)
 
 ```javascript
 const { Knock } = require("@knocklabs/node");
 const knockClient = new Knock("sk_12345");
 
-await knockClient.users.getUser("jhammond");
-```
-
-### Sending notifies
-
-```javascript
-const { Knock } = require("@knocklabs/node");
-const knockClient = new Knock("sk_12345");
-
-// The key of the notify (from Knock dashboard)
+// The key of the workflow (from Knock dashboard)
 await knockClient.notify("dinosaurs-loose", {
   // user id of who performed the action
   actor: "dnedry",
@@ -71,17 +62,66 @@ await knockClient.notify("dinosaurs-loose", {
     priority: 1,
   },
   // an optional key to provide to cancel a notify
-  cancelationKey: triggerAlert.id,
+  cancellationKey: triggerAlert.id,
 });
 ```
 
-### Canceling notifies
+### Retrieving users
 
 ```javascript
 const { Knock } = require("@knocklabs/node");
 const knockClient = new Knock("sk_12345");
 
-await knockClient.cancelNotify("dinosaurs-loose", triggerAlert.id, {
+await knockClient.users.get("jhammond");
+```
+
+### Deleting users
+
+```javascript
+const { Knock } = require("@knocklabs/node");
+const knockClient = new Knock("sk_12345");
+
+await knockClient.users.delete("jhammond");
+```
+
+### Preferences
+
+```javascript
+const { Knock } = require("@knocklabs/node");
+const knockClient = new Knock("sk_12345");
+
+// Set an entire preference set
+await knockClient.preferences.set("jhammond", {
+  channel_types: { email: true, sms: false },
+  workflows: {
+    "dinosaurs-loose": {
+      channel_types: { email: false, in_app_feed: true },
+    },
+  },
+});
+
+// Retrieve a whole preference set
+const preferences = await knockClient.preferences.get("jhammond");
+
+// Granular preference setting for channel types
+await knockClient.preferences.setChannelType("jhammond", "email", false);
+
+// Granular preference setting for workflows
+await knockClient.preferences.setWorkflow("jhammond", "dinosaurs-loose", {
+  channel_types: {
+    email: true,
+    in_app_feed: false,
+  },
+});
+```
+
+### Cancelling workflows
+
+```javascript
+const { Knock } = require("@knocklabs/node");
+const knockClient = new Knock("sk_12345");
+
+await knockClient.workflows.cancel("dinosaurs-loose", triggerAlert.id, {
   // optionally you can specify recipients here
   recipients: ["jhammond"],
 });
