@@ -139,7 +139,7 @@ export class Preferences {
     const {
       data,
     } = await this.knock.put(
-      `/v1/users/${userId}/preferences/${preferenceSetId}/workflows/${categoryKey}`,
+      `/v1/users/${userId}/preferences/${preferenceSetId}/categories/${categoryKey}`,
       { subscribed: setting },
     );
 
