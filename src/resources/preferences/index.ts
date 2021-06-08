@@ -11,6 +11,14 @@ import {
 
 const DEFAULT_PREFERENCE_SET_ID = "default";
 
+function buildUpdateParam(param: WorkflowPreferenceSetting) {
+  if (typeof param === "object") {
+    return param;
+  }
+
+  return { subscribed: param };
+}
+
 export class Preferences {
   constructor(readonly knock: Knock) {}
 
@@ -103,11 +111,9 @@ export class Preferences {
   ): Promise<PreferenceSet> {
     const preferenceSetId = options.preferenceSet || DEFAULT_PREFERENCE_SET_ID;
 
-    const {
-      data,
-    } = await this.knock.put(
+    const { data } = await this.knock.put(
       `/v1/users/${userId}/preferences/${preferenceSetId}/workflows/${workflowKey}`,
-      { subscribed: setting },
+      buildUpdateParam(setting),
     );
 
     return data;
@@ -136,11 +142,9 @@ export class Preferences {
   ): Promise<PreferenceSet> {
     const preferenceSetId = options.preferenceSet || DEFAULT_PREFERENCE_SET_ID;
 
-    const {
-      data,
-    } = await this.knock.put(
+    const { data } = await this.knock.put(
       `/v1/users/${userId}/preferences/${preferenceSetId}/categories/${categoryKey}`,
-      { subscribed: setting },
+      buildUpdateParam(setting),
     );
 
     return data;
