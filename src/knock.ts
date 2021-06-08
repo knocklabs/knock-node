@@ -9,11 +9,11 @@ import {
   UnauthorizedException,
   UnprocessableEntityException,
 } from "./common/exceptions";
-import { notify } from "./resources/notify";
 import { KnockOptions, PostAndPutOptions } from "./common/interfaces";
 import { Users } from "./resources/users";
 import { Preferences } from "./resources/preferences";
 import { Workflows } from "./resources/workflows";
+import { TriggerWorkflowProperties } from "./resources/workflows/interfaces";
 
 const DEFAULT_HOSTNAME = "https://api.knock.app";
 
@@ -21,7 +21,6 @@ class Knock {
   readonly host: string;
   private readonly client: AxiosInstance;
 
-  readonly notify = notify(this);
   readonly users = new Users(this);
   readonly preferences = new Preferences(this);
   readonly workflows = new Workflows(this);
@@ -44,6 +43,11 @@ class Knock {
         "User-Agent": `knocklabs/node@${version}`,
       },
     });
+  }
+
+  // Delegate the notify function to the workflows trigger
+  async notify(workflowKey: string, properties: TriggerWorkflowProperties) {
+    return this.workflows.trigger(workflowKey, properties);
   }
 
   async post(
