@@ -14,6 +14,7 @@ export class Workflows {
       actor,
       recipients,
       cancellationKey,
+      tenant,
       data: notifyData,
     }: TriggerWorkflowProperties,
   ): Promise<WorkflowRun> {
@@ -29,6 +30,7 @@ export class Workflows {
         actor,
         recipients,
         cancellation_key: cancellationKey,
+        tenant,
         data: notifyData,
       },
     );

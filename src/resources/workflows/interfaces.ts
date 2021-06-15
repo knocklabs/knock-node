@@ -2,6 +2,7 @@ export interface TriggerWorkflowProperties {
   actor: string;
   recipients?: string[];
   cancellationKey?: string;
+  tenant?: string;
   data?: {
     [key: string]: any;
   };

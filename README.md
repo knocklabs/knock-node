@@ -61,6 +61,8 @@ await knockClient.notify("dinosaurs-loose", {
     type: "trex",
     priority: 1,
   },
+  // an optional identifier for the tenant that the notifications belong to
+  tenant: "jurassic-park",
   // an optional key to provide to cancel a notify
   cancellationKey: triggerAlert.id,
 });
@@ -115,7 +117,7 @@ await knockClient.preferences.setWorkflow("jhammond", "dinosaurs-loose", {
 });
 ```
 
-### Cancelling workflows
+### Canceling workflows
 
 ```javascript
 const { Knock } = require("@knocklabs/node");
@@ -133,7 +135,7 @@ You can use the `jsonwebtoken` package to [sign JWTs easily](https://www.npmjs.c
 You will need to generate an environment specific signing key, which you can find in the Knock dashboard.
 
 If you're using a signing token you will need to pass this to your client to perform authentication.
-You can read more about [clientside authentication here](https://docs.knock.app/client-integration/authenticating-users).
+You can read more about [client-side authentication here](https://docs.knock.app/client-integration/authenticating-users).
 
 ```javascript
 const jwt = require("jsonwebtoken");
