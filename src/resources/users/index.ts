@@ -32,4 +32,39 @@ export class Users {
     const { data } = await this.knock.delete(`/v1/users/${userId}`);
     return data;
   }
+
+  async getChannelData(userId: string, channelId: string) {
+    if (!userId || !channelId) {
+      throw new Error(
+        `Incomplete arguments. You must provide a 'userId' and a 'channelId'`,
+      );
+    }
+
+    const { data } = await this.knock.get(
+      `/v1/users/${userId}/channel_data/${channelId}`,
+    );
+
+    return data;
+  }
+
+  async setChannelData(
+    userId: string,
+    channelId: string,
+    channelData: Record<string, string>,
+  ) {
+    if (!userId || !channelId) {
+      throw new Error(
+        `Incomplete arguments. You must provide a 'userId' and a 'channelId'`,
+      );
+    }
+
+    const args = { data: channelData };
+
+    const { data } = await this.knock.put(
+      `/v1/users/${userId}/channel_data/${channelId}`,
+      args,
+    );
+
+    return data;
+  }
 }

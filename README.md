@@ -117,6 +117,21 @@ await knockClient.preferences.setWorkflow("jhammond", "dinosaurs-loose", {
 });
 ```
 
+### Getting and setting channel data
+
+```javascript
+const { Knock } = require("@knocklabs/node");
+const knockClient = new Knock("sk_12345");
+
+// Setting channel data for an APNS
+await knockClient.users.setChannelData("jhammond", KNOCK_APNS_CHANNEL_ID, {
+  tokens: [apnsToken],
+});
+
+// Getting channel data for the APNS channel
+await knockClient.users.getChannelData("jhammond", KNOCK_APNS_CHANNEL_ID);
+```
+
 ### Canceling workflows
 
 ```javascript
