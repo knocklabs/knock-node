@@ -1,8 +1,9 @@
-export type ChannelType = "email" | "in_app_feed";
+// Channel types supported in Knock
+// TODO: it would be great to pull this in from an external location
+export type ChannelType = "email" | "in_app_feed" | "sms" | "push";
 
 export type ChannelTypePreferences = {
-  email: boolean;
-  in_app_feed: boolean;
+  [K in ChannelType]: boolean;
 };
 
 export type WorkflowPreferenceSetting =
