@@ -1,10 +1,40 @@
+import {
+  ChannelData,
+  ChannelType,
+  CommonMetadata,
+} from "../../common/interfaces";
+import { BulkOperation } from "../bulk_operations/interfaces";
+import {
+  ChannelTypePreferences,
+  PreferenceOptions,
+  PreferenceSet,
+  SetPreferencesProperties,
+  WorkflowPreferences,
+  WorkflowPreferenceSetting,
+} from "../preferences/interfaces";
+import {
+  DEFAULT_PREFERENCE_SET_ID,
+  buildUpdateParam,
+} from "../preferences/helpers";
 import { Knock } from "../../knock";
-import { IdentifyProperties } from "./interfaces";
+import {
+  BulkIdentifyUser,
+  IdentifyProperties,
+  User,
+  UserFeedOptions,
+} from "./interfaces";
 
 export class Users {
   constructor(readonly knock: Knock) {}
 
-  async identify(userId: string, properties: IdentifyProperties = {}) {
+  //
+  // User management
+  //
+
+  async identify(
+    userId: string,
+    properties: IdentifyProperties = {},
+  ): Promise<User> {
     if (!userId) {
       throw new Error(
         `Incomplete arguments. At a minimum you need to specify 'userId'.`,
@@ -15,7 +45,13 @@ export class Users {
     return data;
   }
 
-  async get(userId: string) {
+  async bulkIdentify(users: BulkIdentifyUser[]): Promise<BulkOperation> {
+    const attrs = { users };
+    const { data } = await this.knock.post(`/v1/users/bulk/identify`, attrs);
+    return data;
+  }
+
+  async get(userId: string): Promise<User> {
     if (!userId) {
       throw new Error(`Incomplete arguments. You must provide a 'userId'`);
     }
@@ -24,7 +60,7 @@ export class Users {
     return data;
   }
 
-  async delete(userId: string) {
+  async delete(userId: string): Promise<null> {
     if (!userId) {
       throw new Error(`Incomplete arguments. You must provide a 'userId'`);
     }
@@ -33,7 +69,169 @@ export class Users {
     return data;
   }
 
-  async getChannelData(userId: string, channelId: string) {
+  async bulkDelete(userIds: string[]): Promise<BulkOperation> {
+    const attrs = { user_ids: userIds };
+    const { data } = await this.knock.post(`/v1/users/bulk/delete`, attrs);
+    return data;
+  }
+
+  //
+  // Feeds
+  //
+
+  async getFeed(
+    userId: string,
+    channelId: string,
+    feedOptions: UserFeedOptions = {},
+  ) {
+    const { data } = await this.knock.get(
+      `/v1/users/${userId}/feeds/${channelId}`,
+      feedOptions,
+    );
+
+    return data;
+  }
+
+  //
+  // Preferences
+  //
+
+  async getAllPreferences(userId: string) {
+    const { data } = await this.knock.get(`/v1/users/${userId}/preferences`);
+    return data;
+  }
+
+  async getPrefences(
+    userId: string,
+    options: PreferenceOptions = {},
+  ): Promise<PreferenceSet> {
+    const preferenceSetId = options.preferenceSet || DEFAULT_PREFERENCE_SET_ID;
+
+    const { data } = await this.knock.get(
+      `/v1/users/${userId}/preferences/${preferenceSetId}`,
+    );
+
+    return data;
+  }
+
+  async setPreferences(
+    userId: string,
+    preferenceSet: SetPreferencesProperties,
+    options: PreferenceOptions = {},
+  ): Promise<PreferenceSet> {
+    const preferenceSetId = options.preferenceSet || DEFAULT_PREFERENCE_SET_ID;
+
+    const { data } = await this.knock.put(
+      `/v1/users/${userId}/preferences/${preferenceSetId}`,
+      preferenceSet,
+    );
+
+    return data;
+  }
+
+  async setChannelTypesPreferences(
+    userId: string,
+    channelTypePreferences: ChannelTypePreferences,
+    options: PreferenceOptions = {},
+  ): Promise<PreferenceSet> {
+    const preferenceSetId = options.preferenceSet || DEFAULT_PREFERENCE_SET_ID;
+
+    const { data } = await this.knock.put(
+      `/v1/users/${userId}/preferences/${preferenceSetId}/channel_types`,
+      channelTypePreferences,
+    );
+
+    return data;
+  }
+
+  async setChannelTypePreferences(
+    userId: string,
+    channelType: ChannelType,
+    setting: boolean,
+    options: PreferenceOptions = {},
+  ): Promise<PreferenceSet> {
+    const preferenceSetId = options.preferenceSet || DEFAULT_PREFERENCE_SET_ID;
+
+    const {
+      data,
+    } = await this.knock.put(
+      `/v1/users/${userId}/preferences/${preferenceSetId}/channel_types/${channelType}`,
+      { subscribed: setting },
+    );
+
+    return data;
+  }
+
+  async setWorkflowsPreferences(
+    userId: string,
+    workflowPreferences: WorkflowPreferences,
+    options: PreferenceOptions = {},
+  ): Promise<PreferenceSet> {
+    const preferenceSetId = options.preferenceSet || DEFAULT_PREFERENCE_SET_ID;
+
+    const { data } = await this.knock.put(
+      `/v1/users/${userId}/preferences/${preferenceSetId}/workflows`,
+      workflowPreferences,
+    );
+
+    return data;
+  }
+
+  async setWorkflowPreferences(
+    userId: string,
+    workflowKey: string,
+    setting: WorkflowPreferenceSetting,
+    options: PreferenceOptions = {},
+  ): Promise<PreferenceSet> {
+    const preferenceSetId = options.preferenceSet || DEFAULT_PREFERENCE_SET_ID;
+
+    const { data } = await this.knock.put(
+      `/v1/users/${userId}/preferences/${preferenceSetId}/workflows/${workflowKey}`,
+      buildUpdateParam(setting),
+    );
+
+    return data;
+  }
+
+  async setCategoriesPreferences(
+    userId: string,
+    categoryPreferences: WorkflowPreferences,
+    options: PreferenceOptions = {},
+  ): Promise<PreferenceSet> {
+    const preferenceSetId = options.preferenceSet || DEFAULT_PREFERENCE_SET_ID;
+
+    const { data } = await this.knock.put(
+      `/v1/users/${userId}/preferences/${preferenceSetId}/categories`,
+      categoryPreferences,
+    );
+
+    return data;
+  }
+
+  async setCategoryPreferences(
+    userId: string,
+    categoryKey: string,
+    setting: WorkflowPreferenceSetting,
+    options: PreferenceOptions = {},
+  ): Promise<PreferenceSet> {
+    const preferenceSetId = options.preferenceSet || DEFAULT_PREFERENCE_SET_ID;
+
+    const { data } = await this.knock.put(
+      `/v1/users/${userId}/preferences/${preferenceSetId}/categories/${categoryKey}`,
+      buildUpdateParam(setting),
+    );
+
+    return data;
+  }
+
+  //
+  // Channel data
+  //
+
+  async getChannelData<T = CommonMetadata>(
+    userId: string,
+    channelId: string,
+  ): Promise<ChannelData<T>> {
     if (!userId || !channelId) {
       throw new Error(
         `Incomplete arguments. You must provide a 'userId' and a 'channelId'`,
@@ -47,11 +245,11 @@ export class Users {
     return data;
   }
 
-  async setChannelData(
+  async setChannelData<T = CommonMetadata>(
     userId: string,
     channelId: string,
     channelData: Record<string, string>,
-  ) {
+  ): Promise<ChannelData<T>> {
     if (!userId || !channelId) {
       throw new Error(
         `Incomplete arguments. You must provide a 'userId' and a 'channelId'`,
