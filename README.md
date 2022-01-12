@@ -93,7 +93,7 @@ const { Knock } = require("@knocklabs/node");
 const knockClient = new Knock("sk_12345");
 
 // Set an entire preference set
-await knockClient.preferences.set("jhammond", {
+await knockClient.users.setPreferences("jhammond", {
   channel_types: { email: true, sms: false },
   workflows: {
     "dinosaurs-loose": {
@@ -103,18 +103,7 @@ await knockClient.preferences.set("jhammond", {
 });
 
 // Retrieve a whole preference set
-const preferences = await knockClient.preferences.get("jhammond");
-
-// Granular preference setting for channel types
-await knockClient.preferences.setChannelType("jhammond", "email", false);
-
-// Granular preference setting for workflows
-await knockClient.preferences.setWorkflow("jhammond", "dinosaurs-loose", {
-  channel_types: {
-    email: true,
-    in_app_feed: false,
-  },
-});
+const preferences = await knockClient.users.getPreferences("jhammond");
 ```
 
 ### Getting and setting channel data

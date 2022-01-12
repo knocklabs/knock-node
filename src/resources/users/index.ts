@@ -129,6 +129,23 @@ export class Users {
     return data;
   }
 
+  async bulkSetPreferences(
+    userIds: string[],
+    preferenceSet: SetPreferencesProperties,
+    options: PreferenceOptions = {},
+  ): Promise<BulkOperation> {
+    const preferenceSetId = options.preferenceSet || DEFAULT_PREFERENCE_SET_ID;
+
+    const attrs = {
+      user_ids: userIds,
+      preferences: { ...preferenceSet, id: preferenceSetId },
+    };
+
+    const { data } = await this.knock.post(`/v1/users/bulk/preferences`, attrs);
+
+    return data;
+  }
+
   async setChannelTypesPreferences(
     userId: string,
     channelTypePreferences: ChannelTypePreferences,
