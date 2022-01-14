@@ -16,3 +16,16 @@ export interface UnprocessableEntityError {
   type: string;
   field: string;
 }
+
+// Channel types supported in Knock
+// TODO: it would be great to pull this in from an external location
+export type ChannelType = "email" | "in_app_feed" | "sms" | "push" | "chat";
+
+export type CommonMetadata = Record<string, any>;
+
+export interface ChannelData<T = CommonMetadata> {
+  channel_id: string;
+  data: T;
+}
+
+export interface SetChannelDataProperties {}

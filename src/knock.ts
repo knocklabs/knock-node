@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse, AxiosInstance } from "axios";
+import axios, { AxiosResponse, AxiosInstance } from "axios";
 import { version } from "../package.json";
 
 import {
@@ -14,6 +14,8 @@ import { Users } from "./resources/users";
 import { Preferences } from "./resources/preferences";
 import { Workflows } from "./resources/workflows";
 import { TriggerWorkflowProperties } from "./resources/workflows/interfaces";
+import { BulkOperations } from "./resources/bulk_operations";
+import { Objects } from "./resources/objects";
 
 const DEFAULT_HOSTNAME = "https://api.knock.app";
 
@@ -21,9 +23,12 @@ class Knock {
   readonly host: string;
   private readonly client: AxiosInstance;
 
+  // Service accessors
   readonly users = new Users(this);
   readonly preferences = new Preferences(this);
   readonly workflows = new Workflows(this);
+  readonly bulkOperations = new BulkOperations(this);
+  readonly objects = new Objects(this);
 
   constructor(readonly key?: string, readonly options: KnockOptions = {}) {
     if (!key) {
@@ -102,9 +107,9 @@ class Knock {
     }
   }
 
-  handleErrorResponse(path: string, { response }: AxiosError) {
-    if (response) {
-      const { status, data, headers } = response;
+  handleErrorResponse(path: string, error: any) {
+    if (axios.isAxiosError(error) && error.response) {
+      const { status, data, headers } = error.response;
       const requestID = headers["X-Request-ID"];
 
       switch (status) {

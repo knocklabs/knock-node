@@ -1,6 +1,4 @@
-// Channel types supported in Knock
-// TODO: it would be great to pull this in from an external location
-export type ChannelType = "email" | "in_app_feed" | "sms" | "push";
+import { ChannelType } from "../../common/interfaces";
 
 export type ChannelTypePreferences = {
   [K in ChannelType]: boolean;
@@ -15,9 +13,9 @@ export interface WorkflowPreferences {
 }
 
 export interface SetPreferencesProperties {
-  workflows: WorkflowPreferences;
-  categories: WorkflowPreferences;
-  channel_types: ChannelTypePreferences;
+  workflows?: WorkflowPreferences;
+  categories?: WorkflowPreferences;
+  channel_types?: ChannelTypePreferences;
 }
 
 export interface PreferenceSet {

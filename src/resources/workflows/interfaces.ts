@@ -1,6 +1,8 @@
+import { ObjectRef } from "../objects/interfaces";
+
 export interface TriggerWorkflowProperties {
-  actor: string;
-  recipients?: string[];
+  actor?: string | ObjectRef;
+  recipients?: string[] | ObjectRef[];
   cancellationKey?: string;
   tenant?: string;
   data?: {
@@ -9,7 +11,7 @@ export interface TriggerWorkflowProperties {
 }
 
 export interface CancelWorkflowProperties {
-  recipients?: string[];
+  recipients?: string[] | ObjectRef;
 }
 
 export interface WorkflowRun {
