@@ -75,6 +75,19 @@ export class Users {
     return data;
   }
 
+  async merge(toUserId: string, fromUserId: string): Promise<User> {
+    if (!toUserId || !fromUserId) {
+      throw new Error(
+        `Incomplete arguments. You must provide both a 'toUserId' and a 'fromUserId'.`,
+      );
+    }
+    const { data } = await this.knock.post(`/v1/users/${toUserId}/merge`, {
+      from_user_id: fromUserId,
+    });
+
+    return data;
+  }
+
   //
   // Feeds
   //
