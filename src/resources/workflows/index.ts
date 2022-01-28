@@ -18,9 +18,9 @@ export class Workflows {
       data: notifyData,
     }: TriggerWorkflowProperties,
   ): Promise<WorkflowRun> {
-    if (!workflowKey && !actor && !recipients) {
+    if (!workflowKey && !recipients) {
       throw new Error(
-        `Incomplete arguments. At a minimum you need to specify 'workflowKey', 'actor', and 'recipients'.`,
+        `Incomplete arguments. At a minimum you need to specify 'workflowKey' and 'recipients'.`,
       );
     }
 
