@@ -16,6 +16,7 @@ import { Workflows } from "./resources/workflows";
 import { TriggerWorkflowProperties } from "./resources/workflows/interfaces";
 import { BulkOperations } from "./resources/bulk_operations";
 import { Objects } from "./resources/objects";
+import { Messages } from "./resources/messages";
 
 const DEFAULT_HOSTNAME = "https://api.knock.app";
 
@@ -29,6 +30,7 @@ class Knock {
   readonly workflows = new Workflows(this);
   readonly bulkOperations = new BulkOperations(this);
   readonly objects = new Objects(this);
+  readonly messages = new Messages(this);
 
   constructor(readonly key?: string, readonly options: KnockOptions = {}) {
     if (!key) {

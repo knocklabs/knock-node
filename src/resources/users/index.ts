@@ -2,6 +2,7 @@ import {
   ChannelData,
   ChannelType,
   CommonMetadata,
+  PaginatedResponse,
 } from "../../common/interfaces";
 import { BulkOperation } from "../bulk_operations/interfaces";
 import {
@@ -12,6 +13,9 @@ import {
   WorkflowPreferences,
   WorkflowPreferenceSetting,
 } from "../preferences/interfaces";
+import {
+  Message
+} from "../messages/interfaces";
 import {
   DEFAULT_PREFERENCE_SET_ID,
   buildUpdateParam,
@@ -291,6 +295,26 @@ export class Users {
     const { data } = await this.knock.put(
       `/v1/users/${userId}/channel_data/${channelId}`,
       args,
+    );
+
+    return data;
+  }
+
+  //
+  // Messages
+  //
+
+  async getMessages(
+    userId: string,
+  ): Promise<PaginatedResponse<Message>> {
+    if (!userId) {
+      throw new Error(
+        `Incomplete arguments. You must provide a 'userId'`,
+      );
+    }
+
+    const { data } = await this.knock.get(
+      `/v1/users/${userId}/messages`,
     );
 
     return data;

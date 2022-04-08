@@ -29,3 +29,14 @@ export interface ChannelData<T = CommonMetadata> {
 }
 
 export interface SetChannelDataProperties {}
+
+type PageInfo = {
+  before: string;
+  after: string;
+  page_size: number;
+}
+
+export interface PaginatedResponse<T> {
+  entries: T[];
+  page_info: PageInfo;
+}
