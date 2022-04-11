@@ -1,13 +1,14 @@
+import { ObjectRef } from "../objects/interfaces";
+
 export interface Message {
   id: string;
   channel_id: string;
-  recipient: string | ObjectIdentifier;
-  workflow: string;
+  recipient: string | ObjectRef;
   tenant: string | null;
-  status: string;
+  status: "queued" | "sent" | "delivered" | "undelivered" | "not_sent";
   read_at: string | null;
   seen_at: string | null;
-  archived_at: string;
+  archived_at: string | null;
   inserted_at: string;
   updated_at: string;
   source: WorkflowSource;
@@ -20,8 +21,8 @@ export interface Message {
 export interface MessageEvent {
   id: string;
   environment_id: string;
-  recipient: string | ObjectIdentifier;
-  data: any;
+  recipient: string | ObjectRef;
+  data: Record<string, any>;
   type: string;
   inserted_at: string;
 
@@ -31,7 +32,7 @@ export interface MessageEvent {
 
 export interface MessageContent {
   id: string;
-  data: any;
+  data: Record<string, any>;
   inserted_at: string;
 }
 

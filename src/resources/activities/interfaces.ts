@@ -3,7 +3,7 @@ import { Object } from "../objects/interfaces";
 
 export interface Activity {
   id: string;
-  data: any;
+  data: Record<string, any>;
   actor: User | Object;
   recipient: User | Object;
   inserted_at: string;
