@@ -14,6 +14,7 @@ import {
   WorkflowPreferenceSetting,
 } from "../preferences/interfaces";
 import {
+  ListMessagesOptions,
   Message
 } from "../messages/interfaces";
 import {
@@ -306,6 +307,7 @@ export class Users {
 
   async getMessages(
     userId: string,
+    filteringOptions: ListMessagesOptions = {},
   ): Promise<PaginatedResponse<Message>> {
     if (!userId) {
       throw new Error(
@@ -315,6 +317,7 @@ export class Users {
 
     const { data } = await this.knock.get(
       `/v1/users/${userId}/messages`,
+      filteringOptions,
     );
 
     return data;

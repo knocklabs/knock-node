@@ -1,11 +1,12 @@
 import { ObjectRef } from "../objects/interfaces";
+import { PaginationOptions } from "../../common/interfaces";
 
 export interface Message {
   id: string;
   channel_id: string;
   recipient: string | ObjectRef;
   tenant: string | null;
-  status: "queued" | "sent" | "delivered" | "undelivered" | "not_sent";
+  status: MessageStatus;
   read_at: string | null;
   seen_at: string | null;
   archived_at: string | null;
@@ -36,12 +37,16 @@ export interface MessageContent {
   inserted_at: string;
 }
 
-type ObjectIdentifier = {
-  id: string;
-  collection: string;
+export interface ListMessagesOptions extends PaginationOptions {
+  source?: string;
+  tenant?: string;
+  status?: MessageStatus[];
+  channel_id?: string;
 }
 
 type WorkflowSource = {
   version_id: string;
   key: string;
 }
+
+type MessageStatus = "queued" | "sent" | "delivered" | "undelivered" | "not_sent";

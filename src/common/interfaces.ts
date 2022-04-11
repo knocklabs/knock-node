@@ -40,3 +40,9 @@ export interface PaginatedResponse<T> {
   entries: T[];
   page_info: PageInfo;
 }
+
+export interface PaginationOptions {
+  page_size?: number;
+  after?: string;
+  before?: string;
+}

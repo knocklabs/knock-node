@@ -1,5 +1,6 @@
 import {
   PaginatedResponse,
+  PaginationOptions,
 } from "../../common/interfaces";
 import {
   Message,
@@ -14,7 +15,9 @@ import { Knock } from "../../knock";
 export class Messages {
   constructor(readonly knock: Knock) {}
 
-  async get(messageId: string): Promise<Message> {
+  async get(
+    messageId: string
+  ): Promise<Message> {
     if (!messageId) {
       throw new Error(`Incomplete arguments. You must provide a 'messageId'`);
     }
@@ -23,7 +26,9 @@ export class Messages {
     return data;
   }
 
-  async getContent(messageId: string): Promise<MessageContent> {
+  async getContent(
+    messageId: string
+  ): Promise<MessageContent> {
     if (!messageId) {
       throw new Error(`Incomplete arguments. You must provide a 'messageId'`);
     }
@@ -32,21 +37,35 @@ export class Messages {
     return data;
   }
 
-  async getEvents(messageId: string): Promise<PaginatedResponse<MessageEvent>> {
+  async getEvents(
+    messageId: string,
+    paginationOptions: PaginationOptions = {}
+  ): Promise<PaginatedResponse<MessageEvent>> {
     if (!messageId) {
       throw new Error(`Incomplete arguments. You must provide a 'messageId'`);
     }
 
-    const { data } = await this.knock.get(`/v1/messages/${messageId}/events`);
+    const { data } = await this.knock.get(
+      `/v1/messages/${messageId}/events`,
+      paginationOptions
+    );
+
     return data;
   }
 
-  async getActivities(messageId: string): Promise<PaginatedResponse<Activity>> {
+  async getActivities(
+    messageId: string,
+    paginationOptions: PaginationOptions = {},
+  ): Promise<PaginatedResponse<Activity>> {
     if (!messageId) {
       throw new Error(`Incomplete arguments. You must provide a 'messageId'`);
     }
 
-    const { data } = await this.knock.get(`/v1/messages/${messageId}/activities`);
+    const { data } = await this.knock.get(
+      `/v1/messages/${messageId}/activities`,
+      paginationOptions
+    );
+
     return data;
   }
 }

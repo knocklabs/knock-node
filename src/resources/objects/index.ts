@@ -8,6 +8,7 @@ import { Knock } from "../../knock";
 import { BulkSetObjectOption, Object, SetObjectProperties } from "./interfaces";
 import { BulkOperation } from "../bulk_operations/interfaces";
 import {
+  ListMessagesOptions,
   Message
 } from "../messages/interfaces";
 
@@ -106,6 +107,7 @@ export class Objects {
   async getMessages(
     collection: string,
     objectId: string,
+    filteringOptions: ListMessagesOptions = {},
   ): Promise<PaginatedResponse<Message>> {
     if (!collection || !objectId) {
       throw new Error(
@@ -115,6 +117,7 @@ export class Objects {
 
     const { data } = await this.knock.get(
       `/v1/objects/${collection}/${objectId}/messages`,
+      filteringOptions,
     );
 
     return data;
