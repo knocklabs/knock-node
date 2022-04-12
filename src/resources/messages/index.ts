@@ -6,6 +6,7 @@ import {
   Message,
   MessageContent,
   MessageEvent,
+  ListMessagesOptions,
 } from "./interfaces";
 import {
   Activity
@@ -14,6 +15,14 @@ import { Knock } from "../../knock";
 
 export class Messages {
   constructor(readonly knock: Knock) {}
+
+  async list(
+    filteringOptions: ListMessagesOptions = {},
+  ): Promise<Message> {
+    const { data } = await this.knock.get("/v1/messages", filteringOptions);
+
+    return data;
+  }
 
   async get(
     messageId: string
