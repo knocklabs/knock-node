@@ -1,3 +1,5 @@
+import { PaginationOptions } from "../../common/interfaces";
+
 export interface IdentifyProperties {
   name?: string;
   email?: string;
@@ -21,10 +23,7 @@ export interface BulkIdentifyUser extends IdentifyProperties {
   id: string;
 }
 
-export interface UserFeedOptions {
-  page_size?: number;
-  after?: string;
-  before?: string;
+export interface UserFeedOptions extends PaginationOptions {
   source?: string;
   tenant?: string;
   status?: "unread" | "unseen" | "all";

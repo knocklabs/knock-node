@@ -2,10 +2,15 @@ import {
   ChannelData,
   CommonMetadata,
   SetChannelDataProperties,
+  PaginatedResponse
 } from "../../common/interfaces";
 import { Knock } from "../../knock";
 import { BulkSetObjectOption, Object, SetObjectProperties } from "./interfaces";
 import { BulkOperation } from "../bulk_operations/interfaces";
+import {
+  ListMessagesOptions,
+  Message
+} from "../messages/interfaces";
 
 export class Objects {
   constructor(readonly knock: Knock) {}
@@ -90,6 +95,29 @@ export class Objects {
     const { data } = await this.knock.put(
       `/v1/objects/${collection}/${id}/channel_data/${channelId}`,
       attrs,
+    );
+
+    return data;
+  }
+
+  //
+  // Messages
+  //
+
+  async getMessages(
+    collection: string,
+    objectId: string,
+    filteringOptions: ListMessagesOptions = {},
+  ): Promise<PaginatedResponse<Message>> {
+    if (!collection || !objectId) {
+      throw new Error(
+        `Incomplete arguments. You must provide a 'collection' and 'objectId'`,
+      );
+    }
+
+    const { data } = await this.knock.get(
+      `/v1/objects/${collection}/${objectId}/messages`,
+      filteringOptions,
     );
 
     return data;
