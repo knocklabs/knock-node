@@ -1,16 +1,17 @@
 import { ChannelType, Condition } from "../../common/interfaces";
 
-export type ChannelTypeSettings = {
+export type ConditionalPreferenceSettings = {
   conditions: Condition[];
 };
 
 export type ChannelTypePreferences = {
-  [K in ChannelType]?: boolean | ChannelTypeSettings;
+  [K in ChannelType]?: boolean | ConditionalPreferenceSettings;
 };
 
 export type WorkflowPreferenceSetting =
   | boolean
-  | { channel_types: ChannelTypePreferences };
+  | { channel_types: ChannelTypePreferences }
+  | ConditionalPreferenceSettings;
 
 export interface WorkflowPreferences {
   [key: string]: WorkflowPreferenceSetting;
