@@ -1,7 +1,11 @@
-import { ChannelType } from "../../common/interfaces";
+import { ChannelType, Condition } from "../../common/interfaces";
+
+export type ChannelTypeSettings = {
+  conditions: Condition[];
+};
 
 export type ChannelTypePreferences = {
-  [K in ChannelType]: boolean;
+  [K in ChannelType]?: boolean | ChannelTypeSettings;
 };
 
 export type WorkflowPreferenceSetting =
