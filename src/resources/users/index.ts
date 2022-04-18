@@ -13,10 +13,7 @@ import {
   WorkflowPreferences,
   WorkflowPreferenceSetting,
 } from "../preferences/interfaces";
-import {
-  ListMessagesOptions,
-  Message
-} from "../messages/interfaces";
+import { ListMessagesOptions, Message } from "../messages/interfaces";
 import {
   DEFAULT_PREFERENCE_SET_ID,
   buildUpdateParam,
@@ -283,7 +280,7 @@ export class Users {
   async setChannelData<T = CommonMetadata>(
     userId: string,
     channelId: string,
-    channelData: Record<string, string>,
+    channelData: Record<string, any>,
   ): Promise<ChannelData<T>> {
     if (!userId || !channelId) {
       throw new Error(
@@ -310,9 +307,7 @@ export class Users {
     filteringOptions: ListMessagesOptions = {},
   ): Promise<PaginatedResponse<Message>> {
     if (!userId) {
-      throw new Error(
-        `Incomplete arguments. You must provide a 'userId'`,
-      );
+      throw new Error(`Incomplete arguments. You must provide a 'userId'`);
     }
 
     const { data } = await this.knock.get(

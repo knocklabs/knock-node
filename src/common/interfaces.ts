@@ -34,7 +34,7 @@ type PageInfo = {
   before: string;
   after: string;
   page_size: number;
-}
+};
 
 export interface PaginatedResponse<T> {
   entries: T[];
@@ -45,4 +45,10 @@ export interface PaginationOptions {
   page_size?: number;
   after?: string;
   before?: string;
+}
+
+export interface Condition {
+  argument: string;
+  variable: string;
+  operator: string;
 }
