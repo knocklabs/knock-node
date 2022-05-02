@@ -298,6 +298,20 @@ export class Users {
     return data;
   }
 
+  async unsetChannelData(userId: string, channelId: string): Promise<any> {
+    if (!userId || !channelId) {
+      throw new Error(
+        `Incomplete arguments. You must provide a 'userId' and a 'channelId'`,
+      );
+    }
+
+    const { data } = await this.knock.delete(
+      `/v1/users/${userId}/channel_data/${channelId}`,
+    );
+
+    return data;
+  }
+
   //
   // Messages
   //

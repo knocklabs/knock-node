@@ -2,15 +2,25 @@ import {
   ChannelData,
   CommonMetadata,
   SetChannelDataProperties,
-  PaginatedResponse
+  PaginatedResponse,
+  ChannelType,
 } from "../../common/interfaces";
 import { Knock } from "../../knock";
 import { BulkSetObjectOption, Object, SetObjectProperties } from "./interfaces";
 import { BulkOperation } from "../bulk_operations/interfaces";
+import { ListMessagesOptions, Message } from "../messages/interfaces";
 import {
-  ListMessagesOptions,
-  Message
-} from "../messages/interfaces";
+  ChannelTypePreferences,
+  PreferenceOptions,
+  PreferenceSet,
+  SetPreferencesProperties,
+  WorkflowPreferences,
+  WorkflowPreferenceSetting,
+} from "../preferences/interfaces";
+import {
+  buildUpdateParam,
+  DEFAULT_PREFERENCE_SET_ID,
+} from "../preferences/helpers";
 
 export class Objects {
   constructor(readonly knock: Knock) {}
@@ -100,6 +110,18 @@ export class Objects {
     return data;
   }
 
+  async unsetChannelData(
+    collection: string,
+    id: string,
+    channelId: string,
+  ): Promise<any> {
+    const { data } = await this.knock.delete(
+      `/v1/objects/${collection}/${id}/channel_data/${channelId}`,
+    );
+
+    return data;
+  }
+
   //
   // Messages
   //
@@ -118,6 +140,151 @@ export class Objects {
     const { data } = await this.knock.get(
       `/v1/objects/${collection}/${objectId}/messages`,
       filteringOptions,
+    );
+
+    return data;
+  }
+
+  //
+  // Preferences
+  //
+
+  async getAllPreferences(
+    collection: string,
+    objectId: string,
+  ): Promise<PreferenceSet[]> {
+    const { data } = await this.knock.get(
+      `/v1/objects/${collection}/${objectId}/preferences`,
+    );
+    return data;
+  }
+
+  async getPrefences(
+    collection: string,
+    objectId: string,
+    options: PreferenceOptions = {},
+  ): Promise<PreferenceSet> {
+    const preferenceSetId = options.preferenceSet || DEFAULT_PREFERENCE_SET_ID;
+
+    const { data } = await this.knock.get(
+      `/v1/objects/${collection}/${objectId}/preferences/${preferenceSetId}`,
+    );
+
+    return data;
+  }
+
+  async setPreferences(
+    collection: string,
+    objectId: string,
+    preferenceSet: SetPreferencesProperties,
+    options: PreferenceOptions = {},
+  ): Promise<PreferenceSet> {
+    const preferenceSetId = options.preferenceSet || DEFAULT_PREFERENCE_SET_ID;
+
+    const { data } = await this.knock.put(
+      `/v1/objects/${collection}/${objectId}/preferences/${preferenceSetId}`,
+      preferenceSet,
+    );
+
+    return data;
+  }
+
+  async setChannelTypesPreferences(
+    collection: string,
+    objectId: string,
+    channelTypePreferences: ChannelTypePreferences,
+    options: PreferenceOptions = {},
+  ): Promise<PreferenceSet> {
+    const preferenceSetId = options.preferenceSet || DEFAULT_PREFERENCE_SET_ID;
+
+    const { data } = await this.knock.put(
+      `/v1/objects/${collection}/${objectId}/preferences/${preferenceSetId}/channel_types`,
+      channelTypePreferences,
+    );
+
+    return data;
+  }
+
+  async setChannelTypePreferences(
+    collection: string,
+    objectId: string,
+    channelType: ChannelType,
+    setting: boolean,
+    options: PreferenceOptions = {},
+  ): Promise<PreferenceSet> {
+    const preferenceSetId = options.preferenceSet || DEFAULT_PREFERENCE_SET_ID;
+
+    const {
+      data,
+    } = await this.knock.put(
+      `/v1/objects/${collection}/${objectId}/preferences/${preferenceSetId}/channel_types/${channelType}`,
+      { subscribed: setting },
+    );
+
+    return data;
+  }
+
+  async setWorkflowsPreferences(
+    collection: string,
+    objectId: string,
+    workflowPreferences: WorkflowPreferences,
+    options: PreferenceOptions = {},
+  ): Promise<PreferenceSet> {
+    const preferenceSetId = options.preferenceSet || DEFAULT_PREFERENCE_SET_ID;
+
+    const { data } = await this.knock.put(
+      `/v1/objects/${collection}/${objectId}/preferences/${preferenceSetId}/workflows`,
+      workflowPreferences,
+    );
+
+    return data;
+  }
+
+  async setWorkflowPreferences(
+    collection: string,
+    objectId: string,
+    workflowKey: string,
+    setting: WorkflowPreferenceSetting,
+    options: PreferenceOptions = {},
+  ): Promise<PreferenceSet> {
+    const preferenceSetId = options.preferenceSet || DEFAULT_PREFERENCE_SET_ID;
+
+    const { data } = await this.knock.put(
+      `/v1/objects/${collection}/${objectId}/preferences/${preferenceSetId}/workflows/${workflowKey}`,
+      buildUpdateParam(setting),
+    );
+
+    return data;
+  }
+
+  async setCategoriesPreferences(
+    collection: string,
+    objectId: string,
+    categoryPreferences: WorkflowPreferences,
+    options: PreferenceOptions = {},
+  ): Promise<PreferenceSet> {
+    const preferenceSetId = options.preferenceSet || DEFAULT_PREFERENCE_SET_ID;
+
+    const { data } = await this.knock.put(
+      `/v1/objects/${collection}/${objectId}/preferences/${preferenceSetId}/categories`,
+      categoryPreferences,
+    );
+
+    return data;
+  }
+
+  async setCategoryPreferences(
+    collection: string,
+    objectId: string,
+    categoryKey: string,
+    setting: WorkflowPreferenceSetting,
+    options: PreferenceOptions = {},
+  ): Promise<PreferenceSet> {
+    const preferenceSetId = options.preferenceSet || DEFAULT_PREFERENCE_SET_ID;
+
+    const { data } = await this.knock.put(
+      `/v1/objects/${collection}/${objectId}/preferences/${preferenceSetId}/categories/${categoryKey}`,
+      buildUpdateParam(setting),
     );
 
     return data;
