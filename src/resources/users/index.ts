@@ -116,7 +116,17 @@ export class Users {
     return data;
   }
 
+  /**
+   * @deprecated Use `users.getPreferences` instead
+   */
   async getPrefences(
+    userId: string,
+    options: PreferenceOptions = {},
+  ): Promise<PreferenceSet> {
+    return this.getPreferences(userId, options);
+  }
+
+  async getPreferences(
     userId: string,
     options: PreferenceOptions = {},
   ): Promise<PreferenceSet> {
