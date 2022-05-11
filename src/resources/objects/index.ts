@@ -162,7 +162,7 @@ export class Objects {
   /**
    * @deprecated Use `objects.getPreferences` instead
    */
-  async getPrefernces(
+  async getPrefences(
     collection: string,
     objectId: string,
     options: PreferenceOptions = {},
