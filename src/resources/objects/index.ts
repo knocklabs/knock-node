@@ -159,7 +159,18 @@ export class Objects {
     return data;
   }
 
-  async getPrefences(
+  /**
+   * @deprecated Use `objects.getPreferences` instead
+   */
+  async getPrefernces(
+    collection: string,
+    objectId: string,
+    options: PreferenceOptions = {},
+  ): Promise<PreferenceSet> {
+    return this.getPreferences(collection, objectId, options);
+  }
+
+  async getPreferences(
     collection: string,
     objectId: string,
     options: PreferenceOptions = {},
