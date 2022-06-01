@@ -18,7 +18,7 @@ export class Messages {
 
   async list(
     filteringOptions: ListMessagesOptions = {},
-  ): Promise<Message> {
+  ): Promise<PaginatedResponse<Message>> {
     const { data } = await this.knock.get("/v1/messages", filteringOptions);
 
     return data;
