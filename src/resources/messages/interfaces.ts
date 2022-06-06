@@ -47,6 +47,13 @@ export interface ListMessagesOptions extends PaginationOptions {
 type WorkflowSource = {
   version_id: string;
   key: string;
-}
+};
 
-type MessageStatus = "queued" | "sent" | "delivered" | "undelivered" | "not_sent";
+type MessageStatus =
+  | "queued"
+  | "sent"
+  | "delivered"
+  | "undelivered"
+  | "not_sent";
+
+export type MessageEngagementStatus = "seen" | "read" | "archived";
