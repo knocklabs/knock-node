@@ -36,8 +36,13 @@ type PageInfo = {
   page_size: number;
 };
 
-export interface PaginatedResponse<T> {
+export interface PaginatedFeedResponse<T> {
   entries: T[];
+  page_info: PageInfo;
+}
+
+export interface PaginatedResponse<T> {
+  items: T[];
   page_info: PageInfo;
 }
 

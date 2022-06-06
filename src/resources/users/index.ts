@@ -2,6 +2,7 @@ import {
   ChannelData,
   ChannelType,
   CommonMetadata,
+  PaginatedFeedResponse,
   PaginatedResponse,
 } from "../../common/interfaces";
 import { BulkOperation } from "../bulk_operations/interfaces";
@@ -98,7 +99,7 @@ export class Users {
     userId: string,
     channelId: string,
     feedOptions: UserFeedOptions = {},
-  ) {
+  ): Promise<PaginatedFeedResponse<any>> {
     const { data } = await this.knock.get(
       `/v1/users/${userId}/feeds/${channelId}`,
       feedOptions,
