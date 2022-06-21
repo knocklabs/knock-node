@@ -1,15 +1,16 @@
-import { ObjectRef } from "../objects/interfaces";
+import { ObjectRef, SetObjectProperties } from "../objects/interfaces";
+import { IdentifyProperties } from "../users/interfaces";
 
 export interface TriggerWorkflowProperties<T = { [key: string]: any }> {
-  actor?: Actor;
-  recipients?: Recipient[];
+  actor?: Actor | ActorWithUpsert;
+  recipients?: Array<Recipient | RecipientWithUpsert>;
   cancellationKey?: string;
   tenant?: string;
   data?: T;
 }
 
 export interface CancelWorkflowProperties {
-  recipients?: string[] | ObjectRef;
+  recipients?: Recipient[]
 }
 
 export interface WorkflowRun {
@@ -18,3 +19,12 @@ export interface WorkflowRun {
 
 export type Recipient = string | ObjectRef;
 export type Actor = Recipient;
+
+export interface UserWithUpsert extends IdentifyProperties {
+  id: string;
+}
+
+export type ObjectWithUpsert = ObjectRef & SetObjectProperties;
+
+export type RecipientWithUpsert = UserWithUpsert | ObjectWithUpsert;
+export type ActorWithUpsert = RecipientWithUpsert;
