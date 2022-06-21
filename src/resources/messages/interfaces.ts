@@ -1,10 +1,10 @@
-import { ObjectRef } from "../objects/interfaces";
 import { PaginationOptions } from "../../common/interfaces";
+import { Recipient } from "../workflows/interfaces";
 
 export interface Message {
   id: string;
   channel_id: string;
-  recipient: string | ObjectRef;
+  recipient: Recipient;
   tenant: string | null;
   status: MessageStatus;
   read_at: string | null;
@@ -22,7 +22,7 @@ export interface Message {
 export interface MessageEvent {
   id: string;
   environment_id: string;
-  recipient: string | ObjectRef;
+  recipient: Recipient;
   data: Record<string, any>;
   type: string;
   inserted_at: string;
