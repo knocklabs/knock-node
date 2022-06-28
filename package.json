@@ -1,6 +1,6 @@
 {
   "name": "@knocklabs/node",
-  "version": "0.4.7",
+  "version": "0.4.8",
   "description": "Library for interacting with the Knock API",
   "homepage": "https://github.com/knocklabs/knock-node",
   "author": "@knocklabs",
