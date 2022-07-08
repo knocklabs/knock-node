@@ -3,14 +3,14 @@ import { IdentifyProperties } from "../users/interfaces";
 
 export interface TriggerWorkflowProperties<T = { [key: string]: any }> {
   actor?: Actor | ActorWithUpsert;
-  recipients?: Array<Recipient | RecipientWithUpsert>;
+  recipients?: (Recipient | RecipientWithUpsert)[];
   cancellationKey?: string;
   tenant?: string;
   data?: T;
 }
 
 export interface CancelWorkflowProperties {
-  recipients?: Recipient[]
+  recipients?: Recipient[];
 }
 
 export interface WorkflowRun {
