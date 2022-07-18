@@ -32,19 +32,7 @@ const knockClient = new Knock("sk_12345");
 
 ## Usage
 
-### Identifying users
-
-```javascript
-const { Knock } = require("@knocklabs/node");
-const knockClient = new Knock("sk_12345");
-
-await knockClient.users.identify("jhammond", {
-  name: "John Hammond",
-  email: "jhammond@ingen.net",
-});
-```
-
-### Sending notifies (triggering workflows)
+### Sending notifications (triggering workflows)
 
 ```javascript
 const { Knock } = require("@knocklabs/node");
@@ -54,7 +42,7 @@ const knockClient = new Knock("sk_12345");
 await knockClient.notify("dinosaurs-loose", {
   // user id of who performed the action
   actor: "dnedry",
-  // list of user ids for who should receive the notif
+  // list of user ids for who should receive the notification
   recipients: ["jhammond", "agrant", "imalcolm", "esattler"],
   // data payload to send through
   data: {
@@ -63,8 +51,32 @@ await knockClient.notify("dinosaurs-loose", {
   },
   // an optional identifier for the tenant that the notifications belong to
   tenant: "jurassic-park",
-  // an optional key to provide to cancel a notify
+  // an optional key to provide to cancel a workflow
   cancellationKey: triggerAlert.id,
+});
+```
+
+### Canceling workflows
+
+```javascript
+const { Knock } = require("@knocklabs/node");
+const knockClient = new Knock("sk_12345");
+
+await knockClient.workflows.cancel("dinosaurs-loose", triggerAlert.id, {
+  // optionally you can specify recipients here
+  recipients: ["jhammond"],
+});
+```
+
+### Identifying users
+
+```javascript
+const { Knock } = require("@knocklabs/node");
+const knockClient = new Knock("sk_12345");
+
+await knockClient.users.identify("jhammond", {
+  name: "John Hammond",
+  email: "jhammond@ingen.net",
 });
 ```
 
@@ -119,18 +131,6 @@ await knockClient.users.setChannelData("jhammond", KNOCK_APNS_CHANNEL_ID, {
 
 // Getting channel data for the APNS channel
 await knockClient.users.getChannelData("jhammond", KNOCK_APNS_CHANNEL_ID);
-```
-
-### Canceling workflows
-
-```javascript
-const { Knock } = require("@knocklabs/node");
-const knockClient = new Knock("sk_12345");
-
-await knockClient.workflows.cancel("dinosaurs-loose", triggerAlert.id, {
-  // optionally you can specify recipients here
-  recipients: ["jhammond"],
-});
 ```
 
 ### Signing JWTs

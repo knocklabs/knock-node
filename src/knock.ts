@@ -31,6 +31,7 @@ class Knock {
   readonly bulkOperations = new BulkOperations(this);
   readonly objects = new Objects(this);
   readonly messages = new Messages(this);
+  readonly tenants = new Tenants(this);
 
   constructor(readonly key?: string, readonly options: KnockOptions = {}) {
     if (!key) {
