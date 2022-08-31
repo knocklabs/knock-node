@@ -1,4 +1,5 @@
 import { CommonMetadata, PaginationOptions } from "../../common/interfaces";
+import { SetPreferencesProperties } from "../preferences/interfaces";
 
 export interface TenantRef {
   id: string;
@@ -13,6 +14,7 @@ export interface TenantBrandingSettings {
 
 export interface TenantSettings {
   branding?: TenantBrandingSettings;
+  preference_set?: SetPreferencesProperties;
 }
 
 export interface Tenant<T = CommonMetadata> {
