@@ -17,6 +17,7 @@ import { TriggerWorkflowProperties } from "./resources/workflows/interfaces";
 import { BulkOperations } from "./resources/bulk_operations";
 import { Objects } from "./resources/objects";
 import { Messages } from "./resources/messages";
+import { Tenants } from "./resources/tenants";
 
 const DEFAULT_HOSTNAME = "https://api.knock.app";
 
