@@ -26,5 +26,7 @@ export interface BulkIdentifyUser extends IdentifyProperties {
 export interface UserFeedOptions extends PaginationOptions {
   source?: string;
   tenant?: string;
+  has_tenant?: boolean;
+  archived?: "include" | "exclude" | "only";
   status?: "unread" | "unseen" | "all";
 }
