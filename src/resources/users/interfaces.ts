@@ -30,3 +30,9 @@ export interface UserFeedOptions extends PaginationOptions {
   archived?: "include" | "exclude" | "only";
   status?: "unread" | "unseen" | "all";
 }
+
+export interface ListUserOptions extends PaginationOptions {
+  name?: string;
+  email?: string;
+  user_id?: string;
+}
