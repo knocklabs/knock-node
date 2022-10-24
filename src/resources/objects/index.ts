@@ -6,7 +6,12 @@ import {
   ChannelType,
 } from "../../common/interfaces";
 import { Knock } from "../../knock";
-import { BulkSetObjectOption, Object, SetObjectProperties } from "./interfaces";
+import {
+  BulkSetObjectOption,
+  ListObjectOptions,
+  Object,
+  SetObjectProperties,
+} from "./interfaces";
 import { BulkOperation } from "../bulk_operations/interfaces";
 import { ListMessagesOptions, Message } from "../messages/interfaces";
 import {
@@ -41,6 +46,17 @@ export class Objects {
     const { data } = await this.knock.put(
       `/v1/objects/${collection}/${id}`,
       properties,
+    );
+    return data;
+  }
+
+  async list<T = CommonMetadata>(
+    collection: string,
+    filteringOptions: ListObjectOptions = {},
+  ): Promise<PaginatedResponse<Object<T>>> {
+    const { data } = await this.knock.get(
+      `/v1/objects/${collection}`,
+      filteringOptions,
     );
     return data;
   }

@@ -1,4 +1,4 @@
-import { CommonMetadata } from "../../common/interfaces";
+import { CommonMetadata, PaginationOptions } from "../../common/interfaces";
 
 export interface ObjectRef {
   collection: string;
@@ -22,4 +22,9 @@ export interface BulkSetObjectOption {
   id: string;
   name?: string;
   [key: string]: any;
+}
+
+export interface ListObjectOptions extends PaginationOptions {
+  object_id?: string;
+  name?: string;
 }

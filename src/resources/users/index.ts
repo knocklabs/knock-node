@@ -23,6 +23,7 @@ import { Knock } from "../../knock";
 import {
   BulkIdentifyUser,
   IdentifyProperties,
+  ListUserOptions,
   User,
   UserFeedOptions,
 } from "./interfaces";
@@ -60,6 +61,13 @@ export class Users {
     }
 
     const { data } = await this.knock.get(`/v1/users/${userId}`);
+    return data;
+  }
+
+  async list(
+    filteringOptions: ListUserOptions = {},
+  ): Promise<PaginatedResponse<User>> {
+    const { data } = await this.knock.get(`/v1/users`, filteringOptions);
     return data;
   }
 
