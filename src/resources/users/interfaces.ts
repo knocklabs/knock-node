@@ -29,6 +29,7 @@ export interface UserFeedOptions extends PaginationOptions {
   has_tenant?: boolean;
   archived?: "include" | "exclude" | "only";
   status?: "unread" | "unseen" | "all";
+  trigger_data?: Record<string, any>;
 }
 
 export interface ListUserOptions extends PaginationOptions {

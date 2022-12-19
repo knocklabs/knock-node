@@ -3,6 +3,7 @@ import {
   Message,
   MessageContent,
   MessageEvent,
+  ListMessageActivitiesOptions,
   ListMessagesOptions,
   MessageEngagementStatus,
 } from "./interfaces";
@@ -56,7 +57,7 @@ export class Messages {
 
   async getActivities(
     messageId: string,
-    paginationOptions: PaginationOptions = {},
+    filteringOptions: ListMessageActivitiesOptions = {},
   ): Promise<PaginatedResponse<Activity>> {
     if (!messageId) {
       throw new Error(`Incomplete arguments. You must provide a 'messageId'`);
@@ -64,7 +65,7 @@ export class Messages {
 
     const { data } = await this.knock.get(
       `/v1/messages/${messageId}/activities`,
-      paginationOptions,
+      filteringOptions,
     );
 
     return data;
