@@ -7,9 +7,13 @@ import {
 } from "../../common/interfaces";
 import { Knock } from "../../knock";
 import {
+  AddObjectSubscriptionProperties,
   BulkSetObjectOption,
+  DeleteObjectSubscriptionProperties,
   ListObjectOptions,
+  ListObjectSubscriptionsOptions,
   Object,
+  ObjectSubscription,
   SetObjectProperties,
 } from "./interfaces";
 import { BulkOperation } from "../bulk_operations/interfaces";
@@ -312,6 +316,49 @@ export class Objects {
     const { data } = await this.knock.put(
       `/v1/objects/${collection}/${objectId}/preferences/${preferenceSetId}/categories/${categoryKey}`,
       buildUpdateParam(setting),
+    );
+
+    return data;
+  }
+
+  //
+  // Subscriptions
+  //
+
+  async listSubscriptions(
+    collection: string,
+    objectId: string,
+    options: ListObjectSubscriptionsOptions = {},
+  ): Promise<PaginatedResponse<ObjectSubscription>> {
+    const { data } = await this.knock.get(
+      `/v1/objects/${collection}/${objectId}/subscriptions`,
+      options,
+    );
+
+    return data;
+  }
+
+  async addSubscriptions(
+    collection: string,
+    objectId: string,
+    properties: AddObjectSubscriptionProperties = { recipients: [] },
+  ): Promise<ObjectSubscription[]> {
+    const { data } = await this.knock.post(
+      `/v1/objects/${collection}/${objectId}/subscriptions`,
+      properties,
+    );
+
+    return data;
+  }
+
+  async deleteSubscriptions(
+    collection: string,
+    objectId: string,
+    properties: DeleteObjectSubscriptionProperties = { recipients: [] },
+  ): Promise<ObjectSubscription[]> {
+    const { data } = await this.knock.delete(
+      `/v1/objects/${collection}/${objectId}/subscriptions`,
+      properties,
     );
 
     return data;
