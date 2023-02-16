@@ -25,15 +25,12 @@ KNOCK_API_KEY="sk_12345"
 KNOCK_SIGNING_KEY="S25vY2sga25vY2sh..."
 ```
 
-Or, you can set both before your application starts:
+You can also pass the Knock API key in the constructor. The signing key is passed separately to the `signUserToken` method (see below):
 
 ```javascript
 const { Knock } = require("@knocklabs/node");
 
-const knockClient = new Knock({
-  apiKey: "sk_12345",
-  signingKey: "S25vY2sga25vY2sh..."
-});
+const knockClient = new Knock("sk_12345");
 ```
 
 ## Usage
@@ -149,7 +146,7 @@ const { Knock } = require("@knocklabs/node");
 // When signing user tokens, you do not need to instantiate a Knock client.
 
 // jhammond is the user id for which to sign this token
-const token = Knock.signToken("jhammond", {
+const token = Knock.signUserToken("jhammond", {
   // The signing key from the Knock Dashboard in base 64 or PEM encoded format.
   // If not provided, the key will be read from the KNOCK_SIGNING_KEY environment variable.
   signingKey: "S25vY2sga25vY2sh...",

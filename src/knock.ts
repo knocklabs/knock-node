@@ -12,7 +12,7 @@ import {
   UnauthorizedException,
   UnprocessableEntityException,
 } from "./common/exceptions";
-import { KnockOptions, PostAndPutOptions, SignTokenOptions } from "./common/interfaces";
+import { KnockOptions, PostAndPutOptions, SignUserTokenOptions } from "./common/interfaces";
 import { Users } from "./resources/users";
 import { Preferences } from "./resources/preferences";
 import { Workflows } from "./resources/workflows";
@@ -62,7 +62,15 @@ class Knock {
     return this.workflows.trigger(workflowKey, properties);
   }
 
-  static signUserToken(userId: string, options: SignTokenOptions) {
+  /**
+   * Generate JWT for authenticating client-side requests (e.g. in-app feeds)
+   * For more information, visit https://docs.knock.app/in-app-ui/security-and-authentication#authentication-in-production-environments
+   * 
+   * @param userId {string} The ID of the user that needs a token, e.g. the user viewing an in-app feed.
+   * @param options Optionally specify the signing key to use (in PEM or base-64 encoded format), and how long the token should be valid for in seconds
+   * @returns {string} A JWT token that can be used to authenticate requests to the Knock API (e.g. by passing into the <KnockFeedProvider /> component)
+   */
+  static signUserToken(userId: string, options: SignUserTokenOptions) {
     const signingKey = prepareSigningKey(options.signingKey);
 
     // JWT NumericDates specified in seconds:
@@ -185,3 +193,4 @@ function prepareSigningKey(key?: string): string {
 }
 
 export { Knock };
+
