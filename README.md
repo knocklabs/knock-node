@@ -149,9 +149,8 @@ const knockClient = new Knock("sk_12345");
 
 const currentTime = Math.floor(Date.now() / 1000);
 
-const token = knockClient.signToken({
-  // The user id to sign this key for
-  userId: "jhammond",
+// The user id for which to sign this token
+const token = knockClient.signToken("jhammond", {
   // Optional: How long the token should be valid for, in seconds (default 1 hour)
   expiresIn: 60 * 60,
 });
