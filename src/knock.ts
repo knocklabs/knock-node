@@ -12,7 +12,7 @@ import {
   UnauthorizedException,
   UnprocessableEntityException,
 } from "./common/exceptions";
-import { KnockKeys, KnockOptions, PostAndPutOptions, SignTokenOptions } from "./common/interfaces";
+import { KnockOptions, PostAndPutOptions, SignTokenOptions } from "./common/interfaces";
 import { Users } from "./resources/users";
 import { Preferences } from "./resources/preferences";
 import { Workflows } from "./resources/workflows";
@@ -24,12 +24,8 @@ import { Tenants } from "./resources/tenants";
 
 const DEFAULT_HOSTNAME = "https://api.knock.app";
 
-let hasShownSigningKeyWarning = false;
-
 class Knock {
   readonly host: string;
-  private readonly key: string;
-  private readonly signingKey: string | undefined;
   private readonly client: AxiosInstance;
 
   // Service accessors
@@ -41,20 +37,13 @@ class Knock {
   readonly messages = new Messages(this);
   readonly tenants = new Tenants(this);
 
-  constructor(keyConfig?: string | KnockKeys, readonly options: KnockOptions = {}) {
-    this.key = (typeof keyConfig === 'string' ? keyConfig : keyConfig?.apiKey) ?? process.env.KNOCK_API_KEY as string;
-    if (!this.key)   throw new NoApiKeyProvidedException();
-    
-    this.signingKey = prepareSigningKey(keyConfig);
+  constructor(readonly key?: string, readonly options: KnockOptions = {}) {
+    if (!key) {
+      this.key = process.env.KNOCK_API_KEY;
 
-    if (!this.signingKey && !hasShownSigningKeyWarning) {
-      console.warn(`
-      ⚠️ Knock: No signing key provided. This is not recommended for production applications. Pass a signing key to the Knock constructor or set the KNOCK_SIGNING_KEY environment variable.
-      
-      See https://docs.knock.app/in-app-ui/security-and-authentication#authentication-in-production-environments for more information.
-      `);
-
-      hasShownSigningKeyWarning = true;
+      if (!this.key) {
+        throw new NoApiKeyProvidedException();
+      }
     }
 
     this.host = options.host || DEFAULT_HOSTNAME;
@@ -73,22 +62,22 @@ class Knock {
     return this.workflows.trigger(workflowKey, properties);
   }
 
-  signToken(userId: string, options?: SignTokenOptions) {
-    if (!this.signingKey) throw new NoSigningKeyProvidedException();
+  static signUserToken(userId: string, options: SignTokenOptions) {
+    const signingKey = prepareSigningKey(options.signingKey);
 
-  // JWT NumericDates specified in seconds:
-  const currentTime = Math.floor(Date.now() / 1000);
-  
-  // Default to 1 hour from now
-  const expireInSeconds = options?.expiresInSeconds ?? 60 * 60;
+    // JWT NumericDates specified in seconds:
+    const currentTime = Math.floor(Date.now() / 1000);
 
-  return jwt.sign(
+    // Default to 1 hour from now
+    const expireInSeconds = options?.expiresInSeconds ?? 60 * 60;
+
+    return jwt.sign(
       {
         sub: userId,
         iat: currentTime,
         exp: currentTime + expireInSeconds,
       },
-      this.signingKey,
+      signingKey,
       {
         algorithm: "RS256",
       },
@@ -185,15 +174,15 @@ class Knock {
   }
 }
 
-function prepareSigningKey(key?: string | KnockKeys): string | undefined {
-  const maybeSigningKey = (typeof key === 'string' ? process.env.KNOCK_SIGNING_KEY : key?.signingKey) ?? process.env.KNOCK_SIGNING_KEY;
-  if (!maybeSigningKey) return undefined;
+function prepareSigningKey(key?: string): string {
+  const maybeSigningKey = key ?? process.env.KNOCK_SIGNING_KEY;
+  if (!maybeSigningKey) throw new NoSigningKeyProvidedException();
   if (maybeSigningKey.startsWith("-----BEGIN")) return maybeSigningKey;
   // LS0tLS1CRUdJTi is the base64 encoded version of "-----BEGIN"
   if (maybeSigningKey.startsWith("LS0tLS1CRUdJTi")) return Buffer.from(maybeSigningKey, "base64").toString("utf-8");
-  
-  console.warn("⚠️ The signing key provided is not a valid PEM or base64 encoded string. Please check the KNOCK_SIGNING_KEY environment variable.");
-  return undefined;
+
+  console.warn("⚠️ The signing key provided is not a valid PEM or base64 encoded string. Please check the KNOCK_SIGNING_KEY environment variable or the signingKey provided to Knock.signUserToken().");
+  throw new NoSigningKeyProvidedException();
 }
 
 export { Knock };
