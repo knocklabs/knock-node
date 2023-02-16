@@ -22,7 +22,7 @@ You can set both as environment variables:
 
 ```bash
 KNOCK_API_KEY="sk_12345"
-KNOCK_SIGNING_KEY="VGhpcyBpcyBub3QgYSByZWFsIHNpZ25pbmcga2V5LiBJZiBpdCB3ZXJlIGEgcmVhbCBzaWduaW5nIGtleSwgaXQgd291bGQgc3RhcnQgd2l0aCAtLS0tLUJFR0lOIFJTQSBQUklWQVRFIEtFWS0tLS0t"
+KNOCK_SIGNING_KEY="S25vY2sga25vY2sh..."
 ```
 
 Or, you can set both before your application starts:
@@ -32,7 +32,7 @@ const { Knock } = require("@knocklabs/node");
 
 const knockClient = new Knock({
   apiKey: "sk_12345",
-  signingKey: "VGhpcy..."
+  signingKey: "S25vY2sga25vY2sh..."
 });
 ```
 
@@ -145,15 +145,18 @@ When using [enhanced security mode](https://docs.knock.app/client-integration/au
 
 ```javascript
 const { Knock } = require("@knocklabs/node");
-const knockClient = new Knock("sk_12345");
 
-const currentTime = Math.floor(Date.now() / 1000);
+// When signing user tokens, you do not need to instantiate a Knock client.
 
-// The user id for which to sign this token
-const token = knockClient.signToken("jhammond", {
+// jhammond is the user id for which to sign this token
+const token = Knock.signToken("jhammond", {
+  // The signing key from the Knock Dashboard in base 64 or PEM encoded format.
+  // If not provided, the key will be read from the KNOCK_SIGNING_KEY environment variable.
+  signingKey: "S25vY2sga25vY2sh...",
   // Optional: How long the token should be valid for, in seconds (default 1 hour)
+  // For long-lived connections, you will need to refresh the token before it expires.
   expiresIn: 60 * 60,
 });
 
-// The token can be safely passed to your client e.g. in a cookie or API response.
+// This token can now be safely passed to your client e.g. in a cookie or API response.
 ```

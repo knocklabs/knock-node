@@ -69,7 +69,7 @@ class Knock {
     const currentTime = Math.floor(Date.now() / 1000);
 
     // Default to 1 hour from now
-    const expireInSeconds = options?.expiresInSeconds ?? 60 * 60;
+    const expireInSeconds = options.expiresInSeconds ?? 60 * 60;
 
     return jwt.sign(
       {
@@ -181,7 +181,6 @@ function prepareSigningKey(key?: string): string {
   // LS0tLS1CRUdJTi is the base64 encoded version of "-----BEGIN"
   if (maybeSigningKey.startsWith("LS0tLS1CRUdJTi")) return Buffer.from(maybeSigningKey, "base64").toString("utf-8");
 
-  console.warn("⚠️ The signing key provided is not a valid PEM or base64 encoded string. Please check the KNOCK_SIGNING_KEY environment variable or the signingKey provided to Knock.signUserToken().");
   throw new NoSigningKeyProvidedException();
 }
 

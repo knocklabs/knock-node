@@ -4,7 +4,7 @@ export class NoApiKeyProvidedException extends Error {
   readonly status: number = 500;
   readonly name: string = "NoApiKeyProvidedException";
   readonly message: string =
-    `Missing API key. Pass it to the constructor (new Knock({apiKey: "sk_test_Sz3IQjepeSWaI4cMS4ms4sMuU", signingKey: "VGhpcyBpcyB..."})) ` +
+  `Missing API key. Pass it to the constructor (new Knock("sk_test_Sz3IQjepeSWaI4cMS4ms4sMuU")) ` +
     `or define it in the KNOCK_API_KEY environment variable.`;
 }
 
@@ -12,9 +12,11 @@ export class NoSigningKeyProvidedException extends Error {
   readonly status: number = 500;
   readonly name: string = "NoSigningKeyProvidedException";
   readonly message: string =
-    `Missing signing key key. Pass it to the constructor (new Knock({apiKey: "sk_test_Sz3IQjepeSWaI4cMS4ms4sMuU", signingKey: "VGhpcyBpcyB..."})) ` +
-    `or define it in the KNOCK_SIGNING_KEY environment variable.`;
+    `Missing or invalid signing key key. Pass it as an option to Knock.signUserToken(userId, {signingKey: "S25vY2sga25vY2sh..."}) ` +
+    `or define it in the KNOCK_SIGNING_KEY environment variable. The signing key can either be a Base-64 encoded string ` +
+    `or a PEM encoded certificate. For more information, see https://docs.knock.app/in-app-ui/security-and-authentication#authentication-in-production-environments`;
 }
+
 
 export class GenericServerException implements HttpException {
   readonly name: string = "GenericServerException";
@@ -39,7 +41,7 @@ export class UnauthorizedException implements HttpException {
     readonly code: string,
     readonly message: string,
     readonly requestID: string,
-  ) { }
+  ) {}
 }
 
 export class NotFoundException implements HttpException {
