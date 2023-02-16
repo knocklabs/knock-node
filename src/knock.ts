@@ -64,7 +64,7 @@ class Knock {
 
   /**
    * Generate JWT for authenticating client-side requests (e.g. in-app feeds)
-   * For more information, visit https://docs.knock.app/in-app-ui/security-and-authentication#authentication-in-production-environments
+   * For more information, visit https://docs.knock.app/in-app-ui/security-and-authentication#authentication-with-enhanced-security-enabled
    * 
    * @param userId {string} The ID of the user that needs a token, e.g. the user viewing an in-app feed.
    * @param options Optionally specify the signing key to use (in PEM or base-64 encoded format), and how long the token should be valid for in seconds

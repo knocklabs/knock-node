@@ -14,7 +14,7 @@ export class NoSigningKeyProvidedException extends Error {
   readonly message: string =
     `Missing or invalid signing key key. Pass it as an option to Knock.signUserToken(userId, {signingKey: "S25vY2sga25vY2sh..."}) ` +
     `or define it in the KNOCK_SIGNING_KEY environment variable. The signing key can either be a Base-64 encoded string ` +
-    `or a PEM-encoded certificate. For more information, see https://docs.knock.app/in-app-ui/security-and-authentication#authentication-in-production-environments`;
+    `or a PEM-encoded certificate. For more information, see https://docs.knock.app/in-app-ui/security-and-authentication#authentication-with-enhanced-security-enabled`;
 }
 
 
