@@ -2,6 +2,11 @@ export interface KnockOptions {
   host?: string;
 }
 
+export interface KnockKeys {
+  apiKey: string;
+  signingKey?: string;
+}
+
 export interface HttpException extends Error {
   readonly status: number;
   readonly requestID: string;
@@ -56,4 +61,8 @@ export interface Condition {
   argument: string;
   variable: string;
   operator: string;
+}
+
+export interface SignTokenOptions {
+  expiresInSeconds?: number;
 }

@@ -1,15 +1,18 @@
 import axios, { AxiosResponse, AxiosInstance } from "axios";
+import jwt from 'jsonwebtoken';
+
 import { version } from "../package.json";
 
 import {
   BadRequestException,
   GenericServerException,
   NoApiKeyProvidedException,
+  NoSigningKeyProvidedException,
   NotFoundException,
   UnauthorizedException,
   UnprocessableEntityException,
 } from "./common/exceptions";
-import { KnockOptions, PostAndPutOptions } from "./common/interfaces";
+import { KnockKeys, KnockOptions, PostAndPutOptions, SignTokenOptions } from "./common/interfaces";
 import { Users } from "./resources/users";
 import { Preferences } from "./resources/preferences";
 import { Workflows } from "./resources/workflows";
@@ -21,8 +24,12 @@ import { Tenants } from "./resources/tenants";
 
 const DEFAULT_HOSTNAME = "https://api.knock.app";
 
+let hasShownSigningKeyWarning = false;
+
 class Knock {
   readonly host: string;
+  private readonly key: string;
+  private readonly signingKey: string | undefined;
   private readonly client: AxiosInstance;
 
   // Service accessors
@@ -34,13 +41,20 @@ class Knock {
   readonly messages = new Messages(this);
   readonly tenants = new Tenants(this);
 
-  constructor(readonly key?: string, readonly options: KnockOptions = {}) {
-    if (!key) {
-      this.key = process.env.KNOCK_API_KEY;
+  constructor(keyConfig?: string | KnockKeys, readonly options: KnockOptions = {}) {
+    this.key = (typeof keyConfig === 'string' ? keyConfig : keyConfig?.apiKey) ?? process.env.KNOCK_API_KEY as string;
+    if (!this.key)   throw new NoApiKeyProvidedException();
+    
+    this.signingKey = prepareSigningKey(keyConfig);
 
-      if (!this.key) {
-        throw new NoApiKeyProvidedException();
-      }
+    if (!this.signingKey && !hasShownSigningKeyWarning) {
+      console.warn(`
+      ⚠️ Knock: No signing key provided. This is not recommended for production applications. Pass a signing key to the Knock constructor or set the KNOCK_SIGNING_KEY environment variable.
+      
+      See https://docs.knock.app/in-app-ui/security-and-authentication#authentication-in-production-environments for more information.
+      `);
+
+      hasShownSigningKeyWarning = true;
     }
 
     this.host = options.host || DEFAULT_HOSTNAME;
@@ -57,6 +71,28 @@ class Knock {
   // Delegate the notify function to the workflows trigger
   async notify(workflowKey: string, properties: TriggerWorkflowProperties) {
     return this.workflows.trigger(workflowKey, properties);
+  }
+
+  signToken(userId: string, options?: SignTokenOptions) {
+    if (!this.signingKey) throw new NoSigningKeyProvidedException();
+
+  // JWT NumericDates specified in seconds:
+  const currentTime = Math.floor(Date.now() / 1000);
+  
+  // Default to 1 hour from now
+  const expireInSeconds = options?.expiresInSeconds ?? 60 * 60;
+
+  return jwt.sign(
+      {
+        sub: userId,
+        iat: currentTime,
+        exp: currentTime + expireInSeconds,
+      },
+      this.signingKey,
+      {
+        algorithm: "RS256",
+      },
+    );
   }
 
   async post(
@@ -147,6 +183,17 @@ class Knock {
 
     return process.emitWarning(warning, "Knock");
   }
+}
+
+function prepareSigningKey(key?: string | KnockKeys): string | undefined {
+  const maybeSigningKey = (typeof key === 'string' ? process.env.KNOCK_SIGNING_KEY : key?.signingKey) ?? process.env.KNOCK_SIGNING_KEY;
+  if (!maybeSigningKey) return undefined;
+  if (maybeSigningKey.startsWith("-----BEGIN")) return maybeSigningKey;
+  // LS0tLS1CRUdJTi is the base64 encoded version of "-----BEGIN"
+  if (maybeSigningKey.startsWith("LS0tLS1CRUdJTi")) return Buffer.from(maybeSigningKey, "base64").toString("utf-8");
+  
+  console.warn("⚠️ The signing key provided is not a valid PEM or base64 encoded string. Please check the KNOCK_SIGNING_KEY environment variable.");
+  return undefined;
 }
 
 export { Knock };
