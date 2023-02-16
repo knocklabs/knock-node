@@ -140,6 +140,8 @@ await knockClient.users.getChannelData("jhammond", KNOCK_APNS_CHANNEL_ID);
 
 When using [enhanced security mode](https://docs.knock.app/client-integration/authenticating-users) (recommended in production), you will need to sign JWTs server-side to authenticate your users.
 
+You will need to generate an environment specific signing key in the Knock dashboard under "API Keys", and then enable enhanced security mode for your environment.
+
 ```javascript
 const { Knock } = require("@knocklabs/node");
 

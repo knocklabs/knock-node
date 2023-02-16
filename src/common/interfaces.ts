@@ -28,7 +28,7 @@ export interface ChannelData<T = CommonMetadata> {
   data: T;
 }
 
-export interface SetChannelDataProperties {}
+export interface SetChannelDataProperties { }
 
 type PageInfo = {
   before: string;

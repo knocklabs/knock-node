@@ -4,7 +4,7 @@ export class NoApiKeyProvidedException extends Error {
   readonly status: number = 500;
   readonly name: string = "NoApiKeyProvidedException";
   readonly message: string =
-  `Missing API key. Pass it to the constructor (new Knock("sk_test_Sz3IQjepeSWaI4cMS4ms4sMuU")) ` +
+    `Missing API key. Pass it to the constructor (new Knock("sk_test_Sz3IQjepeSWaI4cMS4ms4sMuU")) ` +
     `or define it in the KNOCK_API_KEY environment variable.`;
 }
 
@@ -41,7 +41,7 @@ export class UnauthorizedException implements HttpException {
     readonly code: string,
     readonly message: string,
     readonly requestID: string,
-  ) {}
+  ) { }
 }
 
 export class NotFoundException implements HttpException {
