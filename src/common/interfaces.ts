@@ -28,7 +28,7 @@ export interface ChannelData<T = CommonMetadata> {
   data: T;
 }
 
-export interface SetChannelDataProperties {}
+export interface SetChannelDataProperties { }
 
 type PageInfo = {
   before: string;
@@ -56,4 +56,13 @@ export interface Condition {
   argument: string;
   variable: string;
   operator: string;
+}
+
+export interface SignUserTokenOptions {
+  /**
+   * The signing key to use to sign the token. If not provided, the KNOCK_SIGNING_KEY environment variable will be used.
+   */
+  signingKey?: string;
+  /** The expiration time of the token in seconds. Defaults to 1 hour. */
+  expiresInSeconds?: number;
 }

@@ -16,13 +16,16 @@ npm install @knocklabs/node
 
 To use the library you must provide a secret API key, provided in the Knock dashboard.
 
-You can set it as an environment variable:
+If you are using [enhanced security mode](https://docs.knock.app/client-integration/authenticating-users) you will also need to provide your signing key.
+
+You can set both as environment variables:
 
 ```bash
 KNOCK_API_KEY="sk_12345"
+KNOCK_SIGNING_KEY="S25vY2sga25vY2sh..."
 ```
 
-Or, you can set it before your application starts:
+You can also pass the Knock API key in the constructor. The signing key is passed separately to the `signUserToken` method (see below):
 
 ```javascript
 const { Knock } = require("@knocklabs/node");
@@ -135,27 +138,24 @@ await knockClient.users.getChannelData("jhammond", KNOCK_APNS_CHANNEL_ID);
 
 ### Signing JWTs
 
-You can use the `jsonwebtoken` package to [sign JWTs easily](https://www.npmjs.com/package/jsonwebtoken#jwtsignpayload-secretorprivatekey-options-callback).
-You will need to generate an environment specific signing key, which you can find in the Knock dashboard.
+When using [enhanced security mode](https://docs.knock.app/client-integration/authenticating-users) (recommended in production), you will need to sign JWTs server-side to authenticate your users.
 
-If you're using a signing token you will need to pass this to your client to perform authentication.
-You can read more about [client-side authentication here](https://docs.knock.app/client-integration/authenticating-users).
+You will need to generate an environment specific signing key in the Knock dashboard under "API Keys", and then enable enhanced security mode for your environment.
 
 ```javascript
-const jwt = require("jsonwebtoken");
+const { Knock } = require("@knocklabs/node");
 
-const currentTime = Math.floor(Date.now() / 1000);
+// When signing user tokens, you do not need to instantiate a Knock client.
 
-const token = jwt.sign(
-  {
-    // The user id to sign this key for
-    sub: "jhammond",
-    // When the token was issued
-    iat: currentTime,
-    // When the token expires (1 hour)
-    exp: currentTime + 60 * 60,
-  },
-  process.env.KNOCK_SIGNING_KEY,
-  { algorithm: "RS256" },
-);
+// jhammond is the user id for which to sign this token
+const token = Knock.signUserToken("jhammond", {
+  // The signing key from the Knock Dashboard in base-64 or PEM-encoded format.
+  // If not provided, the key will be read from the KNOCK_SIGNING_KEY environment variable.
+  signingKey: "S25vY2sga25vY2sh...",
+  // Optional: How long the token should be valid for, in seconds (default 1 hour)
+  // For long-lived connections, you will need to refresh the token before it expires.
+  expiresIn: 60 * 60,
+});
+
+// This token can now be safely passed to your client e.g. in a cookie or API response.
 ```
