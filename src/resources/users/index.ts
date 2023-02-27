@@ -2,8 +2,8 @@ import {
   ChannelData,
   ChannelType,
   CommonMetadata,
-  PaginatedFeedResponse,
-  PaginatedResponse,
+  PaginatedItemsResponse,
+  PaginatedEntriesResponse,
 } from "../../common/interfaces";
 import { BulkOperation } from "../bulk_operations/interfaces";
 import {
@@ -66,7 +66,7 @@ export class Users {
 
   async list(
     filteringOptions: ListUserOptions = {},
-  ): Promise<PaginatedResponse<User>> {
+  ): Promise<PaginatedEntriesResponse<User>> {
     const { data } = await this.knock.get(`/v1/users`, filteringOptions);
     return data;
   }
@@ -107,7 +107,7 @@ export class Users {
     userId: string,
     channelId: string,
     feedOptions: UserFeedOptions = {},
-  ): Promise<PaginatedFeedResponse<any>> {
+  ): Promise<PaginatedEntriesResponse<any>> {
     const { data } = await this.knock.get(
       `/v1/users/${userId}/feeds/${channelId}`,
       feedOptions,
@@ -338,7 +338,7 @@ export class Users {
   async getMessages(
     userId: string,
     filteringOptions: ListMessagesOptions = {},
-  ): Promise<PaginatedResponse<Message>> {
+  ): Promise<PaginatedItemsResponse<Message>> {
     if (!userId) {
       throw new Error(`Incomplete arguments. You must provide a 'userId'`);
     }

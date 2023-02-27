@@ -1,4 +1,7 @@
-import { PaginatedResponse, PaginationOptions } from "../../common/interfaces";
+import {
+  PaginatedItemsResponse,
+  PaginationOptions,
+} from "../../common/interfaces";
 import {
   Message,
   MessageContent,
@@ -15,7 +18,7 @@ export class Messages {
 
   async list(
     filteringOptions: ListMessagesOptions = {},
-  ): Promise<PaginatedResponse<Message>> {
+  ): Promise<PaginatedItemsResponse<Message>> {
     const { data } = await this.knock.get("/v1/messages", filteringOptions);
 
     return data;
@@ -42,7 +45,7 @@ export class Messages {
   async getEvents(
     messageId: string,
     paginationOptions: PaginationOptions = {},
-  ): Promise<PaginatedResponse<MessageEvent>> {
+  ): Promise<PaginatedItemsResponse<MessageEvent>> {
     if (!messageId) {
       throw new Error(`Incomplete arguments. You must provide a 'messageId'`);
     }
@@ -58,7 +61,7 @@ export class Messages {
   async getActivities(
     messageId: string,
     filteringOptions: ListMessageActivitiesOptions = {},
-  ): Promise<PaginatedResponse<Activity>> {
+  ): Promise<PaginatedItemsResponse<Activity>> {
     if (!messageId) {
       throw new Error(`Incomplete arguments. You must provide a 'messageId'`);
     }
