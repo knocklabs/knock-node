@@ -1,4 +1,7 @@
-import { CommonMetadata, PaginatedResponse } from "../../common/interfaces";
+import {
+  CommonMetadata,
+  PaginatedEntriesResponse,
+} from "../../common/interfaces";
 import { Knock } from "../../knock";
 import { Tenant, SetTenant, ListTenantsOptions } from "./interfaces";
 
@@ -7,7 +10,7 @@ export class Tenants {
 
   async list(
     filteringOptions: ListTenantsOptions = {},
-  ): Promise<PaginatedResponse<Tenant>> {
+  ): Promise<PaginatedEntriesResponse<Tenant>> {
     const { data } = await this.knock.get("/v1/tenants", filteringOptions);
 
     return data;

@@ -2,8 +2,9 @@ import {
   ChannelData,
   CommonMetadata,
   SetChannelDataProperties,
-  PaginatedResponse,
+  PaginatedEntriesResponse,
   ChannelType,
+  PaginatedItemsResponse,
 } from "../../common/interfaces";
 import { Knock } from "../../knock";
 import {
@@ -57,7 +58,7 @@ export class Objects {
   async list<T = CommonMetadata>(
     collection: string,
     filteringOptions: ListObjectOptions = {},
-  ): Promise<PaginatedResponse<Object<T>>> {
+  ): Promise<PaginatedEntriesResponse<Object<T>>> {
     const { data } = await this.knock.get(
       `/v1/objects/${collection}`,
       filteringOptions,
@@ -150,7 +151,7 @@ export class Objects {
     collection: string,
     objectId: string,
     filteringOptions: ListMessagesOptions = {},
-  ): Promise<PaginatedResponse<Message>> {
+  ): Promise<PaginatedItemsResponse<Message>> {
     if (!collection || !objectId) {
       throw new Error(
         `Incomplete arguments. You must provide a 'collection' and 'objectId'`,
@@ -329,7 +330,7 @@ export class Objects {
     collection: string,
     objectId: string,
     options: ListObjectSubscriptionsOptions = {},
-  ): Promise<PaginatedResponse<ObjectSubscription>> {
+  ): Promise<PaginatedEntriesResponse<ObjectSubscription>> {
     const { data } = await this.knock.get(
       `/v1/objects/${collection}/${objectId}/subscriptions`,
       options,

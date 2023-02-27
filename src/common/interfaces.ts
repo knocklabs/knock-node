@@ -28,7 +28,7 @@ export interface ChannelData<T = CommonMetadata> {
   data: T;
 }
 
-export interface SetChannelDataProperties { }
+export interface SetChannelDataProperties {}
 
 type PageInfo = {
   before: string;
@@ -36,12 +36,12 @@ type PageInfo = {
   page_size: number;
 };
 
-export interface PaginatedFeedResponse<T> {
+export interface PaginatedEntriesResponse<T> {
   entries: T[];
   page_info: PageInfo;
 }
 
-export interface PaginatedResponse<T> {
+export interface PaginatedItemsResponse<T> {
   items: T[];
   page_info: PageInfo;
 }
