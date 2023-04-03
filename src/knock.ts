@@ -16,7 +16,7 @@ import { KnockOptions, PostAndPutOptions, SignUserTokenOptions } from "./common/
 import { Users } from "./resources/users";
 import { Preferences } from "./resources/preferences";
 import { Workflows } from "./resources/workflows";
-import { TriggerWorkflowProperties } from "./resources/workflows/interfaces";
+import { TriggerWorkflowOptions, TriggerWorkflowProperties } from "./resources/workflows/interfaces";
 import { BulkOperations } from "./resources/bulk_operations";
 import { Objects } from "./resources/objects";
 import { Messages } from "./resources/messages";
@@ -58,8 +58,8 @@ class Knock {
   }
 
   // Delegate the notify function to the workflows trigger
-  async notify(workflowKey: string, properties: TriggerWorkflowProperties) {
-    return this.workflows.trigger(workflowKey, properties);
+  async notify(workflowKey: string, properties: TriggerWorkflowProperties, options?: TriggerWorkflowOptions) {
+    return this.workflows.trigger(workflowKey, properties, options);
   }
 
   /**
@@ -100,6 +100,7 @@ class Knock {
     try {
       return await this.client.post(path, entity, {
         params: options.query,
+        headers: options.headers,
       });
     } catch (error) {
       this.handleErrorResponse(path, error);

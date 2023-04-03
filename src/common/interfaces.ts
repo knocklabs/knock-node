@@ -9,6 +9,7 @@ export interface HttpException extends Error {
 
 export interface PostAndPutOptions {
   query?: { [key: string]: any };
+  headers?: {[key: string]: any};
 }
 
 export interface UnprocessableEntityError {
