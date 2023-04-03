@@ -12,11 +12,11 @@ import {
   UnauthorizedException,
   UnprocessableEntityException,
 } from "./common/exceptions";
-import { KnockOptions, PostAndPutOptions, SignUserTokenOptions } from "./common/interfaces";
+import { KnockOptions, PostAndPutOptions, SignUserTokenOptions, KnockMethodOptions } from "./common/interfaces";
 import { Users } from "./resources/users";
 import { Preferences } from "./resources/preferences";
 import { Workflows } from "./resources/workflows";
-import { TriggerWorkflowOptions, TriggerWorkflowProperties } from "./resources/workflows/interfaces";
+import { TriggerWorkflowProperties } from "./resources/workflows/interfaces";
 import { BulkOperations } from "./resources/bulk_operations";
 import { Objects } from "./resources/objects";
 import { Messages } from "./resources/messages";
@@ -58,7 +58,7 @@ class Knock {
   }
 
   // Delegate the notify function to the workflows trigger
-  async notify(workflowKey: string, properties: TriggerWorkflowProperties, options?: TriggerWorkflowOptions) {
+  async notify(workflowKey: string, properties: TriggerWorkflowProperties, options?: KnockMethodOptions) {
     return this.workflows.trigger(workflowKey, properties, options);
   }
 

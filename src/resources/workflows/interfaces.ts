@@ -9,10 +9,6 @@ export interface TriggerWorkflowProperties<T = { [key: string]: any }> {
   data?: T;
 }
 
-export interface TriggerWorkflowOptions {
-  idempotencyKey?: string;
-}
-
 export interface CancelWorkflowProperties {
   recipients?: Recipient[];
 }

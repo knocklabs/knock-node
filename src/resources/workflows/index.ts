@@ -1,7 +1,7 @@
 import { Knock } from "../../knock";
+import { KnockMethodOptions } from "../../common/interfaces";
 import {
   CancelWorkflowProperties,
-  TriggerWorkflowOptions,
   TriggerWorkflowProperties,
   WorkflowRun,
 } from "./interfaces";
@@ -18,7 +18,7 @@ export class Workflows {
       tenant,
       data: notifyData,
     }: TriggerWorkflowProperties,
-    { idempotencyKey }: TriggerWorkflowOptions = {}
+    { idempotencyKey }: KnockMethodOptions = {}
   ): Promise<WorkflowRun> {
     if (!workflowKey && !recipients) {
       throw new Error(

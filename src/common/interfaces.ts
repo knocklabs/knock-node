@@ -67,3 +67,7 @@ export interface SignUserTokenOptions {
   /** The expiration time of the token in seconds. Defaults to 1 hour. */
   expiresInSeconds?: number;
 }
+
+export interface KnockMethodOptions {
+  idempotencyKey?: string;
+}
