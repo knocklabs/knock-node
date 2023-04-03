@@ -68,6 +68,6 @@ export interface SignUserTokenOptions {
   expiresInSeconds?: number;
 }
 
-export interface KnockMethodOptions {
+export interface MethodOptions {
   idempotencyKey?: string;
 }
