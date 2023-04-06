@@ -1,4 +1,5 @@
 import { Knock } from "../../knock";
+import { MethodOptions } from "../../common/interfaces";
 import {
   CancelWorkflowProperties,
   TriggerWorkflowProperties,
@@ -17,12 +18,15 @@ export class Workflows {
       tenant,
       data: notifyData,
     }: TriggerWorkflowProperties,
+    { idempotencyKey }: MethodOptions = {}
   ): Promise<WorkflowRun> {
     if (!workflowKey && !recipients) {
       throw new Error(
         `Incomplete arguments. At a minimum you need to specify 'workflowKey' and 'recipients'.`,
       );
     }
+
+    const options = idempotencyKey ? { headers: { 'Idempotency-Key': idempotencyKey } } : {};
 
     const { data } = await this.knock.post(
       `/v1/workflows/${workflowKey}/trigger`,
@@ -33,6 +37,7 @@ export class Workflows {
         tenant,
         data: notifyData,
       },
+      options
     );
 
     return data;

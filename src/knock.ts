@@ -12,7 +12,7 @@ import {
   UnauthorizedException,
   UnprocessableEntityException,
 } from "./common/exceptions";
-import { KnockOptions, PostAndPutOptions, SignUserTokenOptions } from "./common/interfaces";
+import { KnockOptions, PostAndPutOptions, SignUserTokenOptions, MethodOptions } from "./common/interfaces";
 import { Users } from "./resources/users";
 import { Preferences } from "./resources/preferences";
 import { Workflows } from "./resources/workflows";
@@ -58,8 +58,8 @@ class Knock {
   }
 
   // Delegate the notify function to the workflows trigger
-  async notify(workflowKey: string, properties: TriggerWorkflowProperties) {
-    return this.workflows.trigger(workflowKey, properties);
+  async notify(workflowKey: string, properties: TriggerWorkflowProperties, options?: MethodOptions) {
+    return this.workflows.trigger(workflowKey, properties, options);
   }
 
   /**
@@ -100,6 +100,7 @@ class Knock {
     try {
       return await this.client.post(path, entity, {
         params: options.query,
+        headers: options.headers,
       });
     } catch (error) {
       this.handleErrorResponse(path, error);

@@ -9,6 +9,7 @@ export interface HttpException extends Error {
 
 export interface PostAndPutOptions {
   query?: { [key: string]: any };
+  headers?: {[key: string]: any};
 }
 
 export interface UnprocessableEntityError {
@@ -65,4 +66,8 @@ export interface SignUserTokenOptions {
   signingKey?: string;
   /** The expiration time of the token in seconds. Defaults to 1 hour. */
   expiresInSeconds?: number;
+}
+
+export interface MethodOptions {
+  idempotencyKey?: string;
 }
