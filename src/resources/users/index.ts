@@ -15,6 +15,7 @@ import {
   WorkflowPreferenceSetting,
 } from "../preferences/interfaces";
 import { ListMessagesOptions, Message } from "../messages/interfaces";
+import { ListSchedulesProps, Schedule } from "../workflows/interfaces";
 import {
   DEFAULT_PREFERENCE_SET_ID,
   buildUpdateParam,
@@ -345,6 +346,26 @@ export class Users {
 
     const { data } = await this.knock.get(
       `/v1/users/${userId}/messages`,
+      filteringOptions,
+    );
+
+    return data;
+  }
+
+  //
+  // Schedules
+  //
+
+  async getSchedules(
+    userId: string,
+    filteringOptions: ListSchedulesProps = {},
+  ): Promise<PaginatedEntriesResponse<Schedule>> {
+    if (!userId) {
+      throw new Error(`Incomplete arguments. You must provide a 'userId'`);
+    }
+
+    const { data } = await this.knock.get(
+      `/v1/users/${userId}/schedules`,
       filteringOptions,
     );
 

@@ -19,6 +19,7 @@ import {
 } from "./interfaces";
 import { BulkOperation } from "../bulk_operations/interfaces";
 import { ListMessagesOptions, Message } from "../messages/interfaces";
+import { ListSchedulesProps, Schedule } from "../workflows/interfaces";
 import {
   ChannelTypePreferences,
   PreferenceOptions,
@@ -360,6 +361,29 @@ export class Objects {
     const { data } = await this.knock.delete(
       `/v1/objects/${collection}/${objectId}/subscriptions`,
       properties,
+    );
+
+    return data;
+  }
+
+  //
+  // Schedules
+  //
+
+  async getSchedules(
+    collection: string,
+    objectId: string,
+    filteringOptions: ListSchedulesProps = {},
+  ): Promise<PaginatedEntriesResponse<Schedule>> {
+    if (!collection || !objectId) {
+      throw new Error(
+        `Incomplete arguments. You must provide a 'collection' and 'objectId'`,
+      );
+    }
+
+    const { data } = await this.knock.get(
+      `/v1/objects/${collection}/${objectId}/schedules`,
+      filteringOptions,
     );
 
     return data;
