@@ -1,8 +1,16 @@
 import { Knock } from "../../knock";
-import { MethodOptions } from "../../common/interfaces";
+import {
+  MethodOptions,
+  PaginatedEntriesResponse,
+} from "../../common/interfaces";
 import {
   CancelWorkflowProperties,
   TriggerWorkflowProperties,
+  CreateSchedulesProps,
+  UpdateSchedulesProps,
+  ListSchedulesProps,
+  DeleteSchedulesProps,
+  Schedule,
   WorkflowRun,
 } from "./interfaces";
 
@@ -61,6 +69,42 @@ export class Workflows {
         recipients,
       },
     );
+
+    return data;
+  }
+
+  async createSchedules(
+    workflowKey: string,
+    params: CreateSchedulesProps,
+  ): Promise<Schedule[]> {
+    const { data } = await this.knock.post("/v1/schedules", {
+      ...params,
+      workflow: workflowKey,
+    });
+
+    return data;
+  }
+
+  async updateSchedules(params: UpdateSchedulesProps): Promise<Schedule[]> {
+    const { data } = await this.knock.put("/v1/schedules", params);
+
+    return data;
+  }
+
+  async listSchedules(
+    workflowKey: string,
+    params: ListSchedulesProps = {},
+  ): Promise<PaginatedEntriesResponse<Schedule>> {
+    const { data } = await this.knock.get("/v1/schedules", {
+      ...params,
+      workflow: workflowKey,
+    });
+
+    return data;
+  }
+
+  async deleteSchedules(params: DeleteSchedulesProps): Promise<Schedule[]> {
+    const { data } = await this.knock.delete("/v1/schedules", params);
 
     return data;
   }
