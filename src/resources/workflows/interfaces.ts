@@ -74,6 +74,7 @@ export interface Schedule {
   tenant: string | null;
   workflow: string;
   data: { [key: string]: any };
+  last_occurrence_at: string | null;
   next_occurrence_at: string;
   inserted_at: string;
   updated_at: string;
