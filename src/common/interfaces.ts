@@ -9,7 +9,7 @@ export interface HttpException extends Error {
 
 export interface PostAndPutOptions {
   query?: { [key: string]: any };
-  headers?: {[key: string]: any};
+  headers?: { [key: string]: any };
 }
 
 export interface UnprocessableEntityError {
@@ -35,6 +35,7 @@ type PageInfo = {
   before: string;
   after: string;
   page_size: number;
+  total_countr: number;
 };
 
 export interface PaginatedEntriesResponse<T> {
