@@ -35,7 +35,7 @@ type PageInfo = {
   before: string;
   after: string;
   page_size: number;
-  total_countr: number;
+  total_count: number;
 };
 
 export interface PaginatedEntriesResponse<T> {
