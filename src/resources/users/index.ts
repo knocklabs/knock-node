@@ -371,4 +371,24 @@ export class Users {
 
     return data;
   }
+
+  //
+  // Subscriptions
+  //
+
+  async getSubscriptions(
+    userId: string,
+    filteringOptions: ListSchedulesProps = {},
+  ): Promise<PaginatedEntriesResponse<Schedule>> {
+    if (!userId) {
+      throw new Error(`Incomplete arguments. You must provide a 'userId'`);
+    }
+
+    const { data } = await this.knock.get(
+      `/v1/users/${userId}/subscriptions`,
+      filteringOptions,
+    );
+
+    return data;
+  }
 }
