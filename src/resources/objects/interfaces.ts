@@ -35,6 +35,7 @@ export interface ListObjectSubscriptionsOptions extends PaginationOptions {}
 
 export interface ObjectSubscription<T = CommonMetadata> {
   recipient: User | Object;
+  object: Object;
   properties: T;
   inserted_at: string;
   updated_at: string;

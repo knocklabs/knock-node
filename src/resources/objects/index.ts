@@ -340,6 +340,19 @@ export class Objects {
     return data;
   }
 
+  async getSubscriptions(
+    collection: string,
+    objectId: string,
+    options: ListObjectSubscriptionsOptions = {},
+  ): Promise<PaginatedEntriesResponse<ObjectSubscription>> {
+    const { data } = await this.knock.get(
+      `/v1/objects/${collection}/${objectId}/subscriptions`,
+      {...options, mode: "recipient"},
+    );
+
+    return data;
+  }
+
   async addSubscriptions(
     collection: string,
     objectId: string,
