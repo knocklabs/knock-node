@@ -24,10 +24,12 @@ import { Knock } from "../../knock";
 import {
   BulkIdentifyUser,
   IdentifyProperties,
+  ListSubscriptionsOptions,
   ListUserOptions,
   User,
   UserFeedOptions,
 } from "./interfaces";
+import { ObjectSubscription } from "../objects/interfaces";
 
 export class Users {
   constructor(readonly knock: Knock) {}
@@ -378,8 +380,8 @@ export class Users {
 
   async getSubscriptions(
     userId: string,
-    filteringOptions: ListSchedulesProps = {},
-  ): Promise<PaginatedEntriesResponse<Schedule>> {
+    filteringOptions: ListSubscriptionsOptions = {},
+  ): Promise<PaginatedEntriesResponse<ObjectSubscription>> {
     if (!userId) {
       throw new Error(`Incomplete arguments. You must provide a 'userId'`);
     }
