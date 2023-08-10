@@ -37,3 +37,5 @@ export interface ListUserOptions extends PaginationOptions {
   email?: string;
   user_id?: string;
 }
+
+export interface ListSubscriptionsOptions extends PaginationOptions {}
