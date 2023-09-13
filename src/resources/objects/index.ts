@@ -9,6 +9,7 @@ import {
 import { Knock } from "../../knock";
 import {
   AddObjectSubscriptionProperties,
+  BulkAddSubscriptionsOption,
   BulkSetObjectOption,
   DeleteObjectSubscriptionProperties,
   ListObjectOptions,
@@ -67,6 +68,8 @@ export class Objects {
     return data;
   }
 
+  // Bulk ops
+
   async bulkSet(
     collection: string,
     objects: BulkSetObjectOption[],
@@ -96,6 +99,20 @@ export class Objects {
 
     const { data } = await this.knock.post(
       `/v1/objects/${collection}/bulk/delete`,
+      attrs,
+    );
+
+    return data;
+  }
+
+  async bulkAddSubscriptions<T = CommonMetadata>(
+    collection: string,
+    subscriptions: BulkAddSubscriptionsOption<T>[],
+  ): Promise<BulkOperation> {
+    const attrs = { subscriptions };
+
+    const { data } = await this.knock.post(
+      `/v1/objects/${collection}/bulk/subscriptions/add`,
       attrs,
     );
 
@@ -345,9 +362,11 @@ export class Objects {
     objectId: string,
     options: ListObjectSubscriptionsOptions = {},
   ): Promise<PaginatedEntriesResponse<ObjectSubscription>> {
-    const { data } = await this.knock.get(
+    const {
+      data,
+    } = await this.knock.get(
       `/v1/objects/${collection}/${objectId}/subscriptions`,
-      {...options, mode: "recipient"},
+      { ...options, mode: "recipient" },
     );
 
     return data;
