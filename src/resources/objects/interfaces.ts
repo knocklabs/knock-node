@@ -1,5 +1,8 @@
 import { CommonMetadata, PaginationOptions } from "../../common/interfaces";
-import { User } from "../users/interfaces";
+import {
+  User,
+  IdentifyProperties as IdentifyUserProperties,
+} from "../users/interfaces";
 import { Recipient, RecipientWithUpsert } from "../workflows/interfaces";
 
 export interface ObjectRef {
@@ -24,6 +27,12 @@ export interface BulkSetObjectOption {
   id: string;
   name?: string;
   [key: string]: any;
+}
+
+export interface BulkAddSubscriptionsOption<T = CommonMetadata> {
+  id: string;
+  properties?: T;
+  recipients: (IdentifyUserProperties | SetObjectProperties | string)[];
 }
 
 export interface ListObjectOptions extends PaginationOptions {
