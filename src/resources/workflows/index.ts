@@ -26,7 +26,7 @@ export class Workflows {
       tenant,
       data: notifyData,
     }: TriggerWorkflowProperties,
-    { idempotencyKey }: MethodOptions = {}
+    { idempotencyKey }: MethodOptions = {},
   ): Promise<WorkflowRun> {
     if (!workflowKey && !recipients) {
       throw new Error(
@@ -34,7 +34,9 @@ export class Workflows {
       );
     }
 
-    const options = idempotencyKey ? { headers: { 'Idempotency-Key': idempotencyKey } } : {};
+    const options = idempotencyKey
+      ? { headers: { "Idempotency-Key": idempotencyKey } }
+      : {};
 
     const { data } = await this.knock.post(
       `/v1/workflows/${workflowKey}/trigger`,
@@ -45,7 +47,7 @@ export class Workflows {
         tenant,
         data: notifyData,
       },
-      options
+      options,
     );
 
     return data;

@@ -17,7 +17,6 @@ export class NoSigningKeyProvidedException extends Error {
     `or a PEM-encoded certificate. For more information, see https://docs.knock.app/in-app-ui/security-and-authentication#authentication-with-enhanced-security-enabled`;
 }
 
-
 export class GenericServerException implements HttpException {
   readonly name: string = "GenericServerException";
   readonly message: string = "The request could not be completed.";
@@ -41,7 +40,7 @@ export class UnauthorizedException implements HttpException {
     readonly code: string,
     readonly message: string,
     readonly requestID: string,
-  ) { }
+  ) {}
 }
 
 export class NotFoundException implements HttpException {
