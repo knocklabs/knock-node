@@ -10,6 +10,7 @@ import {
   ChannelTypePreferences,
   PreferenceOptions,
   PreferenceSet,
+  GetPreferencesOptions,
   SetPreferencesProperties,
   WorkflowPreferences,
   WorkflowPreferenceSetting,
@@ -128,24 +129,17 @@ export class Users {
     return data;
   }
 
-  /**
-   * @deprecated Use `users.getPreferences` instead
-   */
-  async getPrefences(
-    userId: string,
-    options: PreferenceOptions = {},
-  ): Promise<PreferenceSet> {
-    return this.getPreferences(userId, options);
-  }
-
   async getPreferences(
     userId: string,
-    options: PreferenceOptions = {},
+    options: GetPreferencesOptions = {},
   ): Promise<PreferenceSet> {
     const preferenceSetId = options.preferenceSet || DEFAULT_PREFERENCE_SET_ID;
 
-    const { data } = await this.knock.get(
+    const {
+      data,
+    } = await this.knock.get(
       `/v1/users/${userId}/preferences/${preferenceSetId}`,
+      { tenant: options.tenant },
     );
 
     return data;

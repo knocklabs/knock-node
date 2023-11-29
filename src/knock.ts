@@ -19,7 +19,6 @@ import {
   MethodOptions,
 } from "./common/interfaces";
 import { Users } from "./resources/users";
-import { Preferences } from "./resources/preferences";
 import { Workflows } from "./resources/workflows";
 import { TriggerWorkflowProperties } from "./resources/workflows/interfaces";
 import { BulkOperations } from "./resources/bulk_operations";
@@ -35,7 +34,6 @@ class Knock {
 
   // Service accessors
   readonly users = new Users(this);
-  readonly preferences = new Preferences(this);
   readonly workflows = new Workflows(this);
   readonly bulkOperations = new BulkOperations(this);
   readonly objects = new Objects(this);

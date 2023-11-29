@@ -23,6 +23,7 @@ import { ListMessagesOptions, Message } from "../messages/interfaces";
 import { ListSchedulesProps, Schedule } from "../workflows/interfaces";
 import {
   ChannelTypePreferences,
+  GetPreferencesOptions,
   PreferenceOptions,
   PreferenceSet,
   SetPreferencesProperties,
@@ -198,26 +199,18 @@ export class Objects {
     return data;
   }
 
-  /**
-   * @deprecated Use `objects.getPreferences` instead
-   */
-  async getPrefences(
-    collection: string,
-    objectId: string,
-    options: PreferenceOptions = {},
-  ): Promise<PreferenceSet> {
-    return this.getPreferences(collection, objectId, options);
-  }
-
   async getPreferences(
     collection: string,
     objectId: string,
-    options: PreferenceOptions = {},
+    options: GetPreferencesOptions = {},
   ): Promise<PreferenceSet> {
     const preferenceSetId = options.preferenceSet || DEFAULT_PREFERENCE_SET_ID;
 
-    const { data } = await this.knock.get(
+    const {
+      data,
+    } = await this.knock.get(
       `/v1/objects/${collection}/${objectId}/preferences/${preferenceSetId}`,
+      { tenant: options.tenant },
     );
 
     return data;
