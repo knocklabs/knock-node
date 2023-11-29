@@ -48,7 +48,7 @@ export interface CreateSchedulesProps {
   recipients: (Recipient | RecipientWithUpsert)[];
   actor?: Recipient | RecipientWithUpsert | null;
   scheduled_at?: string;
-  repeats: ScheduleRepeatProperties[];
+  repeats?: ScheduleRepeatProperties[];
   tenant?: string;
   data?: { [key: string]: any };
 }
@@ -75,7 +75,7 @@ export interface Schedule {
   workflow: string;
   data: { [key: string]: any };
   last_occurrence_at: string | null;
-  next_occurrence_at: string;
+  next_occurrence_at: string | null;
   inserted_at: string;
   updated_at: string;
   repeats: ScheduleRepeatProperties[];
