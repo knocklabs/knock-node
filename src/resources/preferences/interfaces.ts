@@ -33,3 +33,7 @@ export interface PreferenceSet {
 export interface PreferenceOptions {
   preferenceSet?: string;
 }
+
+export interface GetPreferencesOptions extends PreferenceOptions {
+  tenant?: string;
+}
