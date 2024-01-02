@@ -32,7 +32,6 @@
   },
   "devDependencies": {
     "@types/jest": "26.0.23",
-    "@types/jsonwebtoken": "^9.0.1",
     "@types/node": "^15.0.1",
     "@types/pluralize": "0.0.29",
     "jest": "26.6.3",
@@ -43,6 +42,6 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "jsonwebtoken": "^9.0.0"
+    "jose": "^5.2.0"
   }
 }

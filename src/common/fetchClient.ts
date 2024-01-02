@@ -36,7 +36,7 @@ export default class FetchClient {
       body: config.body ? JSON.stringify(config.body) : undefined,
     });
 
-    const data = await response.json();
+    const data = await this.getResponseData(response);
 
     return {
       ...response,
@@ -73,5 +73,23 @@ export default class FetchClient {
     }
 
     return url;
+  }
+
+  private async getResponseData(response: Response) {
+    if (!response.body) {
+      return undefined;
+    }
+
+    let data;
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+      data = await response.json();
+    } else if (contentType && contentType.includes("text")) {
+      data = await response.text();
+    } else {
+      data = await response.blob();
+    }
+
+    return data;
   }
 }

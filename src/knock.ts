@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import { SignJWT } from "jose";
 
 import { version } from "../package.json";
 
@@ -77,7 +77,7 @@ class Knock {
    * @param options Optionally specify the signing key to use (in PEM or base-64 encoded format), and how long the token should be valid for in seconds
    * @returns {string} A JWT token that can be used to authenticate requests to the Knock API (e.g. by passing into the <KnockFeedProvider /> component)
    */
-  static signUserToken(userId: string, options?: SignUserTokenOptions) {
+  static async signUserToken(userId: string, options?: SignUserTokenOptions) {
     const signingKey = prepareSigningKey(options?.signingKey);
 
     // JWT NumericDates specified in seconds:
@@ -86,17 +86,13 @@ class Knock {
     // Default to 1 hour from now
     const expireInSeconds = options?.expiresInSeconds ?? 60 * 60;
 
-    return jwt.sign(
-      {
-        sub: userId,
-        iat: currentTime,
-        exp: currentTime + expireInSeconds,
-      },
-      signingKey,
-      {
-        algorithm: "RS256",
-      },
-    );
+    return await new SignJWT({
+      sub: userId,
+      iat: currentTime,
+      exp: currentTime + expireInSeconds,
+    })
+      .setProtectedHeader({ alg: "RS256", typ: "JWT" })
+      .sign(new TextEncoder().encode(signingKey));
   }
 
   async post(
@@ -107,7 +103,11 @@ class Knock {
     try {
       return await this.client.post(path, {
         params: options.query,
-        headers: options.headers,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          ...options.headers,
+        },
         body: entity,
       });
     } catch (error) {
