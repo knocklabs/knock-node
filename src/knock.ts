@@ -1,4 +1,3 @@
-import axios, { AxiosResponse, AxiosInstance } from "axios";
 import jwt from "jsonwebtoken";
 
 import { version } from "../package.json";
@@ -25,12 +24,13 @@ import { BulkOperations } from "./resources/bulk_operations";
 import { Objects } from "./resources/objects";
 import { Messages } from "./resources/messages";
 import { Tenants } from "./resources/tenants";
+import FetchClient, { FetchResponse } from "./common/fetchClient";
 
 const DEFAULT_HOSTNAME = "https://api.knock.app";
 
 class Knock {
   readonly host: string;
-  private readonly client: AxiosInstance;
+  private readonly client: FetchClient;
 
   // Service accessors
   readonly users = new Users(this);
@@ -51,7 +51,7 @@ class Knock {
 
     this.host = options.host || DEFAULT_HOSTNAME;
 
-    this.client = axios.create({
+    this.client = new FetchClient({
       baseURL: this.host,
       headers: {
         Authorization: `Bearer ${this.key}`,
@@ -103,11 +103,12 @@ class Knock {
     path: string,
     entity: any,
     options: PostAndPutOptions = {},
-  ): Promise<AxiosResponse> {
+  ): Promise<FetchResponse> {
     try {
-      return await this.client.post(path, entity, {
+      return await this.client.post(path, {
         params: options.query,
         headers: options.headers,
+        body: entity,
       });
     } catch (error) {
       this.handleErrorResponse(path, error);
@@ -119,10 +120,11 @@ class Knock {
     path: string,
     entity: any,
     options: PostAndPutOptions = {},
-  ): Promise<AxiosResponse> {
+  ): Promise<FetchResponse> {
     try {
-      return await this.client.put(path, entity, {
+      return await this.client.put(path, {
         params: options.query,
+        body: entity,
       });
     } catch (error) {
       this.handleErrorResponse(path, error);
@@ -130,7 +132,7 @@ class Knock {
     }
   }
 
-  async delete(path: string, entity: any = {}): Promise<AxiosResponse> {
+  async delete(path: string, entity: any = {}): Promise<FetchResponse> {
     try {
       return await this.client.delete(path, {
         params: entity,
@@ -141,7 +143,7 @@ class Knock {
     }
   }
 
-  async get(path: string, query?: any): Promise<AxiosResponse> {
+  async get(path: string, query?: any): Promise<FetchResponse> {
     try {
       return await this.client.get(path, {
         params: query,
@@ -153,7 +155,7 @@ class Knock {
   }
 
   handleErrorResponse(path: string, error: any) {
-    if (axios.isAxiosError(error) && error.response) {
+    if (error.response) {
       const { status, data, headers } = error.response;
       const requestID = headers["X-Request-ID"];
 
