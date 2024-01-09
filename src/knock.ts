@@ -77,14 +77,14 @@ class Knock {
    * @param options Optionally specify the signing key to use (in PEM or base-64 encoded format), and how long the token should be valid for in seconds
    * @returns {string} A JWT token that can be used to authenticate requests to the Knock API (e.g. by passing into the <KnockFeedProvider /> component)
    */
-  static signUserToken(userId: string, options: SignUserTokenOptions) {
-    const signingKey = prepareSigningKey(options.signingKey);
+  static signUserToken(userId: string, options?: SignUserTokenOptions) {
+    const signingKey = prepareSigningKey(options?.signingKey);
 
     // JWT NumericDates specified in seconds:
     const currentTime = Math.floor(Date.now() / 1000);
 
     // Default to 1 hour from now
-    const expireInSeconds = options.expiresInSeconds ?? 60 * 60;
+    const expireInSeconds = options?.expiresInSeconds ?? 60 * 60;
 
     return jwt.sign(
       {
