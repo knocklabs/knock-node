@@ -1,6 +1,6 @@
 export interface FetchClientConfig {
-  baseURL: string;
-  headers: Record<string, string>;
+  baseURL?: string;
+  headers?: Record<string, string>;
 }
 
 export interface FetchRequestConfig<D = any> {
@@ -13,11 +13,19 @@ export interface FetchResponse<T = any> extends Response {
   data: T;
 }
 
+const defaultConfig: FetchClientConfig = {
+  baseURL: "",
+  headers: {},
+};
+
 export default class FetchClient {
   config: FetchClientConfig;
 
-  constructor(config: FetchClientConfig) {
-    this.config = config;
+  constructor(config?: FetchClientConfig) {
+    this.config = {
+      ...defaultConfig,
+      ...config,
+    };
   }
 
   async request(
