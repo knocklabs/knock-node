@@ -1,4 +1,4 @@
-import { SignJWT } from "jose";
+import { SignJWT, importPKCS8 } from "jose";
 
 import { version } from "../package.json";
 
@@ -86,13 +86,16 @@ class Knock {
     // Default to 1 hour from now
     const expireInSeconds = options?.expiresInSeconds ?? 60 * 60;
 
+    // Convert string key to a Crypto-API compatible KeyLike
+    const keyLike = await importPKCS8(signingKey, "RS256");
+
     return await new SignJWT({
       sub: userId,
       iat: currentTime,
       exp: currentTime + expireInSeconds,
     })
       .setProtectedHeader({ alg: "RS256", typ: "JWT" })
-      .sign(new TextEncoder().encode(signingKey));
+      .sign(keyLike);
   }
 
   async post(
