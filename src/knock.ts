@@ -75,7 +75,7 @@ class Knock {
    *
    * @param userId {string} The ID of the user that needs a token, e.g. the user viewing an in-app feed.
    * @param options Optionally specify the signing key to use (in PEM or base-64 encoded format), and how long the token should be valid for in seconds
-   * @returns {string} A JWT token that can be used to authenticate requests to the Knock API (e.g. by passing into the <KnockFeedProvider /> component)
+   * @returns {Promise<string>} A JWT token that can be used to authenticate requests to the Knock API (e.g. by passing into the <KnockFeedProvider /> component)
    */
   static async signUserToken(userId: string, options?: SignUserTokenOptions) {
     const signingKey = prepareSigningKey(options?.signingKey);
