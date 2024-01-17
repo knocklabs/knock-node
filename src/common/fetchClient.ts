@@ -13,16 +13,10 @@ export interface FetchResponse<T = any> extends Response {
   data: T;
 }
 
-export interface FetchResponseErrorData<T = any> {
-  status: number;
-  headers: Record<string, string>;
-  data: T;
-}
-
 export class FetchResponseError extends Error {
-  readonly response: FetchResponseErrorData;
+  readonly response: FetchResponse;
 
-  constructor(response: FetchResponseErrorData) {
+  constructor(response: FetchResponse) {
     super();
     this.response = response;
   }
@@ -40,40 +34,6 @@ export default class FetchClient {
     this.config = {
       ...defaultConfig,
       ...config,
-    };
-  }
-
-  async request(
-    method: string,
-    path: string,
-    config: FetchRequestConfig = {},
-  ): Promise<FetchResponse> {
-    const url = this.buildUrl(path, config.params);
-    const headers = {
-      ...this.config.headers,
-      ...(config.headers ?? {}),
-    };
-
-    const response = await fetch(url, {
-      method,
-      headers,
-      body: config.body
-        ? this.prepareRequestBody(config.body, headers)
-        : undefined,
-    });
-    const data = await this.getResponseData(response);
-
-    if (!response.ok) {
-      throw new FetchResponseError({
-        status: response.status,
-        data,
-        headers: this.headersToObject(response.headers),
-      });
-    }
-
-    return {
-      ...response,
-      data,
     };
   }
 
@@ -96,6 +56,37 @@ export default class FetchClient {
     return this.request("DELETE", path, config);
   }
 
+  private async request(
+    method: string,
+    path: string,
+    config: FetchRequestConfig = {},
+  ): Promise<FetchResponse> {
+    const url = this.buildUrl(path, config.params);
+    const headers = {
+      ...this.config.headers,
+      ...(config.headers ?? {}),
+    };
+
+    const response = await fetch(url, {
+      method,
+      headers,
+      body: config.body ? this.prepareRequestBody(config.body) : undefined,
+    });
+    const data = await this.getResponseData(response);
+
+    // Assign data to the response as other methods of returning the response
+    // like return { ...response, data } drop the response methods
+    const fetchResponse: FetchResponse = Object.assign(response, {
+      data,
+    });
+
+    if (!response.ok) {
+      throw new FetchResponseError(fetchResponse);
+    }
+
+    return fetchResponse;
+  }
+
   private buildUrl(path: string, params?: FetchRequestConfig["params"]): URL {
     const url = new URL(this.config.baseURL + path);
 
@@ -108,21 +99,10 @@ export default class FetchClient {
     return url;
   }
 
-  private prepareRequestBody(
-    data: any,
-    headers: Record<string, string>,
-  ): string | FormData {
-    if (headers?.["Content-Type"]?.includes("application/json")) {
-      if (typeof data === "string") {
-        return data;
-      }
-      return JSON.stringify(data);
-    }
-
-    if (data instanceof FormData) {
+  private prepareRequestBody(data: any): string | FormData {
+    if (typeof data === "string" || data instanceof FormData) {
       return data;
     }
-
     return JSON.stringify(data);
   }
 
@@ -142,13 +122,5 @@ export default class FetchClient {
     }
 
     return data;
-  }
-
-  private headersToObject(headers: Headers): Record<string, string> {
-    let result: Record<string, string> = {};
-    for (let [key, value] of headers) {
-      result[key] = value;
-    }
-    return result;
   }
 }

@@ -160,7 +160,7 @@ class Knock {
   handleErrorResponse(path: string, error: any) {
     if (error.response) {
       const { status, data, headers } = error.response;
-      const requestID = headers["X-Request-ID"] || headers["x-request-id"];
+      const requestID = headers.get("X-Request-ID");
 
       switch (status) {
         case 401: {
