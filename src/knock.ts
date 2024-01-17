@@ -1,5 +1,4 @@
-import axios, { AxiosResponse, AxiosInstance } from "axios";
-import jwt from "jsonwebtoken";
+import { SignJWT, importPKCS8 } from "jose";
 
 import { version } from "../package.json";
 
@@ -25,12 +24,13 @@ import { BulkOperations } from "./resources/bulk_operations";
 import { Objects } from "./resources/objects";
 import { Messages } from "./resources/messages";
 import { Tenants } from "./resources/tenants";
+import FetchClient, { FetchResponse } from "./common/fetchClient";
 
 const DEFAULT_HOSTNAME = "https://api.knock.app";
 
 class Knock {
   readonly host: string;
-  private readonly client: AxiosInstance;
+  private readonly client: FetchClient;
 
   // Service accessors
   readonly users = new Users(this);
@@ -51,7 +51,7 @@ class Knock {
 
     this.host = options.host || DEFAULT_HOSTNAME;
 
-    this.client = axios.create({
+    this.client = new FetchClient({
       baseURL: this.host,
       headers: {
         Authorization: `Bearer ${this.key}`,
@@ -75,9 +75,9 @@ class Knock {
    *
    * @param userId {string} The ID of the user that needs a token, e.g. the user viewing an in-app feed.
    * @param options Optionally specify the signing key to use (in PEM or base-64 encoded format), and how long the token should be valid for in seconds
-   * @returns {string} A JWT token that can be used to authenticate requests to the Knock API (e.g. by passing into the <KnockFeedProvider /> component)
+   * @returns {Promise<string>} A JWT token that can be used to authenticate requests to the Knock API (e.g. by passing into the <KnockFeedProvider /> component)
    */
-  static signUserToken(userId: string, options?: SignUserTokenOptions) {
+  static async signUserToken(userId: string, options?: SignUserTokenOptions) {
     const signingKey = prepareSigningKey(options?.signingKey);
 
     // JWT NumericDates specified in seconds:
@@ -86,28 +86,32 @@ class Knock {
     // Default to 1 hour from now
     const expireInSeconds = options?.expiresInSeconds ?? 60 * 60;
 
-    return jwt.sign(
-      {
-        sub: userId,
-        iat: currentTime,
-        exp: currentTime + expireInSeconds,
-      },
-      signingKey,
-      {
-        algorithm: "RS256",
-      },
-    );
+    // Convert string key to a Crypto-API compatible KeyLike
+    const keyLike = await importPKCS8(signingKey, "RS256");
+
+    return await new SignJWT({
+      sub: userId,
+      iat: currentTime,
+      exp: currentTime + expireInSeconds,
+    })
+      .setProtectedHeader({ alg: "RS256", typ: "JWT" })
+      .sign(keyLike);
   }
 
   async post(
     path: string,
     entity: any,
     options: PostAndPutOptions = {},
-  ): Promise<AxiosResponse> {
+  ): Promise<FetchResponse> {
     try {
-      return await this.client.post(path, entity, {
+      return await this.client.post(path, {
         params: options.query,
-        headers: options.headers,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          ...options.headers,
+        },
+        body: entity,
       });
     } catch (error) {
       this.handleErrorResponse(path, error);
@@ -119,10 +123,11 @@ class Knock {
     path: string,
     entity: any,
     options: PostAndPutOptions = {},
-  ): Promise<AxiosResponse> {
+  ): Promise<FetchResponse> {
     try {
-      return await this.client.put(path, entity, {
+      return await this.client.put(path, {
         params: options.query,
+        body: entity,
       });
     } catch (error) {
       this.handleErrorResponse(path, error);
@@ -130,7 +135,7 @@ class Knock {
     }
   }
 
-  async delete(path: string, entity: any = {}): Promise<AxiosResponse> {
+  async delete(path: string, entity: any = {}): Promise<FetchResponse> {
     try {
       return await this.client.delete(path, {
         params: entity,
@@ -141,7 +146,7 @@ class Knock {
     }
   }
 
-  async get(path: string, query?: any): Promise<AxiosResponse> {
+  async get(path: string, query?: any): Promise<FetchResponse> {
     try {
       return await this.client.get(path, {
         params: query,
@@ -153,9 +158,9 @@ class Knock {
   }
 
   handleErrorResponse(path: string, error: any) {
-    if (axios.isAxiosError(error) && error.response) {
+    if (error.response) {
       const { status, data, headers } = error.response;
-      const requestID = headers["X-Request-ID"];
+      const requestID = headers.get("X-Request-ID");
 
       switch (status) {
         case 401: {

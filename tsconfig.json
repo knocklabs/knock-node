@@ -16,6 +16,7 @@
     "typeRoots": ["./node_modules/@types"],
     "declaration": true,
     "outDir": "./dist",
+    "skipLibCheck": true
   },
   "include": ["src/**/*"],
   "exclude": ["src/**/*.spec.ts", "dist"]
