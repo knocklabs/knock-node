@@ -23,7 +23,7 @@ export class Tenants {
 
   async set<T = CommonMetadata>(
     id: string,
-    tenantData: SetTenant,
+    tenantData: SetTenantProperties,
   ): Promise<Tenant<T>> {
     const { data } = await this.knock.put(`/v1/tenants/${id}`, tenantData);
     return data;

@@ -1,12 +1,13 @@
 import { ObjectRef, SetObjectProperties } from "../objects/interfaces";
 import { IdentifyProperties } from "../users/interfaces";
 import { PaginationOptions } from "../../common/interfaces";
+import { SetTenantProperties, TenantRef } from "../tenants/interfaces";
 
 export interface TriggerWorkflowProperties<T = { [key: string]: any }> {
   actor?: Actor | ActorWithUpsert;
   recipients?: (Recipient | RecipientWithUpsert)[];
   cancellationKey?: string;
-  tenant?: string;
+  tenant?: Tenant | TenantWithUpsert;
   data?: T;
 }
 
@@ -49,7 +50,7 @@ export interface CreateSchedulesProps {
   actor?: Recipient | RecipientWithUpsert | null;
   scheduled_at?: string;
   repeats?: ScheduleRepeatProperties[];
-  tenant?: string;
+  tenant?: Tenant | TenantWithUpsert | null;
   data?: { [key: string]: any };
 }
 
@@ -86,12 +87,14 @@ export interface Schedule {
 
 export type Recipient = string | ObjectRef;
 export type Actor = Recipient;
+export type Tenant = string | TenantRef;
 
 export interface UserWithUpsert extends IdentifyProperties {
   id: string;
 }
 
 export type ObjectWithUpsert = ObjectRef & SetObjectProperties;
+export type TenantWithUpsert = TenantRef & SetTenantProperties;
 
 export type RecipientWithUpsert = UserWithUpsert | ObjectWithUpsert;
 export type ActorWithUpsert = RecipientWithUpsert;
