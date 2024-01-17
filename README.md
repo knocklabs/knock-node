@@ -148,7 +148,7 @@ const { Knock } = require("@knocklabs/node");
 // When signing user tokens, you do not need to instantiate a Knock client.
 
 // jhammond is the user id for which to sign this token
-const token = Knock.signUserToken("jhammond", {
+const token = await Knock.signUserToken("jhammond", {
   // The signing key from the Knock Dashboard in base-64 or PEM-encoded format.
   // If not provided, the key will be read from the KNOCK_SIGNING_KEY environment variable.
   signingKey: "S25vY2sga25vY2sh...",
