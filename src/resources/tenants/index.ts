@@ -3,7 +3,7 @@ import {
   PaginatedEntriesResponse,
 } from "../../common/interfaces";
 import { Knock } from "../../knock";
-import { Tenant, SetTenant, ListTenantsOptions } from "./interfaces";
+import { Tenant, ListTenantsOptions, SetTenantProperties } from "./interfaces";
 
 export class Tenants {
   constructor(readonly knock: Knock) {}
