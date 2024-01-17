@@ -1,6 +1,6 @@
 # Knock Node.js library
 
-Knock API access for applications written in server-side Javascript.
+Knock API access for applications written in server-side Javascript. This package is compatible with the Vercel Edge runtime.
 
 ## Documentation
 
