@@ -24,20 +24,14 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "lint": "tslint -p tsconfig.json -c tslint.json",
-    "test": "jest",
-    "test:watch": "jest --watch",
     "prettier": "prettier \"src/**/*.{js,ts,tsx}\" --check",
     "format": "prettier \"src/**/*.{js,ts,tsx}\" --write",
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
-    "@types/jest": "26.0.23",
     "@types/node": "^15.0.1",
     "@types/pluralize": "0.0.29",
-    "jest": "26.6.3",
     "prettier": "2.2.1",
-    "supertest": "6.1.3",
-    "ts-jest": "26.5.5",
     "tslint": "6.1.3",
     "typescript": "^5.3.3"
   },
