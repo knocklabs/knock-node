@@ -1,4 +1,4 @@
-import { CommonMetadata, PaginationOptions } from "../../common/interfaces";
+import { CommonMetadata, PaginationOptions, SetChannelDataProperties } from "../../common/interfaces";
 import { SetPreferencesProperties } from "../preferences/interfaces";
 
 export interface TenantRef {
@@ -25,9 +25,12 @@ export interface Tenant<T = CommonMetadata> {
   updated_at: string;
 }
 
-export interface SetTenant {
+export interface SetTenantProperties {
   name?: string;
+  channelData?: SetChannelDataProperties;
   settings?: TenantSettings;
+  // Can have anything else
+  [key: string]: any;
 }
 
 export interface ListTenantsOptions extends PaginationOptions {

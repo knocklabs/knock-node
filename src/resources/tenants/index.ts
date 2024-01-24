@@ -3,7 +3,7 @@ import {
   PaginatedEntriesResponse,
 } from "../../common/interfaces";
 import { Knock } from "../../knock";
-import { Tenant, SetTenant, ListTenantsOptions } from "./interfaces";
+import { Tenant, ListTenantsOptions, SetTenantProperties } from "./interfaces";
 
 export class Tenants {
   constructor(readonly knock: Knock) {}
@@ -23,7 +23,7 @@ export class Tenants {
 
   async set<T = CommonMetadata>(
     id: string,
-    tenantData: SetTenant,
+    tenantData: SetTenantProperties,
   ): Promise<Tenant<T>> {
     const { data } = await this.knock.put(`/v1/tenants/${id}`, tenantData);
     return data;
