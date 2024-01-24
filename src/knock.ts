@@ -127,6 +127,11 @@ class Knock {
     try {
       return await this.client.put(path, {
         params: options.query,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          ...options.headers,
+        },
         body: entity,
       });
     } catch (error) {
