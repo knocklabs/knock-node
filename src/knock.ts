@@ -56,6 +56,8 @@ class Knock {
       headers: {
         Authorization: `Bearer ${this.key}`,
         "User-Agent": `knocklabs/node@${version}`,
+        "Content-Type": "application/json",
+        Accept: "application/json",
       },
     });
   }
@@ -107,8 +109,6 @@ class Knock {
       return await this.client.post(path, {
         params: options.query,
         headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
           ...options.headers,
         },
         body: entity,
@@ -127,6 +127,9 @@ class Knock {
     try {
       return await this.client.put(path, {
         params: options.query,
+        headers: {
+          ...options.headers,
+        },
         body: entity,
       });
     } catch (error) {
