@@ -172,7 +172,10 @@ class Knock {
           throw new BadRequestException(code, message, requestID);
         }
         case 422: {
-          const { errors } = data;
+          const errors = Array.isArray(data.errors)
+            ? data.errors
+            : [data.errors];
+
           throw new UnprocessableEntityException(errors, requestID);
         }
         case 404: {
