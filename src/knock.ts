@@ -172,7 +172,10 @@ class Knock {
           throw new BadRequestException(code, message, requestID);
         }
         case 422: {
-          const errors = Array.isArray(data.errors)
+          // Format errors as an array before passing to exception constructor
+          const errors = !data.errors
+            ? []
+            : Array.isArray(data.errors)
             ? data.errors
             : [data.errors];
 
