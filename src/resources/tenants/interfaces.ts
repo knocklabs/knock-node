@@ -1,4 +1,8 @@
-import { CommonMetadata, PaginationOptions, SetChannelDataProperties } from "../../common/interfaces";
+import {
+  CommonMetadata,
+  PaginationOptions,
+  SetChannelDataProperties,
+} from "../../common/interfaces";
 import { SetPreferencesProperties } from "../preferences/interfaces";
 
 export interface TenantRef {

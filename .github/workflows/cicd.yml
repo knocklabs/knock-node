@@ -1,18 +1,24 @@
-name: Publish package
-on:
-  release:
-    types: [created]
+name: CI/CD
+
+on: [push]
+
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - uses: actions/setup-node@v2
         with:
           node-version: "18.x"
           registry-url: "https://registry.npmjs.org"
           scope: "@knocklabs"
-      - run: yarn
-      - run: yarn publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Check formatting
+        run: yarn run format:check
+
+      - name: Run tests
+        run: yarn test
