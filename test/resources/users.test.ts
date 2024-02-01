@@ -48,7 +48,16 @@ const mockUsers = [
 
 const restHandlers = [
   http.get("http://api.knock.test/v1/users", () => {
-    return HttpResponse.json(mockUsers);
+    return HttpResponse.json({
+      entries: mockUsers,
+      page_info: {
+        __typename: "PageInfo",
+        after: null,
+        before: null,
+        page_size: 50,
+        total_count: mockUsers.length,
+      },
+    });
   }),
   http.get("http://api.knock.test/v1/users/:userId", ({ params }) => {
     const user = mockUsers.find((u) => u.id === params.userId);
@@ -75,8 +84,9 @@ afterEach(() => server.resetHandlers());
 
 describe("it can get users", () => {
   test("it can list users", async () => {
-    const users = await knock.users.list();
-    expect(users).toStrictEqual(mockUsers);
+    const { entries, page_info } = await knock.users.list();
+    expect(entries).toStrictEqual(mockUsers);
+    expect(page_info.total_count).toBe(mockUsers.length);
   });
 
   test("it can get a user by id", async () => {
