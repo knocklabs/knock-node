@@ -154,7 +154,7 @@ const token = await Knock.signUserToken("jhammond", {
   signingKey: "S25vY2sga25vY2sh...",
   // Optional: How long the token should be valid for, in seconds (default 1 hour)
   // For long-lived connections, you will need to refresh the token before it expires.
-  expiresIn: 60 * 60,
+  expiresInSeconds: 60 * 60,
 });
 
 // This token can now be safely passed to your client e.g. in a cookie or API response.
