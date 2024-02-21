@@ -79,7 +79,7 @@ export interface SignUserTokenOptions {
    * A list of token grants to pass along with this token. The grants here provide permissions to
    * the requested entities for the user
    */
-  grants: TokenGrant[];
+  grants?: TokenGrant[];
 }
 
 export interface MethodOptions {
