@@ -91,9 +91,17 @@ export default class FetchClient {
     const url = new URL(this.config.baseURL + path);
 
     if (params) {
-      Object.entries(params).forEach(([key, value]) =>
-        url.searchParams.append(key, value),
-      );
+      Object.entries(params).forEach(([key, value]) => {
+        // Send array values as individual values instead of a comma separated list
+        // e.g. key[]=1&key[]=2&key[]=3 instead of key=1,2,3
+        if (Array.isArray(value)) {
+          for (const val of value) {
+            url.searchParams.append(`${key}[]`, val);
+          }
+        } else {
+          url.searchParams.append(key, value);
+        }
+      });
     }
 
     return url;
