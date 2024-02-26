@@ -1,3 +1,5 @@
+import { TokenGrant } from "./userTokens";
+
 export interface KnockOptions {
   host?: string;
 }
@@ -73,6 +75,11 @@ export interface SignUserTokenOptions {
   signingKey?: string;
   /** The expiration time of the token in seconds. Defaults to 1 hour. */
   expiresInSeconds?: number;
+  /**
+   * A list of token grants to pass along with this token. The grants here provide permissions to
+   * the requested entities for the user
+   */
+  grants?: TokenGrant[];
 }
 
 export interface MethodOptions {

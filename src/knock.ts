@@ -25,6 +25,11 @@ import { Objects } from "./resources/objects";
 import { Messages } from "./resources/messages";
 import { Tenants } from "./resources/tenants";
 import FetchClient, { FetchResponse } from "./common/fetchClient";
+import {
+  TokenEntity,
+  TokenGrant,
+  TokenGrantOptions,
+} from "./common/userTokens";
 
 const DEFAULT_HOSTNAME = "https://api.knock.app";
 
@@ -93,11 +98,30 @@ class Knock {
 
     return await new SignJWT({
       sub: userId,
+      grants: maybePrepareUserTokenGrants(options?.grants),
       iat: currentTime,
       exp: currentTime + expireInSeconds,
     })
       .setProtectedHeader({ alg: "RS256", typ: "JWT" })
       .sign(keyLike);
+  }
+
+  /**
+   * Helper function to build user token grants to pass to the `signUserToken` method.
+   *
+   * @param entity {TokenEntity} The type of entity to build a grant for
+   * @param grants {TokenGrantOptions} A list of grants to give to the entity for the user
+   *
+   * @returns {TokenGrant} A single token grant that can be passed to the signUserToken function
+   */
+  static buildUserTokenGrant(
+    entity: TokenEntity,
+    grants: TokenGrantOptions,
+  ): TokenGrant {
+    return {
+      entity: prepareTokenEntityUri(entity),
+      grants: grants.reduce((acc, grant) => ({ ...acc, [grant]: [] }), {}),
+    };
   }
 
   async post(
@@ -213,6 +237,35 @@ function prepareSigningKey(key?: string): string {
     return Buffer.from(maybeSigningKey, "base64").toString("utf-8");
 
   throw new NoSigningKeyProvidedException();
+}
+
+function prepareTokenEntityUri(entity: TokenEntity) {
+  switch (entity.type) {
+    case "user":
+      return `${DEFAULT_HOSTNAME}/v1/users/${entity.id}`;
+    case "tenant":
+      return `${DEFAULT_HOSTNAME}/v1/objects/$tenants/${entity.id}`;
+    case "object":
+      return `${DEFAULT_HOSTNAME}/v1/objects/${entity.collection}/${entity.id}`;
+  }
+}
+
+export function maybePrepareUserTokenGrants(
+  grants: TokenGrant[] | undefined,
+): Record<string, TokenGrant["grants"]> | undefined {
+  if (!grants) return undefined;
+
+  // Given a list of token grants, flattens them into a single object
+  // like: { "entity": { "slack_channels/read": [] } }
+  return grants.reduce<Record<string, TokenGrant["grants"]>>((acc, grant) => {
+    if (acc[grant.entity]) {
+      const currentGrants = acc[grant.entity];
+
+      return { ...acc, [grant.entity]: { ...currentGrants, ...grant.grants } };
+    } else {
+      return { ...acc, [grant.entity]: grant.grants };
+    }
+  }, {});
 }
 
 export { Knock };
