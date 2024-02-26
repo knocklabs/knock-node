@@ -42,9 +42,9 @@ describe("schedules", () => {
     });
 
     // Formats recipients list as a URL-encoded array
-    // 'http://api.knock.test/v1/schedules?recipients=["1","2","3"]&workflow=test-workflow'
+    // 'http://api.knock.test/v1/schedules?recipients[]=1&recipients[]=2&recipients[]=3&workflow=test-workflow'
     expect(url).toBe(
-      "http://api.knock.test/v1/schedules?recipients=%5B%221%22%2C%222%22%2C%223%22%5D&workflow=test-workflow",
+      "http://api.knock.test/v1/schedules?recipients%5B%5D=1&recipients%5B%5D=2&recipients%5B%5D=3&workflow=test-workflow",
     );
   });
 });

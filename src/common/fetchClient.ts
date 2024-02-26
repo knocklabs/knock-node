@@ -92,10 +92,15 @@ export default class FetchClient {
 
     if (params) {
       Object.entries(params).forEach(([key, value]) => {
-        // Send array values as URL-encoded arrays rather than the default comma-separated list
-        // e.g. key=[1,2,3] instead of key=1,2,3
-        const paramValue = Array.isArray(value) ? JSON.stringify(value) : value;
-        url.searchParams.append(key, paramValue);
+        // Send array values as individual values instead of a comma separated list
+        // e.g. key[]=1&key[]=2&key[]=3 instead of key=1,2,3
+        if (Array.isArray(value)) {
+          for (const val of value) {
+            url.searchParams.append(`${key}[]`, val);
+          }
+        } else {
+          url.searchParams.append(key, value);
+        }
       });
     }
 
