@@ -256,7 +256,7 @@ export function maybePrepareUserTokenGrants(
   if (!grants) return undefined;
 
   // Given a list of token grants, flattens them into a single object
-  // like: { "entity": { "slack_channels/read": [] } }
+  // like: { "entity": { "slack/channels_read": [] } }
   return grants.reduce<Record<string, TokenGrant["grants"]>>((acc, grant) => {
     if (acc[grant.entity]) {
       const currentGrants = acc[grant.entity];
