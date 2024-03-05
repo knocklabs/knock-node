@@ -90,17 +90,32 @@ export default class FetchClient {
   private buildUrl(path: string, params?: FetchRequestConfig["params"]): URL {
     const url = new URL(this.config.baseURL + path);
 
-    if (params) {
-      Object.entries(params).forEach(([key, value]) => {
+    function appendParams(key: string, value: any, parentKey?: string) {
+      const fullKey = parentKey ? `${parentKey}[${key}]` : key;
+
+      if (
+        typeof value === "object" &&
+        value !== null &&
+        !(value instanceof Date) &&
+        !(value instanceof Array)
+      ) {
+        // If value is an object, recurse
+        Object.entries(value).forEach(([nestedKey, nestedValue]) => {
+          appendParams(nestedKey, nestedValue, fullKey);
+        });
+      } else if (Array.isArray(value)) {
         // Send array values as individual values instead of a comma separated list
         // e.g. key[]=1&key[]=2&key[]=3 instead of key=1,2,3
-        if (Array.isArray(value)) {
-          for (const val of value) {
-            url.searchParams.append(`${key}[]`, val);
-          }
-        } else {
-          url.searchParams.append(key, value);
-        }
+        value.forEach((val) => url.searchParams.append(`${fullKey}[]`, val));
+      } else {
+        // For primitive values, simply append them
+        url.searchParams.append(fullKey, value);
+      }
+    }
+
+    if (params) {
+      Object.entries(params).forEach(([key, value]) => {
+        appendParams(key, value);
       });
     }
 
