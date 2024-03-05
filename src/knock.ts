@@ -30,6 +30,7 @@ import {
   TokenGrant,
   TokenGrantOptions,
 } from "./common/userTokens";
+import { Slack } from "./resources/slack";
 
 const DEFAULT_HOSTNAME = "https://api.knock.app";
 
@@ -44,6 +45,7 @@ class Knock {
   readonly objects = new Objects(this);
   readonly messages = new Messages(this);
   readonly tenants = new Tenants(this);
+  readonly slack = new Slack(this);
 
   constructor(readonly key?: string, readonly options: KnockOptions = {}) {
     if (!key) {
