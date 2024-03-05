@@ -136,6 +136,36 @@ await knockClient.users.setChannelData("jhammond", KNOCK_APNS_CHANNEL_ID, {
 await knockClient.users.getChannelData("jhammond", KNOCK_APNS_CHANNEL_ID);
 ```
 
+### Slack
+
+```javascript
+const { Knock } = require("@knocklabs/node");
+const knockClient = new Knock("sk_12345");
+
+const tenantId = "tenant-123";
+const knockSlackChannelId = "7c1e0042-5ef2-411a-a43b-e541acb139ed";
+const queryOptions = {
+  cursor: null,
+  limit: 200,
+  exclude_archived: true,
+  team_id: null,
+  types: "public_channel",
+};
+
+
+// Retrieve a list of Slack channels
+const channelsInput = { tenant: tenantId, knockChannelId: knockSlackChannelId, queryOptions };
+await knockClient.slack.getChannels(channelsInput);
+
+// Check Slack connection
+const authInput = { tenant: tenantId, knockChannelId: knockSlackChannelId }
+await knockClient.slack.authCheck(authInput)
+
+// Revoke access token
+const revokeInput = { tenant: tenantId, knockChannelId: knockSlackChannelId }
+await knockClient.slack.revokeAccessToken(revokeInput)
+```
+
 ### Signing JWTs
 
 When using [enhanced security mode](https://docs.knock.app/client-integration/authenticating-users) (recommended in production), you will need to sign JWTs server-side to authenticate your users.
