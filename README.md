@@ -144,6 +144,8 @@ const knockClient = new Knock("sk_12345");
 
 const tenantId = "tenant-123";
 const knockSlackChannelId = "7c1e0042-5ef2-411a-a43b-e541acb139ed";
+// An optional object containing the query options passed to Slack: 
+// https://api.slack.com/methods/conversations.list#arg_cursor
 const queryOptions = {
   cursor: null,
   limit: 200,
