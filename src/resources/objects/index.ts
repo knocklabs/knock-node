@@ -12,6 +12,7 @@ import {
   BulkAddSubscriptionsOption,
   BulkSetObjectOption,
   DeleteObjectSubscriptionProperties,
+  GetObjectSubscriptionsOptions,
   ListObjectOptions,
   ListObjectSubscriptionsOptions,
   Object,
@@ -353,7 +354,7 @@ export class Objects {
   async getSubscriptions(
     collection: string,
     objectId: string,
-    options: ListObjectSubscriptionsOptions = {},
+    options: GetObjectSubscriptionsOptions = {},
   ): Promise<PaginatedEntriesResponse<ObjectSubscription>> {
     const {
       data,
