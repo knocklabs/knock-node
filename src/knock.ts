@@ -167,7 +167,7 @@ class Knock {
   async delete(path: string, entity: any = {}): Promise<FetchResponse> {
     try {
       return await this.client.delete(path, {
-        params: entity,
+        body: entity,
       });
     } catch (error) {
       this.handleErrorResponse(path, error);
