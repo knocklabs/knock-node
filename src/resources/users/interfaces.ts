@@ -1,4 +1,5 @@
 import { PaginationOptions } from "../../common/interfaces";
+import { ObjectRef } from "../objects/interfaces";
 
 export interface IdentifyProperties {
   name?: string;
@@ -38,4 +39,6 @@ export interface ListUserOptions extends PaginationOptions {
   user_id?: string;
 }
 
-export interface ListSubscriptionsOptions extends PaginationOptions {}
+export interface ListSubscriptionsOptions extends PaginationOptions {
+  objects?: ObjectRef[];
+}

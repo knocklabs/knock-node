@@ -40,7 +40,13 @@ export interface ListObjectOptions extends PaginationOptions {
   name?: string;
 }
 
-export interface ListObjectSubscriptionsOptions extends PaginationOptions {}
+export interface ListObjectSubscriptionsOptions extends PaginationOptions {
+  recipients?: Recipient[];
+}
+
+export interface GetObjectSubscriptionsOptions extends PaginationOptions {
+  objects?: ObjectRef[];
+}
 
 export interface ObjectSubscription<T = CommonMetadata> {
   recipient: User | Object;
