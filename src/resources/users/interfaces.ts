@@ -34,9 +34,7 @@ export interface UserFeedOptions extends PaginationOptions {
 }
 
 export interface ListUserOptions extends PaginationOptions {
-  name?: string;
-  email?: string;
-  user_id?: string;
+  include?: Array<"preferences">;
 }
 
 export interface ListSubscriptionsOptions extends PaginationOptions {
