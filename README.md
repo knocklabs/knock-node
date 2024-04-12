@@ -42,7 +42,7 @@ const { Knock } = require("@knocklabs/node");
 const knockClient = new Knock("sk_12345");
 
 // The key of the workflow (from Knock dashboard)
-await knockClient.notify("dinosaurs-loose", {
+await knockClient.workflows.trigger("dinosaurs-loose", {
   // user id of who performed the action
   actor: "dnedry",
   // list of user ids for who should receive the notification
