@@ -61,4 +61,9 @@ type MessageStatus =
   | "undelivered"
   | "not_sent";
 
-export type MessageEngagementStatus = "seen" | "read" | "archived";
+export type MessageEngagementStatus =
+  | "seen"
+  | "read"
+  | "archived"
+  | "interacted"
+  | "link_clicked";

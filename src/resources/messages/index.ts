@@ -76,7 +76,7 @@ export class Messages {
 
   async setStatus(
     messageId: string,
-    status: MessageEngagementStatus,
+    status: Exclude<MessageEngagementStatus, "link_clicked">,
   ): Promise<Message> {
     if (!messageId) {
       throw new Error(`Incomplete arguments. You must provide a 'messageId'`);
@@ -92,7 +92,7 @@ export class Messages {
 
   async deleteStatus(
     messageId: string,
-    status: MessageEngagementStatus,
+    status: Exclude<MessageEngagementStatus, "link_clicked">,
   ): Promise<Message> {
     if (!messageId) {
       throw new Error(`Incomplete arguments. You must provide a 'messageId'`);
@@ -107,7 +107,11 @@ export class Messages {
 
   async batchSetStatus(
     messageIds: string[],
-    status: MessageEngagementStatus | "unseen" | "unread" | "unarchived",
+    status:
+      | Exclude<MessageEngagementStatus, "link_clicked">
+      | "unseen"
+      | "unread"
+      | "unarchived",
   ): Promise<Message[]> {
     const { data } = await this.knock.post(`/v1/messages/batch/${status}`, {
       message_ids: messageIds,
