@@ -97,6 +97,9 @@ export default class FetchClient {
     function appendParams(key: string, value: any, parentKey?: string) {
       const fullKey = parentKey ? `${parentKey}[${key}]` : key;
 
+      // Skip undefined values
+      if (value === undefined) return;
+
       if (
         typeof value === "object" &&
         value !== null &&
