@@ -98,7 +98,7 @@ export default class FetchClient {
       const fullKey = parentKey ? `${parentKey}[${key}]` : key;
 
       // Skip undefined values
-      if (value === undefined) return url;
+      if (value === undefined) return;
 
       if (
         typeof value === "object" &&
