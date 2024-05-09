@@ -69,7 +69,6 @@ class Knock {
     });
   }
 
-
   /**
    * Delegate the notify function to the workflows trigger
    *
