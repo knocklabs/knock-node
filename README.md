@@ -28,7 +28,7 @@ KNOCK_SIGNING_KEY="S25vY2sga25vY2sh..."
 You can also pass the Knock API key in the constructor. The signing key is passed separately to the `signUserToken` method (see below):
 
 ```javascript
-const { Knock } = require("@knocklabs/node");
+import { Knock } from "@knocklabs/node";
 
 const knockClient = new Knock("sk_12345");
 ```
@@ -38,7 +38,7 @@ const knockClient = new Knock("sk_12345");
 ### Sending notifications (triggering workflows)
 
 ```javascript
-const { Knock } = require("@knocklabs/node");
+import { Knock } from "@knocklabs/node";
 const knockClient = new Knock("sk_12345");
 
 // The key of the workflow (from Knock dashboard)
@@ -62,7 +62,7 @@ await knockClient.workflows.trigger("dinosaurs-loose", {
 ### Canceling workflows
 
 ```javascript
-const { Knock } = require("@knocklabs/node");
+import { Knock } from "@knocklabs/node";
 const knockClient = new Knock("sk_12345");
 
 await knockClient.workflows.cancel("dinosaurs-loose", triggerAlert.id, {
@@ -74,7 +74,7 @@ await knockClient.workflows.cancel("dinosaurs-loose", triggerAlert.id, {
 ### Identifying users
 
 ```javascript
-const { Knock } = require("@knocklabs/node");
+import { Knock } from "@knocklabs/node";
 const knockClient = new Knock("sk_12345");
 
 await knockClient.users.identify("jhammond", {
@@ -86,7 +86,7 @@ await knockClient.users.identify("jhammond", {
 ### Retrieving users
 
 ```javascript
-const { Knock } = require("@knocklabs/node");
+import { Knock } from "@knocklabs/node";
 const knockClient = new Knock("sk_12345");
 
 await knockClient.users.get("jhammond");
@@ -95,7 +95,7 @@ await knockClient.users.get("jhammond");
 ### Deleting users
 
 ```javascript
-const { Knock } = require("@knocklabs/node");
+import { Knock } from "@knocklabs/node";
 const knockClient = new Knock("sk_12345");
 
 await knockClient.users.delete("jhammond");
@@ -104,7 +104,7 @@ await knockClient.users.delete("jhammond");
 ### Preferences
 
 ```javascript
-const { Knock } = require("@knocklabs/node");
+import { Knock } from "@knocklabs/node";
 const knockClient = new Knock("sk_12345");
 
 // Set an entire preference set
@@ -124,7 +124,7 @@ const preferences = await knockClient.users.getPreferences("jhammond");
 ### Getting and setting channel data
 
 ```javascript
-const { Knock } = require("@knocklabs/node");
+import { Knock } from "@knocklabs/node";
 const knockClient = new Knock("sk_12345");
 
 // Setting channel data for an APNS
@@ -139,12 +139,12 @@ await knockClient.users.getChannelData("jhammond", KNOCK_APNS_CHANNEL_ID);
 ### Slack
 
 ```javascript
-const { Knock } = require("@knocklabs/node");
+import { Knock } from "@knocklabs/node";
 const knockClient = new Knock("sk_12345");
 
 const tenantId = "tenant-123";
 const knockSlackChannelId = "7c1e0042-5ef2-411a-a43b-e541acb139ed";
-// An optional object containing the query options passed to Slack: 
+// An optional object containing the query options passed to Slack:
 // https://api.slack.com/methods/conversations.list#arg_cursor
 const queryOptions = {
   cursor: null,
@@ -154,18 +154,21 @@ const queryOptions = {
   types: "public_channel",
 };
 
-
 // Retrieve a list of Slack channels
-const channelsInput = { tenant: tenantId, knockChannelId: knockSlackChannelId, queryOptions };
+const channelsInput = {
+  tenant: tenantId,
+  knockChannelId: knockSlackChannelId,
+  queryOptions,
+};
 await knockClient.slack.getChannels(channelsInput);
 
 // Check Slack connection
-const authInput = { tenant: tenantId, knockChannelId: knockSlackChannelId }
-await knockClient.slack.authCheck(authInput)
+const authInput = { tenant: tenantId, knockChannelId: knockSlackChannelId };
+await knockClient.slack.authCheck(authInput);
 
 // Revoke access token
-const revokeInput = { tenant: tenantId, knockChannelId: knockSlackChannelId }
-await knockClient.slack.revokeAccessToken(revokeInput)
+const revokeInput = { tenant: tenantId, knockChannelId: knockSlackChannelId };
+await knockClient.slack.revokeAccessToken(revokeInput);
 ```
 
 ### Signing JWTs
@@ -175,7 +178,7 @@ When using [enhanced security mode](https://docs.knock.app/client-integration/au
 You will need to generate an environment specific signing key in the Knock dashboard under "API Keys", and then enable enhanced security mode for your environment.
 
 ```javascript
-const { Knock } = require("@knocklabs/node");
+import { Knock } from "@knocklabs/node";
 
 // When signing user tokens, you do not need to instantiate a Knock client.
 
