@@ -69,7 +69,11 @@ class Knock {
     });
   }
 
-  // Delegate the notify function to the workflows trigger
+  /**
+   * Delegate the notify function to the workflows trigger
+   *
+   * @deprecated use workflows.trigger instead.
+   */
   async notify(
     workflowKey: string,
     properties: TriggerWorkflowProperties,
