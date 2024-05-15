@@ -43,6 +43,7 @@ export interface ListMessagesOptions extends PaginationOptions {
   status?: MessageStatus[];
   channel_id?: string;
   trigger_data?: Record<string, any>;
+  workflow_categories?: String[];
 }
 
 export interface ListMessageActivitiesOptions extends PaginationOptions {
