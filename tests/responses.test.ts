@@ -1,5 +1,5 @@
-import { createResponseHeaders } from 'petstore/core';
-import { Headers } from 'petstore/_shims/index';
+import { createResponseHeaders } from 'knock/core';
+import { Headers } from 'knock/_shims/index';
 
 describe('response parsing', () => {
   // TODO: test unicode characters

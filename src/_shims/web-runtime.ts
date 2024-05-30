@@ -9,9 +9,9 @@ export function getRuntime({ manuallyImported }: { manuallyImported?: boolean } 
   const recommendation =
     manuallyImported ?
       `You may need to use polyfills`
-    : `Add one of these imports before your first \`import … from 'petstore'\`:
-- \`import 'petstore/shims/node'\` (if you're running on Node)
-- \`import 'petstore/shims/web'\` (otherwise)
+    : `Add one of these imports before your first \`import … from 'knock'\`:
+- \`import 'knock/shims/node'\` (if you're running on Node)
+- \`import 'knock/shims/web'\` (otherwise)
 `;
 
   let _fetch, _Request, _Response, _Headers;

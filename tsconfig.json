@@ -9,9 +9,9 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-      "petstore/_shims/auto/*": ["src/_shims/auto/*-node"],
-      "petstore/*": ["src/*"],
-      "petstore": ["src/index.ts"],
+      "knock/_shims/auto/*": ["src/_shims/auto/*-node"],
+      "knock/*": ["src/*"],
+      "knock": ["src/index.ts"],
     },
     "noEmit": true,
 

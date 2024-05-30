@@ -4,19 +4,18 @@ import * as Core from './core';
 import * as Errors from './error';
 import { type Agent } from './_shims/index';
 import * as Uploads from './uploads';
-import * as qs from 'qs';
 import * as API from './resources/index';
 
 export interface ClientOptions {
   /**
-   * Defaults to process.env['PETSTORE_API_KEY'].
+   * Defaults to process.env['KNOCK_TOKEN'].
    */
-  apiKey?: string | undefined;
+  token?: string | undefined;
 
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
-   * Defaults to process.env['PETSTORE_BASE_URL'].
+   * Defaults to process.env['KNOCK_BASE_URL'].
    */
   baseURL?: string | null | undefined;
 
@@ -70,17 +69,17 @@ export interface ClientOptions {
   defaultQuery?: Core.DefaultQuery;
 }
 
-/** API Client for interfacing with the Petstore API. */
-export class Petstore extends Core.APIClient {
-  apiKey: string;
+/** API Client for interfacing with the Knock API. */
+export class Knock extends Core.APIClient {
+  token: string;
 
   private _options: ClientOptions;
 
   /**
-   * API Client for interfacing with the Petstore API.
+   * API Client for interfacing with the Knock API.
    *
-   * @param {string | undefined} [opts.apiKey=process.env['PETSTORE_API_KEY'] ?? undefined]
-   * @param {string} [opts.baseURL=process.env['PETSTORE_BASE_URL'] ?? https://petstore3.swagger.io/api/v3] - Override the default base URL for the API.
+   * @param {string | undefined} [opts.token=process.env['KNOCK_TOKEN'] ?? undefined]
+   * @param {string} [opts.baseURL=process.env['KNOCK_BASE_URL'] ?? https://api.knock.app] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {number} [opts.httpAgent] - An HTTP agent used to manage HTTP(s) connections.
    * @param {Core.Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -89,20 +88,20 @@ export class Petstore extends Core.APIClient {
    * @param {Core.DefaultQuery} opts.defaultQuery - Default query parameters to include with every request to the API.
    */
   constructor({
-    baseURL = Core.readEnv('PETSTORE_BASE_URL'),
-    apiKey = Core.readEnv('PETSTORE_API_KEY'),
+    baseURL = Core.readEnv('KNOCK_BASE_URL'),
+    token = Core.readEnv('KNOCK_TOKEN'),
     ...opts
   }: ClientOptions = {}) {
-    if (apiKey === undefined) {
-      throw new Errors.PetstoreError(
-        "The PETSTORE_API_KEY environment variable is missing or empty; either provide it, or instantiate the Petstore client with an apiKey option, like new Petstore({ apiKey: 'My API Key' }).",
+    if (token === undefined) {
+      throw new Errors.KnockError(
+        "The KNOCK_TOKEN environment variable is missing or empty; either provide it, or instantiate the Knock client with an token option, like new Knock({ token: 'My Token' }).",
       );
     }
 
     const options: ClientOptions = {
-      apiKey,
+      token,
       ...opts,
-      baseURL: baseURL || `https://petstore3.swagger.io/api/v3`,
+      baseURL: baseURL || `https://api.knock.app`,
     };
 
     super({
@@ -114,12 +113,10 @@ export class Petstore extends Core.APIClient {
     });
     this._options = options;
 
-    this.apiKey = apiKey;
+    this.token = token;
   }
 
-  pets: API.Pets = new API.Pets(this);
-  store: API.Store = new API.Store(this);
-  user: API.UserResource = new API.UserResource(this);
+  users: API.Users = new API.Users(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -133,16 +130,12 @@ export class Petstore extends Core.APIClient {
   }
 
   protected override authHeaders(opts: Core.FinalRequestOptions): Core.Headers {
-    return { api_key: this.apiKey };
+    return { Authorization: `Bearer ${this.token}` };
   }
 
-  protected override stringifyQuery(query: Record<string, unknown>): string {
-    return qs.stringify(query, { arrayFormat: 'comma' });
-  }
+  static Knock = this;
 
-  static Petstore = this;
-
-  static PetstoreError = Errors.PetstoreError;
+  static KnockError = Errors.KnockError;
   static APIError = Errors.APIError;
   static APIConnectionError = Errors.APIConnectionError;
   static APIConnectionTimeoutError = Errors.APIConnectionTimeoutError;
@@ -161,7 +154,7 @@ export class Petstore extends Core.APIClient {
 }
 
 export const {
-  PetstoreError,
+  KnockError,
   APIError,
   APIConnectionError,
   APIConnectionTimeoutError,
@@ -179,34 +172,16 @@ export const {
 export import toFile = Uploads.toFile;
 export import fileFromPath = Uploads.fileFromPath;
 
-export namespace Petstore {
+export namespace Knock {
   export import RequestOptions = Core.RequestOptions;
 
-  export import Pets = API.Pets;
-  export import APIResponse = API.APIResponse;
-  export import Pet = API.Pet;
-  export import PetFindByStatusResponse = API.PetFindByStatusResponse;
-  export import PetFindByTagsResponse = API.PetFindByTagsResponse;
-  export import PetCreateParams = API.PetCreateParams;
-  export import PetUpdateParams = API.PetUpdateParams;
-  export import PetFindByStatusParams = API.PetFindByStatusParams;
-  export import PetFindByTagsParams = API.PetFindByTagsParams;
-  export import PetUpdateByIDParams = API.PetUpdateByIDParams;
-  export import PetUploadImageParams = API.PetUploadImageParams;
-
-  export import Store = API.Store;
-  export import StoreInventoryResponse = API.StoreInventoryResponse;
-  export import StoreCreateOrderParams = API.StoreCreateOrderParams;
-
-  export import UserResource = API.UserResource;
+  export import Users = API.Users;
   export import User = API.User;
-  export import UserLoginResponse = API.UserLoginResponse;
-  export import UserCreateParams = API.UserCreateParams;
+  export import UserListResponse = API.UserListResponse;
+  export import UserDeleteResponse = API.UserDeleteResponse;
   export import UserUpdateParams = API.UserUpdateParams;
-  export import UserCreateWithListParams = API.UserCreateWithListParams;
-  export import UserLoginParams = API.UserLoginParams;
-
-  export import Order = API.Order;
+  export import UserListParams = API.UserListParams;
+  export import UserMergeParams = API.UserMergeParams;
 }
 
-export default Petstore;
+export default Knock;

@@ -55,12 +55,12 @@ cd knock-node
 # With yarn
 yarn link
 cd ../my-package
-yarn link petstore
+yarn link knock
 
 # With pnpm
 pnpm link --global
 cd ../my-package
-pnpm link -—global petstore
+pnpm link -—global knock
 ```
 
 ## Running tests

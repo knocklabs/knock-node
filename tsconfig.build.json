@@ -5,8 +5,8 @@
   "compilerOptions": {
     "rootDir": "./dist/src",
     "paths": {
-      "petstore/*": ["dist/src/*"],
-      "petstore": ["dist/src/index.ts"],
+      "knock/*": ["dist/src/*"],
+      "knock": ["dist/src/index.ts"],
     },
     "noEmit": false,
     "declaration": true,

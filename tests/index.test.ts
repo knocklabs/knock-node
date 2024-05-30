@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Petstore from 'petstore';
-import { APIUserAbortError } from 'petstore';
-import { Headers } from 'petstore/core';
+import Knock from 'knock';
+import { APIUserAbortError } from 'knock';
+import { Headers } from 'knock/core';
 import defaultFetch, { Response, type RequestInit, type RequestInfo } from 'node-fetch';
 
 describe('instantiate client', () => {
@@ -20,10 +20,10 @@ describe('instantiate client', () => {
   });
 
   describe('defaultHeaders', () => {
-    const client = new Petstore({
+    const client = new Knock({
       baseURL: 'http://localhost:5000/',
       defaultHeaders: { 'X-My-Default-Header': '2' },
-      apiKey: 'My API Key',
+      token: 'My Token',
     });
 
     test('they are used in the request', () => {
@@ -52,37 +52,37 @@ describe('instantiate client', () => {
 
   describe('defaultQuery', () => {
     test('with null query params given', () => {
-      const client = new Petstore({
+      const client = new Knock({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo' },
-        apiKey: 'My API Key',
+        token: 'My Token',
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/foo?apiVersion=foo');
     });
 
     test('multiple default query params', () => {
-      const client = new Petstore({
+      const client = new Knock({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo', hello: 'world' },
-        apiKey: 'My API Key',
+        token: 'My Token',
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/foo?apiVersion=foo&hello=world');
     });
 
     test('overriding with `undefined`', () => {
-      const client = new Petstore({
+      const client = new Knock({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { hello: 'world' },
-        apiKey: 'My API Key',
+        token: 'My Token',
       });
       expect(client.buildURL('/foo', { hello: undefined })).toEqual('http://localhost:5000/foo');
     });
   });
 
   test('custom fetch', async () => {
-    const client = new Petstore({
+    const client = new Knock({
       baseURL: 'http://localhost:5000/',
-      apiKey: 'My API Key',
+      token: 'My Token',
       fetch: (url) => {
         return Promise.resolve(
           new Response(JSON.stringify({ url, custom: true }), {
@@ -97,9 +97,9 @@ describe('instantiate client', () => {
   });
 
   test('custom signal', async () => {
-    const client = new Petstore({
+    const client = new Knock({
       baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-      apiKey: 'My API Key',
+      token: 'My Token',
       fetch: (...args) => {
         return new Promise((resolve, reject) =>
           setTimeout(
@@ -124,69 +124,69 @@ describe('instantiate client', () => {
 
   describe('baseUrl', () => {
     test('trailing slash', () => {
-      const client = new Petstore({ baseURL: 'http://localhost:5000/custom/path/', apiKey: 'My API Key' });
+      const client = new Knock({ baseURL: 'http://localhost:5000/custom/path/', token: 'My Token' });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/custom/path/foo');
     });
 
     test('no trailing slash', () => {
-      const client = new Petstore({ baseURL: 'http://localhost:5000/custom/path', apiKey: 'My API Key' });
+      const client = new Knock({ baseURL: 'http://localhost:5000/custom/path', token: 'My Token' });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/custom/path/foo');
     });
 
     afterEach(() => {
-      process.env['PETSTORE_BASE_URL'] = undefined;
+      process.env['KNOCK_BASE_URL'] = undefined;
     });
 
     test('explicit option', () => {
-      const client = new Petstore({ baseURL: 'https://example.com', apiKey: 'My API Key' });
+      const client = new Knock({ baseURL: 'https://example.com', token: 'My Token' });
       expect(client.baseURL).toEqual('https://example.com');
     });
 
     test('env variable', () => {
-      process.env['PETSTORE_BASE_URL'] = 'https://example.com/from_env';
-      const client = new Petstore({ apiKey: 'My API Key' });
+      process.env['KNOCK_BASE_URL'] = 'https://example.com/from_env';
+      const client = new Knock({ token: 'My Token' });
       expect(client.baseURL).toEqual('https://example.com/from_env');
     });
 
     test('empty env variable', () => {
-      process.env['PETSTORE_BASE_URL'] = ''; // empty
-      const client = new Petstore({ apiKey: 'My API Key' });
-      expect(client.baseURL).toEqual('https://petstore3.swagger.io/api/v3');
+      process.env['KNOCK_BASE_URL'] = ''; // empty
+      const client = new Knock({ token: 'My Token' });
+      expect(client.baseURL).toEqual('https://api.knock.app');
     });
 
     test('blank env variable', () => {
-      process.env['PETSTORE_BASE_URL'] = '  '; // blank
-      const client = new Petstore({ apiKey: 'My API Key' });
-      expect(client.baseURL).toEqual('https://petstore3.swagger.io/api/v3');
+      process.env['KNOCK_BASE_URL'] = '  '; // blank
+      const client = new Knock({ token: 'My Token' });
+      expect(client.baseURL).toEqual('https://api.knock.app');
     });
   });
 
   test('maxRetries option is correctly set', () => {
-    const client = new Petstore({ maxRetries: 4, apiKey: 'My API Key' });
+    const client = new Knock({ maxRetries: 4, token: 'My Token' });
     expect(client.maxRetries).toEqual(4);
 
     // default
-    const client2 = new Petstore({ apiKey: 'My API Key' });
+    const client2 = new Knock({ token: 'My Token' });
     expect(client2.maxRetries).toEqual(2);
   });
 
   test('with environment variable arguments', () => {
     // set options via env var
-    process.env['PETSTORE_API_KEY'] = 'My API Key';
-    const client = new Petstore();
-    expect(client.apiKey).toBe('My API Key');
+    process.env['KNOCK_TOKEN'] = 'My Token';
+    const client = new Knock();
+    expect(client.token).toBe('My Token');
   });
 
   test('with overriden environment variable arguments', () => {
     // set options via env var
-    process.env['PETSTORE_API_KEY'] = 'another My API Key';
-    const client = new Petstore({ apiKey: 'My API Key' });
-    expect(client.apiKey).toBe('My API Key');
+    process.env['KNOCK_TOKEN'] = 'another My Token';
+    const client = new Knock({ token: 'My Token' });
+    expect(client.token).toBe('My Token');
   });
 });
 
 describe('request building', () => {
-  const client = new Petstore({ apiKey: 'My API Key' });
+  const client = new Knock({ token: 'My Token' });
 
   describe('Content-Length', () => {
     test('handles multi-byte characters', () => {
@@ -228,7 +228,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new Petstore({ apiKey: 'My API Key', timeout: 10, fetch: testFetch });
+    const client = new Knock({ token: 'My Token', timeout: 10, fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
@@ -255,7 +255,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new Petstore({ apiKey: 'My API Key', fetch: testFetch });
+    const client = new Knock({ token: 'My Token', fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
@@ -282,7 +282,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new Petstore({ apiKey: 'My API Key', fetch: testFetch });
+    const client = new Knock({ token: 'My Token', fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);

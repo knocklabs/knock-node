@@ -42,13 +42,11 @@ export let isFsReadStream: Shims['isFsReadStream'] | undefined = undefined;
 export function setShims(shims: Shims, options: { auto: boolean } = { auto: false }) {
   if (auto) {
     throw new Error(
-      `you must \`import 'petstore/shims/${shims.kind}'\` before importing anything else from petstore`,
+      `you must \`import 'knock/shims/${shims.kind}'\` before importing anything else from knock`,
     );
   }
   if (kind) {
-    throw new Error(
-      `can't \`import 'petstore/shims/${shims.kind}'\` after \`import 'petstore/shims/${kind}'\``,
-    );
+    throw new Error(`can't \`import 'knock/shims/${shims.kind}'\` after \`import 'knock/shims/${kind}'\``);
   }
   auto = options.auto;
   kind = shims.kind;

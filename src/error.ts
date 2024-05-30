@@ -2,9 +2,9 @@
 
 import { castToError, Headers } from './core';
 
-export class PetstoreError extends Error {}
+export class KnockError extends Error {}
 
-export class APIError extends PetstoreError {
+export class APIError extends KnockError {
   readonly status: number | undefined;
   readonly headers: Headers | undefined;
   readonly error: Object | undefined;

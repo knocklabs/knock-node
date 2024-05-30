@@ -1,6 +1,6 @@
-import { multipartFormRequestOptions, createForm } from 'petstore/core';
-import { Blob } from 'petstore/_shims/index';
-import { toFile } from 'petstore';
+import { multipartFormRequestOptions, createForm } from 'knock/core';
+import { Blob } from 'knock/_shims/index';
+import { toFile } from 'knock';
 
 describe('form data validation', () => {
   test('valid values do not error', async () => {
