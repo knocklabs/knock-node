@@ -1,6 +1,6 @@
 # Knock Node.js library
 
-Knock API access for applications written in server-side Javascript. This package is compatible with the Vercel Edge runtime.
+Knock API access for applications written in server-side Javascript. This package is compatible with the [Vercel Edge runtime](https://vercel.com/docs/functions/runtimes/edge-runtime) and with [Cloudflare Workers](https://developers.cloudflare.com/workers/).
 
 ## Documentation
 
