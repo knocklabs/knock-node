@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from './core';
 import * as Errors from './error';
-import { type Agent } from './_shims/index';
 import * as Uploads from './uploads';
+import { type Agent } from './_shims/index';
+import * as Core from './core';
 import * as API from './resources/index';
 
 export interface ClientOptions {
@@ -69,7 +69,9 @@ export interface ClientOptions {
   defaultQuery?: Core.DefaultQuery;
 }
 
-/** API Client for interfacing with the Knock API. */
+/**
+ * API Client for interfacing with the Knock API.
+ */
 export class Knock extends Core.APIClient {
   token: string;
 
@@ -111,6 +113,7 @@ export class Knock extends Core.APIClient {
       maxRetries: options.maxRetries,
       fetch: options.fetch,
     });
+
     this._options = options;
 
     this.token = token;
@@ -134,6 +137,7 @@ export class Knock extends Core.APIClient {
   }
 
   static Knock = this;
+  static DEFAULT_TIMEOUT = 60000; // 1 minute
 
   static KnockError = Errors.KnockError;
   static APIError = Errors.APIError;

@@ -4,7 +4,7 @@
 
 This library provides convenient access to the Knock REST API from server-side TypeScript or JavaScript.
 
-The REST API documentation can be found [on docs.knock.com](https://docs.knock.com). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [docs.knock.com](https://docs.knock.com). The full API of this library can be found in [api.md](api.md).
 
 It is generated with [Stainless](https://www.stainlessapi.com/).
 
@@ -25,10 +25,10 @@ The full API of this library can be found in [api.md](api.md).
 ```js
 import Knock from 'knock';
 
-const knock = new Knock();
+const client = new Knock();
 
 async function main() {
-  const user = await knock.users.get('REPLACE_ME');
+  const user = await client.users.get('REPLACE_ME');
 
   console.log(user.id);
 }
@@ -44,10 +44,10 @@ This library includes TypeScript definitions for all request params and response
 ```ts
 import Knock from 'knock';
 
-const knock = new Knock();
+const client = new Knock();
 
 async function main() {
-  const user: Knock.User = await knock.users.get('REPLACE_ME');
+  const user: Knock.User = await client.users.get('REPLACE_ME');
 }
 
 main();
@@ -64,7 +64,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const user = await knock.users.get('REPLACE_ME').catch(async (err) => {
+  const user = await client.users.get('REPLACE_ME').catch(async (err) => {
     if (err instanceof Knock.APIError) {
       console.log(err.status); // 400
       console.log(err.name); // BadRequestError
@@ -102,12 +102,12 @@ You can use the `maxRetries` option to configure or disable this:
 <!-- prettier-ignore -->
 ```js
 // Configure the default for all requests:
-const knock = new Knock({
+const client = new Knock({
   maxRetries: 0, // default is 2
 });
 
 // Or, configure per-request:
-await knock.users.get('REPLACE_ME', {
+await client.users.get('REPLACE_ME', {
   maxRetries: 5,
 });
 ```
@@ -119,12 +119,12 @@ Requests time out after 1 minute by default. You can configure this with a `time
 <!-- prettier-ignore -->
 ```ts
 // Configure the default for all requests:
-const knock = new Knock({
+const client = new Knock({
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
 });
 
 // Override per-request:
-await knock.users.get('REPLACE_ME', {
+await client.users.get('REPLACE_ME', {
   timeout: 5 * 1000,
 });
 ```
@@ -143,13 +143,13 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 
 <!-- prettier-ignore -->
 ```ts
-const knock = new Knock();
+const client = new Knock();
 
-const response = await knock.users.get('REPLACE_ME').asResponse();
+const response = await client.users.get('REPLACE_ME').asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: user, response: raw } = await knock.users.get('REPLACE_ME').withResponse();
+const { data: user, response: raw } = await client.users.get('REPLACE_ME').withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(user.id);
 ```
@@ -250,12 +250,12 @@ import http from 'http';
 import { HttpsProxyAgent } from 'https-proxy-agent';
 
 // Configure the default for all requests:
-const knock = new Knock({
+const client = new Knock({
   httpAgent: new HttpsProxyAgent(process.env.PROXY_URL),
 });
 
 // Override per-request:
-await knock.users.get('REPLACE_ME', {
+await client.users.get('REPLACE_ME', {
   httpAgent: new http.Agent({ keepAlive: false }),
 });
 ```
@@ -278,14 +278,10 @@ TypeScript >= 4.5 is supported.
 
 The following runtimes are supported:
 
-- Node.js 18 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
-- Deno v1.28.0 or higher, using `import Knock from "npm:knock"`.
-- Bun 1.0 or later.
-- Cloudflare Workers.
-- Vercel Edge Runtime.
-- Jest 28 or greater with the `"node"` environment (`"jsdom"` is not supported at this time).
-- Nitro v2.6 or greater.
-
 Note that React Native is not supported at this time.
 
 If you are interested in other runtime environments, please open or upvote an issue on GitHub.
+
+## Contributing
+
+See [the contributing documentation](./CONTRIBUTING.md).
