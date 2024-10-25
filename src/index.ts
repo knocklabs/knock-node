@@ -177,15 +177,15 @@ export import toFile = Uploads.toFile;
 export import fileFromPath = Uploads.fileFromPath;
 
 export namespace Knock {
-  export import RequestOptions = Core.RequestOptions;
+  export type RequestOptions = Core.RequestOptions;
 
   export import Users = API.Users;
-  export import User = API.User;
-  export import UserListResponse = API.UserListResponse;
-  export import UserDeleteResponse = API.UserDeleteResponse;
-  export import UserUpdateParams = API.UserUpdateParams;
-  export import UserListParams = API.UserListParams;
-  export import UserMergeParams = API.UserMergeParams;
+  export type User = API.User;
+  export type UserListResponse = API.UserListResponse;
+  export type UserDeleteResponse = API.UserDeleteResponse;
+  export type UserUpdateParams = API.UserUpdateParams;
+  export type UserListParams = API.UserListParams;
+  export type UserMergeParams = API.UserMergeParams;
 }
 
 export default Knock;
