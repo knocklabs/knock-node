@@ -703,10 +703,10 @@ export interface UserMergeParams {
 }
 
 export namespace Users {
-  export type User = UsersAPI.User;
-  export type UserListResponse = UsersAPI.UserListResponse;
-  export type UserDeleteResponse = UsersAPI.UserDeleteResponse;
-  export type UserUpdateParams = UsersAPI.UserUpdateParams;
-  export type UserListParams = UsersAPI.UserListParams;
-  export type UserMergeParams = UsersAPI.UserMergeParams;
+  export import User = UsersAPI.User;
+  export import UserListResponse = UsersAPI.UserListResponse;
+  export import UserDeleteResponse = UsersAPI.UserDeleteResponse;
+  export import UserUpdateParams = UsersAPI.UserUpdateParams;
+  export import UserListParams = UsersAPI.UserListParams;
+  export import UserMergeParams = UsersAPI.UserMergeParams;
 }
