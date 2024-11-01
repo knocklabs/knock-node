@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as UsersAPI from './users';
 
 export class Users extends APIResource {
   /**
@@ -702,11 +701,13 @@ export interface UserMergeParams {
   from_user_id?: string;
 }
 
-export namespace Users {
-  export import User = UsersAPI.User;
-  export import UserListResponse = UsersAPI.UserListResponse;
-  export import UserDeleteResponse = UsersAPI.UserDeleteResponse;
-  export import UserUpdateParams = UsersAPI.UserUpdateParams;
-  export import UserListParams = UsersAPI.UserListParams;
-  export import UserMergeParams = UsersAPI.UserMergeParams;
+export declare namespace Users {
+  export {
+    type User as User,
+    type UserListResponse as UserListResponse,
+    type UserDeleteResponse as UserDeleteResponse,
+    type UserUpdateParams as UserUpdateParams,
+    type UserListParams as UserListParams,
+    type UserMergeParams as UserMergeParams,
+  };
 }

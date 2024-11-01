@@ -11,7 +11,7 @@
     "paths": {
       "knock/_shims/auto/*": ["src/_shims/auto/*-node"],
       "knock/*": ["src/*"],
-      "knock": ["src/index.ts"],
+      "knock": ["src/index.ts"]
     },
     "noEmit": true,
 
