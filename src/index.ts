@@ -166,6 +166,22 @@ export class Knock extends Core.APIClient {
   static fileFromPath = Uploads.fileFromPath;
 }
 
+Knock.Users = Users;
+export declare namespace Knock {
+  export type RequestOptions = Core.RequestOptions;
+
+  export {
+    Users as Users,
+    type User as User,
+    type UserListResponse as UserListResponse,
+    type UserDeleteResponse as UserDeleteResponse,
+    type UserUpdateParams as UserUpdateParams,
+    type UserListParams as UserListParams,
+    type UserMergeParams as UserMergeParams,
+  };
+}
+
+export { toFile, fileFromPath } from 'knock/uploads';
 export {
   KnockError,
   APIError,
@@ -180,25 +196,6 @@ export {
   InternalServerError,
   PermissionDeniedError,
   UnprocessableEntityError,
-} from './error';
-
-export import toFile = Uploads.toFile;
-export import fileFromPath = Uploads.fileFromPath;
-
-Knock.Users = Users;
-
-export declare namespace Knock {
-  export type RequestOptions = Core.RequestOptions;
-
-  export {
-    Users as Users,
-    type User as User,
-    type UserListResponse as UserListResponse,
-    type UserDeleteResponse as UserDeleteResponse,
-    type UserUpdateParams as UserUpdateParams,
-    type UserListParams as UserListParams,
-    type UserMergeParams as UserMergeParams,
-  };
-}
+} from 'knock/error';
 
 export default Knock;
