@@ -25,9 +25,9 @@ export interface SetPreferencesProperties {
 
 export interface PreferenceSet {
   id: string;
-  categories: WorkflowPreferences;
-  workflows: WorkflowPreferences;
-  channel_types: ChannelTypePreferences;
+  categories: WorkflowPreferences | null;
+  workflows: WorkflowPreferences | null;
+  channel_types: ChannelTypePreferences | null;
 }
 
 export interface PreferenceOptions {
