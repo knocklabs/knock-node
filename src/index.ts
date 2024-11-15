@@ -181,7 +181,7 @@ export declare namespace Knock {
   };
 }
 
-export { toFile, fileFromPath } from 'knock/uploads';
+export { toFile, fileFromPath } from './uploads';
 export {
   KnockError,
   APIError,
@@ -196,6 +196,6 @@ export {
   InternalServerError,
   PermissionDeniedError,
   UnprocessableEntityError,
-} from 'knock/error';
+} from './error';
 
 export default Knock;
