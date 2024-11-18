@@ -41,9 +41,15 @@ export interface ListMessagesOptions extends PaginationOptions {
   source?: string;
   tenant?: string;
   status?: MessageStatus[];
+  engagement_status?: MessageEngagementStatusFilter[];
   channel_id?: string;
+  message_ids?: string[];
   trigger_data?: Record<string, any>;
   workflow_categories?: String[];
+  "inserted_at.gt"?: string;
+  "inserted_at.gte"?: string;
+  "inserted_at.lt"?: string;
+  "inserted_at.lte"?: string;
 }
 
 export interface ListMessageActivitiesOptions extends PaginationOptions {
@@ -60,7 +66,9 @@ type MessageStatus =
   | "sent"
   | "delivered"
   | "undelivered"
-  | "not_sent";
+  | "not_sent"
+  | "delivery_attempted"
+  | "bounced";
 
 export type MessageEngagementStatus =
   | "seen"
@@ -68,3 +76,9 @@ export type MessageEngagementStatus =
   | "archived"
   | "interacted"
   | "link_clicked";
+
+type MessageEngagementStatusFilter =
+  | MessageEngagementStatus
+  | "unseen"
+  | "unread"
+  | "unarchived";
