@@ -36,7 +36,7 @@ export interface BulkAddSubscriptionsOption<T = CommonMetadata> {
 }
 
 export interface ListObjectOptions extends PaginationOptions {
-  include?: Array<"preferences">;
+  include?: "preferences"[];
 }
 
 export interface ListObjectSubscriptionsOptions extends PaginationOptions {

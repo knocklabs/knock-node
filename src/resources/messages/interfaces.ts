@@ -45,7 +45,7 @@ export interface ListMessagesOptions extends PaginationOptions {
   channel_id?: string;
   message_ids?: string[];
   trigger_data?: Record<string, any>;
-  workflow_categories?: String[];
+  workflow_categories?: string[];
   "inserted_at.gt"?: string;
   "inserted_at.gte"?: string;
   "inserted_at.lt"?: string;

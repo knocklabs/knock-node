@@ -27,7 +27,7 @@ const defaultConfig: FetchClientConfig = {
   headers: {},
 };
 
-export default class FetchClient {
+export class FetchClient {
   config: FetchClientConfig;
 
   constructor(config?: FetchClientConfig) {
