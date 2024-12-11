@@ -24,7 +24,7 @@ import { BulkOperations } from "./resources/bulk_operations";
 import { Objects } from "./resources/objects";
 import { Messages } from "./resources/messages";
 import { Tenants } from "./resources/tenants";
-import FetchClient, { FetchResponse } from "./common/fetchClient";
+import { FetchClient, FetchResponse } from "./common/fetchClient";
 import {
   TokenEntity,
   TokenGrant,
@@ -87,8 +87,10 @@ class Knock {
    * For more information, visit https://docs.knock.app/in-app-ui/security-and-authentication#authentication-with-enhanced-security-enabled
    *
    * @param userId {string} The ID of the user that needs a token, e.g. the user viewing an in-app feed.
-   * @param options Optionally specify the signing key to use (in PEM or base-64 encoded format), and how long the token should be valid for in seconds
-   * @returns {Promise<string>} A JWT token that can be used to authenticate requests to the Knock API (e.g. by passing into the <KnockFeedProvider /> component)
+   * @param options Optionally specify the signing key to use (in PEM or base-64 encoded format),
+   *                and how long the token should be valid for in seconds
+   * @returns {Promise<string>} A JWT token that can be used to authenticate requests to the Knock API
+   *                           (e.g. by passing into the <KnockFeedProvider /> component)
    */
   static async signUserToken(userId: string, options?: SignUserTokenOptions) {
     const signingKey = prepareSigningKey(options?.signingKey);
