@@ -177,7 +177,7 @@ describe('instantiate client', () => {
     expect(client.token).toBe('My Token');
   });
 
-  test('with overriden environment variable arguments', () => {
+  test('with overridden environment variable arguments', () => {
     // set options via env var
     process.env['KNOCK_TOKEN'] = 'another My Token';
     const client = new Knock({ token: 'My Token' });
