@@ -1,5 +1,6 @@
 export enum Grants {
   SlackChannelsRead = "slack/channels_read",
+  MsTeamsChannelsRead = "ms_teams/channels_read",
   ChannelDataRead = "channel_data/read",
   ChannelDataWrite = "channel_data/write",
   UserFeedRead = "user/feed_read",
