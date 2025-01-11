@@ -31,10 +31,7 @@ export class Users extends APIResource {
    * Deletes a user
    */
   delete(userId: string, options?: Core.RequestOptions): Core.APIPromise<string> {
-    return this._client.delete(`/v1/users/${userId}`, {
-      ...options,
-      headers: { Accept: 'application/json', ...options?.headers },
-    });
+    return this._client.delete(`/v1/users/${userId}`, options);
   }
 
   /**
