@@ -49,6 +49,7 @@ export interface CreateSchedulesProps {
   recipients: (Recipient | RecipientWithUpsert)[];
   actor?: Recipient | RecipientWithUpsert | null;
   scheduled_at?: string;
+  ending_at?: string;
   repeats?: ScheduleRepeatProperties[];
   tenant?: Tenant | TenantWithUpsert | null;
   data?: { [key: string]: any };
@@ -80,6 +81,7 @@ export interface Schedule {
   inserted_at: string;
   updated_at: string;
   repeats: ScheduleRepeatProperties[];
+  ending_at?: string | null;
 
   // only when paginating
   __cursor?: string;
