@@ -1,12 +1,9 @@
-import { SignJWT, importPKCS8 } from "jose";
-
 import { version } from "../package.json";
 
 import {
   BadRequestException,
   GenericServerException,
   NoApiKeyProvidedException,
-  NoSigningKeyProvidedException,
   NotFoundException,
   UnauthorizedException,
   UnprocessableEntityException,
@@ -14,7 +11,6 @@ import {
 import {
   KnockOptions,
   PostAndPutOptions,
-  SignUserTokenOptions,
   MethodOptions,
 } from "./common/interfaces";
 import { Users } from "./resources/users";
@@ -31,6 +27,7 @@ import {
   TokenGrantOptions,
 } from "./common/userTokens";
 import { Slack } from "./resources/slack";
+import { signUserToken } from "./sign-user-token";
 
 const DEFAULT_HOSTNAME = "https://api.knock.app";
 
@@ -90,27 +87,7 @@ class Knock {
    * @param options Optionally specify the signing key to use (in PEM or base-64 encoded format), and how long the token should be valid for in seconds
    * @returns {Promise<string>} A JWT token that can be used to authenticate requests to the Knock API (e.g. by passing into the <KnockFeedProvider /> component)
    */
-  static async signUserToken(userId: string, options?: SignUserTokenOptions) {
-    const signingKey = prepareSigningKey(options?.signingKey);
-
-    // JWT NumericDates specified in seconds:
-    const currentTime = Math.floor(Date.now() / 1000);
-
-    // Default to 1 hour from now
-    const expireInSeconds = options?.expiresInSeconds ?? 60 * 60;
-
-    // Convert string key to a Crypto-API compatible KeyLike
-    const keyLike = await importPKCS8(signingKey, "RS256");
-
-    return await new SignJWT({
-      sub: userId,
-      grants: maybePrepareUserTokenGrants(options?.grants),
-      iat: currentTime,
-      exp: currentTime + expireInSeconds,
-    })
-      .setProtectedHeader({ alg: "RS256", typ: "JWT" })
-      .sign(keyLike);
-  }
+  static signUserToken = signUserToken;
 
   /**
    * Helper function to build user token grants to pass to the `signUserToken` method.
@@ -234,17 +211,6 @@ class Knock {
   }
 }
 
-function prepareSigningKey(key?: string): string {
-  const maybeSigningKey = key ?? process.env.KNOCK_SIGNING_KEY;
-  if (!maybeSigningKey) throw new NoSigningKeyProvidedException();
-  if (maybeSigningKey.startsWith("-----BEGIN")) return maybeSigningKey;
-  // LS0tLS1CRUdJTi is the base64 encoded version of "-----BEGIN"
-  if (maybeSigningKey.startsWith("LS0tLS1CRUdJTi"))
-    return Buffer.from(maybeSigningKey, "base64").toString("utf-8");
-
-  throw new NoSigningKeyProvidedException();
-}
-
 function prepareTokenEntityUri(entity: TokenEntity) {
   switch (entity.type) {
     case "user":
@@ -254,24 +220,6 @@ function prepareTokenEntityUri(entity: TokenEntity) {
     case "object":
       return `${DEFAULT_HOSTNAME}/v1/objects/${entity.collection}/${entity.id}`;
   }
-}
-
-export function maybePrepareUserTokenGrants(
-  grants: TokenGrant[] | undefined,
-): Record<string, TokenGrant["grants"]> | undefined {
-  if (!grants) return undefined;
-
-  // Given a list of token grants, flattens them into a single object
-  // like: { "entity": { "slack/channels_read": [] } }
-  return grants.reduce<Record<string, TokenGrant["grants"]>>((acc, grant) => {
-    if (acc[grant.entity]) {
-      const currentGrants = acc[grant.entity];
-
-      return { ...acc, [grant.entity]: { ...currentGrants, ...grant.grants } };
-    } else {
-      return { ...acc, [grant.entity]: grant.grants };
-    }
-  }, {});
 }
 
 export { Knock };

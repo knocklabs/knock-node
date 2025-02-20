@@ -1,5 +1,6 @@
 import { describe, expect, test } from "vitest";
-import { Knock, maybePrepareUserTokenGrants } from "../src/knock";
+import { Knock } from "../src/knock";
+import { maybePrepareUserTokenGrants } from "../src/sign-user-token";
 import {
   Grants,
   ObjectTokenEntity,
