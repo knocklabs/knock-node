@@ -50,6 +50,8 @@ export interface ListMessagesOptions extends PaginationOptions {
   "inserted_at.gte"?: string;
   "inserted_at.lt"?: string;
   "inserted_at.lte"?: string;
+  workflow_run_id?: string;
+  workflow_recipient_run_id?: string;
 }
 
 export interface ListMessageActivitiesOptions extends PaginationOptions {
