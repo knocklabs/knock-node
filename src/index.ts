@@ -65,9 +65,13 @@ import {
   ObjectGetPreferencesParams,
   ObjectGetPreferencesResponse,
   ObjectGetResponse,
+  ObjectListMessagesParams,
+  ObjectListMessagesResponse,
   ObjectListParams,
   ObjectListPreferencesResponse,
   ObjectListResponse,
+  ObjectListSchedulesParams,
+  ObjectListSchedulesResponse,
   ObjectListSubscriptionsParams,
   ObjectListSubscriptionsResponse,
   ObjectSetChannelDataParams,
@@ -254,7 +258,7 @@ export class Knock extends Core.APIClient {
   }
 
   protected override stringifyQuery(query: Record<string, unknown>): string {
-    return qs.stringify(query, { arrayFormat: 'comma' });
+    return qs.stringify(query, { arrayFormat: 'brackets' });
   }
 
   static Knock = this;
@@ -325,7 +329,9 @@ export declare namespace Knock {
     type ObjectGetResponse as ObjectGetResponse,
     type ObjectGetChannelDataResponse as ObjectGetChannelDataResponse,
     type ObjectGetPreferencesResponse as ObjectGetPreferencesResponse,
+    type ObjectListMessagesResponse as ObjectListMessagesResponse,
     type ObjectListPreferencesResponse as ObjectListPreferencesResponse,
+    type ObjectListSchedulesResponse as ObjectListSchedulesResponse,
     type ObjectListSubscriptionsResponse as ObjectListSubscriptionsResponse,
     type ObjectSetResponse as ObjectSetResponse,
     type ObjectSetChannelDataResponse as ObjectSetChannelDataResponse,
@@ -335,6 +341,8 @@ export declare namespace Knock {
     type ObjectAddSubscriptionsParams as ObjectAddSubscriptionsParams,
     type ObjectDeleteSubscriptionsParams as ObjectDeleteSubscriptionsParams,
     type ObjectGetPreferencesParams as ObjectGetPreferencesParams,
+    type ObjectListMessagesParams as ObjectListMessagesParams,
+    type ObjectListSchedulesParams as ObjectListSchedulesParams,
     type ObjectListSubscriptionsParams as ObjectListSubscriptionsParams,
     type ObjectSetParams as ObjectSetParams,
     type ObjectSetChannelDataParams as ObjectSetChannelDataParams,

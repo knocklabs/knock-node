@@ -123,7 +123,7 @@ export namespace BatchArchiveResponse {
     /**
      * Additional message data
      */
-    data?: unknown | null;
+    data?: Record<string, unknown> | null;
 
     /**
      * List of engagement statuses
@@ -148,7 +148,7 @@ export namespace BatchArchiveResponse {
     /**
      * Message metadata
      */
-    metadata?: unknown | null;
+    metadata?: Record<string, unknown> | null;
 
     /**
      * Timestamp when message was read
@@ -338,11 +338,11 @@ export namespace BatchGetContentResponse {
       /**
        * The channel data connection from the recipient to the underlying provider
        */
-      connection: unknown;
+      connection: Record<string, unknown>;
 
       template: MessageChatContent.Template;
 
-      metadata?: unknown | null;
+      metadata?: Record<string, unknown> | null;
     }
 
     export namespace MessageChatContent {
@@ -355,7 +355,7 @@ export namespace BatchGetContentResponse {
         /**
          * The JSON content of the message
          */
-        json_content?: unknown | null;
+        json_content?: Record<string, unknown> | null;
 
         summary?: string | null;
       }
@@ -472,7 +472,7 @@ export namespace BatchMarkAsInteractedResponse {
     /**
      * Additional message data
      */
-    data?: unknown | null;
+    data?: Record<string, unknown> | null;
 
     /**
      * List of engagement statuses
@@ -497,7 +497,7 @@ export namespace BatchMarkAsInteractedResponse {
     /**
      * Message metadata
      */
-    metadata?: unknown | null;
+    metadata?: Record<string, unknown> | null;
 
     /**
      * Timestamp when message was read
@@ -642,7 +642,7 @@ export namespace BatchMarkAsReadResponse {
     /**
      * Additional message data
      */
-    data?: unknown | null;
+    data?: Record<string, unknown> | null;
 
     /**
      * List of engagement statuses
@@ -667,7 +667,7 @@ export namespace BatchMarkAsReadResponse {
     /**
      * Message metadata
      */
-    metadata?: unknown | null;
+    metadata?: Record<string, unknown> | null;
 
     /**
      * Timestamp when message was read
@@ -812,7 +812,7 @@ export namespace BatchMarkAsSeenResponse {
     /**
      * Additional message data
      */
-    data?: unknown | null;
+    data?: Record<string, unknown> | null;
 
     /**
      * List of engagement statuses
@@ -837,7 +837,7 @@ export namespace BatchMarkAsSeenResponse {
     /**
      * Message metadata
      */
-    metadata?: unknown | null;
+    metadata?: Record<string, unknown> | null;
 
     /**
      * Timestamp when message was read
@@ -982,7 +982,7 @@ export namespace BatchMarkAsUnreadResponse {
     /**
      * Additional message data
      */
-    data?: unknown | null;
+    data?: Record<string, unknown> | null;
 
     /**
      * List of engagement statuses
@@ -1007,7 +1007,7 @@ export namespace BatchMarkAsUnreadResponse {
     /**
      * Message metadata
      */
-    metadata?: unknown | null;
+    metadata?: Record<string, unknown> | null;
 
     /**
      * Timestamp when message was read
@@ -1152,7 +1152,7 @@ export namespace BatchMarkAsUnseenResponse {
     /**
      * Additional message data
      */
-    data?: unknown | null;
+    data?: Record<string, unknown> | null;
 
     /**
      * List of engagement statuses
@@ -1177,7 +1177,7 @@ export namespace BatchMarkAsUnseenResponse {
     /**
      * Message metadata
      */
-    metadata?: unknown | null;
+    metadata?: Record<string, unknown> | null;
 
     /**
      * Timestamp when message was read
@@ -1322,7 +1322,7 @@ export namespace BatchUnarchiveResponse {
     /**
      * Additional message data
      */
-    data?: unknown | null;
+    data?: Record<string, unknown> | null;
 
     /**
      * List of engagement statuses
@@ -1347,7 +1347,7 @@ export namespace BatchUnarchiveResponse {
     /**
      * Message metadata
      */
-    metadata?: unknown | null;
+    metadata?: Record<string, unknown> | null;
 
     /**
      * Timestamp when message was read
@@ -1462,7 +1462,7 @@ export interface BatchGetContentParams {
   /**
    * The IDs of the messages to fetch contents of
    */
-  message_ids: Array<unknown>;
+  message_ids: Array<string>;
 }
 
 export interface BatchMarkAsInteractedParams {

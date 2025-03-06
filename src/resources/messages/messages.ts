@@ -246,7 +246,7 @@ export namespace MessageListResponse {
     /**
      * Additional message data
      */
-    data?: unknown | null;
+    data?: Record<string, unknown> | null;
 
     /**
      * List of engagement statuses
@@ -271,7 +271,7 @@ export namespace MessageListResponse {
     /**
      * Message metadata
      */
-    metadata?: unknown | null;
+    metadata?: Record<string, unknown> | null;
 
     /**
      * Timestamp when message was read
@@ -423,7 +423,7 @@ export interface MessageArchiveResponse {
   /**
    * Additional message data
    */
-  data?: unknown | null;
+  data?: Record<string, unknown> | null;
 
   /**
    * List of engagement statuses
@@ -448,7 +448,7 @@ export interface MessageArchiveResponse {
   /**
    * Message metadata
    */
-  metadata?: unknown | null;
+  metadata?: Record<string, unknown> | null;
 
   /**
    * Timestamp when message was read
@@ -586,7 +586,7 @@ export interface MessageGetResponse {
   /**
    * Additional message data
    */
-  data?: unknown | null;
+  data?: Record<string, unknown> | null;
 
   /**
    * List of engagement statuses
@@ -611,7 +611,7 @@ export interface MessageGetResponse {
   /**
    * Message metadata
    */
-  metadata?: unknown | null;
+  metadata?: Record<string, unknown> | null;
 
   /**
    * Timestamp when message was read
@@ -794,11 +794,11 @@ export namespace MessageGetContentResponse {
     /**
      * The channel data connection from the recipient to the underlying provider
      */
-    connection: unknown;
+    connection: Record<string, unknown>;
 
     template: MessageChatContent.Template;
 
-    metadata?: unknown | null;
+    metadata?: Record<string, unknown> | null;
   }
 
   export namespace MessageChatContent {
@@ -811,7 +811,7 @@ export namespace MessageGetContentResponse {
       /**
        * The JSON content of the message
        */
-      json_content?: unknown | null;
+      json_content?: Record<string, unknown> | null;
 
       summary?: string | null;
     }
@@ -914,7 +914,7 @@ export namespace MessageListActivitiesResponse {
     /**
      * The data associated with the activity
      */
-    data?: unknown | null;
+    data?: Record<string, unknown> | null;
 
     inserted_at?: string;
 
@@ -1017,9 +1017,9 @@ export namespace MessageListDeliveryLogsResponse {
      * A message delivery log request
      */
     export interface Request {
-      body?: string | unknown;
+      body?: string | Record<string, unknown>;
 
-      headers?: unknown | null;
+      headers?: Record<string, unknown> | null;
 
       host?: string;
 
@@ -1034,9 +1034,9 @@ export namespace MessageListDeliveryLogsResponse {
      * A message delivery log response
      */
     export interface Response {
-      body?: string | unknown;
+      body?: string | Record<string, unknown>;
 
-      headers?: unknown | null;
+      headers?: Record<string, unknown> | null;
 
       status?: number;
     }
@@ -1106,7 +1106,7 @@ export namespace MessageListEventsResponse {
     /**
      * The data associated with the event. Only present for some event types
      */
-    data?: unknown | null;
+    data?: Record<string, unknown> | null;
   }
 
   export namespace Entry {
@@ -1175,7 +1175,7 @@ export interface MessageMarkAsInteractedResponse {
   /**
    * Additional message data
    */
-  data?: unknown | null;
+  data?: Record<string, unknown> | null;
 
   /**
    * List of engagement statuses
@@ -1200,7 +1200,7 @@ export interface MessageMarkAsInteractedResponse {
   /**
    * Message metadata
    */
-  metadata?: unknown | null;
+  metadata?: Record<string, unknown> | null;
 
   /**
    * Timestamp when message was read
@@ -1338,7 +1338,7 @@ export interface MessageMarkAsReadResponse {
   /**
    * Additional message data
    */
-  data?: unknown | null;
+  data?: Record<string, unknown> | null;
 
   /**
    * List of engagement statuses
@@ -1363,7 +1363,7 @@ export interface MessageMarkAsReadResponse {
   /**
    * Message metadata
    */
-  metadata?: unknown | null;
+  metadata?: Record<string, unknown> | null;
 
   /**
    * Timestamp when message was read
@@ -1501,7 +1501,7 @@ export interface MessageMarkAsSeenResponse {
   /**
    * Additional message data
    */
-  data?: unknown | null;
+  data?: Record<string, unknown> | null;
 
   /**
    * List of engagement statuses
@@ -1526,7 +1526,7 @@ export interface MessageMarkAsSeenResponse {
   /**
    * Message metadata
    */
-  metadata?: unknown | null;
+  metadata?: Record<string, unknown> | null;
 
   /**
    * Timestamp when message was read
@@ -1664,7 +1664,7 @@ export interface MessageMarkAsUnreadResponse {
   /**
    * Additional message data
    */
-  data?: unknown | null;
+  data?: Record<string, unknown> | null;
 
   /**
    * List of engagement statuses
@@ -1689,7 +1689,7 @@ export interface MessageMarkAsUnreadResponse {
   /**
    * Message metadata
    */
-  metadata?: unknown | null;
+  metadata?: Record<string, unknown> | null;
 
   /**
    * Timestamp when message was read
@@ -1827,7 +1827,7 @@ export interface MessageMarkAsUnseenResponse {
   /**
    * Additional message data
    */
-  data?: unknown | null;
+  data?: Record<string, unknown> | null;
 
   /**
    * List of engagement statuses
@@ -1852,7 +1852,7 @@ export interface MessageMarkAsUnseenResponse {
   /**
    * Message metadata
    */
-  metadata?: unknown | null;
+  metadata?: Record<string, unknown> | null;
 
   /**
    * Timestamp when message was read
@@ -1990,7 +1990,7 @@ export interface MessageUnarchiveResponse {
   /**
    * Additional message data
    */
-  data?: unknown | null;
+  data?: Record<string, unknown> | null;
 
   /**
    * List of engagement statuses
@@ -2015,7 +2015,7 @@ export interface MessageUnarchiveResponse {
   /**
    * Message metadata
    */
-  metadata?: unknown | null;
+  metadata?: Record<string, unknown> | null;
 
   /**
    * Timestamp when message was read

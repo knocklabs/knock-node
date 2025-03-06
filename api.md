@@ -69,7 +69,9 @@ Types:
 - <code><a href="./src/resources/objects/objects.ts">ObjectGetResponse</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectGetChannelDataResponse</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectGetPreferencesResponse</a></code>
+- <code><a href="./src/resources/objects/objects.ts">ObjectListMessagesResponse</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectListPreferencesResponse</a></code>
+- <code><a href="./src/resources/objects/objects.ts">ObjectListSchedulesResponse</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectListSubscriptionsResponse</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectSetResponse</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectSetChannelDataResponse</a></code>
@@ -85,7 +87,9 @@ Methods:
 - <code title="get /v1/objects/{collection}/{id}">client.objects.<a href="./src/resources/objects/objects.ts">get</a>(collection, id) -> ObjectGetResponse</code>
 - <code title="get /v1/objects/{collection}/{object_id}/channel_data/{channel_id}">client.objects.<a href="./src/resources/objects/objects.ts">getChannelData</a>(collection, objectId, channelId) -> ObjectGetChannelDataResponse</code>
 - <code title="get /v1/objects/{collection}/{object_id}/preferences/{id}">client.objects.<a href="./src/resources/objects/objects.ts">getPreferences</a>(collection, objectId, id, { ...params }) -> ObjectGetPreferencesResponse</code>
+- <code title="get /v1/objects/{collection}/{id}/messages">client.objects.<a href="./src/resources/objects/objects.ts">listMessages</a>(collection, id, { ...params }) -> ObjectListMessagesResponse</code>
 - <code title="get /v1/objects/{collection}/{object_id}/preferences">client.objects.<a href="./src/resources/objects/objects.ts">listPreferences</a>(collection, objectId) -> ObjectListPreferencesResponse</code>
+- <code title="get /v1/objects/{collection}/{id}/schedules">client.objects.<a href="./src/resources/objects/objects.ts">listSchedules</a>(collection, id, { ...params }) -> ObjectListSchedulesResponse</code>
 - <code title="get /v1/objects/{collection}/{object_id}/subscriptions">client.objects.<a href="./src/resources/objects/objects.ts">listSubscriptions</a>(collection, objectId, { ...params }) -> ObjectListSubscriptionsResponse</code>
 - <code title="put /v1/objects/{collection}/{id}">client.objects.<a href="./src/resources/objects/objects.ts">set</a>(collection, id, { ...params }) -> ObjectSetResponse</code>
 - <code title="put /v1/objects/{collection}/{object_id}/channel_data/{channel_id}">client.objects.<a href="./src/resources/objects/objects.ts">setChannelData</a>(collection, objectId, channelId, { ...params }) -> ObjectSetChannelDataResponse</code>

@@ -43,7 +43,7 @@ describe('resource bulk', () => {
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('addSubscriptions: required and optional params', async () => {
     const response = await client.objects.bulk.addSubscriptions('projects', {
-      subscriptions: [{ id: 'project-1', recipients: ['string'], properties: null }],
+      subscriptions: [{ id: 'project-1', recipients: ['string'], properties: { foo: 'bar' } }],
     });
   });
 

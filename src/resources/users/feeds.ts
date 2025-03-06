@@ -112,7 +112,7 @@ export namespace FeedGetResponse {
       /**
        * The data associated with the activity
        */
-      data?: unknown | null;
+      data?: Record<string, unknown> | null;
 
       inserted_at?: string;
 

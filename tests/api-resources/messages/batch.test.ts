@@ -32,7 +32,7 @@ describe('resource batch', () => {
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('getContent: only required params', async () => {
-    const responsePromise = client.messages.batch.getContent({ message_ids: [{}] });
+    const responsePromise = client.messages.batch.getContent({ message_ids: ['string'] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -44,7 +44,7 @@ describe('resource batch', () => {
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('getContent: required and optional params', async () => {
-    const response = await client.messages.batch.getContent({ message_ids: [{}] });
+    const response = await client.messages.batch.getContent({ message_ids: ['string'] });
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url

@@ -190,7 +190,7 @@ export namespace BulkAddSubscriptionsParams {
       string | Subscription.InlineIdentifyUserRequest | Subscription.InlineIdentifyObjectRequest
     >;
 
-    properties?: unknown | null;
+    properties?: Record<string, unknown> | null;
   }
 
   export namespace Subscription {

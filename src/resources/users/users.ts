@@ -1437,7 +1437,7 @@ export namespace UserListMessagesResponse {
     /**
      * Additional message data
      */
-    data?: unknown | null;
+    data?: Record<string, unknown> | null;
 
     /**
      * List of engagement statuses
@@ -1462,7 +1462,7 @@ export namespace UserListMessagesResponse {
     /**
      * Message metadata
      */
-    metadata?: unknown | null;
+    metadata?: Record<string, unknown> | null;
 
     /**
      * Timestamp when message was read
