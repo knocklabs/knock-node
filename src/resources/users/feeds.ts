@@ -29,7 +29,7 @@ export class Feeds extends APIResource {
   }
 
   /**
-   * Get a user's in-app feed settings
+   * Get a user's feed settings
    */
   getSettings(
     userId: string,
@@ -66,7 +66,7 @@ export namespace FeedGetResponse {
 
     actors: Array<UsersAPI.User | Entry.Object>;
 
-    blocks: Array<Entry.MessageInAppFeedContentBlock | Entry.MessageInAppFeedButtonSetBlock>;
+    blocks: Array<Entry.ContentBlock | Entry.ButtonSetBlock>;
 
     data: Record<string, unknown> | null;
 
@@ -112,7 +112,7 @@ export namespace FeedGetResponse {
       /**
        * The data associated with the activity
        */
-      data?: Record<string, unknown> | null;
+      data?: unknown | null;
 
       inserted_at?: string;
 
@@ -177,7 +177,7 @@ export namespace FeedGetResponse {
     /**
      * A content (text or markdown) block in a message in an app feed
      */
-    export interface MessageInAppFeedContentBlock {
+    export interface ContentBlock {
       content: string;
 
       name: string;
@@ -190,15 +190,15 @@ export namespace FeedGetResponse {
     /**
      * A set of buttons in a message in an app feed
      */
-    export interface MessageInAppFeedButtonSetBlock {
-      buttons: Array<MessageInAppFeedButtonSetBlock.Button>;
+    export interface ButtonSetBlock {
+      buttons: Array<ButtonSetBlock.Button>;
 
       name: string;
 
       type: 'button_set';
     }
 
-    export namespace MessageInAppFeedButtonSetBlock {
+    export namespace ButtonSetBlock {
       /**
        * A button in a set of buttons
        */

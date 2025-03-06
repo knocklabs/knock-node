@@ -24,11 +24,8 @@ export class Batch extends APIResource {
   /**
    * Marks one or more messages as interacted
    */
-  markAsInteracted(
-    body: BatchMarkAsInteractedParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<BatchMarkAsInteractedResponse> {
-    return this._client.post('/v1/messages/batch/interacted', { body, ...options });
+  markAsInteracted(options?: Core.RequestOptions): Core.APIPromise<BatchMarkAsInteractedResponse> {
+    return this._client.post('/v1/messages/batch/interacted', options);
   }
 
   /**
@@ -103,7 +100,7 @@ export namespace BatchArchiveResponse {
     /**
      * A list of actor representations associated with the message (up to 10)
      */
-    actors?: Array<string | BatchArchiveResponseItem.ObjectReference>;
+    actors?: Array<string | BatchArchiveResponseItem.UnionMember1>;
 
     /**
      * Timestamp when message was archived
@@ -123,7 +120,7 @@ export namespace BatchArchiveResponse {
     /**
      * Additional message data
      */
-    data?: Record<string, unknown> | null;
+    data?: unknown | null;
 
     /**
      * List of engagement statuses
@@ -148,7 +145,7 @@ export namespace BatchArchiveResponse {
     /**
      * Message metadata
      */
-    metadata?: Record<string, unknown> | null;
+    metadata?: unknown | null;
 
     /**
      * Timestamp when message was read
@@ -159,7 +156,7 @@ export namespace BatchArchiveResponse {
      * A reference to a recipient, either a user identifier (string) or an object
      * reference (id, collection).
      */
-    recipient?: string | BatchArchiveResponseItem.ObjectReference;
+    recipient?: string | BatchArchiveResponseItem.UnionMember1;
 
     /**
      * Timestamp when message was scheduled for
@@ -201,7 +198,7 @@ export namespace BatchArchiveResponse {
     /**
      * An object reference to a recipient
      */
-    export interface ObjectReference {
+    export interface UnionMember1 {
       /**
        * An object identifier
        */
@@ -216,7 +213,7 @@ export namespace BatchArchiveResponse {
     /**
      * An object reference to a recipient
      */
-    export interface ObjectReference {
+    export interface UnionMember1 {
       /**
        * An object identifier
        */
@@ -252,9 +249,6 @@ export namespace BatchArchiveResponse {
   }
 }
 
-/**
- * A list of message contents
- */
 export type BatchGetContentResponse = Array<BatchGetContentResponse.BatchGetContentResponseItem>;
 
 export namespace BatchGetContentResponse {
@@ -326,7 +320,7 @@ export namespace BatchGetContentResponse {
 
       title: string;
 
-      data?: Record<string, unknown> | null;
+      data?: unknown | null;
     }
 
     /**
@@ -338,11 +332,11 @@ export namespace BatchGetContentResponse {
       /**
        * The channel data connection from the recipient to the underlying provider
        */
-      connection: Record<string, unknown>;
+      connection: unknown;
 
       template: MessageChatContent.Template;
 
-      metadata?: Record<string, unknown> | null;
+      metadata?: unknown | null;
     }
 
     export namespace MessageChatContent {
@@ -355,7 +349,7 @@ export namespace BatchGetContentResponse {
         /**
          * The JSON content of the message
          */
-        json_content?: Record<string, unknown> | null;
+        json_content?: unknown | null;
 
         summary?: string | null;
       }
@@ -383,17 +377,14 @@ export namespace BatchGetContentResponse {
       /**
        * The blocks of the message
        */
-      blocks: Array<
-        | MessageInAppFeedContent.MessageInAppFeedContentBlock
-        | MessageInAppFeedContent.MessageInAppFeedButtonSetBlock
-      >;
+      blocks: Array<MessageInAppFeedContent.ContentBlock | MessageInAppFeedContent.ButtonSetBlock>;
     }
 
     export namespace MessageInAppFeedContent {
       /**
        * A content (text or markdown) block in a message in an app feed
        */
-      export interface MessageInAppFeedContentBlock {
+      export interface ContentBlock {
         content: string;
 
         name: string;
@@ -406,15 +397,15 @@ export namespace BatchGetContentResponse {
       /**
        * A set of buttons in a message in an app feed
        */
-      export interface MessageInAppFeedButtonSetBlock {
-        buttons: Array<MessageInAppFeedButtonSetBlock.Button>;
+      export interface ButtonSetBlock {
+        buttons: Array<ButtonSetBlock.Button>;
 
         name: string;
 
         type: 'button_set';
       }
 
-      export namespace MessageInAppFeedButtonSetBlock {
+      export namespace ButtonSetBlock {
         /**
          * A button in a set of buttons
          */
@@ -452,7 +443,7 @@ export namespace BatchMarkAsInteractedResponse {
     /**
      * A list of actor representations associated with the message (up to 10)
      */
-    actors?: Array<string | BatchMarkAsInteractedResponseItem.ObjectReference>;
+    actors?: Array<string | BatchMarkAsInteractedResponseItem.UnionMember1>;
 
     /**
      * Timestamp when message was archived
@@ -472,7 +463,7 @@ export namespace BatchMarkAsInteractedResponse {
     /**
      * Additional message data
      */
-    data?: Record<string, unknown> | null;
+    data?: unknown | null;
 
     /**
      * List of engagement statuses
@@ -497,7 +488,7 @@ export namespace BatchMarkAsInteractedResponse {
     /**
      * Message metadata
      */
-    metadata?: Record<string, unknown> | null;
+    metadata?: unknown | null;
 
     /**
      * Timestamp when message was read
@@ -508,7 +499,7 @@ export namespace BatchMarkAsInteractedResponse {
      * A reference to a recipient, either a user identifier (string) or an object
      * reference (id, collection).
      */
-    recipient?: string | BatchMarkAsInteractedResponseItem.ObjectReference;
+    recipient?: string | BatchMarkAsInteractedResponseItem.UnionMember1;
 
     /**
      * Timestamp when message was scheduled for
@@ -550,7 +541,7 @@ export namespace BatchMarkAsInteractedResponse {
     /**
      * An object reference to a recipient
      */
-    export interface ObjectReference {
+    export interface UnionMember1 {
       /**
        * An object identifier
        */
@@ -565,7 +556,7 @@ export namespace BatchMarkAsInteractedResponse {
     /**
      * An object reference to a recipient
      */
-    export interface ObjectReference {
+    export interface UnionMember1 {
       /**
        * An object identifier
        */
@@ -622,7 +613,7 @@ export namespace BatchMarkAsReadResponse {
     /**
      * A list of actor representations associated with the message (up to 10)
      */
-    actors?: Array<string | BatchMarkAsReadResponseItem.ObjectReference>;
+    actors?: Array<string | BatchMarkAsReadResponseItem.UnionMember1>;
 
     /**
      * Timestamp when message was archived
@@ -642,7 +633,7 @@ export namespace BatchMarkAsReadResponse {
     /**
      * Additional message data
      */
-    data?: Record<string, unknown> | null;
+    data?: unknown | null;
 
     /**
      * List of engagement statuses
@@ -667,7 +658,7 @@ export namespace BatchMarkAsReadResponse {
     /**
      * Message metadata
      */
-    metadata?: Record<string, unknown> | null;
+    metadata?: unknown | null;
 
     /**
      * Timestamp when message was read
@@ -678,7 +669,7 @@ export namespace BatchMarkAsReadResponse {
      * A reference to a recipient, either a user identifier (string) or an object
      * reference (id, collection).
      */
-    recipient?: string | BatchMarkAsReadResponseItem.ObjectReference;
+    recipient?: string | BatchMarkAsReadResponseItem.UnionMember1;
 
     /**
      * Timestamp when message was scheduled for
@@ -720,7 +711,7 @@ export namespace BatchMarkAsReadResponse {
     /**
      * An object reference to a recipient
      */
-    export interface ObjectReference {
+    export interface UnionMember1 {
       /**
        * An object identifier
        */
@@ -735,7 +726,7 @@ export namespace BatchMarkAsReadResponse {
     /**
      * An object reference to a recipient
      */
-    export interface ObjectReference {
+    export interface UnionMember1 {
       /**
        * An object identifier
        */
@@ -792,7 +783,7 @@ export namespace BatchMarkAsSeenResponse {
     /**
      * A list of actor representations associated with the message (up to 10)
      */
-    actors?: Array<string | BatchMarkAsSeenResponseItem.ObjectReference>;
+    actors?: Array<string | BatchMarkAsSeenResponseItem.UnionMember1>;
 
     /**
      * Timestamp when message was archived
@@ -812,7 +803,7 @@ export namespace BatchMarkAsSeenResponse {
     /**
      * Additional message data
      */
-    data?: Record<string, unknown> | null;
+    data?: unknown | null;
 
     /**
      * List of engagement statuses
@@ -837,7 +828,7 @@ export namespace BatchMarkAsSeenResponse {
     /**
      * Message metadata
      */
-    metadata?: Record<string, unknown> | null;
+    metadata?: unknown | null;
 
     /**
      * Timestamp when message was read
@@ -848,7 +839,7 @@ export namespace BatchMarkAsSeenResponse {
      * A reference to a recipient, either a user identifier (string) or an object
      * reference (id, collection).
      */
-    recipient?: string | BatchMarkAsSeenResponseItem.ObjectReference;
+    recipient?: string | BatchMarkAsSeenResponseItem.UnionMember1;
 
     /**
      * Timestamp when message was scheduled for
@@ -890,7 +881,7 @@ export namespace BatchMarkAsSeenResponse {
     /**
      * An object reference to a recipient
      */
-    export interface ObjectReference {
+    export interface UnionMember1 {
       /**
        * An object identifier
        */
@@ -905,7 +896,7 @@ export namespace BatchMarkAsSeenResponse {
     /**
      * An object reference to a recipient
      */
-    export interface ObjectReference {
+    export interface UnionMember1 {
       /**
        * An object identifier
        */
@@ -962,7 +953,7 @@ export namespace BatchMarkAsUnreadResponse {
     /**
      * A list of actor representations associated with the message (up to 10)
      */
-    actors?: Array<string | BatchMarkAsUnreadResponseItem.ObjectReference>;
+    actors?: Array<string | BatchMarkAsUnreadResponseItem.UnionMember1>;
 
     /**
      * Timestamp when message was archived
@@ -982,7 +973,7 @@ export namespace BatchMarkAsUnreadResponse {
     /**
      * Additional message data
      */
-    data?: Record<string, unknown> | null;
+    data?: unknown | null;
 
     /**
      * List of engagement statuses
@@ -1007,7 +998,7 @@ export namespace BatchMarkAsUnreadResponse {
     /**
      * Message metadata
      */
-    metadata?: Record<string, unknown> | null;
+    metadata?: unknown | null;
 
     /**
      * Timestamp when message was read
@@ -1018,7 +1009,7 @@ export namespace BatchMarkAsUnreadResponse {
      * A reference to a recipient, either a user identifier (string) or an object
      * reference (id, collection).
      */
-    recipient?: string | BatchMarkAsUnreadResponseItem.ObjectReference;
+    recipient?: string | BatchMarkAsUnreadResponseItem.UnionMember1;
 
     /**
      * Timestamp when message was scheduled for
@@ -1060,7 +1051,7 @@ export namespace BatchMarkAsUnreadResponse {
     /**
      * An object reference to a recipient
      */
-    export interface ObjectReference {
+    export interface UnionMember1 {
       /**
        * An object identifier
        */
@@ -1075,7 +1066,7 @@ export namespace BatchMarkAsUnreadResponse {
     /**
      * An object reference to a recipient
      */
-    export interface ObjectReference {
+    export interface UnionMember1 {
       /**
        * An object identifier
        */
@@ -1132,7 +1123,7 @@ export namespace BatchMarkAsUnseenResponse {
     /**
      * A list of actor representations associated with the message (up to 10)
      */
-    actors?: Array<string | BatchMarkAsUnseenResponseItem.ObjectReference>;
+    actors?: Array<string | BatchMarkAsUnseenResponseItem.UnionMember1>;
 
     /**
      * Timestamp when message was archived
@@ -1152,7 +1143,7 @@ export namespace BatchMarkAsUnseenResponse {
     /**
      * Additional message data
      */
-    data?: Record<string, unknown> | null;
+    data?: unknown | null;
 
     /**
      * List of engagement statuses
@@ -1177,7 +1168,7 @@ export namespace BatchMarkAsUnseenResponse {
     /**
      * Message metadata
      */
-    metadata?: Record<string, unknown> | null;
+    metadata?: unknown | null;
 
     /**
      * Timestamp when message was read
@@ -1188,7 +1179,7 @@ export namespace BatchMarkAsUnseenResponse {
      * A reference to a recipient, either a user identifier (string) or an object
      * reference (id, collection).
      */
-    recipient?: string | BatchMarkAsUnseenResponseItem.ObjectReference;
+    recipient?: string | BatchMarkAsUnseenResponseItem.UnionMember1;
 
     /**
      * Timestamp when message was scheduled for
@@ -1230,7 +1221,7 @@ export namespace BatchMarkAsUnseenResponse {
     /**
      * An object reference to a recipient
      */
-    export interface ObjectReference {
+    export interface UnionMember1 {
       /**
        * An object identifier
        */
@@ -1245,7 +1236,7 @@ export namespace BatchMarkAsUnseenResponse {
     /**
      * An object reference to a recipient
      */
-    export interface ObjectReference {
+    export interface UnionMember1 {
       /**
        * An object identifier
        */
@@ -1302,7 +1293,7 @@ export namespace BatchUnarchiveResponse {
     /**
      * A list of actor representations associated with the message (up to 10)
      */
-    actors?: Array<string | BatchUnarchiveResponseItem.ObjectReference>;
+    actors?: Array<string | BatchUnarchiveResponseItem.UnionMember1>;
 
     /**
      * Timestamp when message was archived
@@ -1322,7 +1313,7 @@ export namespace BatchUnarchiveResponse {
     /**
      * Additional message data
      */
-    data?: Record<string, unknown> | null;
+    data?: unknown | null;
 
     /**
      * List of engagement statuses
@@ -1347,7 +1338,7 @@ export namespace BatchUnarchiveResponse {
     /**
      * Message metadata
      */
-    metadata?: Record<string, unknown> | null;
+    metadata?: unknown | null;
 
     /**
      * Timestamp when message was read
@@ -1358,7 +1349,7 @@ export namespace BatchUnarchiveResponse {
      * A reference to a recipient, either a user identifier (string) or an object
      * reference (id, collection).
      */
-    recipient?: string | BatchUnarchiveResponseItem.ObjectReference;
+    recipient?: string | BatchUnarchiveResponseItem.UnionMember1;
 
     /**
      * Timestamp when message was scheduled for
@@ -1400,7 +1391,7 @@ export namespace BatchUnarchiveResponse {
     /**
      * An object reference to a recipient
      */
-    export interface ObjectReference {
+    export interface UnionMember1 {
       /**
        * An object identifier
        */
@@ -1415,7 +1406,7 @@ export namespace BatchUnarchiveResponse {
     /**
      * An object reference to a recipient
      */
-    export interface ObjectReference {
+    export interface UnionMember1 {
       /**
        * An object identifier
        */
@@ -1462,19 +1453,7 @@ export interface BatchGetContentParams {
   /**
    * The IDs of the messages to fetch contents of
    */
-  message_ids: Array<string>;
-}
-
-export interface BatchMarkAsInteractedParams {
-  /**
-   * The message IDs to update
-   */
-  message_ids: Array<string>;
-
-  /**
-   * Metadata about the interaction
-   */
-  metadata?: Record<string, unknown> | null;
+  message_ids: Array<unknown>;
 }
 
 export interface BatchMarkAsReadParams {
@@ -1524,7 +1503,6 @@ export declare namespace Batch {
     type BatchUnarchiveResponse as BatchUnarchiveResponse,
     type BatchArchiveParams as BatchArchiveParams,
     type BatchGetContentParams as BatchGetContentParams,
-    type BatchMarkAsInteractedParams as BatchMarkAsInteractedParams,
     type BatchMarkAsReadParams as BatchMarkAsReadParams,
     type BatchMarkAsSeenParams as BatchMarkAsSeenParams,
     type BatchMarkAsUnreadParams as BatchMarkAsUnreadParams,

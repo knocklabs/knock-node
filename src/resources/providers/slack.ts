@@ -16,7 +16,7 @@ export class Slack extends APIResource {
   }
 
   /**
-   * Get Slack channels for a Slack workspace
+   * Get Slack channels from a Slack workspace
    */
   listChannels(
     channelId: string,

@@ -7,22 +7,17 @@ import * as Errors from './error';
 import * as Uploads from './uploads';
 import * as API from './resources/index';
 import {
-  AudienceAddMembersParams,
   AudienceAddMembersResponse,
   AudienceListMembersResponse,
-  AudienceRemoveMembersParams,
   AudienceRemoveMembersResponse,
   Audiences,
 } from './resources/audiences';
 import { BulkOperationGetResponse, BulkOperations } from './resources/bulk-operations';
 import {
-  ScheduleCreateParams,
   ScheduleCreateResponse,
-  ScheduleDeleteParams,
   ScheduleDeleteResponse,
   ScheduleListParams,
   ScheduleListResponse,
-  ScheduleUpdateParams,
   ScheduleUpdateResponse,
   Schedules,
 } from './resources/schedules';
@@ -74,7 +69,6 @@ import {
   ObjectListSchedulesResponse,
   ObjectListSubscriptionsParams,
   ObjectListSubscriptionsResponse,
-  ObjectSetChannelDataParams,
   ObjectSetChannelDataResponse,
   ObjectSetParams,
   ObjectSetPreferencesParams,
@@ -109,7 +103,6 @@ import {
   UserListSubscriptionsParams,
   UserListSubscriptionsResponse,
   UserMergeParams,
-  UserSetChannelDataParams,
   UserSetChannelDataResponse,
   UserSetPreferencesParams,
   UserSetPreferencesResponse,
@@ -316,7 +309,6 @@ export declare namespace Knock {
     type UserListSchedulesParams as UserListSchedulesParams,
     type UserListSubscriptionsParams as UserListSubscriptionsParams,
     type UserMergeParams as UserMergeParams,
-    type UserSetChannelDataParams as UserSetChannelDataParams,
     type UserSetPreferencesParams as UserSetPreferencesParams,
   };
 
@@ -345,7 +337,6 @@ export declare namespace Knock {
     type ObjectListSchedulesParams as ObjectListSchedulesParams,
     type ObjectListSubscriptionsParams as ObjectListSubscriptionsParams,
     type ObjectSetParams as ObjectSetParams,
-    type ObjectSetChannelDataParams as ObjectSetChannelDataParams,
     type ObjectSetPreferencesParams as ObjectSetPreferencesParams,
   };
 
@@ -399,10 +390,7 @@ export declare namespace Knock {
     type ScheduleUpdateResponse as ScheduleUpdateResponse,
     type ScheduleListResponse as ScheduleListResponse,
     type ScheduleDeleteResponse as ScheduleDeleteResponse,
-    type ScheduleCreateParams as ScheduleCreateParams,
-    type ScheduleUpdateParams as ScheduleUpdateParams,
     type ScheduleListParams as ScheduleListParams,
-    type ScheduleDeleteParams as ScheduleDeleteParams,
   };
 
   export { Channels as Channels };
@@ -412,8 +400,6 @@ export declare namespace Knock {
     type AudienceAddMembersResponse as AudienceAddMembersResponse,
     type AudienceListMembersResponse as AudienceListMembersResponse,
     type AudienceRemoveMembersResponse as AudienceRemoveMembersResponse,
-    type AudienceAddMembersParams as AudienceAddMembersParams,
-    type AudienceRemoveMembersParams as AudienceRemoveMembersParams,
   };
 }
 

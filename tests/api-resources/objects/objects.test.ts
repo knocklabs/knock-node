@@ -311,7 +311,14 @@ describe('resource objects', () => {
       client.objects.listSubscriptions(
         'collection',
         'object_id',
-        { after: 'after', before: 'before', mode: 'recipient', page_size: 0 },
+        {
+          after: 'after',
+          before: 'before',
+          mode: 'recipient',
+          objects: ['user_123'],
+          page_size: 0,
+          recipients: ['user_123'],
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Knock.NotFoundError);
@@ -330,12 +337,11 @@ describe('resource objects', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('setChannelData: only required params', async () => {
+  test.skip('setChannelData', async () => {
     const responsePromise = client.objects.setChannelData(
       'collection',
       'object_id',
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      { data: { tokens: ['string'] } },
     );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -347,13 +353,13 @@ describe('resource objects', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('setChannelData: required and optional params', async () => {
-    const response = await client.objects.setChannelData(
-      'collection',
-      'object_id',
-      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      { data: { tokens: ['string'] } },
-    );
+  test.skip('setChannelData: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.objects.setChannelData('collection', 'object_id', '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+        path: '/_stainless_unknown_path',
+      }),
+    ).rejects.toThrow(Knock.NotFoundError);
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url

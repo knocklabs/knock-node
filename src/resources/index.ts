@@ -5,8 +5,6 @@ export {
   type AudienceAddMembersResponse,
   type AudienceListMembersResponse,
   type AudienceRemoveMembersResponse,
-  type AudienceAddMembersParams,
-  type AudienceRemoveMembersParams,
 } from './audiences';
 export { BulkOperations, type BulkOperationGetResponse } from './bulk-operations';
 export { Channels } from './channels/channels';
@@ -56,7 +54,6 @@ export {
   type ObjectListSchedulesParams,
   type ObjectListSubscriptionsParams,
   type ObjectSetParams,
-  type ObjectSetChannelDataParams,
   type ObjectSetPreferencesParams,
 } from './objects/objects';
 export { Providers } from './providers/providers';
@@ -66,10 +63,7 @@ export {
   type ScheduleUpdateResponse,
   type ScheduleListResponse,
   type ScheduleDeleteResponse,
-  type ScheduleCreateParams,
-  type ScheduleUpdateParams,
   type ScheduleListParams,
-  type ScheduleDeleteParams,
 } from './schedules';
 export {
   Tenants,
@@ -101,7 +95,6 @@ export {
   type UserListSchedulesParams,
   type UserListSubscriptionsParams,
   type UserMergeParams,
-  type UserSetChannelDataParams,
   type UserSetPreferencesParams,
 } from './users/users';
 export {

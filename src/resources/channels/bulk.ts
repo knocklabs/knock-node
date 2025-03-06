@@ -20,10 +20,9 @@ export class Bulk extends APIResource {
       | 'archive'
       | 'unarchive'
       | 'delete',
-    body: BulkUpdateMessageStatusParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<BulkUpdateMessageStatusResponse> {
-    return this._client.post(`/v1/channels/${channelId}/messages/bulk/${action}`, { body, ...options });
+    return this._client.post(`/v1/channels/${channelId}/messages/bulk/${action}`, options);
   }
 }
 
@@ -71,46 +70,6 @@ export namespace BulkUpdateMessageStatusResponse {
   }
 }
 
-export interface BulkUpdateMessageStatusParams {
-  archived?: 'exclude' | 'include' | 'only';
-
-  delivery_status?:
-    | 'queued'
-    | 'sent'
-    | 'delivered'
-    | 'delivery_attempted'
-    | 'undelivered'
-    | 'not_sent'
-    | 'bounced';
-
-  engagement_status?:
-    | 'seen'
-    | 'unseen'
-    | 'read'
-    | 'unread'
-    | 'archived'
-    | 'unarchived'
-    | 'link_clicked'
-    | 'interacted';
-
-  has_tenant?: boolean;
-
-  newer_than?: string;
-
-  older_than?: string;
-
-  recipient_ids?: Array<string>;
-
-  tenants?: Array<string>;
-
-  trigger_data?: string;
-
-  workflows?: Array<string>;
-}
-
 export declare namespace Bulk {
-  export {
-    type BulkUpdateMessageStatusResponse as BulkUpdateMessageStatusResponse,
-    type BulkUpdateMessageStatusParams as BulkUpdateMessageStatusParams,
-  };
+  export { type BulkUpdateMessageStatusResponse as BulkUpdateMessageStatusResponse };
 }

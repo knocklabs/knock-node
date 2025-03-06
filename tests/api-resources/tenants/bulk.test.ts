@@ -27,8 +27,8 @@ describe('resource bulk', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('set: only required params', async () => {
-    const responsePromise = client.tenants.bulk.set({ tenants: ['string'] });
+  test.skip('set', async () => {
+    const responsePromise = client.tenants.bulk.set();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -39,7 +39,10 @@ describe('resource bulk', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('set: required and optional params', async () => {
-    const response = await client.tenants.bulk.set({ tenants: ['string'] });
+  test.skip('set: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(client.tenants.bulk.set({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+      Knock.NotFoundError,
+    );
   });
 });

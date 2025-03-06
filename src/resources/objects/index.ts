@@ -6,8 +6,6 @@ export {
   type BulkAddSubscriptionsResponse,
   type BulkSetResponse,
   type BulkDeleteParams,
-  type BulkAddSubscriptionsParams,
-  type BulkSetParams,
 } from './bulk';
 export {
   Objects,
@@ -34,6 +32,5 @@ export {
   type ObjectListSchedulesParams,
   type ObjectListSubscriptionsParams,
   type ObjectSetParams,
-  type ObjectSetChannelDataParams,
   type ObjectSetPreferencesParams,
 } from './objects';

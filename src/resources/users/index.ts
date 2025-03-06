@@ -6,8 +6,6 @@ export {
   type BulkIdentifyResponse,
   type BulkSetPreferencesResponse,
   type BulkDeleteParams,
-  type BulkIdentifyParams,
-  type BulkSetPreferencesParams,
 } from './bulk';
 export { Feeds, type FeedGetResponse, type FeedGetSettingsResponse, type FeedGetParams } from './feeds';
 export {
@@ -31,6 +29,5 @@ export {
   type UserListSchedulesParams,
   type UserListSubscriptionsParams,
   type UserMergeParams,
-  type UserSetChannelDataParams,
   type UserSetPreferencesParams,
 } from './users';

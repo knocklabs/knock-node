@@ -10,7 +10,6 @@ import {
   BatchArchiveResponse,
   BatchGetContentParams,
   BatchGetContentResponse,
-  BatchMarkAsInteractedParams,
   BatchMarkAsInteractedResponse,
   BatchMarkAsReadParams,
   BatchMarkAsReadResponse,
@@ -51,7 +50,7 @@ export class Messages extends APIResource {
   }
 
   /**
-   * Gets a message
+   * Retrieves a single message
    */
   get(messageId: string, options?: Core.RequestOptions): Core.APIPromise<MessageGetResponse> {
     return this._client.get(`/v1/messages/${messageId}`, options);
@@ -65,7 +64,7 @@ export class Messages extends APIResource {
   }
 
   /**
-   * List activities for a message
+   * Get activities for a message
    */
   listActivities(
     messageId: string,
@@ -88,7 +87,7 @@ export class Messages extends APIResource {
   }
 
   /**
-   * List delivery logs for a message
+   * Get delivery logs for a message
    */
   listDeliveryLogs(
     messageId: string,
@@ -111,7 +110,7 @@ export class Messages extends APIResource {
   }
 
   /**
-   * List events for a message
+   * Get events for a message
    */
   listEvents(
     messageId: string,
@@ -226,7 +225,7 @@ export namespace MessageListResponse {
     /**
      * A list of actor representations associated with the message (up to 10)
      */
-    actors?: Array<string | Entry.ObjectReference>;
+    actors?: Array<string | Entry.UnionMember1>;
 
     /**
      * Timestamp when message was archived
@@ -246,7 +245,7 @@ export namespace MessageListResponse {
     /**
      * Additional message data
      */
-    data?: Record<string, unknown> | null;
+    data?: unknown | null;
 
     /**
      * List of engagement statuses
@@ -271,7 +270,7 @@ export namespace MessageListResponse {
     /**
      * Message metadata
      */
-    metadata?: Record<string, unknown> | null;
+    metadata?: unknown | null;
 
     /**
      * Timestamp when message was read
@@ -282,7 +281,7 @@ export namespace MessageListResponse {
      * A reference to a recipient, either a user identifier (string) or an object
      * reference (id, collection).
      */
-    recipient?: string | Entry.ObjectReference;
+    recipient?: string | Entry.UnionMember1;
 
     /**
      * Timestamp when message was scheduled for
@@ -324,7 +323,7 @@ export namespace MessageListResponse {
     /**
      * An object reference to a recipient
      */
-    export interface ObjectReference {
+    export interface UnionMember1 {
       /**
        * An object identifier
        */
@@ -339,7 +338,7 @@ export namespace MessageListResponse {
     /**
      * An object reference to a recipient
      */
-    export interface ObjectReference {
+    export interface UnionMember1 {
       /**
        * An object identifier
        */
@@ -403,7 +402,7 @@ export interface MessageArchiveResponse {
   /**
    * A list of actor representations associated with the message (up to 10)
    */
-  actors?: Array<string | MessageArchiveResponse.ObjectReference>;
+  actors?: Array<string | MessageArchiveResponse.UnionMember1>;
 
   /**
    * Timestamp when message was archived
@@ -423,7 +422,7 @@ export interface MessageArchiveResponse {
   /**
    * Additional message data
    */
-  data?: Record<string, unknown> | null;
+  data?: unknown | null;
 
   /**
    * List of engagement statuses
@@ -448,7 +447,7 @@ export interface MessageArchiveResponse {
   /**
    * Message metadata
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: unknown | null;
 
   /**
    * Timestamp when message was read
@@ -459,7 +458,7 @@ export interface MessageArchiveResponse {
    * A reference to a recipient, either a user identifier (string) or an object
    * reference (id, collection).
    */
-  recipient?: string | MessageArchiveResponse.ObjectReference;
+  recipient?: string | MessageArchiveResponse.UnionMember1;
 
   /**
    * Timestamp when message was scheduled for
@@ -501,7 +500,7 @@ export namespace MessageArchiveResponse {
   /**
    * An object reference to a recipient
    */
-  export interface ObjectReference {
+  export interface UnionMember1 {
     /**
      * An object identifier
      */
@@ -516,7 +515,7 @@ export namespace MessageArchiveResponse {
   /**
    * An object reference to a recipient
    */
-  export interface ObjectReference {
+  export interface UnionMember1 {
     /**
      * An object identifier
      */
@@ -566,7 +565,7 @@ export interface MessageGetResponse {
   /**
    * A list of actor representations associated with the message (up to 10)
    */
-  actors?: Array<string | MessageGetResponse.ObjectReference>;
+  actors?: Array<string | MessageGetResponse.UnionMember1>;
 
   /**
    * Timestamp when message was archived
@@ -586,7 +585,7 @@ export interface MessageGetResponse {
   /**
    * Additional message data
    */
-  data?: Record<string, unknown> | null;
+  data?: unknown | null;
 
   /**
    * List of engagement statuses
@@ -611,7 +610,7 @@ export interface MessageGetResponse {
   /**
    * Message metadata
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: unknown | null;
 
   /**
    * Timestamp when message was read
@@ -622,7 +621,7 @@ export interface MessageGetResponse {
    * A reference to a recipient, either a user identifier (string) or an object
    * reference (id, collection).
    */
-  recipient?: string | MessageGetResponse.ObjectReference;
+  recipient?: string | MessageGetResponse.UnionMember1;
 
   /**
    * Timestamp when message was scheduled for
@@ -664,7 +663,7 @@ export namespace MessageGetResponse {
   /**
    * An object reference to a recipient
    */
-  export interface ObjectReference {
+  export interface UnionMember1 {
     /**
      * An object identifier
      */
@@ -679,7 +678,7 @@ export namespace MessageGetResponse {
   /**
    * An object reference to a recipient
    */
-  export interface ObjectReference {
+  export interface UnionMember1 {
     /**
      * An object identifier
      */
@@ -782,7 +781,7 @@ export namespace MessageGetContentResponse {
 
     title: string;
 
-    data?: Record<string, unknown> | null;
+    data?: unknown | null;
   }
 
   /**
@@ -794,11 +793,11 @@ export namespace MessageGetContentResponse {
     /**
      * The channel data connection from the recipient to the underlying provider
      */
-    connection: Record<string, unknown>;
+    connection: unknown;
 
     template: MessageChatContent.Template;
 
-    metadata?: Record<string, unknown> | null;
+    metadata?: unknown | null;
   }
 
   export namespace MessageChatContent {
@@ -811,7 +810,7 @@ export namespace MessageGetContentResponse {
       /**
        * The JSON content of the message
        */
-      json_content?: Record<string, unknown> | null;
+      json_content?: unknown | null;
 
       summary?: string | null;
     }
@@ -839,17 +838,14 @@ export namespace MessageGetContentResponse {
     /**
      * The blocks of the message
      */
-    blocks: Array<
-      | MessageInAppFeedContent.MessageInAppFeedContentBlock
-      | MessageInAppFeedContent.MessageInAppFeedButtonSetBlock
-    >;
+    blocks: Array<MessageInAppFeedContent.ContentBlock | MessageInAppFeedContent.ButtonSetBlock>;
   }
 
   export namespace MessageInAppFeedContent {
     /**
      * A content (text or markdown) block in a message in an app feed
      */
-    export interface MessageInAppFeedContentBlock {
+    export interface ContentBlock {
       content: string;
 
       name: string;
@@ -862,15 +858,15 @@ export namespace MessageGetContentResponse {
     /**
      * A set of buttons in a message in an app feed
      */
-    export interface MessageInAppFeedButtonSetBlock {
-      buttons: Array<MessageInAppFeedButtonSetBlock.Button>;
+    export interface ButtonSetBlock {
+      buttons: Array<ButtonSetBlock.Button>;
 
       name: string;
 
       type: 'button_set';
     }
 
-    export namespace MessageInAppFeedButtonSetBlock {
+    export namespace ButtonSetBlock {
       /**
        * A button in a set of buttons
        */
@@ -914,7 +910,7 @@ export namespace MessageListActivitiesResponse {
     /**
      * The data associated with the activity
      */
-    data?: Record<string, unknown> | null;
+    data?: unknown | null;
 
     inserted_at?: string;
 
@@ -1017,9 +1013,9 @@ export namespace MessageListDeliveryLogsResponse {
      * A message delivery log request
      */
     export interface Request {
-      body?: string | Record<string, unknown>;
+      body?: string | unknown;
 
-      headers?: Record<string, unknown> | null;
+      headers?: unknown | null;
 
       host?: string;
 
@@ -1034,9 +1030,9 @@ export namespace MessageListDeliveryLogsResponse {
      * A message delivery log response
      */
     export interface Response {
-      body?: string | Record<string, unknown>;
+      body?: string | unknown;
 
-      headers?: Record<string, unknown> | null;
+      headers?: unknown | null;
 
       status?: number;
     }
@@ -1086,7 +1082,7 @@ export namespace MessageListEventsResponse {
      * A reference to a recipient, either a user identifier (string) or an object
      * reference (id, collection).
      */
-    recipient: string | Entry.ObjectReference;
+    recipient: string | Entry.UnionMember1;
 
     type:
       | 'message.queued'
@@ -1106,14 +1102,14 @@ export namespace MessageListEventsResponse {
     /**
      * The data associated with the event. Only present for some event types
      */
-    data?: Record<string, unknown> | null;
+    data?: unknown | null;
   }
 
   export namespace Entry {
     /**
      * An object reference to a recipient
      */
-    export interface ObjectReference {
+    export interface UnionMember1 {
       /**
        * An object identifier
        */
@@ -1155,7 +1151,7 @@ export interface MessageMarkAsInteractedResponse {
   /**
    * A list of actor representations associated with the message (up to 10)
    */
-  actors?: Array<string | MessageMarkAsInteractedResponse.ObjectReference>;
+  actors?: Array<string | MessageMarkAsInteractedResponse.UnionMember1>;
 
   /**
    * Timestamp when message was archived
@@ -1175,7 +1171,7 @@ export interface MessageMarkAsInteractedResponse {
   /**
    * Additional message data
    */
-  data?: Record<string, unknown> | null;
+  data?: unknown | null;
 
   /**
    * List of engagement statuses
@@ -1200,7 +1196,7 @@ export interface MessageMarkAsInteractedResponse {
   /**
    * Message metadata
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: unknown | null;
 
   /**
    * Timestamp when message was read
@@ -1211,7 +1207,7 @@ export interface MessageMarkAsInteractedResponse {
    * A reference to a recipient, either a user identifier (string) or an object
    * reference (id, collection).
    */
-  recipient?: string | MessageMarkAsInteractedResponse.ObjectReference;
+  recipient?: string | MessageMarkAsInteractedResponse.UnionMember1;
 
   /**
    * Timestamp when message was scheduled for
@@ -1253,7 +1249,7 @@ export namespace MessageMarkAsInteractedResponse {
   /**
    * An object reference to a recipient
    */
-  export interface ObjectReference {
+  export interface UnionMember1 {
     /**
      * An object identifier
      */
@@ -1268,7 +1264,7 @@ export namespace MessageMarkAsInteractedResponse {
   /**
    * An object reference to a recipient
    */
-  export interface ObjectReference {
+  export interface UnionMember1 {
     /**
      * An object identifier
      */
@@ -1318,7 +1314,7 @@ export interface MessageMarkAsReadResponse {
   /**
    * A list of actor representations associated with the message (up to 10)
    */
-  actors?: Array<string | MessageMarkAsReadResponse.ObjectReference>;
+  actors?: Array<string | MessageMarkAsReadResponse.UnionMember1>;
 
   /**
    * Timestamp when message was archived
@@ -1338,7 +1334,7 @@ export interface MessageMarkAsReadResponse {
   /**
    * Additional message data
    */
-  data?: Record<string, unknown> | null;
+  data?: unknown | null;
 
   /**
    * List of engagement statuses
@@ -1363,7 +1359,7 @@ export interface MessageMarkAsReadResponse {
   /**
    * Message metadata
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: unknown | null;
 
   /**
    * Timestamp when message was read
@@ -1374,7 +1370,7 @@ export interface MessageMarkAsReadResponse {
    * A reference to a recipient, either a user identifier (string) or an object
    * reference (id, collection).
    */
-  recipient?: string | MessageMarkAsReadResponse.ObjectReference;
+  recipient?: string | MessageMarkAsReadResponse.UnionMember1;
 
   /**
    * Timestamp when message was scheduled for
@@ -1416,7 +1412,7 @@ export namespace MessageMarkAsReadResponse {
   /**
    * An object reference to a recipient
    */
-  export interface ObjectReference {
+  export interface UnionMember1 {
     /**
      * An object identifier
      */
@@ -1431,7 +1427,7 @@ export namespace MessageMarkAsReadResponse {
   /**
    * An object reference to a recipient
    */
-  export interface ObjectReference {
+  export interface UnionMember1 {
     /**
      * An object identifier
      */
@@ -1481,7 +1477,7 @@ export interface MessageMarkAsSeenResponse {
   /**
    * A list of actor representations associated with the message (up to 10)
    */
-  actors?: Array<string | MessageMarkAsSeenResponse.ObjectReference>;
+  actors?: Array<string | MessageMarkAsSeenResponse.UnionMember1>;
 
   /**
    * Timestamp when message was archived
@@ -1501,7 +1497,7 @@ export interface MessageMarkAsSeenResponse {
   /**
    * Additional message data
    */
-  data?: Record<string, unknown> | null;
+  data?: unknown | null;
 
   /**
    * List of engagement statuses
@@ -1526,7 +1522,7 @@ export interface MessageMarkAsSeenResponse {
   /**
    * Message metadata
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: unknown | null;
 
   /**
    * Timestamp when message was read
@@ -1537,7 +1533,7 @@ export interface MessageMarkAsSeenResponse {
    * A reference to a recipient, either a user identifier (string) or an object
    * reference (id, collection).
    */
-  recipient?: string | MessageMarkAsSeenResponse.ObjectReference;
+  recipient?: string | MessageMarkAsSeenResponse.UnionMember1;
 
   /**
    * Timestamp when message was scheduled for
@@ -1579,7 +1575,7 @@ export namespace MessageMarkAsSeenResponse {
   /**
    * An object reference to a recipient
    */
-  export interface ObjectReference {
+  export interface UnionMember1 {
     /**
      * An object identifier
      */
@@ -1594,7 +1590,7 @@ export namespace MessageMarkAsSeenResponse {
   /**
    * An object reference to a recipient
    */
-  export interface ObjectReference {
+  export interface UnionMember1 {
     /**
      * An object identifier
      */
@@ -1644,7 +1640,7 @@ export interface MessageMarkAsUnreadResponse {
   /**
    * A list of actor representations associated with the message (up to 10)
    */
-  actors?: Array<string | MessageMarkAsUnreadResponse.ObjectReference>;
+  actors?: Array<string | MessageMarkAsUnreadResponse.UnionMember1>;
 
   /**
    * Timestamp when message was archived
@@ -1664,7 +1660,7 @@ export interface MessageMarkAsUnreadResponse {
   /**
    * Additional message data
    */
-  data?: Record<string, unknown> | null;
+  data?: unknown | null;
 
   /**
    * List of engagement statuses
@@ -1689,7 +1685,7 @@ export interface MessageMarkAsUnreadResponse {
   /**
    * Message metadata
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: unknown | null;
 
   /**
    * Timestamp when message was read
@@ -1700,7 +1696,7 @@ export interface MessageMarkAsUnreadResponse {
    * A reference to a recipient, either a user identifier (string) or an object
    * reference (id, collection).
    */
-  recipient?: string | MessageMarkAsUnreadResponse.ObjectReference;
+  recipient?: string | MessageMarkAsUnreadResponse.UnionMember1;
 
   /**
    * Timestamp when message was scheduled for
@@ -1742,7 +1738,7 @@ export namespace MessageMarkAsUnreadResponse {
   /**
    * An object reference to a recipient
    */
-  export interface ObjectReference {
+  export interface UnionMember1 {
     /**
      * An object identifier
      */
@@ -1757,7 +1753,7 @@ export namespace MessageMarkAsUnreadResponse {
   /**
    * An object reference to a recipient
    */
-  export interface ObjectReference {
+  export interface UnionMember1 {
     /**
      * An object identifier
      */
@@ -1807,7 +1803,7 @@ export interface MessageMarkAsUnseenResponse {
   /**
    * A list of actor representations associated with the message (up to 10)
    */
-  actors?: Array<string | MessageMarkAsUnseenResponse.ObjectReference>;
+  actors?: Array<string | MessageMarkAsUnseenResponse.UnionMember1>;
 
   /**
    * Timestamp when message was archived
@@ -1827,7 +1823,7 @@ export interface MessageMarkAsUnseenResponse {
   /**
    * Additional message data
    */
-  data?: Record<string, unknown> | null;
+  data?: unknown | null;
 
   /**
    * List of engagement statuses
@@ -1852,7 +1848,7 @@ export interface MessageMarkAsUnseenResponse {
   /**
    * Message metadata
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: unknown | null;
 
   /**
    * Timestamp when message was read
@@ -1863,7 +1859,7 @@ export interface MessageMarkAsUnseenResponse {
    * A reference to a recipient, either a user identifier (string) or an object
    * reference (id, collection).
    */
-  recipient?: string | MessageMarkAsUnseenResponse.ObjectReference;
+  recipient?: string | MessageMarkAsUnseenResponse.UnionMember1;
 
   /**
    * Timestamp when message was scheduled for
@@ -1905,7 +1901,7 @@ export namespace MessageMarkAsUnseenResponse {
   /**
    * An object reference to a recipient
    */
-  export interface ObjectReference {
+  export interface UnionMember1 {
     /**
      * An object identifier
      */
@@ -1920,7 +1916,7 @@ export namespace MessageMarkAsUnseenResponse {
   /**
    * An object reference to a recipient
    */
-  export interface ObjectReference {
+  export interface UnionMember1 {
     /**
      * An object identifier
      */
@@ -1970,7 +1966,7 @@ export interface MessageUnarchiveResponse {
   /**
    * A list of actor representations associated with the message (up to 10)
    */
-  actors?: Array<string | MessageUnarchiveResponse.ObjectReference>;
+  actors?: Array<string | MessageUnarchiveResponse.UnionMember1>;
 
   /**
    * Timestamp when message was archived
@@ -1990,7 +1986,7 @@ export interface MessageUnarchiveResponse {
   /**
    * Additional message data
    */
-  data?: Record<string, unknown> | null;
+  data?: unknown | null;
 
   /**
    * List of engagement statuses
@@ -2015,7 +2011,7 @@ export interface MessageUnarchiveResponse {
   /**
    * Message metadata
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: unknown | null;
 
   /**
    * Timestamp when message was read
@@ -2026,7 +2022,7 @@ export interface MessageUnarchiveResponse {
    * A reference to a recipient, either a user identifier (string) or an object
    * reference (id, collection).
    */
-  recipient?: string | MessageUnarchiveResponse.ObjectReference;
+  recipient?: string | MessageUnarchiveResponse.UnionMember1;
 
   /**
    * Timestamp when message was scheduled for
@@ -2068,7 +2064,7 @@ export namespace MessageUnarchiveResponse {
   /**
    * An object reference to a recipient
    */
-  export interface ObjectReference {
+  export interface UnionMember1 {
     /**
      * An object identifier
      */
@@ -2083,7 +2079,7 @@ export namespace MessageUnarchiveResponse {
   /**
    * An object reference to a recipient
    */
-  export interface ObjectReference {
+  export interface UnionMember1 {
     /**
      * An object identifier
      */
@@ -2286,7 +2282,6 @@ export declare namespace Messages {
     type BatchUnarchiveResponse as BatchUnarchiveResponse,
     type BatchArchiveParams as BatchArchiveParams,
     type BatchGetContentParams as BatchGetContentParams,
-    type BatchMarkAsInteractedParams as BatchMarkAsInteractedParams,
     type BatchMarkAsReadParams as BatchMarkAsReadParams,
     type BatchMarkAsSeenParams as BatchMarkAsSeenParams,
     type BatchMarkAsUnreadParams as BatchMarkAsUnreadParams,

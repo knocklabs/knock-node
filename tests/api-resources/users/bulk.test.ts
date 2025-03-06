@@ -11,10 +11,7 @@ const client = new Knock({
 describe('resource bulk', () => {
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('delete: only required params', async () => {
-    const responsePromise = client.users.bulk.delete({
-      user_ids: ['string'],
-      user_ids: ['user_1', 'user_2'],
-    });
+    const responsePromise = client.users.bulk.delete({ user_ids: ['string'] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -26,12 +23,12 @@ describe('resource bulk', () => {
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('delete: required and optional params', async () => {
-    const response = await client.users.bulk.delete({ user_ids: ['string'], user_ids: ['user_1', 'user_2'] });
+    const response = await client.users.bulk.delete({ user_ids: ['string'] });
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('identify: only required params', async () => {
-    const responsePromise = client.users.bulk.identify({ users: [{ id: 'user_1' }] });
+  test.skip('identify', async () => {
+    const responsePromise = client.users.bulk.identify();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -42,38 +39,16 @@ describe('resource bulk', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('identify: required and optional params', async () => {
-    const response = await client.users.bulk.identify({
-      users: [
-        {
-          id: 'user_1',
-          channel_data: { '97c5837d-c65c-4d54-aa39-080eeb81c69d': { data: { tokens: ['string'] } } },
-          created_at: '2019-12-27T18:11:19.117Z',
-          preferences: {
-            default: {
-              categories: { transactional: true },
-              channel_types: {
-                chat: true,
-                email: true,
-                http: true,
-                in_app_feed: true,
-                push: true,
-                sms: true,
-              },
-              workflows: { 'dinosaurs-loose': true },
-            },
-          },
-        },
-      ],
-    });
+  test.skip('identify: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(client.users.bulk.identify({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+      Knock.NotFoundError,
+    );
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('setPreferences: only required params', async () => {
-    const responsePromise = client.users.bulk.setPreferences({
-      preferences: {},
-      user_ids: ['user_1', 'user_2'],
-    });
+  test.skip('setPreferences', async () => {
+    const responsePromise = client.users.bulk.setPreferences();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -84,14 +59,10 @@ describe('resource bulk', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('setPreferences: required and optional params', async () => {
-    const response = await client.users.bulk.setPreferences({
-      preferences: {
-        categories: { marketing: false, transactional: true },
-        channel_types: { chat: true, email: true, http: true, in_app_feed: true, push: true, sms: true },
-        workflows: { 'dinosaurs-loose': true },
-      },
-      user_ids: ['user_1', 'user_2'],
-    });
+  test.skip('setPreferences: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(client.users.bulk.setPreferences({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+      Knock.NotFoundError,
+    );
   });
 });

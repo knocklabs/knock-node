@@ -32,7 +32,7 @@ describe('resource batch', () => {
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('getContent: only required params', async () => {
-    const responsePromise = client.messages.batch.getContent({ message_ids: ['string'] });
+    const responsePromise = client.messages.batch.getContent({ message_ids: [{}] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -44,14 +44,12 @@ describe('resource batch', () => {
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('getContent: required and optional params', async () => {
-    const response = await client.messages.batch.getContent({ message_ids: ['string'] });
+    const response = await client.messages.batch.getContent({ message_ids: [{}] });
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('markAsInteracted: only required params', async () => {
-    const responsePromise = client.messages.batch.markAsInteracted({
-      message_ids: ['1jNaXzB2RZX3LY8wVQnfCKyPnv7'],
-    });
+  test.skip('markAsInteracted', async () => {
+    const responsePromise = client.messages.batch.markAsInteracted();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -62,11 +60,11 @@ describe('resource batch', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('markAsInteracted: required and optional params', async () => {
-    const response = await client.messages.batch.markAsInteracted({
-      message_ids: ['1jNaXzB2RZX3LY8wVQnfCKyPnv7'],
-      metadata: { key: 'bar' },
-    });
+  test.skip('markAsInteracted: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.messages.batch.markAsInteracted({ path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Knock.NotFoundError);
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
