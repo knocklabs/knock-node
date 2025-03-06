@@ -326,7 +326,7 @@ export namespace BatchGetContentResponse {
 
       title: string;
 
-      data?: unknown | null;
+      data?: Record<string, unknown> | null;
     }
 
     /**

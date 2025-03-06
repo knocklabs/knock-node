@@ -311,14 +311,7 @@ describe('resource objects', () => {
       client.objects.listSubscriptions(
         'collection',
         'object_id',
-        {
-          after: 'after',
-          before: 'before',
-          mode: 'recipient',
-          objects: ['user_123'],
-          page_size: 0,
-          recipients: ['user_123'],
-        },
+        { after: 'after', before: 'before', mode: 'recipient', page_size: 0 },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Knock.NotFoundError);

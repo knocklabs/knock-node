@@ -782,7 +782,7 @@ export namespace MessageGetContentResponse {
 
     title: string;
 
-    data?: unknown | null;
+    data?: Record<string, unknown> | null;
   }
 
   /**

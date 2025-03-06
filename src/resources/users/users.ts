@@ -5098,31 +5098,9 @@ export interface UserListSubscriptionsParams {
   before?: string;
 
   /**
-   * Objects to filter by
-   */
-  objects?: Array<string | UserListSubscriptionsParams.ObjectReference>;
-
-  /**
    * The page size to fetch
    */
   page_size?: number;
-}
-
-export namespace UserListSubscriptionsParams {
-  /**
-   * An object reference to a recipient
-   */
-  export interface ObjectReference {
-    /**
-     * An object identifier
-     */
-    id: string;
-
-    /**
-     * The collection the object belongs to
-     */
-    collection: string;
-  }
 }
 
 export interface UserMergeParams {

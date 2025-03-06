@@ -8749,51 +8749,9 @@ export interface ObjectListSubscriptionsParams {
   mode?: 'recipient' | 'object';
 
   /**
-   * Objects to filter by (only used if mode is `recipient`)
-   */
-  objects?: Array<string | ObjectListSubscriptionsParams.ObjectReference>;
-
-  /**
    * The page size to fetch
    */
   page_size?: number;
-
-  /**
-   * Recipients to filter by (only used if mode is `object`)
-   */
-  recipients?: Array<string | ObjectListSubscriptionsParams.ObjectReference>;
-}
-
-export namespace ObjectListSubscriptionsParams {
-  /**
-   * An object reference to a recipient
-   */
-  export interface ObjectReference {
-    /**
-     * An object identifier
-     */
-    id: string;
-
-    /**
-     * The collection the object belongs to
-     */
-    collection: string;
-  }
-
-  /**
-   * An object reference to a recipient
-   */
-  export interface ObjectReference {
-    /**
-     * An object identifier
-     */
-    id: string;
-
-    /**
-     * The collection the object belongs to
-     */
-    collection: string;
-  }
 }
 
 export interface ObjectSetParams {
