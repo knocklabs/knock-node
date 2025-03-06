@@ -283,8 +283,6 @@ export namespace UserUpdateParams {
 
         http?: boolean | ChannelTypes.Conditions;
 
-        in_app?: boolean | ChannelTypes.Conditions;
-
         in_app_feed?: boolean | ChannelTypes.Conditions;
 
         push?: boolean | ChannelTypes.Conditions;
@@ -293,40 +291,6 @@ export namespace UserUpdateParams {
       }
 
       export namespace ChannelTypes {
-        export interface Conditions {
-          conditions: Array<Conditions.Condition>;
-        }
-
-        export namespace Conditions {
-          /**
-           * A condition to be evaluated
-           */
-          export interface Condition {
-            argument: string | null;
-
-            operator:
-              | 'equal_to'
-              | 'not_equal_to'
-              | 'greater_than'
-              | 'less_than'
-              | 'greater_than_or_equal_to'
-              | 'less_than_or_equal_to'
-              | 'contains'
-              | 'not_contains'
-              | 'empty'
-              | 'not_empty'
-              | 'contains_all'
-              | 'is_timestamp'
-              | 'is_not_timestamp'
-              | 'is_timestamp_after'
-              | 'is_timestamp_before'
-              | 'is_timestamp_between'
-              | 'is_audience_member';
-
-            variable: string;
-          }
-        }
-
         export interface Conditions {
           conditions: Array<Conditions.Condition>;
         }
@@ -571,8 +535,6 @@ export namespace UserUpdateParams {
 
       http?: boolean | ChannelTypes.Conditions;
 
-      in_app?: boolean | ChannelTypes.Conditions;
-
       in_app_feed?: boolean | ChannelTypes.Conditions;
 
       push?: boolean | ChannelTypes.Conditions;
@@ -581,40 +543,6 @@ export namespace UserUpdateParams {
     }
 
     export namespace ChannelTypes {
-      export interface Conditions {
-        conditions: Array<Conditions.Condition>;
-      }
-
-      export namespace Conditions {
-        /**
-         * A condition to be evaluated
-         */
-        export interface Condition {
-          argument: string | null;
-
-          operator:
-            | 'equal_to'
-            | 'not_equal_to'
-            | 'greater_than'
-            | 'less_than'
-            | 'greater_than_or_equal_to'
-            | 'less_than_or_equal_to'
-            | 'contains'
-            | 'not_contains'
-            | 'empty'
-            | 'not_empty'
-            | 'contains_all'
-            | 'is_timestamp'
-            | 'is_not_timestamp'
-            | 'is_timestamp_after'
-            | 'is_timestamp_before'
-            | 'is_timestamp_between'
-            | 'is_audience_member';
-
-          variable: string;
-        }
-      }
-
       export interface Conditions {
         conditions: Array<Conditions.Condition>;
       }
@@ -840,8 +768,6 @@ export namespace UserUpdateParams {
 
         http?: boolean | ChannelTypes.Conditions;
 
-        in_app?: boolean | ChannelTypes.Conditions;
-
         in_app_feed?: boolean | ChannelTypes.Conditions;
 
         push?: boolean | ChannelTypes.Conditions;
@@ -850,40 +776,6 @@ export namespace UserUpdateParams {
       }
 
       export namespace ChannelTypes {
-        export interface Conditions {
-          conditions: Array<Conditions.Condition>;
-        }
-
-        export namespace Conditions {
-          /**
-           * A condition to be evaluated
-           */
-          export interface Condition {
-            argument: string | null;
-
-            operator:
-              | 'equal_to'
-              | 'not_equal_to'
-              | 'greater_than'
-              | 'less_than'
-              | 'greater_than_or_equal_to'
-              | 'less_than_or_equal_to'
-              | 'contains'
-              | 'not_contains'
-              | 'empty'
-              | 'not_empty'
-              | 'contains_all'
-              | 'is_timestamp'
-              | 'is_not_timestamp'
-              | 'is_timestamp_after'
-              | 'is_timestamp_before'
-              | 'is_timestamp_between'
-              | 'is_audience_member';
-
-            variable: string;
-          }
-        }
-
         export interface Conditions {
           conditions: Array<Conditions.Condition>;
         }
