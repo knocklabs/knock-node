@@ -1,19 +1,118 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { type Agent } from './_shims/index';
+import * as qs from './internal/qs';
 import * as Core from './core';
 import * as Errors from './error';
 import * as Uploads from './uploads';
 import * as API from './resources/index';
 import {
+  AudienceAddMembersParams,
+  AudienceAddMembersResponse,
+  AudienceListMembersResponse,
+  AudienceRemoveMembersParams,
+  AudienceRemoveMembersResponse,
+  Audiences,
+} from './resources/audiences';
+import { BulkOperationGetResponse, BulkOperations } from './resources/bulk-operations';
+import {
+  ScheduleCreateParams,
+  ScheduleCreateResponse,
+  ScheduleDeleteParams,
+  ScheduleDeleteResponse,
+  ScheduleListParams,
+  ScheduleListResponse,
+  ScheduleUpdateParams,
+  ScheduleUpdateResponse,
+  Schedules,
+} from './resources/schedules';
+import {
+  WorkflowCancelParams,
+  WorkflowCancelResponse,
+  WorkflowTriggerParams,
+  WorkflowTriggerResponse,
+  Workflows,
+} from './resources/workflows';
+import { Channels } from './resources/channels/channels';
+import {
+  MessageArchiveResponse,
+  MessageGetContentResponse,
+  MessageGetResponse,
+  MessageListActivitiesParams,
+  MessageListActivitiesResponse,
+  MessageListDeliveryLogsParams,
+  MessageListDeliveryLogsResponse,
+  MessageListEventsParams,
+  MessageListEventsResponse,
+  MessageListParams,
+  MessageListResponse,
+  MessageMarkAsInteractedParams,
+  MessageMarkAsInteractedResponse,
+  MessageMarkAsReadResponse,
+  MessageMarkAsSeenResponse,
+  MessageMarkAsUnreadResponse,
+  MessageMarkAsUnseenResponse,
+  MessageUnarchiveResponse,
+  Messages,
+} from './resources/messages/messages';
+import {
+  ObjectAddSubscriptionsParams,
+  ObjectAddSubscriptionsResponse,
+  ObjectDeleteResponse,
+  ObjectDeleteSubscriptionsParams,
+  ObjectDeleteSubscriptionsResponse,
+  ObjectGetChannelDataResponse,
+  ObjectGetPreferencesParams,
+  ObjectGetPreferencesResponse,
+  ObjectGetResponse,
+  ObjectListParams,
+  ObjectListPreferencesResponse,
+  ObjectListResponse,
+  ObjectListSubscriptionsParams,
+  ObjectListSubscriptionsResponse,
+  ObjectSetChannelDataParams,
+  ObjectSetChannelDataResponse,
+  ObjectSetParams,
+  ObjectSetPreferencesParams,
+  ObjectSetPreferencesResponse,
+  ObjectSetResponse,
+  ObjectUnsetChannelDataResponse,
+  Objects,
+} from './resources/objects/objects';
+import { Providers } from './resources/providers/providers';
+import {
+  TenantDeleteResponse,
+  TenantGetResponse,
+  TenantListParams,
+  TenantListResponse,
+  TenantSetParams,
+  TenantSetResponse,
+  Tenants,
+} from './resources/tenants/tenants';
+import {
   User,
   UserDeleteResponse,
+  UserGetChannelDataResponse,
+  UserGetPreferencesParams,
+  UserGetPreferencesResponse,
+  UserListMessagesParams,
+  UserListMessagesResponse,
   UserListParams,
+  UserListPreferencesResponse,
   UserListResponse,
+  UserListSchedulesParams,
+  UserListSchedulesResponse,
+  UserListSubscriptionsParams,
+  UserListSubscriptionsResponse,
   UserMergeParams,
+  UserSetChannelDataParams,
+  UserSetChannelDataResponse,
+  UserSetPreferencesParams,
+  UserSetPreferencesResponse,
+  UserUnsetChannelDataResponse,
   UserUpdateParams,
   Users,
-} from './resources/users';
+} from './resources/users/users';
 
 export interface ClientOptions {
   /**
@@ -129,6 +228,15 @@ export class Knock extends Core.APIClient {
   }
 
   users: API.Users = new API.Users(this);
+  objects: API.Objects = new API.Objects(this);
+  tenants: API.Tenants = new API.Tenants(this);
+  bulkOperations: API.BulkOperations = new API.BulkOperations(this);
+  messages: API.Messages = new API.Messages(this);
+  providers: API.Providers = new API.Providers(this);
+  workflows: API.Workflows = new API.Workflows(this);
+  schedules: API.Schedules = new API.Schedules(this);
+  channels: API.Channels = new API.Channels(this);
+  audiences: API.Audiences = new API.Audiences(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -143,6 +251,10 @@ export class Knock extends Core.APIClient {
 
   protected override authHeaders(opts: Core.FinalRequestOptions): Core.Headers {
     return { Authorization: `Bearer ${this.token}` };
+  }
+
+  protected override stringifyQuery(query: Record<string, unknown>): string {
+    return qs.stringify(query, { arrayFormat: 'comma' });
   }
 
   static Knock = this;
@@ -167,6 +279,15 @@ export class Knock extends Core.APIClient {
 }
 
 Knock.Users = Users;
+Knock.Objects = Objects;
+Knock.Tenants = Tenants;
+Knock.BulkOperations = BulkOperations;
+Knock.Messages = Messages;
+Knock.Providers = Providers;
+Knock.Workflows = Workflows;
+Knock.Schedules = Schedules;
+Knock.Channels = Channels;
+Knock.Audiences = Audiences;
 export declare namespace Knock {
   export type RequestOptions = Core.RequestOptions;
 
@@ -175,9 +296,116 @@ export declare namespace Knock {
     type User as User,
     type UserListResponse as UserListResponse,
     type UserDeleteResponse as UserDeleteResponse,
+    type UserGetChannelDataResponse as UserGetChannelDataResponse,
+    type UserGetPreferencesResponse as UserGetPreferencesResponse,
+    type UserListMessagesResponse as UserListMessagesResponse,
+    type UserListPreferencesResponse as UserListPreferencesResponse,
+    type UserListSchedulesResponse as UserListSchedulesResponse,
+    type UserListSubscriptionsResponse as UserListSubscriptionsResponse,
+    type UserSetChannelDataResponse as UserSetChannelDataResponse,
+    type UserSetPreferencesResponse as UserSetPreferencesResponse,
+    type UserUnsetChannelDataResponse as UserUnsetChannelDataResponse,
     type UserUpdateParams as UserUpdateParams,
     type UserListParams as UserListParams,
+    type UserGetPreferencesParams as UserGetPreferencesParams,
+    type UserListMessagesParams as UserListMessagesParams,
+    type UserListSchedulesParams as UserListSchedulesParams,
+    type UserListSubscriptionsParams as UserListSubscriptionsParams,
     type UserMergeParams as UserMergeParams,
+    type UserSetChannelDataParams as UserSetChannelDataParams,
+    type UserSetPreferencesParams as UserSetPreferencesParams,
+  };
+
+  export {
+    Objects as Objects,
+    type ObjectListResponse as ObjectListResponse,
+    type ObjectDeleteResponse as ObjectDeleteResponse,
+    type ObjectAddSubscriptionsResponse as ObjectAddSubscriptionsResponse,
+    type ObjectDeleteSubscriptionsResponse as ObjectDeleteSubscriptionsResponse,
+    type ObjectGetResponse as ObjectGetResponse,
+    type ObjectGetChannelDataResponse as ObjectGetChannelDataResponse,
+    type ObjectGetPreferencesResponse as ObjectGetPreferencesResponse,
+    type ObjectListPreferencesResponse as ObjectListPreferencesResponse,
+    type ObjectListSubscriptionsResponse as ObjectListSubscriptionsResponse,
+    type ObjectSetResponse as ObjectSetResponse,
+    type ObjectSetChannelDataResponse as ObjectSetChannelDataResponse,
+    type ObjectSetPreferencesResponse as ObjectSetPreferencesResponse,
+    type ObjectUnsetChannelDataResponse as ObjectUnsetChannelDataResponse,
+    type ObjectListParams as ObjectListParams,
+    type ObjectAddSubscriptionsParams as ObjectAddSubscriptionsParams,
+    type ObjectDeleteSubscriptionsParams as ObjectDeleteSubscriptionsParams,
+    type ObjectGetPreferencesParams as ObjectGetPreferencesParams,
+    type ObjectListSubscriptionsParams as ObjectListSubscriptionsParams,
+    type ObjectSetParams as ObjectSetParams,
+    type ObjectSetChannelDataParams as ObjectSetChannelDataParams,
+    type ObjectSetPreferencesParams as ObjectSetPreferencesParams,
+  };
+
+  export {
+    Tenants as Tenants,
+    type TenantListResponse as TenantListResponse,
+    type TenantDeleteResponse as TenantDeleteResponse,
+    type TenantGetResponse as TenantGetResponse,
+    type TenantSetResponse as TenantSetResponse,
+    type TenantListParams as TenantListParams,
+    type TenantSetParams as TenantSetParams,
+  };
+
+  export { BulkOperations as BulkOperations, type BulkOperationGetResponse as BulkOperationGetResponse };
+
+  export {
+    Messages as Messages,
+    type MessageListResponse as MessageListResponse,
+    type MessageArchiveResponse as MessageArchiveResponse,
+    type MessageGetResponse as MessageGetResponse,
+    type MessageGetContentResponse as MessageGetContentResponse,
+    type MessageListActivitiesResponse as MessageListActivitiesResponse,
+    type MessageListDeliveryLogsResponse as MessageListDeliveryLogsResponse,
+    type MessageListEventsResponse as MessageListEventsResponse,
+    type MessageMarkAsInteractedResponse as MessageMarkAsInteractedResponse,
+    type MessageMarkAsReadResponse as MessageMarkAsReadResponse,
+    type MessageMarkAsSeenResponse as MessageMarkAsSeenResponse,
+    type MessageMarkAsUnreadResponse as MessageMarkAsUnreadResponse,
+    type MessageMarkAsUnseenResponse as MessageMarkAsUnseenResponse,
+    type MessageUnarchiveResponse as MessageUnarchiveResponse,
+    type MessageListParams as MessageListParams,
+    type MessageListActivitiesParams as MessageListActivitiesParams,
+    type MessageListDeliveryLogsParams as MessageListDeliveryLogsParams,
+    type MessageListEventsParams as MessageListEventsParams,
+    type MessageMarkAsInteractedParams as MessageMarkAsInteractedParams,
+  };
+
+  export { Providers as Providers };
+
+  export {
+    Workflows as Workflows,
+    type WorkflowCancelResponse as WorkflowCancelResponse,
+    type WorkflowTriggerResponse as WorkflowTriggerResponse,
+    type WorkflowCancelParams as WorkflowCancelParams,
+    type WorkflowTriggerParams as WorkflowTriggerParams,
+  };
+
+  export {
+    Schedules as Schedules,
+    type ScheduleCreateResponse as ScheduleCreateResponse,
+    type ScheduleUpdateResponse as ScheduleUpdateResponse,
+    type ScheduleListResponse as ScheduleListResponse,
+    type ScheduleDeleteResponse as ScheduleDeleteResponse,
+    type ScheduleCreateParams as ScheduleCreateParams,
+    type ScheduleUpdateParams as ScheduleUpdateParams,
+    type ScheduleListParams as ScheduleListParams,
+    type ScheduleDeleteParams as ScheduleDeleteParams,
+  };
+
+  export { Channels as Channels };
+
+  export {
+    Audiences as Audiences,
+    type AudienceAddMembersResponse as AudienceAddMembersResponse,
+    type AudienceListMembersResponse as AudienceListMembersResponse,
+    type AudienceRemoveMembersResponse as AudienceRemoveMembersResponse,
+    type AudienceAddMembersParams as AudienceAddMembersParams,
+    type AudienceRemoveMembersParams as AudienceRemoveMembersParams,
   };
 }
 

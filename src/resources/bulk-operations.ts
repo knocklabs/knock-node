@@ -1,0 +1,61 @@
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+import { APIResource } from '../resource';
+import * as Core from '../core';
+
+export class BulkOperations extends APIResource {
+  /**
+   * Retrieves a bulk operation (if it exists) and displays the current state of it.
+   */
+  get(id: string, options?: Core.RequestOptions): Core.APIPromise<BulkOperationGetResponse> {
+    return this._client.get(`/v1/bulk_operations/${id}`, options);
+  }
+}
+
+/**
+ * A bulk operation entity
+ */
+export interface BulkOperationGetResponse {
+  id: string;
+
+  __typename: string;
+
+  estimated_total_rows: number;
+
+  inserted_at: string;
+
+  name: string;
+
+  processed_rows: number;
+
+  status: 'queued' | 'processing' | 'completed' | 'failed';
+
+  success_count: number;
+
+  updated_at: string;
+
+  completed_at?: string | null;
+
+  error_count?: number;
+
+  /**
+   * A list of items that failed to be processed
+   */
+  error_items?: Array<BulkOperationGetResponse.ErrorItem>;
+
+  failed_at?: string | null;
+
+  started_at?: string | null;
+}
+
+export namespace BulkOperationGetResponse {
+  export interface ErrorItem {
+    id: string;
+
+    collection?: string | null;
+  }
+}
+
+export declare namespace BulkOperations {
+  export { type BulkOperationGetResponse as BulkOperationGetResponse };
+}
