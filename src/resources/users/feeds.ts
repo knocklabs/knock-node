@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
+import * as Shared from '../shared';
 import * as UsersAPI from './users';
 import { APIPromise } from '../../api-promise';
 import { EntriesCursor, type EntriesCursorParams, PagePromise } from '../../pagination';
@@ -63,7 +64,7 @@ export interface FeedListItemsResponse {
 
   activities: Array<FeedListItemsResponse.Activity>;
 
-  actors: Array<UsersAPI.User | FeedListItemsResponse.Object>;
+  actors: Array<UsersAPI.User | Shared.Object>;
 
   blocks: Array<
     FeedListItemsResponse.MessageInAppFeedContentBlock | FeedListItemsResponse.MessageInAppFeedButtonSetBlock
@@ -108,7 +109,7 @@ export namespace FeedListItemsResponse {
     /**
      * A recipient, which is either a user or an object
      */
-    actor?: UsersAPI.User | Activity.Object | null;
+    actor?: UsersAPI.User | Shared.Object | null;
 
     /**
      * The data associated with the activity
@@ -120,59 +121,9 @@ export namespace FeedListItemsResponse {
     /**
      * A recipient, which is either a user or an object
      */
-    recipient?: UsersAPI.User | Activity.Object;
+    recipient?: UsersAPI.User | Shared.Object;
 
     updated_at?: string;
-  }
-
-  export namespace Activity {
-    /**
-     * A custom-object entity which belongs to a collection.
-     */
-    export interface Object {
-      id: string;
-
-      __typename: string;
-
-      collection: string;
-
-      updated_at: string;
-
-      created_at?: string | null;
-      [k: string]: unknown;
-    }
-
-    /**
-     * A custom-object entity which belongs to a collection.
-     */
-    export interface Object {
-      id: string;
-
-      __typename: string;
-
-      collection: string;
-
-      updated_at: string;
-
-      created_at?: string | null;
-      [k: string]: unknown;
-    }
-  }
-
-  /**
-   * A custom-object entity which belongs to a collection.
-   */
-  export interface Object {
-    id: string;
-
-    __typename: string;
-
-    collection: string;
-
-    updated_at: string;
-
-    created_at?: string | null;
-    [k: string]: unknown;
   }
 
   /**

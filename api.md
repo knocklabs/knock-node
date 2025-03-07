@@ -1,3 +1,25 @@
+# Shared
+
+Types:
+
+- <code><a href="./src/resources/shared.ts">ChannelDataRequest</a></code>
+- <code><a href="./src/resources/shared.ts">Condition</a></code>
+- <code><a href="./src/resources/shared.ts">DiscordChannelData</a></code>
+- <code><a href="./src/resources/shared.ts">InlineChannelDataRequest</a></code>
+- <code><a href="./src/resources/shared.ts">InlineIdentifyObjectRequest</a></code>
+- <code><a href="./src/resources/shared.ts">InlineIdentifyUserRequest</a></code>
+- <code><a href="./src/resources/shared.ts">InlinePreferenceSetRequest</a></code>
+- <code><a href="./src/resources/shared.ts">InlineTenantRequest</a></code>
+- <code><a href="./src/resources/shared.ts">MsTeamsChannelData</a></code>
+- <code><a href="./src/resources/shared.ts">Object</a></code>
+- <code><a href="./src/resources/shared.ts">OneSignalChannelData</a></code>
+- <code><a href="./src/resources/shared.ts">PreferenceSetChannelTypes</a></code>
+- <code><a href="./src/resources/shared.ts">PreferenceSetRequest</a></code>
+- <code><a href="./src/resources/shared.ts">PushChannelData</a></code>
+- <code><a href="./src/resources/shared.ts">ScheduleRepeatRule</a></code>
+- <code><a href="./src/resources/shared.ts">SlackChannelData</a></code>
+- <code><a href="./src/resources/shared.ts">TenantRequest</a></code>
+
 # Users
 
 Types:
@@ -61,36 +83,33 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/objects/objects.ts">ObjectListResponse</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectDeleteResponse</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectAddSubscriptionsResponse</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectDeleteSubscriptionsResponse</a></code>
-- <code><a href="./src/resources/objects/objects.ts">ObjectGetResponse</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectGetChannelDataResponse</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectGetPreferencesResponse</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectListMessagesResponse</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectListPreferencesResponse</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectListSchedulesResponse</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectListSubscriptionsResponse</a></code>
-- <code><a href="./src/resources/objects/objects.ts">ObjectSetResponse</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectSetChannelDataResponse</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectSetPreferencesResponse</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectUnsetChannelDataResponse</a></code>
 
 Methods:
 
-- <code title="get /v1/objects/{collection}">client.objects.<a href="./src/resources/objects/objects.ts">list</a>(collection, { ...params }) -> ObjectListResponsesEntriesCursor</code>
+- <code title="get /v1/objects/{collection}">client.objects.<a href="./src/resources/objects/objects.ts">list</a>(collection, { ...params }) -> ObjectsEntriesCursor</code>
 - <code title="delete /v1/objects/{collection}/{id}">client.objects.<a href="./src/resources/objects/objects.ts">delete</a>(id, { ...params }) -> string</code>
 - <code title="post /v1/objects/{collection}/{object_id}/subscriptions">client.objects.<a href="./src/resources/objects/objects.ts">addSubscriptions</a>(objectID, { ...params }) -> ObjectAddSubscriptionsResponse</code>
 - <code title="delete /v1/objects/{collection}/{object_id}/subscriptions">client.objects.<a href="./src/resources/objects/objects.ts">deleteSubscriptions</a>(objectID, { ...params }) -> ObjectDeleteSubscriptionsResponse</code>
-- <code title="get /v1/objects/{collection}/{id}">client.objects.<a href="./src/resources/objects/objects.ts">get</a>(id, { ...params }) -> ObjectGetResponse</code>
+- <code title="get /v1/objects/{collection}/{id}">client.objects.<a href="./src/resources/objects/objects.ts">get</a>(id, { ...params }) -> Object</code>
 - <code title="get /v1/objects/{collection}/{object_id}/channel_data/{channel_id}">client.objects.<a href="./src/resources/objects/objects.ts">getChannelData</a>(channelID, { ...params }) -> ObjectGetChannelDataResponse</code>
 - <code title="get /v1/objects/{collection}/{object_id}/preferences/{id}">client.objects.<a href="./src/resources/objects/objects.ts">getPreferences</a>(id, { ...params }) -> ObjectGetPreferencesResponse</code>
 - <code title="get /v1/objects/{collection}/{id}/messages">client.objects.<a href="./src/resources/objects/objects.ts">listMessages</a>(id, { ...params }) -> ObjectListMessagesResponsesEntriesCursor</code>
 - <code title="get /v1/objects/{collection}/{object_id}/preferences">client.objects.<a href="./src/resources/objects/objects.ts">listPreferences</a>(objectID, { ...params }) -> ObjectListPreferencesResponse</code>
 - <code title="get /v1/objects/{collection}/{id}/schedules">client.objects.<a href="./src/resources/objects/objects.ts">listSchedules</a>(id, { ...params }) -> ObjectListSchedulesResponsesEntriesCursor</code>
 - <code title="get /v1/objects/{collection}/{object_id}/subscriptions">client.objects.<a href="./src/resources/objects/objects.ts">listSubscriptions</a>(objectID, { ...params }) -> ObjectListSubscriptionsResponsesEntriesCursor</code>
-- <code title="put /v1/objects/{collection}/{id}">client.objects.<a href="./src/resources/objects/objects.ts">set</a>(id, { ...params }) -> ObjectSetResponse</code>
+- <code title="put /v1/objects/{collection}/{id}">client.objects.<a href="./src/resources/objects/objects.ts">set</a>(id, { ...params }) -> Object</code>
 - <code title="put /v1/objects/{collection}/{object_id}/channel_data/{channel_id}">client.objects.<a href="./src/resources/objects/objects.ts">setChannelData</a>(channelID, { ...params }) -> ObjectSetChannelDataResponse</code>
 - <code title="put /v1/objects/{collection}/{object_id}/preferences/{id}">client.objects.<a href="./src/resources/objects/objects.ts">setPreferences</a>(id, { ...params }) -> ObjectSetPreferencesResponse</code>
 - <code title="delete /v1/objects/{collection}/{object_id}/channel_data/{channel_id}">client.objects.<a href="./src/resources/objects/objects.ts">unsetChannelData</a>(channelID, { ...params }) -> string</code>

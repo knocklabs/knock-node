@@ -1,5 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+export * from './shared';
 export {
   Audiences,
   type AudienceAddMembersResponse,
@@ -37,18 +38,15 @@ export {
 } from './messages/messages';
 export {
   Objects,
-  type ObjectListResponse,
   type ObjectDeleteResponse,
   type ObjectAddSubscriptionsResponse,
   type ObjectDeleteSubscriptionsResponse,
-  type ObjectGetResponse,
   type ObjectGetChannelDataResponse,
   type ObjectGetPreferencesResponse,
   type ObjectListMessagesResponse,
   type ObjectListPreferencesResponse,
   type ObjectListSchedulesResponse,
   type ObjectListSubscriptionsResponse,
-  type ObjectSetResponse,
   type ObjectSetChannelDataResponse,
   type ObjectSetPreferencesResponse,
   type ObjectUnsetChannelDataResponse,
@@ -67,7 +65,6 @@ export {
   type ObjectSetChannelDataParams,
   type ObjectSetPreferencesParams,
   type ObjectUnsetChannelDataParams,
-  type ObjectListResponsesEntriesCursor,
   type ObjectListMessagesResponsesEntriesCursor,
   type ObjectListSchedulesResponsesEntriesCursor,
   type ObjectListSubscriptionsResponsesEntriesCursor,

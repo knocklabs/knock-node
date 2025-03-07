@@ -96,15 +96,12 @@ import {
   ObjectGetParams,
   ObjectGetPreferencesParams,
   ObjectGetPreferencesResponse,
-  ObjectGetResponse,
   ObjectListMessagesParams,
   ObjectListMessagesResponse,
   ObjectListMessagesResponsesEntriesCursor,
   ObjectListParams,
   ObjectListPreferencesParams,
   ObjectListPreferencesResponse,
-  ObjectListResponse,
-  ObjectListResponsesEntriesCursor,
   ObjectListSchedulesParams,
   ObjectListSchedulesResponse,
   ObjectListSchedulesResponsesEntriesCursor,
@@ -116,7 +113,6 @@ import {
   ObjectSetParams,
   ObjectSetPreferencesParams,
   ObjectSetPreferencesResponse,
-  ObjectSetResponse,
   ObjectUnsetChannelDataParams,
   ObjectUnsetChannelDataResponse,
   Objects,
@@ -923,22 +919,18 @@ export declare namespace Knock {
 
   export {
     Objects as Objects,
-    type ObjectListResponse as ObjectListResponse,
     type ObjectDeleteResponse as ObjectDeleteResponse,
     type ObjectAddSubscriptionsResponse as ObjectAddSubscriptionsResponse,
     type ObjectDeleteSubscriptionsResponse as ObjectDeleteSubscriptionsResponse,
-    type ObjectGetResponse as ObjectGetResponse,
     type ObjectGetChannelDataResponse as ObjectGetChannelDataResponse,
     type ObjectGetPreferencesResponse as ObjectGetPreferencesResponse,
     type ObjectListMessagesResponse as ObjectListMessagesResponse,
     type ObjectListPreferencesResponse as ObjectListPreferencesResponse,
     type ObjectListSchedulesResponse as ObjectListSchedulesResponse,
     type ObjectListSubscriptionsResponse as ObjectListSubscriptionsResponse,
-    type ObjectSetResponse as ObjectSetResponse,
     type ObjectSetChannelDataResponse as ObjectSetChannelDataResponse,
     type ObjectSetPreferencesResponse as ObjectSetPreferencesResponse,
     type ObjectUnsetChannelDataResponse as ObjectUnsetChannelDataResponse,
-    type ObjectListResponsesEntriesCursor as ObjectListResponsesEntriesCursor,
     type ObjectListMessagesResponsesEntriesCursor as ObjectListMessagesResponsesEntriesCursor,
     type ObjectListSchedulesResponsesEntriesCursor as ObjectListSchedulesResponsesEntriesCursor,
     type ObjectListSubscriptionsResponsesEntriesCursor as ObjectListSubscriptionsResponsesEntriesCursor,
@@ -1031,4 +1023,22 @@ export declare namespace Knock {
     type AudienceAddMembersParams as AudienceAddMembersParams,
     type AudienceRemoveMembersParams as AudienceRemoveMembersParams,
   };
+
+  export type ChannelDataRequest = API.ChannelDataRequest;
+  export type Condition = API.Condition;
+  export type DiscordChannelData = API.DiscordChannelData;
+  export type InlineChannelDataRequest = API.InlineChannelDataRequest;
+  export type InlineIdentifyObjectRequest = API.InlineIdentifyObjectRequest;
+  export type InlineIdentifyUserRequest = API.InlineIdentifyUserRequest;
+  export type InlinePreferenceSetRequest = API.InlinePreferenceSetRequest;
+  export type InlineTenantRequest = API.InlineTenantRequest;
+  export type MsTeamsChannelData = API.MsTeamsChannelData;
+  export type Object = API.Object;
+  export type OneSignalChannelData = API.OneSignalChannelData;
+  export type PreferenceSetChannelTypes = API.PreferenceSetChannelTypes;
+  export type PreferenceSetRequest = API.PreferenceSetRequest;
+  export type PushChannelData = API.PushChannelData;
+  export type ScheduleRepeatRule = API.ScheduleRepeatRule;
+  export type SlackChannelData = API.SlackChannelData;
+  export type TenantRequest = API.TenantRequest;
 }
