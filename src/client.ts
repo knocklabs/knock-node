@@ -31,11 +31,12 @@ import {
   AudienceAddMembersParams,
   AudienceAddMembersResponse,
   AudienceListMembersResponse,
+  AudienceMember,
   AudienceRemoveMembersParams,
   AudienceRemoveMembersResponse,
   Audiences,
 } from './resources/audiences';
-import { BulkOperationGetResponse, BulkOperations } from './resources/bulk-operations';
+import { BulkOperation, BulkOperations } from './resources/bulk-operations';
 import {
   ScheduleCreateParams,
   ScheduleCreateResponse,
@@ -58,29 +59,21 @@ import { formatRequestDetails, loggerFor } from './internal/utils/log';
 import { isEmptyObj } from './internal/utils/values';
 import { Channels } from './resources/channels/channels';
 import {
-  MessageArchiveResponse,
+  ActivitiesItemsCursor,
+  Activity,
+  Message,
+  MessageEvent,
+  MessageEventsEntriesCursor,
   MessageGetContentResponse,
-  MessageGetResponse,
   MessageListActivitiesParams,
-  MessageListActivitiesResponse,
-  MessageListActivitiesResponsesItemsCursor,
   MessageListDeliveryLogsParams,
   MessageListDeliveryLogsResponse,
   MessageListDeliveryLogsResponsesEntriesCursor,
   MessageListEventsParams,
-  MessageListEventsResponse,
-  MessageListEventsResponsesEntriesCursor,
   MessageListParams,
-  MessageListResponse,
-  MessageListResponsesEntriesCursor,
   MessageMarkAsInteractedParams,
-  MessageMarkAsInteractedResponse,
-  MessageMarkAsReadResponse,
-  MessageMarkAsSeenResponse,
-  MessageMarkAsUnreadResponse,
-  MessageMarkAsUnseenResponse,
-  MessageUnarchiveResponse,
   Messages,
+  MessagesEntriesCursor,
 } from './resources/messages/messages';
 import {
   ObjectAddSubscriptionsParams,
@@ -93,8 +86,6 @@ import {
   ObjectGetParams,
   ObjectGetPreferencesParams,
   ObjectListMessagesParams,
-  ObjectListMessagesResponse,
-  ObjectListMessagesResponsesEntriesCursor,
   ObjectListParams,
   ObjectListPreferencesParams,
   ObjectListPreferencesResponse,
@@ -119,8 +110,6 @@ import {
   UserGetChannelDataParams,
   UserGetPreferencesParams,
   UserListMessagesParams,
-  UserListMessagesResponse,
-  UserListMessagesResponsesEntriesCursor,
   UserListParams,
   UserListPreferencesResponse,
   UserListSchedulesParams,
@@ -866,10 +855,8 @@ export declare namespace Knock {
   export {
     Users as Users,
     type UserDeleteResponse as UserDeleteResponse,
-    type UserListMessagesResponse as UserListMessagesResponse,
     type UserListPreferencesResponse as UserListPreferencesResponse,
     type UserUnsetChannelDataResponse as UserUnsetChannelDataResponse,
-    type UserListMessagesResponsesEntriesCursor as UserListMessagesResponsesEntriesCursor,
     type UserUpdateParams as UserUpdateParams,
     type UserListParams as UserListParams,
     type UserGetChannelDataParams as UserGetChannelDataParams,
@@ -888,10 +875,8 @@ export declare namespace Knock {
     type ObjectDeleteResponse as ObjectDeleteResponse,
     type ObjectAddSubscriptionsResponse as ObjectAddSubscriptionsResponse,
     type ObjectDeleteSubscriptionsResponse as ObjectDeleteSubscriptionsResponse,
-    type ObjectListMessagesResponse as ObjectListMessagesResponse,
     type ObjectListPreferencesResponse as ObjectListPreferencesResponse,
     type ObjectUnsetChannelDataResponse as ObjectUnsetChannelDataResponse,
-    type ObjectListMessagesResponsesEntriesCursor as ObjectListMessagesResponsesEntriesCursor,
     type ObjectListParams as ObjectListParams,
     type ObjectDeleteParams as ObjectDeleteParams,
     type ObjectAddSubscriptionsParams as ObjectAddSubscriptionsParams,
@@ -916,27 +901,19 @@ export declare namespace Knock {
     type TenantSetParams as TenantSetParams,
   };
 
-  export { BulkOperations as BulkOperations, type BulkOperationGetResponse as BulkOperationGetResponse };
+  export { BulkOperations as BulkOperations, type BulkOperation as BulkOperation };
 
   export {
     Messages as Messages,
-    type MessageListResponse as MessageListResponse,
-    type MessageArchiveResponse as MessageArchiveResponse,
-    type MessageGetResponse as MessageGetResponse,
+    type Activity as Activity,
+    type Message as Message,
+    type MessageEvent as MessageEvent,
     type MessageGetContentResponse as MessageGetContentResponse,
-    type MessageListActivitiesResponse as MessageListActivitiesResponse,
     type MessageListDeliveryLogsResponse as MessageListDeliveryLogsResponse,
-    type MessageListEventsResponse as MessageListEventsResponse,
-    type MessageMarkAsInteractedResponse as MessageMarkAsInteractedResponse,
-    type MessageMarkAsReadResponse as MessageMarkAsReadResponse,
-    type MessageMarkAsSeenResponse as MessageMarkAsSeenResponse,
-    type MessageMarkAsUnreadResponse as MessageMarkAsUnreadResponse,
-    type MessageMarkAsUnseenResponse as MessageMarkAsUnseenResponse,
-    type MessageUnarchiveResponse as MessageUnarchiveResponse,
-    type MessageListResponsesEntriesCursor as MessageListResponsesEntriesCursor,
-    type MessageListActivitiesResponsesItemsCursor as MessageListActivitiesResponsesItemsCursor,
+    type MessagesEntriesCursor as MessagesEntriesCursor,
+    type ActivitiesItemsCursor as ActivitiesItemsCursor,
     type MessageListDeliveryLogsResponsesEntriesCursor as MessageListDeliveryLogsResponsesEntriesCursor,
-    type MessageListEventsResponsesEntriesCursor as MessageListEventsResponsesEntriesCursor,
+    type MessageEventsEntriesCursor as MessageEventsEntriesCursor,
     type MessageListParams as MessageListParams,
     type MessageListActivitiesParams as MessageListActivitiesParams,
     type MessageListDeliveryLogsParams as MessageListDeliveryLogsParams,
@@ -969,6 +946,7 @@ export declare namespace Knock {
 
   export {
     Audiences as Audiences,
+    type AudienceMember as AudienceMember,
     type AudienceAddMembersResponse as AudienceAddMembersResponse,
     type AudienceListMembersResponse as AudienceListMembersResponse,
     type AudienceRemoveMembersResponse as AudienceRemoveMembersResponse,

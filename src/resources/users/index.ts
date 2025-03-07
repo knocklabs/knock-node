@@ -1,14 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export {
-  Bulk,
-  type BulkDeleteResponse,
-  type BulkIdentifyResponse,
-  type BulkSetPreferencesResponse,
-  type BulkDeleteParams,
-  type BulkIdentifyParams,
-  type BulkSetPreferencesParams,
-} from './bulk';
+export { Bulk, type BulkDeleteParams, type BulkIdentifyParams, type BulkSetPreferencesParams } from './bulk';
 export {
   Feeds,
   type FeedGetSettingsResponse,
@@ -20,7 +12,6 @@ export {
 export {
   Users,
   type UserDeleteResponse,
-  type UserListMessagesResponse,
   type UserListPreferencesResponse,
   type UserUnsetChannelDataResponse,
   type UserUpdateParams,
@@ -34,5 +25,4 @@ export {
   type UserSetChannelDataParams,
   type UserSetPreferencesParams,
   type UserUnsetChannelDataParams,
-  type UserListMessagesResponsesEntriesCursor,
 } from './users';

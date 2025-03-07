@@ -9,7 +9,7 @@ export class BulkOperations extends APIResource {
   /**
    * Retrieves a bulk operation (if it exists) and displays the current state of it.
    */
-  get(id: string, options?: RequestOptions): APIPromise<BulkOperationGetResponse> {
+  get(id: string, options?: RequestOptions): APIPromise<BulkOperation> {
     return this._client.get(path`/v1/bulk_operations/${id}`, options);
   }
 }
@@ -17,7 +17,7 @@ export class BulkOperations extends APIResource {
 /**
  * A bulk operation entity
  */
-export interface BulkOperationGetResponse {
+export interface BulkOperation {
   id: string;
 
   __typename: string;
@@ -43,14 +43,14 @@ export interface BulkOperationGetResponse {
   /**
    * A list of items that failed to be processed
    */
-  error_items?: Array<BulkOperationGetResponse.ErrorItem>;
+  error_items?: Array<BulkOperation.ErrorItem>;
 
   failed_at?: string | null;
 
   started_at?: string | null;
 }
 
-export namespace BulkOperationGetResponse {
+export namespace BulkOperation {
   export interface ErrorItem {
     id: string;
 
@@ -59,5 +59,5 @@ export namespace BulkOperationGetResponse {
 }
 
 export declare namespace BulkOperations {
-  export { type BulkOperationGetResponse as BulkOperationGetResponse };
+  export { type BulkOperation as BulkOperation };
 }

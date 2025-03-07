@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
+import * as BulkOperationsAPI from '../bulk-operations';
 import { APIPromise } from '../../api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -26,53 +27,9 @@ export class Bulk extends APIResource {
       | 'delete',
     params: BulkUpdateMessageStatusParams,
     options?: RequestOptions,
-  ): APIPromise<BulkUpdateMessageStatusResponse> {
+  ): APIPromise<BulkOperationsAPI.BulkOperation> {
     const { channel_id, ...body } = params;
     return this._client.post(path`/v1/channels/${channel_id}/messages/bulk/${action}`, { body, ...options });
-  }
-}
-
-/**
- * A bulk operation entity
- */
-export interface BulkUpdateMessageStatusResponse {
-  id: string;
-
-  __typename: string;
-
-  estimated_total_rows: number;
-
-  inserted_at: string;
-
-  name: string;
-
-  processed_rows: number;
-
-  status: 'queued' | 'processing' | 'completed' | 'failed';
-
-  success_count: number;
-
-  updated_at: string;
-
-  completed_at?: string | null;
-
-  error_count?: number;
-
-  /**
-   * A list of items that failed to be processed
-   */
-  error_items?: Array<BulkUpdateMessageStatusResponse.ErrorItem>;
-
-  failed_at?: string | null;
-
-  started_at?: string | null;
-}
-
-export namespace BulkUpdateMessageStatusResponse {
-  export interface ErrorItem {
-    id: string;
-
-    collection?: string | null;
   }
 }
 
@@ -149,8 +106,5 @@ export interface BulkUpdateMessageStatusParams {
 }
 
 export declare namespace Bulk {
-  export {
-    type BulkUpdateMessageStatusResponse as BulkUpdateMessageStatusResponse,
-    type BulkUpdateMessageStatusParams as BulkUpdateMessageStatusParams,
-  };
+  export { type BulkUpdateMessageStatusParams as BulkUpdateMessageStatusParams };
 }

@@ -3,45 +3,37 @@
 export * from './shared';
 export {
   Audiences,
+  type AudienceMember,
   type AudienceAddMembersResponse,
   type AudienceListMembersResponse,
   type AudienceRemoveMembersResponse,
   type AudienceAddMembersParams,
   type AudienceRemoveMembersParams,
 } from './audiences';
-export { BulkOperations, type BulkOperationGetResponse } from './bulk-operations';
+export { BulkOperations, type BulkOperation } from './bulk-operations';
 export { Channels } from './channels/channels';
 export {
   Messages,
-  type MessageListResponse,
-  type MessageArchiveResponse,
-  type MessageGetResponse,
+  type Activity,
+  type Message,
+  type MessageEvent,
   type MessageGetContentResponse,
-  type MessageListActivitiesResponse,
   type MessageListDeliveryLogsResponse,
-  type MessageListEventsResponse,
-  type MessageMarkAsInteractedResponse,
-  type MessageMarkAsReadResponse,
-  type MessageMarkAsSeenResponse,
-  type MessageMarkAsUnreadResponse,
-  type MessageMarkAsUnseenResponse,
-  type MessageUnarchiveResponse,
   type MessageListParams,
   type MessageListActivitiesParams,
   type MessageListDeliveryLogsParams,
   type MessageListEventsParams,
   type MessageMarkAsInteractedParams,
-  type MessageListResponsesEntriesCursor,
-  type MessageListActivitiesResponsesItemsCursor,
+  type MessagesEntriesCursor,
+  type ActivitiesItemsCursor,
   type MessageListDeliveryLogsResponsesEntriesCursor,
-  type MessageListEventsResponsesEntriesCursor,
+  type MessageEventsEntriesCursor,
 } from './messages/messages';
 export {
   Objects,
   type ObjectDeleteResponse,
   type ObjectAddSubscriptionsResponse,
   type ObjectDeleteSubscriptionsResponse,
-  type ObjectListMessagesResponse,
   type ObjectListPreferencesResponse,
   type ObjectUnsetChannelDataResponse,
   type ObjectListParams,
@@ -59,7 +51,6 @@ export {
   type ObjectSetChannelDataParams,
   type ObjectSetPreferencesParams,
   type ObjectUnsetChannelDataParams,
-  type ObjectListMessagesResponsesEntriesCursor,
 } from './objects/objects';
 export { Providers } from './providers/providers';
 export {
@@ -81,7 +72,6 @@ export {
 export {
   Users,
   type UserDeleteResponse,
-  type UserListMessagesResponse,
   type UserListPreferencesResponse,
   type UserUnsetChannelDataResponse,
   type UserUpdateParams,
@@ -95,7 +85,6 @@ export {
   type UserSetChannelDataParams,
   type UserSetPreferencesParams,
   type UserUnsetChannelDataParams,
-  type UserListMessagesResponsesEntriesCursor,
 } from './users/users';
 export {
   Workflows,

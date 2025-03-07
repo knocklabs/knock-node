@@ -42,21 +42,21 @@ export class Messages extends APIResource {
   list(
     query: MessageListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<MessageListResponsesEntriesCursor, MessageListResponse> {
-    return this._client.getAPIList('/v1/messages', EntriesCursor<MessageListResponse>, { query, ...options });
+  ): PagePromise<MessagesEntriesCursor, Message> {
+    return this._client.getAPIList('/v1/messages', EntriesCursor<Message>, { query, ...options });
   }
 
   /**
    * Archive message
    */
-  archive(messageID: string, options?: RequestOptions): APIPromise<MessageArchiveResponse> {
+  archive(messageID: string, options?: RequestOptions): APIPromise<Message> {
     return this._client.put(path`/v1/messages/${messageID}/archived`, options);
   }
 
   /**
    * Get message
    */
-  get(messageID: string, options?: RequestOptions): APIPromise<MessageGetResponse> {
+  get(messageID: string, options?: RequestOptions): APIPromise<Message> {
     return this._client.get(path`/v1/messages/${messageID}`, options);
   }
 
@@ -75,12 +75,11 @@ export class Messages extends APIResource {
     messageID: string,
     query: MessageListActivitiesParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<MessageListActivitiesResponsesItemsCursor, MessageListActivitiesResponse> {
-    return this._client.getAPIList(
-      path`/v1/messages/${messageID}/activities`,
-      ItemsCursor<MessageListActivitiesResponse>,
-      { query, ...options },
-    );
+  ): PagePromise<ActivitiesItemsCursor, Activity> {
+    return this._client.getAPIList(path`/v1/messages/${messageID}/activities`, ItemsCursor<Activity>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -105,12 +104,11 @@ export class Messages extends APIResource {
     messageID: string,
     query: MessageListEventsParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<MessageListEventsResponsesEntriesCursor, MessageListEventsResponse> {
-    return this._client.getAPIList(
-      path`/v1/messages/${messageID}/events`,
-      EntriesCursor<MessageListEventsResponse>,
-      { query, ...options },
-    );
+  ): PagePromise<MessageEventsEntriesCursor, MessageEvent> {
+    return this._client.getAPIList(path`/v1/messages/${messageID}/events`, EntriesCursor<MessageEvent>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -120,59 +118,87 @@ export class Messages extends APIResource {
     messageID: string,
     body: MessageMarkAsInteractedParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<MessageMarkAsInteractedResponse> {
+  ): APIPromise<Message> {
     return this._client.put(path`/v1/messages/${messageID}/interacted`, { body, ...options });
   }
 
   /**
    * Mark message as read
    */
-  markAsRead(messageID: string, options?: RequestOptions): APIPromise<MessageMarkAsReadResponse> {
+  markAsRead(messageID: string, options?: RequestOptions): APIPromise<Message> {
     return this._client.put(path`/v1/messages/${messageID}/read`, options);
   }
 
   /**
    * Mark message as seen
    */
-  markAsSeen(messageID: string, options?: RequestOptions): APIPromise<MessageMarkAsSeenResponse> {
+  markAsSeen(messageID: string, options?: RequestOptions): APIPromise<Message> {
     return this._client.put(path`/v1/messages/${messageID}/seen`, options);
   }
 
   /**
    * Mark message as unread
    */
-  markAsUnread(messageID: string, options?: RequestOptions): APIPromise<MessageMarkAsUnreadResponse> {
+  markAsUnread(messageID: string, options?: RequestOptions): APIPromise<Message> {
     return this._client.delete(path`/v1/messages/${messageID}/unread`, options);
   }
 
   /**
    * Mark message as unseen
    */
-  markAsUnseen(messageID: string, options?: RequestOptions): APIPromise<MessageMarkAsUnseenResponse> {
+  markAsUnseen(messageID: string, options?: RequestOptions): APIPromise<Message> {
     return this._client.delete(path`/v1/messages/${messageID}/unseen`, options);
   }
 
   /**
    * Unarchive message
    */
-  unarchive(messageID: string, options?: RequestOptions): APIPromise<MessageUnarchiveResponse> {
+  unarchive(messageID: string, options?: RequestOptions): APIPromise<Message> {
     return this._client.delete(path`/v1/messages/${messageID}/unarchived`, options);
   }
 }
 
-export type MessageListResponsesEntriesCursor = EntriesCursor<MessageListResponse>;
+export type MessagesEntriesCursor = EntriesCursor<Message>;
 
-export type MessageListActivitiesResponsesItemsCursor = ItemsCursor<MessageListActivitiesResponse>;
+export type ActivitiesItemsCursor = ItemsCursor<Activity>;
 
 export type MessageListDeliveryLogsResponsesEntriesCursor = EntriesCursor<MessageListDeliveryLogsResponse>;
 
-export type MessageListEventsResponsesEntriesCursor = EntriesCursor<MessageListEventsResponse>;
+export type MessageEventsEntriesCursor = EntriesCursor<MessageEvent>;
+
+/**
+ * An activity associated with a workflow run
+ */
+export interface Activity {
+  id?: string;
+
+  __typename?: string;
+
+  /**
+   * A recipient, which is either a user or an object
+   */
+  actor?: Shared.Recipient | null;
+
+  /**
+   * The data associated with the activity
+   */
+  data?: Record<string, unknown> | null;
+
+  inserted_at?: string;
+
+  /**
+   * A recipient, which is either a user or an object
+   */
+  recipient?: Shared.Recipient;
+
+  updated_at?: string;
+}
 
 /**
  * Represents a single message that was generated by a workflow for a given
  * channel.
  */
-export interface MessageListResponse {
+export interface Message {
   /**
    * The message ID
    */
@@ -183,7 +209,7 @@ export interface MessageListResponse {
   /**
    * A list of actor representations associated with the message (up to 10)
    */
-  actors?: Array<string | MessageListResponse.ObjectReference>;
+  actors?: Array<string | Message.ObjectReference>;
 
   /**
    * Timestamp when message was archived
@@ -239,7 +265,7 @@ export interface MessageListResponse {
    * A reference to a recipient, either a user identifier (string) or an object
    * reference (id, collection).
    */
-  recipient?: string | MessageListResponse.ObjectReference;
+  recipient?: string | Message.ObjectReference;
 
   /**
    * Timestamp when message was scheduled for
@@ -254,7 +280,7 @@ export interface MessageListResponse {
   /**
    * Source information
    */
-  source?: MessageListResponse.Source;
+  source?: Message.Source;
 
   /**
    * Message delivery status
@@ -277,7 +303,7 @@ export interface MessageListResponse {
   workflow?: string | null;
 }
 
-export namespace MessageListResponse {
+export namespace Message {
   /**
    * An object reference to a recipient
    */
@@ -332,278 +358,43 @@ export namespace MessageListResponse {
 }
 
 /**
- * Represents a single message that was generated by a workflow for a given
- * channel.
+ * A single event that occurred for a message
  */
-export interface MessageArchiveResponse {
-  /**
-   * The message ID
-   */
-  id?: string;
+export interface MessageEvent {
+  id: string;
 
-  __typename?: string;
+  __typename: string;
 
-  /**
-   * A list of actor representations associated with the message (up to 10)
-   */
-  actors?: Array<string | MessageArchiveResponse.ObjectReference>;
-
-  /**
-   * Timestamp when message was archived
-   */
-  archived_at?: string | null;
-
-  /**
-   * Channel ID associated with the message
-   */
-  channel_id?: string;
-
-  /**
-   * Timestamp when message was clicked
-   */
-  clicked_at?: string | null;
-
-  /**
-   * Additional message data
-   */
-  data?: Record<string, unknown> | null;
-
-  /**
-   * List of engagement statuses
-   */
-  engagement_statuses?: Array<'seen' | 'read' | 'interacted' | 'link_clicked' | 'archived'>;
-
-  /**
-   * Timestamp of creation
-   */
-  inserted_at?: string;
-
-  /**
-   * Timestamp when message was interacted with
-   */
-  interacted_at?: string | null;
-
-  /**
-   * Timestamp when a link in the message was clicked
-   */
-  link_clicked_at?: string | null;
-
-  /**
-   * Message metadata
-   */
-  metadata?: Record<string, unknown> | null;
-
-  /**
-   * Timestamp when message was read
-   */
-  read_at?: string | null;
+  inserted_at: string;
 
   /**
    * A reference to a recipient, either a user identifier (string) or an object
    * reference (id, collection).
    */
-  recipient?: string | MessageArchiveResponse.ObjectReference;
+  recipient: string | MessageEvent.ObjectReference;
+
+  type:
+    | 'message.queued'
+    | 'message.sent'
+    | 'message.delivered'
+    | 'message.undelivered'
+    | 'message.bounced'
+    | 'message.read'
+    | 'message.unread'
+    | 'message.link_clicked'
+    | 'message.interacted'
+    | 'message.seen'
+    | 'message.unseen'
+    | 'message.archived'
+    | 'message.unarchived';
 
   /**
-   * Timestamp when message was scheduled for
-   */
-  scheduled_at?: string | null;
-
-  /**
-   * Timestamp when message was seen
-   */
-  seen_at?: string | null;
-
-  /**
-   * Source information
-   */
-  source?: MessageArchiveResponse.Source;
-
-  /**
-   * Message delivery status
-   */
-  status?: 'queued' | 'sent' | 'delivered' | 'delivery_attempted' | 'undelivered' | 'not_sent' | 'bounced';
-
-  /**
-   * Tenant ID that the message belongs to
-   */
-  tenant?: string | null;
-
-  /**
-   * Timestamp of last update
-   */
-  updated_at?: string;
-
-  /**
-   * @deprecated Workflow key used to create the message
-   */
-  workflow?: string | null;
-}
-
-export namespace MessageArchiveResponse {
-  /**
-   * An object reference to a recipient
-   */
-  export interface ObjectReference {
-    /**
-     * An object identifier
-     */
-    id: string;
-
-    /**
-     * The collection the object belongs to
-     */
-    collection: string;
-  }
-
-  /**
-   * An object reference to a recipient
-   */
-  export interface ObjectReference {
-    /**
-     * An object identifier
-     */
-    id: string;
-
-    /**
-     * The collection the object belongs to
-     */
-    collection: string;
-  }
-
-  /**
-   * Source information
-   */
-  export interface Source {
-    __typename: string;
-
-    /**
-     * The workflow categories
-     */
-    categories: Array<string>;
-
-    /**
-     * The workflow key
-     */
-    key: string;
-
-    /**
-     * The source version ID
-     */
-    version_id: string;
-  }
-}
-
-/**
- * Represents a single message that was generated by a workflow for a given
- * channel.
- */
-export interface MessageGetResponse {
-  /**
-   * The message ID
-   */
-  id?: string;
-
-  __typename?: string;
-
-  /**
-   * A list of actor representations associated with the message (up to 10)
-   */
-  actors?: Array<string | MessageGetResponse.ObjectReference>;
-
-  /**
-   * Timestamp when message was archived
-   */
-  archived_at?: string | null;
-
-  /**
-   * Channel ID associated with the message
-   */
-  channel_id?: string;
-
-  /**
-   * Timestamp when message was clicked
-   */
-  clicked_at?: string | null;
-
-  /**
-   * Additional message data
+   * The data associated with the event. Only present for some event types
    */
   data?: Record<string, unknown> | null;
-
-  /**
-   * List of engagement statuses
-   */
-  engagement_statuses?: Array<'seen' | 'read' | 'interacted' | 'link_clicked' | 'archived'>;
-
-  /**
-   * Timestamp of creation
-   */
-  inserted_at?: string;
-
-  /**
-   * Timestamp when message was interacted with
-   */
-  interacted_at?: string | null;
-
-  /**
-   * Timestamp when a link in the message was clicked
-   */
-  link_clicked_at?: string | null;
-
-  /**
-   * Message metadata
-   */
-  metadata?: Record<string, unknown> | null;
-
-  /**
-   * Timestamp when message was read
-   */
-  read_at?: string | null;
-
-  /**
-   * A reference to a recipient, either a user identifier (string) or an object
-   * reference (id, collection).
-   */
-  recipient?: string | MessageGetResponse.ObjectReference;
-
-  /**
-   * Timestamp when message was scheduled for
-   */
-  scheduled_at?: string | null;
-
-  /**
-   * Timestamp when message was seen
-   */
-  seen_at?: string | null;
-
-  /**
-   * Source information
-   */
-  source?: MessageGetResponse.Source;
-
-  /**
-   * Message delivery status
-   */
-  status?: 'queued' | 'sent' | 'delivered' | 'delivery_attempted' | 'undelivered' | 'not_sent' | 'bounced';
-
-  /**
-   * Tenant ID that the message belongs to
-   */
-  tenant?: string | null;
-
-  /**
-   * Timestamp of last update
-   */
-  updated_at?: string;
-
-  /**
-   * @deprecated Workflow key used to create the message
-   */
-  workflow?: string | null;
 }
 
-export namespace MessageGetResponse {
+export namespace MessageEvent {
   /**
    * An object reference to a recipient
    */
@@ -617,43 +408,6 @@ export namespace MessageGetResponse {
      * The collection the object belongs to
      */
     collection: string;
-  }
-
-  /**
-   * An object reference to a recipient
-   */
-  export interface ObjectReference {
-    /**
-     * An object identifier
-     */
-    id: string;
-
-    /**
-     * The collection the object belongs to
-     */
-    collection: string;
-  }
-
-  /**
-   * Source information
-   */
-  export interface Source {
-    __typename: string;
-
-    /**
-     * The workflow categories
-     */
-    categories: Array<string>;
-
-    /**
-     * The workflow key
-     */
-    key: string;
-
-    /**
-     * The source version ID
-     */
-    version_id: string;
   }
 }
 
@@ -829,34 +583,6 @@ export namespace MessageGetContentResponse {
 }
 
 /**
- * An activity associated with a workflow run
- */
-export interface MessageListActivitiesResponse {
-  id?: string;
-
-  __typename?: string;
-
-  /**
-   * A recipient, which is either a user or an object
-   */
-  actor?: Shared.Recipient | null;
-
-  /**
-   * The data associated with the activity
-   */
-  data?: Record<string, unknown> | null;
-
-  inserted_at?: string;
-
-  /**
-   * A recipient, which is either a user or an object
-   */
-  recipient?: Shared.Recipient;
-
-  updated_at?: string;
-}
-
-/**
  * A message delivery log
  */
 export interface MessageListDeliveryLogsResponse {
@@ -908,1038 +634,6 @@ export namespace MessageListDeliveryLogsResponse {
     headers?: Record<string, unknown> | null;
 
     status?: number;
-  }
-}
-
-/**
- * A single event that occurred for a message
- */
-export interface MessageListEventsResponse {
-  id: string;
-
-  __typename: string;
-
-  inserted_at: string;
-
-  /**
-   * A reference to a recipient, either a user identifier (string) or an object
-   * reference (id, collection).
-   */
-  recipient: string | MessageListEventsResponse.ObjectReference;
-
-  type:
-    | 'message.queued'
-    | 'message.sent'
-    | 'message.delivered'
-    | 'message.undelivered'
-    | 'message.bounced'
-    | 'message.read'
-    | 'message.unread'
-    | 'message.link_clicked'
-    | 'message.interacted'
-    | 'message.seen'
-    | 'message.unseen'
-    | 'message.archived'
-    | 'message.unarchived';
-
-  /**
-   * The data associated with the event. Only present for some event types
-   */
-  data?: Record<string, unknown> | null;
-}
-
-export namespace MessageListEventsResponse {
-  /**
-   * An object reference to a recipient
-   */
-  export interface ObjectReference {
-    /**
-     * An object identifier
-     */
-    id: string;
-
-    /**
-     * The collection the object belongs to
-     */
-    collection: string;
-  }
-}
-
-/**
- * Represents a single message that was generated by a workflow for a given
- * channel.
- */
-export interface MessageMarkAsInteractedResponse {
-  /**
-   * The message ID
-   */
-  id?: string;
-
-  __typename?: string;
-
-  /**
-   * A list of actor representations associated with the message (up to 10)
-   */
-  actors?: Array<string | MessageMarkAsInteractedResponse.ObjectReference>;
-
-  /**
-   * Timestamp when message was archived
-   */
-  archived_at?: string | null;
-
-  /**
-   * Channel ID associated with the message
-   */
-  channel_id?: string;
-
-  /**
-   * Timestamp when message was clicked
-   */
-  clicked_at?: string | null;
-
-  /**
-   * Additional message data
-   */
-  data?: Record<string, unknown> | null;
-
-  /**
-   * List of engagement statuses
-   */
-  engagement_statuses?: Array<'seen' | 'read' | 'interacted' | 'link_clicked' | 'archived'>;
-
-  /**
-   * Timestamp of creation
-   */
-  inserted_at?: string;
-
-  /**
-   * Timestamp when message was interacted with
-   */
-  interacted_at?: string | null;
-
-  /**
-   * Timestamp when a link in the message was clicked
-   */
-  link_clicked_at?: string | null;
-
-  /**
-   * Message metadata
-   */
-  metadata?: Record<string, unknown> | null;
-
-  /**
-   * Timestamp when message was read
-   */
-  read_at?: string | null;
-
-  /**
-   * A reference to a recipient, either a user identifier (string) or an object
-   * reference (id, collection).
-   */
-  recipient?: string | MessageMarkAsInteractedResponse.ObjectReference;
-
-  /**
-   * Timestamp when message was scheduled for
-   */
-  scheduled_at?: string | null;
-
-  /**
-   * Timestamp when message was seen
-   */
-  seen_at?: string | null;
-
-  /**
-   * Source information
-   */
-  source?: MessageMarkAsInteractedResponse.Source;
-
-  /**
-   * Message delivery status
-   */
-  status?: 'queued' | 'sent' | 'delivered' | 'delivery_attempted' | 'undelivered' | 'not_sent' | 'bounced';
-
-  /**
-   * Tenant ID that the message belongs to
-   */
-  tenant?: string | null;
-
-  /**
-   * Timestamp of last update
-   */
-  updated_at?: string;
-
-  /**
-   * @deprecated Workflow key used to create the message
-   */
-  workflow?: string | null;
-}
-
-export namespace MessageMarkAsInteractedResponse {
-  /**
-   * An object reference to a recipient
-   */
-  export interface ObjectReference {
-    /**
-     * An object identifier
-     */
-    id: string;
-
-    /**
-     * The collection the object belongs to
-     */
-    collection: string;
-  }
-
-  /**
-   * An object reference to a recipient
-   */
-  export interface ObjectReference {
-    /**
-     * An object identifier
-     */
-    id: string;
-
-    /**
-     * The collection the object belongs to
-     */
-    collection: string;
-  }
-
-  /**
-   * Source information
-   */
-  export interface Source {
-    __typename: string;
-
-    /**
-     * The workflow categories
-     */
-    categories: Array<string>;
-
-    /**
-     * The workflow key
-     */
-    key: string;
-
-    /**
-     * The source version ID
-     */
-    version_id: string;
-  }
-}
-
-/**
- * Represents a single message that was generated by a workflow for a given
- * channel.
- */
-export interface MessageMarkAsReadResponse {
-  /**
-   * The message ID
-   */
-  id?: string;
-
-  __typename?: string;
-
-  /**
-   * A list of actor representations associated with the message (up to 10)
-   */
-  actors?: Array<string | MessageMarkAsReadResponse.ObjectReference>;
-
-  /**
-   * Timestamp when message was archived
-   */
-  archived_at?: string | null;
-
-  /**
-   * Channel ID associated with the message
-   */
-  channel_id?: string;
-
-  /**
-   * Timestamp when message was clicked
-   */
-  clicked_at?: string | null;
-
-  /**
-   * Additional message data
-   */
-  data?: Record<string, unknown> | null;
-
-  /**
-   * List of engagement statuses
-   */
-  engagement_statuses?: Array<'seen' | 'read' | 'interacted' | 'link_clicked' | 'archived'>;
-
-  /**
-   * Timestamp of creation
-   */
-  inserted_at?: string;
-
-  /**
-   * Timestamp when message was interacted with
-   */
-  interacted_at?: string | null;
-
-  /**
-   * Timestamp when a link in the message was clicked
-   */
-  link_clicked_at?: string | null;
-
-  /**
-   * Message metadata
-   */
-  metadata?: Record<string, unknown> | null;
-
-  /**
-   * Timestamp when message was read
-   */
-  read_at?: string | null;
-
-  /**
-   * A reference to a recipient, either a user identifier (string) or an object
-   * reference (id, collection).
-   */
-  recipient?: string | MessageMarkAsReadResponse.ObjectReference;
-
-  /**
-   * Timestamp when message was scheduled for
-   */
-  scheduled_at?: string | null;
-
-  /**
-   * Timestamp when message was seen
-   */
-  seen_at?: string | null;
-
-  /**
-   * Source information
-   */
-  source?: MessageMarkAsReadResponse.Source;
-
-  /**
-   * Message delivery status
-   */
-  status?: 'queued' | 'sent' | 'delivered' | 'delivery_attempted' | 'undelivered' | 'not_sent' | 'bounced';
-
-  /**
-   * Tenant ID that the message belongs to
-   */
-  tenant?: string | null;
-
-  /**
-   * Timestamp of last update
-   */
-  updated_at?: string;
-
-  /**
-   * @deprecated Workflow key used to create the message
-   */
-  workflow?: string | null;
-}
-
-export namespace MessageMarkAsReadResponse {
-  /**
-   * An object reference to a recipient
-   */
-  export interface ObjectReference {
-    /**
-     * An object identifier
-     */
-    id: string;
-
-    /**
-     * The collection the object belongs to
-     */
-    collection: string;
-  }
-
-  /**
-   * An object reference to a recipient
-   */
-  export interface ObjectReference {
-    /**
-     * An object identifier
-     */
-    id: string;
-
-    /**
-     * The collection the object belongs to
-     */
-    collection: string;
-  }
-
-  /**
-   * Source information
-   */
-  export interface Source {
-    __typename: string;
-
-    /**
-     * The workflow categories
-     */
-    categories: Array<string>;
-
-    /**
-     * The workflow key
-     */
-    key: string;
-
-    /**
-     * The source version ID
-     */
-    version_id: string;
-  }
-}
-
-/**
- * Represents a single message that was generated by a workflow for a given
- * channel.
- */
-export interface MessageMarkAsSeenResponse {
-  /**
-   * The message ID
-   */
-  id?: string;
-
-  __typename?: string;
-
-  /**
-   * A list of actor representations associated with the message (up to 10)
-   */
-  actors?: Array<string | MessageMarkAsSeenResponse.ObjectReference>;
-
-  /**
-   * Timestamp when message was archived
-   */
-  archived_at?: string | null;
-
-  /**
-   * Channel ID associated with the message
-   */
-  channel_id?: string;
-
-  /**
-   * Timestamp when message was clicked
-   */
-  clicked_at?: string | null;
-
-  /**
-   * Additional message data
-   */
-  data?: Record<string, unknown> | null;
-
-  /**
-   * List of engagement statuses
-   */
-  engagement_statuses?: Array<'seen' | 'read' | 'interacted' | 'link_clicked' | 'archived'>;
-
-  /**
-   * Timestamp of creation
-   */
-  inserted_at?: string;
-
-  /**
-   * Timestamp when message was interacted with
-   */
-  interacted_at?: string | null;
-
-  /**
-   * Timestamp when a link in the message was clicked
-   */
-  link_clicked_at?: string | null;
-
-  /**
-   * Message metadata
-   */
-  metadata?: Record<string, unknown> | null;
-
-  /**
-   * Timestamp when message was read
-   */
-  read_at?: string | null;
-
-  /**
-   * A reference to a recipient, either a user identifier (string) or an object
-   * reference (id, collection).
-   */
-  recipient?: string | MessageMarkAsSeenResponse.ObjectReference;
-
-  /**
-   * Timestamp when message was scheduled for
-   */
-  scheduled_at?: string | null;
-
-  /**
-   * Timestamp when message was seen
-   */
-  seen_at?: string | null;
-
-  /**
-   * Source information
-   */
-  source?: MessageMarkAsSeenResponse.Source;
-
-  /**
-   * Message delivery status
-   */
-  status?: 'queued' | 'sent' | 'delivered' | 'delivery_attempted' | 'undelivered' | 'not_sent' | 'bounced';
-
-  /**
-   * Tenant ID that the message belongs to
-   */
-  tenant?: string | null;
-
-  /**
-   * Timestamp of last update
-   */
-  updated_at?: string;
-
-  /**
-   * @deprecated Workflow key used to create the message
-   */
-  workflow?: string | null;
-}
-
-export namespace MessageMarkAsSeenResponse {
-  /**
-   * An object reference to a recipient
-   */
-  export interface ObjectReference {
-    /**
-     * An object identifier
-     */
-    id: string;
-
-    /**
-     * The collection the object belongs to
-     */
-    collection: string;
-  }
-
-  /**
-   * An object reference to a recipient
-   */
-  export interface ObjectReference {
-    /**
-     * An object identifier
-     */
-    id: string;
-
-    /**
-     * The collection the object belongs to
-     */
-    collection: string;
-  }
-
-  /**
-   * Source information
-   */
-  export interface Source {
-    __typename: string;
-
-    /**
-     * The workflow categories
-     */
-    categories: Array<string>;
-
-    /**
-     * The workflow key
-     */
-    key: string;
-
-    /**
-     * The source version ID
-     */
-    version_id: string;
-  }
-}
-
-/**
- * Represents a single message that was generated by a workflow for a given
- * channel.
- */
-export interface MessageMarkAsUnreadResponse {
-  /**
-   * The message ID
-   */
-  id?: string;
-
-  __typename?: string;
-
-  /**
-   * A list of actor representations associated with the message (up to 10)
-   */
-  actors?: Array<string | MessageMarkAsUnreadResponse.ObjectReference>;
-
-  /**
-   * Timestamp when message was archived
-   */
-  archived_at?: string | null;
-
-  /**
-   * Channel ID associated with the message
-   */
-  channel_id?: string;
-
-  /**
-   * Timestamp when message was clicked
-   */
-  clicked_at?: string | null;
-
-  /**
-   * Additional message data
-   */
-  data?: Record<string, unknown> | null;
-
-  /**
-   * List of engagement statuses
-   */
-  engagement_statuses?: Array<'seen' | 'read' | 'interacted' | 'link_clicked' | 'archived'>;
-
-  /**
-   * Timestamp of creation
-   */
-  inserted_at?: string;
-
-  /**
-   * Timestamp when message was interacted with
-   */
-  interacted_at?: string | null;
-
-  /**
-   * Timestamp when a link in the message was clicked
-   */
-  link_clicked_at?: string | null;
-
-  /**
-   * Message metadata
-   */
-  metadata?: Record<string, unknown> | null;
-
-  /**
-   * Timestamp when message was read
-   */
-  read_at?: string | null;
-
-  /**
-   * A reference to a recipient, either a user identifier (string) or an object
-   * reference (id, collection).
-   */
-  recipient?: string | MessageMarkAsUnreadResponse.ObjectReference;
-
-  /**
-   * Timestamp when message was scheduled for
-   */
-  scheduled_at?: string | null;
-
-  /**
-   * Timestamp when message was seen
-   */
-  seen_at?: string | null;
-
-  /**
-   * Source information
-   */
-  source?: MessageMarkAsUnreadResponse.Source;
-
-  /**
-   * Message delivery status
-   */
-  status?: 'queued' | 'sent' | 'delivered' | 'delivery_attempted' | 'undelivered' | 'not_sent' | 'bounced';
-
-  /**
-   * Tenant ID that the message belongs to
-   */
-  tenant?: string | null;
-
-  /**
-   * Timestamp of last update
-   */
-  updated_at?: string;
-
-  /**
-   * @deprecated Workflow key used to create the message
-   */
-  workflow?: string | null;
-}
-
-export namespace MessageMarkAsUnreadResponse {
-  /**
-   * An object reference to a recipient
-   */
-  export interface ObjectReference {
-    /**
-     * An object identifier
-     */
-    id: string;
-
-    /**
-     * The collection the object belongs to
-     */
-    collection: string;
-  }
-
-  /**
-   * An object reference to a recipient
-   */
-  export interface ObjectReference {
-    /**
-     * An object identifier
-     */
-    id: string;
-
-    /**
-     * The collection the object belongs to
-     */
-    collection: string;
-  }
-
-  /**
-   * Source information
-   */
-  export interface Source {
-    __typename: string;
-
-    /**
-     * The workflow categories
-     */
-    categories: Array<string>;
-
-    /**
-     * The workflow key
-     */
-    key: string;
-
-    /**
-     * The source version ID
-     */
-    version_id: string;
-  }
-}
-
-/**
- * Represents a single message that was generated by a workflow for a given
- * channel.
- */
-export interface MessageMarkAsUnseenResponse {
-  /**
-   * The message ID
-   */
-  id?: string;
-
-  __typename?: string;
-
-  /**
-   * A list of actor representations associated with the message (up to 10)
-   */
-  actors?: Array<string | MessageMarkAsUnseenResponse.ObjectReference>;
-
-  /**
-   * Timestamp when message was archived
-   */
-  archived_at?: string | null;
-
-  /**
-   * Channel ID associated with the message
-   */
-  channel_id?: string;
-
-  /**
-   * Timestamp when message was clicked
-   */
-  clicked_at?: string | null;
-
-  /**
-   * Additional message data
-   */
-  data?: Record<string, unknown> | null;
-
-  /**
-   * List of engagement statuses
-   */
-  engagement_statuses?: Array<'seen' | 'read' | 'interacted' | 'link_clicked' | 'archived'>;
-
-  /**
-   * Timestamp of creation
-   */
-  inserted_at?: string;
-
-  /**
-   * Timestamp when message was interacted with
-   */
-  interacted_at?: string | null;
-
-  /**
-   * Timestamp when a link in the message was clicked
-   */
-  link_clicked_at?: string | null;
-
-  /**
-   * Message metadata
-   */
-  metadata?: Record<string, unknown> | null;
-
-  /**
-   * Timestamp when message was read
-   */
-  read_at?: string | null;
-
-  /**
-   * A reference to a recipient, either a user identifier (string) or an object
-   * reference (id, collection).
-   */
-  recipient?: string | MessageMarkAsUnseenResponse.ObjectReference;
-
-  /**
-   * Timestamp when message was scheduled for
-   */
-  scheduled_at?: string | null;
-
-  /**
-   * Timestamp when message was seen
-   */
-  seen_at?: string | null;
-
-  /**
-   * Source information
-   */
-  source?: MessageMarkAsUnseenResponse.Source;
-
-  /**
-   * Message delivery status
-   */
-  status?: 'queued' | 'sent' | 'delivered' | 'delivery_attempted' | 'undelivered' | 'not_sent' | 'bounced';
-
-  /**
-   * Tenant ID that the message belongs to
-   */
-  tenant?: string | null;
-
-  /**
-   * Timestamp of last update
-   */
-  updated_at?: string;
-
-  /**
-   * @deprecated Workflow key used to create the message
-   */
-  workflow?: string | null;
-}
-
-export namespace MessageMarkAsUnseenResponse {
-  /**
-   * An object reference to a recipient
-   */
-  export interface ObjectReference {
-    /**
-     * An object identifier
-     */
-    id: string;
-
-    /**
-     * The collection the object belongs to
-     */
-    collection: string;
-  }
-
-  /**
-   * An object reference to a recipient
-   */
-  export interface ObjectReference {
-    /**
-     * An object identifier
-     */
-    id: string;
-
-    /**
-     * The collection the object belongs to
-     */
-    collection: string;
-  }
-
-  /**
-   * Source information
-   */
-  export interface Source {
-    __typename: string;
-
-    /**
-     * The workflow categories
-     */
-    categories: Array<string>;
-
-    /**
-     * The workflow key
-     */
-    key: string;
-
-    /**
-     * The source version ID
-     */
-    version_id: string;
-  }
-}
-
-/**
- * Represents a single message that was generated by a workflow for a given
- * channel.
- */
-export interface MessageUnarchiveResponse {
-  /**
-   * The message ID
-   */
-  id?: string;
-
-  __typename?: string;
-
-  /**
-   * A list of actor representations associated with the message (up to 10)
-   */
-  actors?: Array<string | MessageUnarchiveResponse.ObjectReference>;
-
-  /**
-   * Timestamp when message was archived
-   */
-  archived_at?: string | null;
-
-  /**
-   * Channel ID associated with the message
-   */
-  channel_id?: string;
-
-  /**
-   * Timestamp when message was clicked
-   */
-  clicked_at?: string | null;
-
-  /**
-   * Additional message data
-   */
-  data?: Record<string, unknown> | null;
-
-  /**
-   * List of engagement statuses
-   */
-  engagement_statuses?: Array<'seen' | 'read' | 'interacted' | 'link_clicked' | 'archived'>;
-
-  /**
-   * Timestamp of creation
-   */
-  inserted_at?: string;
-
-  /**
-   * Timestamp when message was interacted with
-   */
-  interacted_at?: string | null;
-
-  /**
-   * Timestamp when a link in the message was clicked
-   */
-  link_clicked_at?: string | null;
-
-  /**
-   * Message metadata
-   */
-  metadata?: Record<string, unknown> | null;
-
-  /**
-   * Timestamp when message was read
-   */
-  read_at?: string | null;
-
-  /**
-   * A reference to a recipient, either a user identifier (string) or an object
-   * reference (id, collection).
-   */
-  recipient?: string | MessageUnarchiveResponse.ObjectReference;
-
-  /**
-   * Timestamp when message was scheduled for
-   */
-  scheduled_at?: string | null;
-
-  /**
-   * Timestamp when message was seen
-   */
-  seen_at?: string | null;
-
-  /**
-   * Source information
-   */
-  source?: MessageUnarchiveResponse.Source;
-
-  /**
-   * Message delivery status
-   */
-  status?: 'queued' | 'sent' | 'delivered' | 'delivery_attempted' | 'undelivered' | 'not_sent' | 'bounced';
-
-  /**
-   * Tenant ID that the message belongs to
-   */
-  tenant?: string | null;
-
-  /**
-   * Timestamp of last update
-   */
-  updated_at?: string;
-
-  /**
-   * @deprecated Workflow key used to create the message
-   */
-  workflow?: string | null;
-}
-
-export namespace MessageUnarchiveResponse {
-  /**
-   * An object reference to a recipient
-   */
-  export interface ObjectReference {
-    /**
-     * An object identifier
-     */
-    id: string;
-
-    /**
-     * The collection the object belongs to
-     */
-    collection: string;
-  }
-
-  /**
-   * An object reference to a recipient
-   */
-  export interface ObjectReference {
-    /**
-     * An object identifier
-     */
-    id: string;
-
-    /**
-     * The collection the object belongs to
-     */
-    collection: string;
-  }
-
-  /**
-   * Source information
-   */
-  export interface Source {
-    __typename: string;
-
-    /**
-     * The workflow categories
-     */
-    categories: Array<string>;
-
-    /**
-     * The workflow key
-     */
-    key: string;
-
-    /**
-     * The source version ID
-     */
-    version_id: string;
   }
 }
 
@@ -2019,23 +713,15 @@ Messages.Batch = Batch;
 
 export declare namespace Messages {
   export {
-    type MessageListResponse as MessageListResponse,
-    type MessageArchiveResponse as MessageArchiveResponse,
-    type MessageGetResponse as MessageGetResponse,
+    type Activity as Activity,
+    type Message as Message,
+    type MessageEvent as MessageEvent,
     type MessageGetContentResponse as MessageGetContentResponse,
-    type MessageListActivitiesResponse as MessageListActivitiesResponse,
     type MessageListDeliveryLogsResponse as MessageListDeliveryLogsResponse,
-    type MessageListEventsResponse as MessageListEventsResponse,
-    type MessageMarkAsInteractedResponse as MessageMarkAsInteractedResponse,
-    type MessageMarkAsReadResponse as MessageMarkAsReadResponse,
-    type MessageMarkAsSeenResponse as MessageMarkAsSeenResponse,
-    type MessageMarkAsUnreadResponse as MessageMarkAsUnreadResponse,
-    type MessageMarkAsUnseenResponse as MessageMarkAsUnseenResponse,
-    type MessageUnarchiveResponse as MessageUnarchiveResponse,
-    type MessageListResponsesEntriesCursor as MessageListResponsesEntriesCursor,
-    type MessageListActivitiesResponsesItemsCursor as MessageListActivitiesResponsesItemsCursor,
+    type MessagesEntriesCursor as MessagesEntriesCursor,
+    type ActivitiesItemsCursor as ActivitiesItemsCursor,
     type MessageListDeliveryLogsResponsesEntriesCursor as MessageListDeliveryLogsResponsesEntriesCursor,
-    type MessageListEventsResponsesEntriesCursor as MessageListEventsResponsesEntriesCursor,
+    type MessageEventsEntriesCursor as MessageEventsEntriesCursor,
     type MessageListParams as MessageListParams,
     type MessageListActivitiesParams as MessageListActivitiesParams,
     type MessageListDeliveryLogsParams as MessageListDeliveryLogsParams,

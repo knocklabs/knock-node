@@ -34,6 +34,24 @@ export class Audiences extends APIResource {
 }
 
 /**
+ * A user belonging to an audience
+ */
+export interface AudienceMember {
+  __typename: string;
+
+  added_at: string;
+
+  /**
+   * A user object
+   */
+  user: Shared.User;
+
+  user_id: string;
+
+  tenant?: string | null;
+}
+
+/**
  * An empty response
  */
 export type AudienceAddMembersResponse = string;
@@ -42,7 +60,7 @@ export type AudienceAddMembersResponse = string;
  * A response containing a list of audience members
  */
 export interface AudienceListMembersResponse {
-  entries: Array<AudienceListMembersResponse.Entry>;
+  entries: Array<AudienceMember>;
 
   /**
    * The information about a paginated result
@@ -51,24 +69,6 @@ export interface AudienceListMembersResponse {
 }
 
 export namespace AudienceListMembersResponse {
-  /**
-   * A user belonging to an audience
-   */
-  export interface Entry {
-    __typename: string;
-
-    added_at: string;
-
-    /**
-     * A user object
-     */
-    user: Shared.User;
-
-    user_id: string;
-
-    tenant?: string | null;
-  }
-
   /**
    * The information about a paginated result
    */
@@ -132,6 +132,7 @@ export namespace AudienceRemoveMembersParams {
 
 export declare namespace Audiences {
   export {
+    type AudienceMember as AudienceMember,
     type AudienceAddMembersResponse as AudienceAddMembersResponse,
     type AudienceListMembersResponse as AudienceListMembersResponse,
     type AudienceRemoveMembersResponse as AudienceRemoveMembersResponse,

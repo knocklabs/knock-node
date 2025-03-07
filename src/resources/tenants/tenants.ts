@@ -4,7 +4,7 @@ import { APIResource } from '../../resource';
 import * as Shared from '../shared';
 import { TenantsEntriesCursor } from '../shared';
 import * as BulkAPI from './bulk';
-import { Bulk, BulkDeleteParams, BulkDeleteResponse, BulkSetParams, BulkSetResponse } from './bulk';
+import { Bulk, BulkDeleteParams, BulkSetParams } from './bulk';
 import { APIPromise } from '../../api-promise';
 import { EntriesCursor, type EntriesCursorParams, PagePromise } from '../../pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -98,13 +98,7 @@ export declare namespace Tenants {
     type TenantSetParams as TenantSetParams,
   };
 
-  export {
-    Bulk as Bulk,
-    type BulkDeleteResponse as BulkDeleteResponse,
-    type BulkSetResponse as BulkSetResponse,
-    type BulkDeleteParams as BulkDeleteParams,
-    type BulkSetParams as BulkSetParams,
-  };
+  export { Bulk as Bulk, type BulkDeleteParams as BulkDeleteParams, type BulkSetParams as BulkSetParams };
 }
 
 export { type TenantsEntriesCursor };

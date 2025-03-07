@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../resource';
 import * as Shared from '../shared';
+import * as MessagesAPI from '../messages/messages';
 import { APIPromise } from '../../api-promise';
 import { EntriesCursor, type EntriesCursorParams, PagePromise } from '../../pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -61,7 +62,7 @@ export interface FeedListItemsResponse {
 
   __typename: string;
 
-  activities: Array<FeedListItemsResponse.Activity>;
+  activities: Array<MessagesAPI.Activity>;
 
   actors: Array<Shared.Recipient>;
 
@@ -97,34 +98,6 @@ export interface FeedListItemsResponse {
 }
 
 export namespace FeedListItemsResponse {
-  /**
-   * An activity associated with a workflow run
-   */
-  export interface Activity {
-    id?: string;
-
-    __typename?: string;
-
-    /**
-     * A recipient, which is either a user or an object
-     */
-    actor?: Shared.Recipient | null;
-
-    /**
-     * The data associated with the activity
-     */
-    data?: Record<string, unknown> | null;
-
-    inserted_at?: string;
-
-    /**
-     * A recipient, which is either a user or an object
-     */
-    recipient?: Shared.Recipient;
-
-    updated_at?: string;
-  }
-
   /**
    * A content (text or markdown) block in a message in an app feed
    */
