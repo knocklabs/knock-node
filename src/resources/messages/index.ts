@@ -23,9 +23,9 @@ export {
   Messages,
   type Activity,
   type Message,
+  type MessageDeliveryLog,
   type MessageEvent,
   type MessageGetContentResponse,
-  type MessageListDeliveryLogsResponse,
   type MessageListParams,
   type MessageListActivitiesParams,
   type MessageListDeliveryLogsParams,
@@ -33,6 +33,6 @@ export {
   type MessageMarkAsInteractedParams,
   type MessagesEntriesCursor,
   type ActivitiesItemsCursor,
-  type MessageListDeliveryLogsResponsesEntriesCursor,
+  type MessageDeliveryLogsEntriesCursor,
   type MessageEventsEntriesCursor,
 } from './messages';

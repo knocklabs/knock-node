@@ -2,7 +2,8 @@
 
 import { APIResource } from '../../resource';
 import * as BulkOperationsAPI from '../bulk-operations';
-import * as Shared from '../shared';
+import * as RecipientsAPI from '../recipients';
+import * as ObjectsAPI from './objects';
 import { APIPromise } from '../../api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -62,14 +63,14 @@ export namespace BulkAddSubscriptionsParams {
   export interface Subscription {
     id: string;
 
-    recipients: Array<Shared.RecipientRequest>;
+    recipients: Array<RecipientsAPI.RecipientRequest>;
 
     properties?: Record<string, unknown> | null;
   }
 }
 
 export interface BulkSetParams {
-  objects: Array<Shared.InlineObjectRequest>;
+  objects: Array<ObjectsAPI.InlineObjectRequest>;
 }
 
 export declare namespace Bulk {

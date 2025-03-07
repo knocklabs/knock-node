@@ -2,7 +2,8 @@
 
 import { APIResource } from '../../resource';
 import * as BulkOperationsAPI from '../bulk-operations';
-import * as Shared from '../shared';
+import * as RecipientsAPI from '../recipients';
+import * as UsersAPI from './users';
 import { APIPromise } from '../../api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
@@ -50,14 +51,14 @@ export interface BulkDeleteParams {
 }
 
 export interface BulkIdentifyParams {
-  users: Array<Shared.InlineIdentifyUserRequest>;
+  users: Array<UsersAPI.InlineIdentifyUserRequest>;
 }
 
 export interface BulkSetPreferencesParams {
   /**
    * Set preferences for a recipient
    */
-  preferences: Shared.PreferenceSetRequest;
+  preferences: RecipientsAPI.PreferenceSetRequest;
 
   user_ids: Array<string>;
 }

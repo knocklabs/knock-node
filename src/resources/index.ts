@@ -16,9 +16,9 @@ export {
   Messages,
   type Activity,
   type Message,
+  type MessageDeliveryLog,
   type MessageEvent,
   type MessageGetContentResponse,
-  type MessageListDeliveryLogsResponse,
   type MessageListParams,
   type MessageListActivitiesParams,
   type MessageListDeliveryLogsParams,
@@ -26,11 +26,13 @@ export {
   type MessageMarkAsInteractedParams,
   type MessagesEntriesCursor,
   type ActivitiesItemsCursor,
-  type MessageListDeliveryLogsResponsesEntriesCursor,
+  type MessageDeliveryLogsEntriesCursor,
   type MessageEventsEntriesCursor,
 } from './messages/messages';
 export {
   Objects,
+  type InlineObjectRequest,
+  type Object,
   type ObjectDeleteResponse,
   type ObjectAddSubscriptionsResponse,
   type ObjectDeleteSubscriptionsResponse,
@@ -51,10 +53,33 @@ export {
   type ObjectSetChannelDataParams,
   type ObjectSetPreferencesParams,
   type ObjectUnsetChannelDataParams,
+  type ObjectsEntriesCursor,
 } from './objects/objects';
 export { Providers } from './providers/providers';
 export {
+  Recipients,
+  type ChannelData,
+  type ChannelDataRequest,
+  type DiscordChannelData,
+  type InlineChannelDataRequest,
+  type InlinePreferenceSetRequest,
+  type MsTeamsChannelData,
+  type OneSignalChannelData,
+  type PreferenceSet,
+  type PreferenceSetChannelTypeSetting,
+  type PreferenceSetChannelTypes,
+  type PreferenceSetRequest,
+  type PushChannelData,
+  type Recipient,
+  type RecipientRequest,
+  type SlackChannelData,
+  type Subscription,
+  type SubscriptionsEntriesCursor,
+} from './recipients';
+export {
   Schedules,
+  type Schedule,
+  type ScheduleRepeatRule,
   type ScheduleCreateResponse,
   type ScheduleUpdateResponse,
   type ScheduleDeleteResponse,
@@ -62,15 +87,23 @@ export {
   type ScheduleUpdateParams,
   type ScheduleListParams,
   type ScheduleDeleteParams,
+  type SchedulesEntriesCursor,
 } from './schedules';
 export {
   Tenants,
+  type InlineTenantRequest,
+  type Tenant,
+  type TenantRequest,
   type TenantDeleteResponse,
   type TenantListParams,
   type TenantSetParams,
+  type TenantsEntriesCursor,
 } from './tenants/tenants';
 export {
   Users,
+  type IdentifyUserRequest,
+  type InlineIdentifyUserRequest,
+  type User,
   type UserDeleteResponse,
   type UserListPreferencesResponse,
   type UserUnsetChannelDataResponse,
@@ -85,6 +118,7 @@ export {
   type UserSetChannelDataParams,
   type UserSetPreferencesParams,
   type UserUnsetChannelDataParams,
+  type UsersEntriesCursor,
 } from './users/users';
 export {
   Workflows,

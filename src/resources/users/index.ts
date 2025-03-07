@@ -11,6 +11,9 @@ export {
 } from './feeds';
 export {
   Users,
+  type IdentifyUserRequest,
+  type InlineIdentifyUserRequest,
+  type User,
   type UserDeleteResponse,
   type UserListPreferencesResponse,
   type UserUnsetChannelDataResponse,
@@ -25,4 +28,5 @@ export {
   type UserSetChannelDataParams,
   type UserSetPreferencesParams,
   type UserUnsetChannelDataParams,
+  type UsersEntriesCursor,
 } from './users';

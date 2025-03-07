@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
-import * as Shared from '../shared';
+import * as RecipientsAPI from '../recipients';
 import * as BatchAPI from './batch';
 import {
   Batch,
@@ -89,10 +89,10 @@ export class Messages extends APIResource {
     messageID: string,
     query: MessageListDeliveryLogsParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<MessageListDeliveryLogsResponsesEntriesCursor, MessageListDeliveryLogsResponse> {
+  ): PagePromise<MessageDeliveryLogsEntriesCursor, MessageDeliveryLog> {
     return this._client.getAPIList(
       path`/v1/messages/${messageID}/delivery_logs`,
-      EntriesCursor<MessageListDeliveryLogsResponse>,
+      EntriesCursor<MessageDeliveryLog>,
       { query, ...options },
     );
   }
@@ -162,7 +162,7 @@ export type MessagesEntriesCursor = EntriesCursor<Message>;
 
 export type ActivitiesItemsCursor = ItemsCursor<Activity>;
 
-export type MessageListDeliveryLogsResponsesEntriesCursor = EntriesCursor<MessageListDeliveryLogsResponse>;
+export type MessageDeliveryLogsEntriesCursor = EntriesCursor<MessageDeliveryLog>;
 
 export type MessageEventsEntriesCursor = EntriesCursor<MessageEvent>;
 
@@ -177,7 +177,7 @@ export interface Activity {
   /**
    * A recipient, which is either a user or an object
    */
-  actor?: Shared.Recipient | null;
+  actor?: RecipientsAPI.Recipient | null;
 
   /**
    * The data associated with the activity
@@ -189,7 +189,7 @@ export interface Activity {
   /**
    * A recipient, which is either a user or an object
    */
-  recipient?: Shared.Recipient;
+  recipient?: RecipientsAPI.Recipient;
 
   updated_at?: string;
 }
@@ -354,6 +354,61 @@ export namespace Message {
      * The source version ID
      */
     version_id: string;
+  }
+}
+
+/**
+ * A message delivery log
+ */
+export interface MessageDeliveryLog {
+  id: string;
+
+  __typename: string;
+
+  environment_id: string;
+
+  inserted_at: string;
+
+  /**
+   * A message delivery log request
+   */
+  request: MessageDeliveryLog.Request;
+
+  /**
+   * A message delivery log response
+   */
+  response: MessageDeliveryLog.Response;
+
+  service_name: string;
+}
+
+export namespace MessageDeliveryLog {
+  /**
+   * A message delivery log request
+   */
+  export interface Request {
+    body?: string | Record<string, unknown>;
+
+    headers?: Record<string, unknown> | null;
+
+    host?: string;
+
+    method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+
+    path?: string;
+
+    query?: string | null;
+  }
+
+  /**
+   * A message delivery log response
+   */
+  export interface Response {
+    body?: string | Record<string, unknown>;
+
+    headers?: Record<string, unknown> | null;
+
+    status?: number;
   }
 }
 
@@ -582,61 +637,6 @@ export namespace MessageGetContentResponse {
   }
 }
 
-/**
- * A message delivery log
- */
-export interface MessageListDeliveryLogsResponse {
-  id: string;
-
-  __typename: string;
-
-  environment_id: string;
-
-  inserted_at: string;
-
-  /**
-   * A message delivery log request
-   */
-  request: MessageListDeliveryLogsResponse.Request;
-
-  /**
-   * A message delivery log response
-   */
-  response: MessageListDeliveryLogsResponse.Response;
-
-  service_name: string;
-}
-
-export namespace MessageListDeliveryLogsResponse {
-  /**
-   * A message delivery log request
-   */
-  export interface Request {
-    body?: string | Record<string, unknown>;
-
-    headers?: Record<string, unknown> | null;
-
-    host?: string;
-
-    method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
-
-    path?: string;
-
-    query?: string | null;
-  }
-
-  /**
-   * A message delivery log response
-   */
-  export interface Response {
-    body?: string | Record<string, unknown>;
-
-    headers?: Record<string, unknown> | null;
-
-    status?: number;
-  }
-}
-
 export interface MessageListParams extends EntriesCursorParams {
   /**
    * The channel ID
@@ -715,12 +715,12 @@ export declare namespace Messages {
   export {
     type Activity as Activity,
     type Message as Message,
+    type MessageDeliveryLog as MessageDeliveryLog,
     type MessageEvent as MessageEvent,
     type MessageGetContentResponse as MessageGetContentResponse,
-    type MessageListDeliveryLogsResponse as MessageListDeliveryLogsResponse,
     type MessagesEntriesCursor as MessagesEntriesCursor,
     type ActivitiesItemsCursor as ActivitiesItemsCursor,
-    type MessageListDeliveryLogsResponsesEntriesCursor as MessageListDeliveryLogsResponsesEntriesCursor,
+    type MessageDeliveryLogsEntriesCursor as MessageDeliveryLogsEntriesCursor,
     type MessageEventsEntriesCursor as MessageEventsEntriesCursor,
     type MessageListParams as MessageListParams,
     type MessageListActivitiesParams as MessageListActivitiesParams,

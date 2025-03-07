@@ -1,8 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
-import * as Shared from '../shared';
-import { TenantsEntriesCursor } from '../shared';
+import * as RecipientsAPI from '../recipients';
 import * as BulkAPI from './bulk';
 import { Bulk, BulkDeleteParams, BulkSetParams } from './bulk';
 import { APIPromise } from '../../api-promise';
@@ -19,8 +18,8 @@ export class Tenants extends APIResource {
   list(
     query: TenantListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<TenantsEntriesCursor, Shared.Tenant> {
-    return this._client.getAPIList('/v1/tenants', EntriesCursor<Shared.Tenant>, { query, ...options });
+  ): PagePromise<TenantsEntriesCursor, Tenant> {
+    return this._client.getAPIList('/v1/tenants', EntriesCursor<Tenant>, { query, ...options });
   }
 
   /**
@@ -33,15 +32,75 @@ export class Tenants extends APIResource {
   /**
    * Get a tenant
    */
-  get(id: string, options?: RequestOptions): APIPromise<Shared.Tenant> {
+  get(id: string, options?: RequestOptions): APIPromise<Tenant> {
     return this._client.get(path`/v1/tenants/${id}`, options);
   }
 
   /**
    * Set a tenant
    */
-  set(id: string, body: TenantSetParams, options?: RequestOptions): APIPromise<Shared.Tenant> {
+  set(id: string, body: TenantSetParams, options?: RequestOptions): APIPromise<Tenant> {
     return this._client.put(path`/v1/tenants/${id}`, { body, ...options });
+  }
+}
+
+export type TenantsEntriesCursor = EntriesCursor<Tenant>;
+
+/**
+ * An inline tenant request
+ */
+export type InlineTenantRequest = string | TenantRequest;
+
+/**
+ * A tenant entity
+ */
+export interface Tenant {
+  id: string;
+
+  __typename: string;
+  [k: string]: unknown;
+}
+
+/**
+ * A tenant to be set in the system
+ */
+export interface TenantRequest {
+  id: string;
+
+  /**
+   * Allows inline setting channel data for a recipient
+   */
+  channel_data?: RecipientsAPI.InlineChannelDataRequest | null;
+
+  /**
+   * Inline set preferences for a recipient, where the key is the preference set name
+   */
+  preferences?: RecipientsAPI.InlinePreferenceSetRequest | null;
+
+  settings?: TenantRequest.Settings;
+  [k: string]: unknown;
+}
+
+export namespace TenantRequest {
+  export interface Settings {
+    branding?: Settings.Branding;
+
+    /**
+     * Set preferences for a recipient
+     */
+    preference_set?: RecipientsAPI.PreferenceSetRequest | null;
+  }
+
+  export namespace Settings {
+    export interface Branding {
+      icon_url?: string | null;
+
+      logo_url?: string | null;
+
+      primary_color?: string | null;
+
+      primary_color_contrast?: string | null;
+    }
   }
 }
 
@@ -56,12 +115,12 @@ export interface TenantSetParams {
   /**
    * Allows inline setting channel data for a recipient
    */
-  channel_data?: Shared.InlineChannelDataRequest | null;
+  channel_data?: RecipientsAPI.InlineChannelDataRequest | null;
 
   /**
    * Inline set preferences for a recipient, where the key is the preference set name
    */
-  preferences?: Shared.InlinePreferenceSetRequest | null;
+  preferences?: RecipientsAPI.InlinePreferenceSetRequest | null;
 
   settings?: TenantSetParams.Settings;
 }
@@ -73,7 +132,7 @@ export namespace TenantSetParams {
     /**
      * Set preferences for a recipient
      */
-    preference_set?: Shared.PreferenceSetRequest | null;
+    preference_set?: RecipientsAPI.PreferenceSetRequest | null;
   }
 
   export namespace Settings {
@@ -93,12 +152,14 @@ Tenants.Bulk = Bulk;
 
 export declare namespace Tenants {
   export {
+    type InlineTenantRequest as InlineTenantRequest,
+    type Tenant as Tenant,
+    type TenantRequest as TenantRequest,
     type TenantDeleteResponse as TenantDeleteResponse,
+    type TenantsEntriesCursor as TenantsEntriesCursor,
     type TenantListParams as TenantListParams,
     type TenantSetParams as TenantSetParams,
   };
 
   export { Bulk as Bulk, type BulkDeleteParams as BulkDeleteParams, type BulkSetParams as BulkSetParams };
 }
-
-export { type TenantsEntriesCursor };

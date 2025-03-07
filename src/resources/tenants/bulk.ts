@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../resource';
 import * as BulkOperationsAPI from '../bulk-operations';
-import * as Shared from '../shared';
+import * as TenantsAPI from './tenants';
 import { APIPromise } from '../../api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
@@ -31,7 +31,7 @@ export interface BulkDeleteParams {
 }
 
 export interface BulkSetParams {
-  tenants: Array<Shared.InlineTenantRequest>;
+  tenants: Array<TenantsAPI.InlineTenantRequest>;
 }
 
 export declare namespace Bulk {

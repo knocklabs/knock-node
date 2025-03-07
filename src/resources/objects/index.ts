@@ -3,6 +3,8 @@
 export { Bulk, type BulkDeleteParams, type BulkAddSubscriptionsParams, type BulkSetParams } from './bulk';
 export {
   Objects,
+  type InlineObjectRequest,
+  type Object,
   type ObjectDeleteResponse,
   type ObjectAddSubscriptionsResponse,
   type ObjectDeleteSubscriptionsResponse,
@@ -23,4 +25,5 @@ export {
   type ObjectSetChannelDataParams,
   type ObjectSetPreferencesParams,
   type ObjectUnsetChannelDataParams,
+  type ObjectsEntriesCursor,
 } from './objects';

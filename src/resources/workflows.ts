@@ -1,7 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../resource';
-import * as Shared from './shared';
+import * as RecipientsAPI from './recipients';
+import * as TenantsAPI from './tenants/tenants';
 import { APIPromise } from '../api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -68,7 +69,7 @@ export interface WorkflowTriggerParams {
    * (string), an inline user request (object), or an inline object request, which is
    * determined by the presence of a `collection` property.
    */
-  actor?: Shared.RecipientRequest | null;
+  actor?: RecipientsAPI.RecipientRequest | null;
 
   /**
    * An optional key that is used in the workflow cancellation endpoint to target a
@@ -86,12 +87,12 @@ export interface WorkflowTriggerParams {
    * The recipients to trigger the workflow for. Cannot exceed 1000 recipients in a
    * single trigger.
    */
-  recipients?: Array<Shared.RecipientRequest>;
+  recipients?: Array<RecipientsAPI.RecipientRequest>;
 
   /**
    * An inline tenant request
    */
-  tenant?: Shared.InlineTenantRequest | null;
+  tenant?: TenantsAPI.InlineTenantRequest | null;
 }
 
 export declare namespace Workflows {

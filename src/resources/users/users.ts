@@ -1,8 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
+import * as RecipientsAPI from '../recipients';
+import { SubscriptionsEntriesCursor } from '../recipients';
+import * as SchedulesAPI from '../schedules';
+import { SchedulesEntriesCursor } from '../schedules';
 import * as Shared from '../shared';
-import { SchedulesEntriesCursor, SubscriptionsEntriesCursor, UsersEntriesCursor } from '../shared';
 import * as MessagesAPI from '../messages/messages';
 import { MessagesEntriesCursor } from '../messages/messages';
 import * as BulkAPI from './bulk';
@@ -28,7 +31,7 @@ export class Users extends APIResource {
   /**
    * Identify user
    */
-  update(userID: string, body: UserUpdateParams, options?: RequestOptions): APIPromise<Shared.User> {
+  update(userID: string, body: UserUpdateParams, options?: RequestOptions): APIPromise<User> {
     return this._client.put(path`/v1/users/${userID}`, { body, ...options });
   }
 
@@ -38,8 +41,8 @@ export class Users extends APIResource {
   list(
     query: UserListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<UsersEntriesCursor, Shared.User> {
-    return this._client.getAPIList('/v1/users', EntriesCursor<Shared.User>, { query, ...options });
+  ): PagePromise<UsersEntriesCursor, User> {
+    return this._client.getAPIList('/v1/users', EntriesCursor<User>, { query, ...options });
   }
 
   /**
@@ -52,7 +55,7 @@ export class Users extends APIResource {
   /**
    * Get user
    */
-  get(userID: string, options?: RequestOptions): APIPromise<Shared.User> {
+  get(userID: string, options?: RequestOptions): APIPromise<User> {
     return this._client.get(path`/v1/users/${userID}`, options);
   }
 
@@ -63,7 +66,7 @@ export class Users extends APIResource {
     channelID: string,
     params: UserGetChannelDataParams,
     options?: RequestOptions,
-  ): APIPromise<Shared.ChannelData> {
+  ): APIPromise<RecipientsAPI.ChannelData> {
     const { user_id } = params;
     return this._client.get(path`/v1/users/${user_id}/channel_data/${channelID}`, options);
   }
@@ -75,7 +78,7 @@ export class Users extends APIResource {
     id: string,
     params: UserGetPreferencesParams,
     options?: RequestOptions,
-  ): APIPromise<Shared.PreferenceSet> {
+  ): APIPromise<RecipientsAPI.PreferenceSet> {
     const { user_id, ...query } = params;
     return this._client.get(path`/v1/users/${user_id}/preferences/${id}`, { query, ...options });
   }
@@ -108,11 +111,12 @@ export class Users extends APIResource {
     userID: string,
     query: UserListSchedulesParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<SchedulesEntriesCursor, Shared.Schedule> {
-    return this._client.getAPIList(path`/v1/users/${userID}/schedules`, EntriesCursor<Shared.Schedule>, {
-      query,
-      ...options,
-    });
+  ): PagePromise<SchedulesEntriesCursor, SchedulesAPI.Schedule> {
+    return this._client.getAPIList(
+      path`/v1/users/${userID}/schedules`,
+      EntriesCursor<SchedulesAPI.Schedule>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -122,10 +126,10 @@ export class Users extends APIResource {
     userID: string,
     query: UserListSubscriptionsParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<SubscriptionsEntriesCursor, Shared.Subscription> {
+  ): PagePromise<SubscriptionsEntriesCursor, RecipientsAPI.Subscription> {
     return this._client.getAPIList(
       path`/v1/users/${userID}/subscriptions`,
-      EntriesCursor<Shared.Subscription>,
+      EntriesCursor<RecipientsAPI.Subscription>,
       { query, ...options },
     );
   }
@@ -134,7 +138,7 @@ export class Users extends APIResource {
    * Merge two users together, where the user specified with the `from_user_id` param
    * will be merged into the user specified by `user_id`.
    */
-  merge(userID: string, body: UserMergeParams, options?: RequestOptions): APIPromise<Shared.User> {
+  merge(userID: string, body: UserMergeParams, options?: RequestOptions): APIPromise<User> {
     return this._client.post(path`/v1/users/${userID}/merge`, { body, ...options });
   }
 
@@ -145,7 +149,7 @@ export class Users extends APIResource {
     channelID: string,
     params: UserSetChannelDataParams,
     options?: RequestOptions,
-  ): APIPromise<Shared.ChannelData> {
+  ): APIPromise<RecipientsAPI.ChannelData> {
     const { user_id, ...body } = params;
     return this._client.put(path`/v1/users/${user_id}/channel_data/${channelID}`, { body, ...options });
   }
@@ -158,7 +162,7 @@ export class Users extends APIResource {
     id: string,
     params: UserSetPreferencesParams,
     options?: RequestOptions,
-  ): APIPromise<Shared.PreferenceSet> {
+  ): APIPromise<RecipientsAPI.PreferenceSet> {
     const { user_id, ...body } = params;
     return this._client.put(path`/v1/users/${user_id}/preferences/${id}`, { body, ...options });
   }
@@ -176,6 +180,81 @@ export class Users extends APIResource {
   }
 }
 
+export type UsersEntriesCursor = EntriesCursor<User>;
+
+/**
+ * A set of parameters to identify a user with. Does not include the user ID, as
+ * that's specified elsewhere in the request. You can supply any additional
+ * properties you'd like to upsert against the user.
+ */
+export interface IdentifyUserRequest {
+  /**
+   * Allows inline setting channel data for a recipient
+   */
+  channel_data?: RecipientsAPI.InlineChannelDataRequest | null;
+
+  created_at?: string | null;
+
+  /**
+   * Inline set preferences for a recipient, where the key is the preference set name
+   */
+  preferences?: RecipientsAPI.InlinePreferenceSetRequest | null;
+  [k: string]: unknown;
+}
+
+/**
+ * A set of parameters to inline-identify a user with. Inline identifying the user
+ * will ensure that the user is available before the request is executed in Knock.
+ * It will perform an upsert against the user you're supplying, replacing any
+ * properties specified.
+ */
+export interface InlineIdentifyUserRequest {
+  /**
+   * The ID of the user to identify. This is an ID that you supply.
+   */
+  id: string;
+
+  /**
+   * Allows inline setting channel data for a recipient
+   */
+  channel_data?: RecipientsAPI.InlineChannelDataRequest | null;
+
+  /**
+   * The creation date of the user from your system.
+   */
+  created_at?: string | null;
+
+  /**
+   * Inline set preferences for a recipient, where the key is the preference set name
+   */
+  preferences?: RecipientsAPI.InlinePreferenceSetRequest | null;
+  [k: string]: unknown;
+}
+
+/**
+ * A user object
+ */
+export interface User {
+  id: string;
+
+  __typename: string;
+
+  updated_at: string;
+
+  avatar?: string | null;
+
+  created_at?: string | null;
+
+  email?: string | null;
+
+  name?: string | null;
+
+  phone_number?: string | null;
+
+  timezone?: string | null;
+  [k: string]: unknown;
+}
+
 /**
  * An empty response
  */
@@ -184,7 +263,7 @@ export type UserDeleteResponse = string;
 /**
  * A list of preference sets for the user
  */
-export type UserListPreferencesResponse = Array<Shared.PreferenceSet>;
+export type UserListPreferencesResponse = Array<RecipientsAPI.PreferenceSet>;
 
 /**
  * An empty response
@@ -195,14 +274,14 @@ export interface UserUpdateParams {
   /**
    * Allows inline setting channel data for a recipient
    */
-  channel_data?: Shared.InlineChannelDataRequest | null;
+  channel_data?: RecipientsAPI.InlineChannelDataRequest | null;
 
   created_at?: string | null;
 
   /**
    * Inline set preferences for a recipient, where the key is the preference set name
    */
-  preferences?: Shared.InlinePreferenceSetRequest | null;
+  preferences?: RecipientsAPI.InlinePreferenceSetRequest | null;
 }
 
 export interface UserListParams extends EntriesCursorParams {}
@@ -311,11 +390,11 @@ export interface UserSetChannelDataParams {
    * Body param: Channel data for push providers
    */
   data:
-    | Shared.PushChannelData
-    | Shared.OneSignalChannelData
-    | Shared.SlackChannelData
-    | Shared.MsTeamsChannelData
-    | Shared.DiscordChannelData;
+    | RecipientsAPI.PushChannelData
+    | RecipientsAPI.OneSignalChannelData
+    | RecipientsAPI.SlackChannelData
+    | RecipientsAPI.MsTeamsChannelData
+    | RecipientsAPI.DiscordChannelData;
 }
 
 export interface UserSetPreferencesParams {
@@ -336,7 +415,7 @@ export interface UserSetPreferencesParams {
   /**
    * Body param: Channel type preferences
    */
-  channel_types?: Shared.PreferenceSetChannelTypes | null;
+  channel_types?: RecipientsAPI.PreferenceSetChannelTypes | null;
 
   /**
    * Body param: A setting for a preference set, where the key in the object is the
@@ -357,7 +436,7 @@ export namespace UserSetPreferencesParams {
     /**
      * Channel type preferences
      */
-    channel_types?: Shared.PreferenceSetChannelTypes | null;
+    channel_types?: RecipientsAPI.PreferenceSetChannelTypes | null;
 
     conditions?: Array<Shared.Condition> | null;
   }
@@ -370,7 +449,7 @@ export namespace UserSetPreferencesParams {
     /**
      * Channel type preferences
      */
-    channel_types?: Shared.PreferenceSetChannelTypes | null;
+    channel_types?: RecipientsAPI.PreferenceSetChannelTypes | null;
 
     conditions?: Array<Shared.Condition> | null;
   }
@@ -388,9 +467,13 @@ Users.Bulk = Bulk;
 
 export declare namespace Users {
   export {
+    type IdentifyUserRequest as IdentifyUserRequest,
+    type InlineIdentifyUserRequest as InlineIdentifyUserRequest,
+    type User as User,
     type UserDeleteResponse as UserDeleteResponse,
     type UserListPreferencesResponse as UserListPreferencesResponse,
     type UserUnsetChannelDataResponse as UserUnsetChannelDataResponse,
+    type UsersEntriesCursor as UsersEntriesCursor,
     type UserUpdateParams as UserUpdateParams,
     type UserListParams as UserListParams,
     type UserGetChannelDataParams as UserGetChannelDataParams,
@@ -421,9 +504,4 @@ export declare namespace Users {
   };
 }
 
-export {
-  type UsersEntriesCursor,
-  type MessagesEntriesCursor,
-  type SchedulesEntriesCursor,
-  type SubscriptionsEntriesCursor,
-};
+export { type MessagesEntriesCursor, type SchedulesEntriesCursor, type SubscriptionsEntriesCursor };

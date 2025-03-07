@@ -38,14 +38,36 @@ import {
 } from './resources/audiences';
 import { BulkOperation, BulkOperations } from './resources/bulk-operations';
 import {
+  ChannelData,
+  ChannelDataRequest,
+  DiscordChannelData,
+  InlineChannelDataRequest,
+  InlinePreferenceSetRequest,
+  MsTeamsChannelData,
+  OneSignalChannelData,
+  PreferenceSet,
+  PreferenceSetChannelTypeSetting,
+  PreferenceSetChannelTypes,
+  PreferenceSetRequest,
+  PushChannelData,
+  Recipient,
+  RecipientRequest,
+  Recipients,
+  SlackChannelData,
+  Subscription,
+} from './resources/recipients';
+import {
+  Schedule,
   ScheduleCreateParams,
   ScheduleCreateResponse,
   ScheduleDeleteParams,
   ScheduleDeleteResponse,
   ScheduleListParams,
+  ScheduleRepeatRule,
   ScheduleUpdateParams,
   ScheduleUpdateResponse,
   Schedules,
+  SchedulesEntriesCursor,
 } from './resources/schedules';
 import {
   WorkflowCancelParams,
@@ -62,13 +84,13 @@ import {
   ActivitiesItemsCursor,
   Activity,
   Message,
+  MessageDeliveryLog,
+  MessageDeliveryLogsEntriesCursor,
   MessageEvent,
   MessageEventsEntriesCursor,
   MessageGetContentResponse,
   MessageListActivitiesParams,
   MessageListDeliveryLogsParams,
-  MessageListDeliveryLogsResponse,
-  MessageListDeliveryLogsResponsesEntriesCursor,
   MessageListEventsParams,
   MessageListParams,
   MessageMarkAsInteractedParams,
@@ -76,6 +98,8 @@ import {
   MessagesEntriesCursor,
 } from './resources/messages/messages';
 import {
+  InlineObjectRequest,
+  Object,
   ObjectAddSubscriptionsParams,
   ObjectAddSubscriptionsResponse,
   ObjectDeleteParams,
@@ -97,15 +121,23 @@ import {
   ObjectUnsetChannelDataParams,
   ObjectUnsetChannelDataResponse,
   Objects,
+  ObjectsEntriesCursor,
 } from './resources/objects/objects';
 import { Providers } from './resources/providers/providers';
 import {
+  InlineTenantRequest,
+  Tenant,
   TenantDeleteResponse,
   TenantListParams,
+  TenantRequest,
   TenantSetParams,
   Tenants,
+  TenantsEntriesCursor,
 } from './resources/tenants/tenants';
 import {
+  IdentifyUserRequest,
+  InlineIdentifyUserRequest,
+  User,
   UserDeleteResponse,
   UserGetChannelDataParams,
   UserGetPreferencesParams,
@@ -121,6 +153,7 @@ import {
   UserUnsetChannelDataResponse,
   UserUpdateParams,
   Users,
+  UsersEntriesCursor,
 } from './resources/users/users';
 
 const safeJSON = (text: string) => {
@@ -819,6 +852,7 @@ export class Knock {
 
   static toFile = Uploads.toFile;
 
+  recipients: API.Recipients = new API.Recipients(this);
   users: API.Users = new API.Users(this);
   objects: API.Objects = new API.Objects(this);
   tenants: API.Tenants = new API.Tenants(this);
@@ -830,6 +864,7 @@ export class Knock {
   channels: API.Channels = new API.Channels(this);
   audiences: API.Audiences = new API.Audiences(this);
 }
+Knock.Recipients = Recipients;
 Knock.Users = Users;
 Knock.Objects = Objects;
 Knock.Tenants = Tenants;
@@ -853,10 +888,34 @@ export declare namespace Knock {
   export { type ItemsCursorParams as ItemsCursorParams, type ItemsCursorResponse as ItemsCursorResponse };
 
   export {
+    Recipients as Recipients,
+    type ChannelData as ChannelData,
+    type ChannelDataRequest as ChannelDataRequest,
+    type DiscordChannelData as DiscordChannelData,
+    type InlineChannelDataRequest as InlineChannelDataRequest,
+    type InlinePreferenceSetRequest as InlinePreferenceSetRequest,
+    type MsTeamsChannelData as MsTeamsChannelData,
+    type OneSignalChannelData as OneSignalChannelData,
+    type PreferenceSet as PreferenceSet,
+    type PreferenceSetChannelTypeSetting as PreferenceSetChannelTypeSetting,
+    type PreferenceSetChannelTypes as PreferenceSetChannelTypes,
+    type PreferenceSetRequest as PreferenceSetRequest,
+    type PushChannelData as PushChannelData,
+    type Recipient as Recipient,
+    type RecipientRequest as RecipientRequest,
+    type SlackChannelData as SlackChannelData,
+    type Subscription as Subscription,
+  };
+
+  export {
     Users as Users,
+    type IdentifyUserRequest as IdentifyUserRequest,
+    type InlineIdentifyUserRequest as InlineIdentifyUserRequest,
+    type User as User,
     type UserDeleteResponse as UserDeleteResponse,
     type UserListPreferencesResponse as UserListPreferencesResponse,
     type UserUnsetChannelDataResponse as UserUnsetChannelDataResponse,
+    type UsersEntriesCursor as UsersEntriesCursor,
     type UserUpdateParams as UserUpdateParams,
     type UserListParams as UserListParams,
     type UserGetChannelDataParams as UserGetChannelDataParams,
@@ -872,11 +931,14 @@ export declare namespace Knock {
 
   export {
     Objects as Objects,
+    type InlineObjectRequest as InlineObjectRequest,
+    type Object as Object,
     type ObjectDeleteResponse as ObjectDeleteResponse,
     type ObjectAddSubscriptionsResponse as ObjectAddSubscriptionsResponse,
     type ObjectDeleteSubscriptionsResponse as ObjectDeleteSubscriptionsResponse,
     type ObjectListPreferencesResponse as ObjectListPreferencesResponse,
     type ObjectUnsetChannelDataResponse as ObjectUnsetChannelDataResponse,
+    type ObjectsEntriesCursor as ObjectsEntriesCursor,
     type ObjectListParams as ObjectListParams,
     type ObjectDeleteParams as ObjectDeleteParams,
     type ObjectAddSubscriptionsParams as ObjectAddSubscriptionsParams,
@@ -896,7 +958,11 @@ export declare namespace Knock {
 
   export {
     Tenants as Tenants,
+    type InlineTenantRequest as InlineTenantRequest,
+    type Tenant as Tenant,
+    type TenantRequest as TenantRequest,
     type TenantDeleteResponse as TenantDeleteResponse,
+    type TenantsEntriesCursor as TenantsEntriesCursor,
     type TenantListParams as TenantListParams,
     type TenantSetParams as TenantSetParams,
   };
@@ -907,12 +973,12 @@ export declare namespace Knock {
     Messages as Messages,
     type Activity as Activity,
     type Message as Message,
+    type MessageDeliveryLog as MessageDeliveryLog,
     type MessageEvent as MessageEvent,
     type MessageGetContentResponse as MessageGetContentResponse,
-    type MessageListDeliveryLogsResponse as MessageListDeliveryLogsResponse,
     type MessagesEntriesCursor as MessagesEntriesCursor,
     type ActivitiesItemsCursor as ActivitiesItemsCursor,
-    type MessageListDeliveryLogsResponsesEntriesCursor as MessageListDeliveryLogsResponsesEntriesCursor,
+    type MessageDeliveryLogsEntriesCursor as MessageDeliveryLogsEntriesCursor,
     type MessageEventsEntriesCursor as MessageEventsEntriesCursor,
     type MessageListParams as MessageListParams,
     type MessageListActivitiesParams as MessageListActivitiesParams,
@@ -933,9 +999,12 @@ export declare namespace Knock {
 
   export {
     Schedules as Schedules,
+    type Schedule as Schedule,
+    type ScheduleRepeatRule as ScheduleRepeatRule,
     type ScheduleCreateResponse as ScheduleCreateResponse,
     type ScheduleUpdateResponse as ScheduleUpdateResponse,
     type ScheduleDeleteResponse as ScheduleDeleteResponse,
+    type SchedulesEntriesCursor as SchedulesEntriesCursor,
     type ScheduleCreateParams as ScheduleCreateParams,
     type ScheduleUpdateParams as ScheduleUpdateParams,
     type ScheduleListParams as ScheduleListParams,
@@ -954,30 +1023,5 @@ export declare namespace Knock {
     type AudienceRemoveMembersParams as AudienceRemoveMembersParams,
   };
 
-  export type ChannelData = API.ChannelData;
-  export type ChannelDataRequest = API.ChannelDataRequest;
   export type Condition = API.Condition;
-  export type DiscordChannelData = API.DiscordChannelData;
-  export type InlineChannelDataRequest = API.InlineChannelDataRequest;
-  export type InlineIdentifyUserRequest = API.InlineIdentifyUserRequest;
-  export type InlineObjectRequest = API.InlineObjectRequest;
-  export type InlinePreferenceSetRequest = API.InlinePreferenceSetRequest;
-  export type InlineTenantRequest = API.InlineTenantRequest;
-  export type MsTeamsChannelData = API.MsTeamsChannelData;
-  export type Object = API.Object;
-  export type OneSignalChannelData = API.OneSignalChannelData;
-  export type PreferenceSet = API.PreferenceSet;
-  export type PreferenceSetChannelTypeSetting = API.PreferenceSetChannelTypeSetting;
-  export type PreferenceSetChannelTypes = API.PreferenceSetChannelTypes;
-  export type PreferenceSetRequest = API.PreferenceSetRequest;
-  export type PushChannelData = API.PushChannelData;
-  export type Recipient = API.Recipient;
-  export type RecipientRequest = API.RecipientRequest;
-  export type Schedule = API.Schedule;
-  export type ScheduleRepeatRule = API.ScheduleRepeatRule;
-  export type SlackChannelData = API.SlackChannelData;
-  export type Subscription = API.Subscription;
-  export type Tenant = API.Tenant;
-  export type TenantRequest = API.TenantRequest;
-  export type User = API.User;
 }

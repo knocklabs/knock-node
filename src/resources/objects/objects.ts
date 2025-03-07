@@ -1,8 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
+import * as RecipientsAPI from '../recipients';
+import { SubscriptionsEntriesCursor } from '../recipients';
+import * as SchedulesAPI from '../schedules';
+import { SchedulesEntriesCursor } from '../schedules';
 import * as Shared from '../shared';
-import { ObjectsEntriesCursor, SchedulesEntriesCursor, SubscriptionsEntriesCursor } from '../shared';
 import * as MessagesAPI from '../messages/messages';
 import { MessagesEntriesCursor } from '../messages/messages';
 import * as BulkAPI from './bulk';
@@ -22,8 +25,8 @@ export class Objects extends APIResource {
     collection: string,
     query: ObjectListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<ObjectsEntriesCursor, Shared.Object> {
-    return this._client.getAPIList(path`/v1/objects/${collection}`, EntriesCursor<Shared.Object>, {
+  ): PagePromise<ObjectsEntriesCursor, Object> {
+    return this._client.getAPIList(path`/v1/objects/${collection}`, EntriesCursor<Object>, {
       query,
       ...options,
     });
@@ -68,7 +71,7 @@ export class Objects extends APIResource {
   /**
    * Get an object
    */
-  get(id: string, params: ObjectGetParams, options?: RequestOptions): APIPromise<Shared.Object> {
+  get(id: string, params: ObjectGetParams, options?: RequestOptions): APIPromise<Object> {
     const { collection } = params;
     return this._client.get(path`/v1/objects/${collection}/${id}`, options);
   }
@@ -80,7 +83,7 @@ export class Objects extends APIResource {
     channelID: string,
     params: ObjectGetChannelDataParams,
     options?: RequestOptions,
-  ): APIPromise<Shared.ChannelData> {
+  ): APIPromise<RecipientsAPI.ChannelData> {
     const { collection, object_id } = params;
     return this._client.get(path`/v1/objects/${collection}/${object_id}/channel_data/${channelID}`, options);
   }
@@ -92,7 +95,7 @@ export class Objects extends APIResource {
     id: string,
     params: ObjectGetPreferencesParams,
     options?: RequestOptions,
-  ): APIPromise<Shared.PreferenceSet> {
+  ): APIPromise<RecipientsAPI.PreferenceSet> {
     const { collection, object_id, ...query } = params;
     return this._client.get(path`/v1/objects/${collection}/${object_id}/preferences/${id}`, {
       query,
@@ -135,11 +138,11 @@ export class Objects extends APIResource {
     id: string,
     params: ObjectListSchedulesParams,
     options?: RequestOptions,
-  ): PagePromise<SchedulesEntriesCursor, Shared.Schedule> {
+  ): PagePromise<SchedulesEntriesCursor, SchedulesAPI.Schedule> {
     const { collection, ...query } = params;
     return this._client.getAPIList(
       path`/v1/objects/${collection}/${id}/schedules`,
-      EntriesCursor<Shared.Schedule>,
+      EntriesCursor<SchedulesAPI.Schedule>,
       { query, ...options },
     );
   }
@@ -153,11 +156,11 @@ export class Objects extends APIResource {
     objectID: string,
     params: ObjectListSubscriptionsParams,
     options?: RequestOptions,
-  ): PagePromise<SubscriptionsEntriesCursor, Shared.Subscription> {
+  ): PagePromise<SubscriptionsEntriesCursor, RecipientsAPI.Subscription> {
     const { collection, ...query } = params;
     return this._client.getAPIList(
       path`/v1/objects/${collection}/${objectID}/subscriptions`,
-      EntriesCursor<Shared.Subscription>,
+      EntriesCursor<RecipientsAPI.Subscription>,
       { query, ...options },
     );
   }
@@ -165,7 +168,7 @@ export class Objects extends APIResource {
   /**
    * Set (identify) an object
    */
-  set(id: string, params: ObjectSetParams, options?: RequestOptions): APIPromise<Shared.Object> {
+  set(id: string, params: ObjectSetParams, options?: RequestOptions): APIPromise<Object> {
     const { collection, ...body } = params;
     return this._client.put(path`/v1/objects/${collection}/${id}`, { body, ...options });
   }
@@ -177,7 +180,7 @@ export class Objects extends APIResource {
     channelID: string,
     params: ObjectSetChannelDataParams,
     options?: RequestOptions,
-  ): APIPromise<Shared.ChannelData> {
+  ): APIPromise<RecipientsAPI.ChannelData> {
     const { collection, object_id, ...body } = params;
     return this._client.put(path`/v1/objects/${collection}/${object_id}/channel_data/${channelID}`, {
       body,
@@ -192,7 +195,7 @@ export class Objects extends APIResource {
     id: string,
     params: ObjectSetPreferencesParams,
     options?: RequestOptions,
-  ): APIPromise<Shared.PreferenceSet> {
+  ): APIPromise<RecipientsAPI.PreferenceSet> {
     const { collection, object_id, ...body } = params;
     return this._client.put(path`/v1/objects/${collection}/${object_id}/preferences/${id}`, {
       body,
@@ -216,6 +219,46 @@ export class Objects extends APIResource {
   }
 }
 
+export type ObjectsEntriesCursor = EntriesCursor<Object>;
+
+/**
+ * Inline identifies a custom object belonging to a collection
+ */
+export interface InlineObjectRequest {
+  id: string;
+
+  collection: string;
+
+  /**
+   * Allows inline setting channel data for a recipient
+   */
+  channel_data?: RecipientsAPI.InlineChannelDataRequest | null;
+
+  created_at?: string | null;
+
+  /**
+   * Inline set preferences for a recipient, where the key is the preference set name
+   */
+  preferences?: RecipientsAPI.InlinePreferenceSetRequest | null;
+  [k: string]: unknown;
+}
+
+/**
+ * A custom-object entity which belongs to a collection.
+ */
+export interface Object {
+  id: string;
+
+  __typename: string;
+
+  collection: string;
+
+  updated_at: string;
+
+  created_at?: string | null;
+  [k: string]: unknown;
+}
+
 /**
  * An empty response
  */
@@ -224,17 +267,17 @@ export type ObjectDeleteResponse = string;
 /**
  * Response containing a list of subscriptions
  */
-export type ObjectAddSubscriptionsResponse = Array<Shared.Subscription>;
+export type ObjectAddSubscriptionsResponse = Array<RecipientsAPI.Subscription>;
 
 /**
  * Response containing a list of subscriptions
  */
-export type ObjectDeleteSubscriptionsResponse = Array<Shared.Subscription>;
+export type ObjectDeleteSubscriptionsResponse = Array<RecipientsAPI.Subscription>;
 
 /**
  * A list of preference sets for the object
  */
-export type ObjectListPreferencesResponse = Array<Shared.PreferenceSet>;
+export type ObjectListPreferencesResponse = Array<RecipientsAPI.PreferenceSet>;
 
 /**
  * An empty response
@@ -259,7 +302,7 @@ export interface ObjectAddSubscriptionsParams {
   /**
    * Body param: The recipients to subscribe to the object
    */
-  recipients: Array<Shared.RecipientRequest>;
+  recipients: Array<RecipientsAPI.RecipientRequest>;
 
   /**
    * Body param: The custom properties associated with the subscription
@@ -276,7 +319,7 @@ export interface ObjectDeleteSubscriptionsParams {
   /**
    * Body param:
    */
-  recipients: Array<Shared.RecipientRequest>;
+  recipients: Array<RecipientsAPI.RecipientRequest>;
 }
 
 export interface ObjectGetParams {
@@ -442,13 +485,13 @@ export interface ObjectSetParams {
   /**
    * Body param: Allows inline setting channel data for a recipient
    */
-  channel_data?: Shared.InlineChannelDataRequest | null;
+  channel_data?: RecipientsAPI.InlineChannelDataRequest | null;
 
   /**
    * Body param: Inline set preferences for a recipient, where the key is the
    * preference set name
    */
-  preferences?: Shared.InlinePreferenceSetRequest | null;
+  preferences?: RecipientsAPI.InlinePreferenceSetRequest | null;
 }
 
 export interface ObjectSetChannelDataParams {
@@ -466,11 +509,11 @@ export interface ObjectSetChannelDataParams {
    * Body param: Channel data for push providers
    */
   data:
-    | Shared.PushChannelData
-    | Shared.OneSignalChannelData
-    | Shared.SlackChannelData
-    | Shared.MsTeamsChannelData
-    | Shared.DiscordChannelData;
+    | RecipientsAPI.PushChannelData
+    | RecipientsAPI.OneSignalChannelData
+    | RecipientsAPI.SlackChannelData
+    | RecipientsAPI.MsTeamsChannelData
+    | RecipientsAPI.DiscordChannelData;
 }
 
 export interface ObjectSetPreferencesParams {
@@ -496,7 +539,7 @@ export interface ObjectSetPreferencesParams {
   /**
    * Body param: Channel type preferences
    */
-  channel_types?: Shared.PreferenceSetChannelTypes | null;
+  channel_types?: RecipientsAPI.PreferenceSetChannelTypes | null;
 
   /**
    * Body param: A setting for a preference set, where the key in the object is the
@@ -517,7 +560,7 @@ export namespace ObjectSetPreferencesParams {
     /**
      * Channel type preferences
      */
-    channel_types?: Shared.PreferenceSetChannelTypes | null;
+    channel_types?: RecipientsAPI.PreferenceSetChannelTypes | null;
 
     conditions?: Array<Shared.Condition> | null;
   }
@@ -530,7 +573,7 @@ export namespace ObjectSetPreferencesParams {
     /**
      * Channel type preferences
      */
-    channel_types?: Shared.PreferenceSetChannelTypes | null;
+    channel_types?: RecipientsAPI.PreferenceSetChannelTypes | null;
 
     conditions?: Array<Shared.Condition> | null;
   }
@@ -552,11 +595,14 @@ Objects.Bulk = Bulk;
 
 export declare namespace Objects {
   export {
+    type InlineObjectRequest as InlineObjectRequest,
+    type Object as Object,
     type ObjectDeleteResponse as ObjectDeleteResponse,
     type ObjectAddSubscriptionsResponse as ObjectAddSubscriptionsResponse,
     type ObjectDeleteSubscriptionsResponse as ObjectDeleteSubscriptionsResponse,
     type ObjectListPreferencesResponse as ObjectListPreferencesResponse,
     type ObjectUnsetChannelDataResponse as ObjectUnsetChannelDataResponse,
+    type ObjectsEntriesCursor as ObjectsEntriesCursor,
     type ObjectListParams as ObjectListParams,
     type ObjectDeleteParams as ObjectDeleteParams,
     type ObjectAddSubscriptionsParams as ObjectAddSubscriptionsParams,
@@ -582,9 +628,4 @@ export declare namespace Objects {
   };
 }
 
-export {
-  type ObjectsEntriesCursor,
-  type MessagesEntriesCursor,
-  type SchedulesEntriesCursor,
-  type SubscriptionsEntriesCursor,
-};
+export { type MessagesEntriesCursor, type SchedulesEntriesCursor, type SubscriptionsEntriesCursor };

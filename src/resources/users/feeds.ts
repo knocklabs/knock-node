@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
-import * as Shared from '../shared';
+import * as RecipientsAPI from '../recipients';
 import * as MessagesAPI from '../messages/messages';
 import { APIPromise } from '../../api-promise';
 import { EntriesCursor, type EntriesCursorParams, PagePromise } from '../../pagination';
@@ -64,7 +64,7 @@ export interface FeedListItemsResponse {
 
   activities: Array<MessagesAPI.Activity>;
 
-  actors: Array<Shared.Recipient>;
+  actors: Array<RecipientsAPI.Recipient>;
 
   blocks: Array<
     FeedListItemsResponse.MessageInAppFeedContentBlock | FeedListItemsResponse.MessageInAppFeedButtonSetBlock

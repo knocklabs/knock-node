@@ -2,37 +2,36 @@
 
 Types:
 
-- <code><a href="./src/resources/shared.ts">ChannelData</a></code>
-- <code><a href="./src/resources/shared.ts">ChannelDataRequest</a></code>
 - <code><a href="./src/resources/shared.ts">Condition</a></code>
-- <code><a href="./src/resources/shared.ts">DiscordChannelData</a></code>
-- <code><a href="./src/resources/shared.ts">InlineChannelDataRequest</a></code>
-- <code><a href="./src/resources/shared.ts">InlineIdentifyUserRequest</a></code>
-- <code><a href="./src/resources/shared.ts">InlineObjectRequest</a></code>
-- <code><a href="./src/resources/shared.ts">InlinePreferenceSetRequest</a></code>
-- <code><a href="./src/resources/shared.ts">InlineTenantRequest</a></code>
-- <code><a href="./src/resources/shared.ts">MsTeamsChannelData</a></code>
-- <code><a href="./src/resources/shared.ts">Object</a></code>
-- <code><a href="./src/resources/shared.ts">OneSignalChannelData</a></code>
-- <code><a href="./src/resources/shared.ts">PreferenceSet</a></code>
-- <code><a href="./src/resources/shared.ts">PreferenceSetChannelTypeSetting</a></code>
-- <code><a href="./src/resources/shared.ts">PreferenceSetChannelTypes</a></code>
-- <code><a href="./src/resources/shared.ts">PreferenceSetRequest</a></code>
-- <code><a href="./src/resources/shared.ts">PushChannelData</a></code>
-- <code><a href="./src/resources/shared.ts">Recipient</a></code>
-- <code><a href="./src/resources/shared.ts">RecipientRequest</a></code>
-- <code><a href="./src/resources/shared.ts">Schedule</a></code>
-- <code><a href="./src/resources/shared.ts">ScheduleRepeatRule</a></code>
-- <code><a href="./src/resources/shared.ts">SlackChannelData</a></code>
-- <code><a href="./src/resources/shared.ts">Subscription</a></code>
-- <code><a href="./src/resources/shared.ts">Tenant</a></code>
-- <code><a href="./src/resources/shared.ts">TenantRequest</a></code>
-- <code><a href="./src/resources/shared.ts">User</a></code>
+
+# Recipients
+
+Types:
+
+- <code><a href="./src/resources/recipients.ts">ChannelData</a></code>
+- <code><a href="./src/resources/recipients.ts">ChannelDataRequest</a></code>
+- <code><a href="./src/resources/recipients.ts">DiscordChannelData</a></code>
+- <code><a href="./src/resources/recipients.ts">InlineChannelDataRequest</a></code>
+- <code><a href="./src/resources/recipients.ts">InlinePreferenceSetRequest</a></code>
+- <code><a href="./src/resources/recipients.ts">MsTeamsChannelData</a></code>
+- <code><a href="./src/resources/recipients.ts">OneSignalChannelData</a></code>
+- <code><a href="./src/resources/recipients.ts">PreferenceSet</a></code>
+- <code><a href="./src/resources/recipients.ts">PreferenceSetChannelTypeSetting</a></code>
+- <code><a href="./src/resources/recipients.ts">PreferenceSetChannelTypes</a></code>
+- <code><a href="./src/resources/recipients.ts">PreferenceSetRequest</a></code>
+- <code><a href="./src/resources/recipients.ts">PushChannelData</a></code>
+- <code><a href="./src/resources/recipients.ts">Recipient</a></code>
+- <code><a href="./src/resources/recipients.ts">RecipientRequest</a></code>
+- <code><a href="./src/resources/recipients.ts">SlackChannelData</a></code>
+- <code><a href="./src/resources/recipients.ts">Subscription</a></code>
 
 # Users
 
 Types:
 
+- <code><a href="./src/resources/users/users.ts">IdentifyUserRequest</a></code>
+- <code><a href="./src/resources/users/users.ts">InlineIdentifyUserRequest</a></code>
+- <code><a href="./src/resources/users/users.ts">User</a></code>
 - <code><a href="./src/resources/users/users.ts">UserDeleteResponse</a></code>
 - <code><a href="./src/resources/users/users.ts">UserListPreferencesResponse</a></code>
 - <code><a href="./src/resources/users/users.ts">UserUnsetChannelDataResponse</a></code>
@@ -78,6 +77,8 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/objects/objects.ts">InlineObjectRequest</a></code>
+- <code><a href="./src/resources/objects/objects.ts">Object</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectDeleteResponse</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectAddSubscriptionsResponse</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectDeleteSubscriptionsResponse</a></code>
@@ -114,6 +115,9 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/tenants/tenants.ts">InlineTenantRequest</a></code>
+- <code><a href="./src/resources/tenants/tenants.ts">Tenant</a></code>
+- <code><a href="./src/resources/tenants/tenants.ts">TenantRequest</a></code>
 - <code><a href="./src/resources/tenants/tenants.ts">TenantDeleteResponse</a></code>
 
 Methods:
@@ -146,9 +150,9 @@ Types:
 
 - <code><a href="./src/resources/messages/messages.ts">Activity</a></code>
 - <code><a href="./src/resources/messages/messages.ts">Message</a></code>
+- <code><a href="./src/resources/messages/messages.ts">MessageDeliveryLog</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageEvent</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageGetContentResponse</a></code>
-- <code><a href="./src/resources/messages/messages.ts">MessageListDeliveryLogsResponse</a></code>
 
 Methods:
 
@@ -157,7 +161,7 @@ Methods:
 - <code title="get /v1/messages/{message_id}">client.messages.<a href="./src/resources/messages/messages.ts">get</a>(messageID) -> Message</code>
 - <code title="get /v1/messages/{message_id}/content">client.messages.<a href="./src/resources/messages/messages.ts">getContent</a>(messageID) -> MessageGetContentResponse</code>
 - <code title="get /v1/messages/{message_id}/activities">client.messages.<a href="./src/resources/messages/messages.ts">listActivities</a>(messageID, { ...params }) -> ActivitiesItemsCursor</code>
-- <code title="get /v1/messages/{message_id}/delivery_logs">client.messages.<a href="./src/resources/messages/messages.ts">listDeliveryLogs</a>(messageID, { ...params }) -> MessageListDeliveryLogsResponsesEntriesCursor</code>
+- <code title="get /v1/messages/{message_id}/delivery_logs">client.messages.<a href="./src/resources/messages/messages.ts">listDeliveryLogs</a>(messageID, { ...params }) -> MessageDeliveryLogsEntriesCursor</code>
 - <code title="get /v1/messages/{message_id}/events">client.messages.<a href="./src/resources/messages/messages.ts">listEvents</a>(messageID, { ...params }) -> MessageEventsEntriesCursor</code>
 - <code title="put /v1/messages/{message_id}/interacted">client.messages.<a href="./src/resources/messages/messages.ts">markAsInteracted</a>(messageID, { ...params }) -> Message</code>
 - <code title="put /v1/messages/{message_id}/read">client.messages.<a href="./src/resources/messages/messages.ts">markAsRead</a>(messageID) -> Message</code>
@@ -238,6 +242,8 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/schedules.ts">Schedule</a></code>
+- <code><a href="./src/resources/schedules.ts">ScheduleRepeatRule</a></code>
 - <code><a href="./src/resources/schedules.ts">ScheduleCreateResponse</a></code>
 - <code><a href="./src/resources/schedules.ts">ScheduleUpdateResponse</a></code>
 - <code><a href="./src/resources/schedules.ts">ScheduleDeleteResponse</a></code>

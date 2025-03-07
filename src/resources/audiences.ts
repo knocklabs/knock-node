@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../resource';
-import * as Shared from './shared';
+import * as UsersAPI from './users/users';
 import { APIPromise } from '../api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -44,7 +44,7 @@ export interface AudienceMember {
   /**
    * A user object
    */
-  user: Shared.User;
+  user: UsersAPI.User;
 
   user_id: string;
 
@@ -103,7 +103,7 @@ export namespace AudienceAddMembersParams {
      * It will perform an upsert against the user you're supplying, replacing any
      * properties specified.
      */
-    user: Shared.InlineIdentifyUserRequest;
+    user: UsersAPI.InlineIdentifyUserRequest;
 
     tenant?: string | null;
   }
@@ -124,7 +124,7 @@ export namespace AudienceRemoveMembersParams {
      * It will perform an upsert against the user you're supplying, replacing any
      * properties specified.
      */
-    user: Shared.InlineIdentifyUserRequest;
+    user: UsersAPI.InlineIdentifyUserRequest;
 
     tenant?: string | null;
   }
