@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { Knock } from 'knock';
+import { Knock } from '@knocklabs/node';
 
 const { stringifyQuery } = Knock.prototype as any;
 

@@ -1,41 +1,43 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
-import * as Core from '../../core';
+import { APIPromise } from '../../api-promise';
+import { RequestOptions } from '../../internal/request-options';
+import { path } from '../../internal/utils/path';
 
 export class Slack extends APIResource {
   /**
    * Check if a Slack channel is authenticated
    */
   checkAuth(
-    channelId: string,
+    channelID: string,
     query: SlackCheckAuthParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<SlackCheckAuthResponse> {
-    return this._client.get(`/v1/providers/slack/${channelId}/auth_check`, { query, ...options });
+    options?: RequestOptions,
+  ): APIPromise<SlackCheckAuthResponse> {
+    return this._client.get(path`/v1/providers/slack/${channelID}/auth_check`, { query, ...options });
   }
 
   /**
-   * Get Slack channels from a Slack workspace
+   * List Slack channels for a Slack workspace
    */
   listChannels(
-    channelId: string,
+    channelID: string,
     query: SlackListChannelsParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<SlackListChannelsResponse> {
-    return this._client.get(`/v1/providers/slack/${channelId}/channels`, { query, ...options });
+    options?: RequestOptions,
+  ): APIPromise<SlackListChannelsResponse> {
+    return this._client.get(path`/v1/providers/slack/${channelID}/channels`, { query, ...options });
   }
 
   /**
    * Revoke access for a Slack channel
    */
   revokeAccess(
-    channelId: string,
+    channelID: string,
     params: SlackRevokeAccessParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<string> {
+    options?: RequestOptions,
+  ): APIPromise<string> {
     const { access_token_object } = params;
-    return this._client.put(`/v1/providers/slack/${channelId}/revoke_access`, {
+    return this._client.put(path`/v1/providers/slack/${channelID}/revoke_access`, {
       query: { access_token_object },
       ...options,
     });
@@ -108,12 +110,12 @@ export namespace SlackListChannelsParams {
     /**
      * Whether to exclude archived channels
      */
-    exclude_archived?: string;
+    exclude_archived?: boolean;
 
     /**
      * The number of channels to return
      */
-    limit?: string;
+    limit?: number;
 
     /**
      * The ID of the Slack team to get channels for
@@ -121,7 +123,7 @@ export namespace SlackListChannelsParams {
     team_id?: string;
 
     /**
-     * The types of channels to return
+     * The types of channels to return (comma separated list)
      */
     types?: string;
   }

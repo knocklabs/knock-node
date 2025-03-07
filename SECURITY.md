@@ -20,7 +20,7 @@ or products provided by Knock please follow the respective company's security re
 
 ### Knock Terms and Policies
 
-Please contact dev-feedback@knock.com for any questions or concerns regarding security of our services.
+Please contact security@knock.app for any questions or concerns regarding security of our services.
 
 ---
 

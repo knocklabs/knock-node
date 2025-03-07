@@ -1,10 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Knock from 'knock';
-import { Response } from 'node-fetch';
+import Knock from '@knocklabs/node';
 
 const client = new Knock({
-  token: 'My Token',
+  bearerToken: 'My Bearer Token',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
@@ -19,14 +18,6 @@ describe('resource messages', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('list: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.messages.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Knock.NotFoundError,
-    );
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
@@ -67,14 +58,6 @@ describe('resource messages', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('archive: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.messages.archive('1jNaXzB2RZX3LY8wVQnfCKyPnv7', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Knock.NotFoundError);
-  });
-
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('get', async () => {
     const responsePromise = client.messages.get('1jNaXzB2RZX3LY8wVQnfCKyPnv7');
     const rawResponse = await responsePromise.asResponse();
@@ -84,14 +67,6 @@ describe('resource messages', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('get: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.messages.get('1jNaXzB2RZX3LY8wVQnfCKyPnv7', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Knock.NotFoundError);
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
@@ -107,14 +82,6 @@ describe('resource messages', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('getContent: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.messages.getContent('message_id', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Knock.NotFoundError);
-  });
-
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('listActivities', async () => {
     const responsePromise = client.messages.listActivities('message_id');
     const rawResponse = await responsePromise.asResponse();
@@ -124,14 +91,6 @@ describe('resource messages', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('listActivities: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.messages.listActivities('message_id', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Knock.NotFoundError);
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
@@ -159,14 +118,6 @@ describe('resource messages', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('listDeliveryLogs: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.messages.listDeliveryLogs('message_id', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Knock.NotFoundError);
-  });
-
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('listDeliveryLogs: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -188,14 +139,6 @@ describe('resource messages', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('listEvents: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.messages.listEvents('message_id', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Knock.NotFoundError);
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
@@ -223,14 +166,6 @@ describe('resource messages', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('markAsInteracted: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.messages.markAsInteracted('1jNaXzB2RZX3LY8wVQnfCKyPnv7', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Knock.NotFoundError);
-  });
-
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('markAsInteracted: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -255,14 +190,6 @@ describe('resource messages', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('markAsRead: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.messages.markAsRead('1jNaXzB2RZX3LY8wVQnfCKyPnv7', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Knock.NotFoundError);
-  });
-
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('markAsSeen', async () => {
     const responsePromise = client.messages.markAsSeen('1jNaXzB2RZX3LY8wVQnfCKyPnv7');
     const rawResponse = await responsePromise.asResponse();
@@ -272,14 +199,6 @@ describe('resource messages', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('markAsSeen: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.messages.markAsSeen('1jNaXzB2RZX3LY8wVQnfCKyPnv7', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Knock.NotFoundError);
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
@@ -295,14 +214,6 @@ describe('resource messages', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('markAsUnread: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.messages.markAsUnread('1jNaXzB2RZX3LY8wVQnfCKyPnv7', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Knock.NotFoundError);
-  });
-
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('markAsUnseen', async () => {
     const responsePromise = client.messages.markAsUnseen('1jNaXzB2RZX3LY8wVQnfCKyPnv7');
     const rawResponse = await responsePromise.asResponse();
@@ -315,14 +226,6 @@ describe('resource messages', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('markAsUnseen: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.messages.markAsUnseen('1jNaXzB2RZX3LY8wVQnfCKyPnv7', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Knock.NotFoundError);
-  });
-
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('unarchive', async () => {
     const responsePromise = client.messages.unarchive('1jNaXzB2RZX3LY8wVQnfCKyPnv7');
     const rawResponse = await responsePromise.asResponse();
@@ -332,13 +235,5 @@ describe('resource messages', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('unarchive: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.messages.unarchive('1jNaXzB2RZX3LY8wVQnfCKyPnv7', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Knock.NotFoundError);
   });
 });

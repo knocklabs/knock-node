@@ -5,6 +5,8 @@ export {
   type AudienceAddMembersResponse,
   type AudienceListMembersResponse,
   type AudienceRemoveMembersResponse,
+  type AudienceAddMembersParams,
+  type AudienceRemoveMembersParams,
 } from './audiences';
 export { BulkOperations, type BulkOperationGetResponse } from './bulk-operations';
 export { Channels } from './channels/channels';
@@ -28,6 +30,10 @@ export {
   type MessageListDeliveryLogsParams,
   type MessageListEventsParams,
   type MessageMarkAsInteractedParams,
+  type MessageListResponsesEntriesCursor,
+  type MessageListActivitiesResponsesItemsCursor,
+  type MessageListDeliveryLogsResponsesEntriesCursor,
+  type MessageListEventsResponsesEntriesCursor,
 } from './messages/messages';
 export {
   Objects,
@@ -47,14 +53,24 @@ export {
   type ObjectSetPreferencesResponse,
   type ObjectUnsetChannelDataResponse,
   type ObjectListParams,
+  type ObjectDeleteParams,
   type ObjectAddSubscriptionsParams,
   type ObjectDeleteSubscriptionsParams,
+  type ObjectGetParams,
+  type ObjectGetChannelDataParams,
   type ObjectGetPreferencesParams,
   type ObjectListMessagesParams,
+  type ObjectListPreferencesParams,
   type ObjectListSchedulesParams,
   type ObjectListSubscriptionsParams,
   type ObjectSetParams,
+  type ObjectSetChannelDataParams,
   type ObjectSetPreferencesParams,
+  type ObjectUnsetChannelDataParams,
+  type ObjectListResponsesEntriesCursor,
+  type ObjectListMessagesResponsesEntriesCursor,
+  type ObjectListSchedulesResponsesEntriesCursor,
+  type ObjectListSubscriptionsResponsesEntriesCursor,
 } from './objects/objects';
 export { Providers } from './providers/providers';
 export {
@@ -63,7 +79,11 @@ export {
   type ScheduleUpdateResponse,
   type ScheduleListResponse,
   type ScheduleDeleteResponse,
+  type ScheduleCreateParams,
+  type ScheduleUpdateParams,
   type ScheduleListParams,
+  type ScheduleDeleteParams,
+  type ScheduleListResponsesEntriesCursor,
 } from './schedules';
 export {
   Tenants,
@@ -73,11 +93,11 @@ export {
   type TenantSetResponse,
   type TenantListParams,
   type TenantSetParams,
+  type TenantListResponsesEntriesCursor,
 } from './tenants/tenants';
 export {
   Users,
   type User,
-  type UserListResponse,
   type UserDeleteResponse,
   type UserGetChannelDataResponse,
   type UserGetPreferencesResponse,
@@ -90,12 +110,19 @@ export {
   type UserUnsetChannelDataResponse,
   type UserUpdateParams,
   type UserListParams,
+  type UserGetChannelDataParams,
   type UserGetPreferencesParams,
   type UserListMessagesParams,
   type UserListSchedulesParams,
   type UserListSubscriptionsParams,
   type UserMergeParams,
+  type UserSetChannelDataParams,
   type UserSetPreferencesParams,
+  type UserUnsetChannelDataParams,
+  type UsersEntriesCursor,
+  type UserListMessagesResponsesEntriesCursor,
+  type UserListSchedulesResponsesEntriesCursor,
+  type UserListSubscriptionsResponsesEntriesCursor,
 } from './users/users';
 export {
   Workflows,

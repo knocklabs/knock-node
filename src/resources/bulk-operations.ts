@@ -1,14 +1,16 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../resource';
-import * as Core from '../core';
+import { APIPromise } from '../api-promise';
+import { RequestOptions } from '../internal/request-options';
+import { path } from '../internal/utils/path';
 
 export class BulkOperations extends APIResource {
   /**
    * Retrieves a bulk operation (if it exists) and displays the current state of it.
    */
-  get(id: string, options?: Core.RequestOptions): Core.APIPromise<BulkOperationGetResponse> {
-    return this._client.get(`/v1/bulk_operations/${id}`, options);
+  get(id: string, options?: RequestOptions): APIPromise<BulkOperationGetResponse> {
+    return this._client.get(path`/v1/bulk_operations/${id}`, options);
   }
 }
 

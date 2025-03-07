@@ -6,12 +6,20 @@ export {
   type BulkIdentifyResponse,
   type BulkSetPreferencesResponse,
   type BulkDeleteParams,
+  type BulkIdentifyParams,
+  type BulkSetPreferencesParams,
 } from './bulk';
-export { Feeds, type FeedGetResponse, type FeedGetSettingsResponse, type FeedGetParams } from './feeds';
+export {
+  Feeds,
+  type FeedGetSettingsResponse,
+  type FeedListItemsResponse,
+  type FeedGetSettingsParams,
+  type FeedListItemsParams,
+  type FeedListItemsResponsesEntriesCursor,
+} from './feeds';
 export {
   Users,
   type User,
-  type UserListResponse,
   type UserDeleteResponse,
   type UserGetChannelDataResponse,
   type UserGetPreferencesResponse,
@@ -24,10 +32,17 @@ export {
   type UserUnsetChannelDataResponse,
   type UserUpdateParams,
   type UserListParams,
+  type UserGetChannelDataParams,
   type UserGetPreferencesParams,
   type UserListMessagesParams,
   type UserListSchedulesParams,
   type UserListSubscriptionsParams,
   type UserMergeParams,
+  type UserSetChannelDataParams,
   type UserSetPreferencesParams,
+  type UserUnsetChannelDataParams,
+  type UsersEntriesCursor,
+  type UserListMessagesResponsesEntriesCursor,
+  type UserListSchedulesResponsesEntriesCursor,
+  type UserListSubscriptionsResponsesEntriesCursor,
 } from './users';

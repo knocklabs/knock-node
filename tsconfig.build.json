@@ -1,12 +1,12 @@
 {
   "extends": "./tsconfig.json",
   "include": ["dist/src"],
-  "exclude": ["dist/src/_shims/*-deno.ts"],
+  "exclude": [],
   "compilerOptions": {
     "rootDir": "./dist/src",
     "paths": {
-      "knock/*": ["dist/src/*"],
-      "knock": ["dist/src/index.ts"],
+      "@knocklabs/node/*": ["dist/src/*"],
+      "@knocklabs/node": ["dist/src/index.ts"],
     },
     "noEmit": false,
     "declaration": true,

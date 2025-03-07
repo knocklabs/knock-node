@@ -1,10 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
-import { isRequestOptions } from '../../core';
-import * as Core from '../../core';
 import * as BulkAPI from './bulk';
-import { Bulk, BulkDeleteParams, BulkDeleteResponse, BulkSetResponse } from './bulk';
+import { Bulk, BulkDeleteParams, BulkDeleteResponse, BulkSetParams, BulkSetResponse } from './bulk';
+import { APIPromise } from '../../api-promise';
+import { EntriesCursor, type EntriesCursorParams, PagePromise } from '../../pagination';
+import { RequestOptions } from '../../internal/request-options';
+import { path } from '../../internal/utils/path';
 
 export class Tenants extends APIResource {
   bulk: BulkAPI.Bulk = new BulkAPI.Bulk(this._client);
@@ -12,78 +14,45 @@ export class Tenants extends APIResource {
   /**
    * List tenants
    */
-  list(query?: TenantListParams, options?: Core.RequestOptions): Core.APIPromise<TenantListResponse>;
-  list(options?: Core.RequestOptions): Core.APIPromise<TenantListResponse>;
   list(
-    query: TenantListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<TenantListResponse> {
-    if (isRequestOptions(query)) {
-      return this.list({}, query);
-    }
-    return this._client.get('/v1/tenants', { query, ...options });
+    query: TenantListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<TenantListResponsesEntriesCursor, TenantListResponse> {
+    return this._client.getAPIList('/v1/tenants', EntriesCursor<TenantListResponse>, { query, ...options });
   }
 
   /**
    * Delete a tenant
    */
-  delete(id: string, options?: Core.RequestOptions): Core.APIPromise<string> {
-    return this._client.delete(`/v1/tenants/${id}`, options);
+  delete(id: string, options?: RequestOptions): APIPromise<string> {
+    return this._client.delete(path`/v1/tenants/${id}`, options);
   }
 
   /**
    * Get a tenant
    */
-  get(id: string, options?: Core.RequestOptions): Core.APIPromise<TenantGetResponse> {
-    return this._client.get(`/v1/tenants/${id}`, options);
+  get(id: string, options?: RequestOptions): APIPromise<TenantGetResponse> {
+    return this._client.get(path`/v1/tenants/${id}`, options);
   }
 
   /**
    * Set a tenant
    */
-  set(id: string, body: TenantSetParams, options?: Core.RequestOptions): Core.APIPromise<TenantSetResponse> {
-    return this._client.put(`/v1/tenants/${id}`, { body, ...options });
+  set(id: string, body: TenantSetParams, options?: RequestOptions): APIPromise<TenantSetResponse> {
+    return this._client.put(path`/v1/tenants/${id}`, { body, ...options });
   }
 }
+
+export type TenantListResponsesEntriesCursor = EntriesCursor<TenantListResponse>;
 
 /**
- * A paginated list of tenants.
+ * A tenant entity
  */
 export interface TenantListResponse {
-  /**
-   * The list of tenants
-   */
-  entries: Array<TenantListResponse.Entry>;
+  id: string;
 
-  /**
-   * The information about a paginated result
-   */
-  page_info: TenantListResponse.PageInfo;
-}
-
-export namespace TenantListResponse {
-  /**
-   * A tenant entity
-   */
-  export interface Entry {
-    id: string;
-
-    __typename: string;
-    [k: string]: unknown;
-  }
-
-  /**
-   * The information about a paginated result
-   */
-  export interface PageInfo {
-    __typename: string;
-
-    page_size: number;
-
-    after?: string | null;
-
-    before?: string | null;
-  }
+  __typename: string;
+  [k: string]: unknown;
 }
 
 /**
@@ -111,22 +80,7 @@ export interface TenantSetResponse {
   [k: string]: unknown;
 }
 
-export interface TenantListParams {
-  /**
-   * The cursor to fetch entries after
-   */
-  after?: string;
-
-  /**
-   * The cursor to fetch entries before
-   */
-  before?: string;
-
-  /**
-   * The page size to fetch
-   */
-  page_size?: number;
-}
+export interface TenantListParams extends EntriesCursorParams {}
 
 export interface TenantSetParams {
   /**
@@ -180,8 +134,13 @@ export namespace TenantSetParams {
      * Slack channel data
      */
     export interface SlackChannelData {
-      connections: Array<SlackChannelData.TokenConnection | SlackChannelData.IncomingWebhookConnection>;
+      connections: Array<
+        SlackChannelData.SlackTokenConnection | SlackChannelData.SlackIncomingWebhookConnection
+      >;
 
+      /**
+       * A token that's used to store the access token for a Slack workspace.
+       */
       token?: SlackChannelData.Token | null;
     }
 
@@ -189,7 +148,7 @@ export namespace TenantSetParams {
       /**
        * A Slack connection, which either includes a channel_id or a user_id
        */
-      export interface TokenConnection {
+      export interface SlackTokenConnection {
         access_token?: string | null;
 
         channel_id?: string | null;
@@ -200,10 +159,13 @@ export namespace TenantSetParams {
       /**
        * An incoming webhook Slack connection
        */
-      export interface IncomingWebhookConnection {
+      export interface SlackIncomingWebhookConnection {
         url: string;
       }
 
+      /**
+       * A token that's used to store the access token for a Slack workspace.
+       */
       export interface Token {
         access_token: string | null;
       }
@@ -213,7 +175,9 @@ export namespace TenantSetParams {
      * Microsoft Teams channel data
      */
     export interface MsTeamsChannelData {
-      connections: Array<MsTeamsChannelData.TokenConnection | MsTeamsChannelData.IncomingWebhookConnection>;
+      connections: Array<
+        MsTeamsChannelData.MsTeamsTokenConnection | MsTeamsChannelData.MsTeamsIncomingWebhookConnection
+      >;
 
       /**
        * The Microsoft Teams tenant ID
@@ -223,21 +187,50 @@ export namespace TenantSetParams {
 
     export namespace MsTeamsChannelData {
       /**
-       * A Slack connection, which either includes a channel_id or a user_id
+       * Microsoft Teams token connection
        */
-      export interface TokenConnection {
-        access_token?: string | null;
+      export interface MsTeamsTokenConnection {
+        /**
+         * The Microsoft Teams channel ID
+         */
+        ms_teams_channel_id?: string | null;
 
-        channel_id?: string | null;
+        /**
+         * The Microsoft Teams team ID
+         */
+        ms_teams_team_id?: string | null;
 
-        user_id?: string | null;
+        /**
+         * The Microsoft Teams tenant ID
+         */
+        ms_teams_tenant_id?: string | null;
+
+        /**
+         * The Microsoft Teams user ID
+         */
+        ms_teams_user_id?: string | null;
       }
 
       /**
-       * An incoming webhook Slack connection
+       * Microsoft Teams incoming webhook connection
        */
-      export interface IncomingWebhookConnection {
-        url: string;
+      export interface MsTeamsIncomingWebhookConnection {
+        /**
+         * The incoming webhook
+         */
+        incoming_webhook: MsTeamsIncomingWebhookConnection.IncomingWebhook;
+      }
+
+      export namespace MsTeamsIncomingWebhookConnection {
+        /**
+         * The incoming webhook
+         */
+        export interface IncomingWebhook {
+          /**
+           * The URL of the incoming webhook
+           */
+          url: string;
+        }
       }
     }
 
@@ -245,14 +238,16 @@ export namespace TenantSetParams {
      * Discord channel data
      */
     export interface DiscordChannelData {
-      connections: Array<DiscordChannelData.ChannelConnection | DiscordChannelData.IncomingWebhookConnection>;
+      connections: Array<
+        DiscordChannelData.DiscordChannelConnection | DiscordChannelData.DiscordIncomingWebhookConnection
+      >;
     }
 
     export namespace DiscordChannelData {
       /**
        * Discord channel connection
        */
-      export interface ChannelConnection {
+      export interface DiscordChannelConnection {
         /**
          * The Discord channel ID
          */
@@ -260,10 +255,25 @@ export namespace TenantSetParams {
       }
 
       /**
-       * An incoming webhook Slack connection
+       * Discord incoming webhook connection
        */
-      export interface IncomingWebhookConnection {
-        url: string;
+      export interface DiscordIncomingWebhookConnection {
+        /**
+         * The incoming webhook
+         */
+        incoming_webhook: DiscordIncomingWebhookConnection.IncomingWebhook;
+      }
+
+      export namespace DiscordIncomingWebhookConnection {
+        /**
+         * The incoming webhook
+         */
+        export interface IncomingWebhook {
+          /**
+           * The URL of the incoming webhook
+           */
+          url: string;
+        }
       }
     }
   }
@@ -272,50 +282,90 @@ export namespace TenantSetParams {
    * Set preferences for a recipient
    */
   export interface Preferences {
-    categories?: Record<string, boolean | Preferences.UnionMember1> | null;
+    /**
+     * A setting for a preference set, where the key in the object is the category, and
+     * the values are the preference settings for that category.
+     */
+    categories?: Record<string, boolean | Preferences.PreferenceSetWorkflowCategorySettingObject> | null;
 
     /**
      * Channel type preferences
      */
     channel_types?: Preferences.ChannelTypes | null;
 
-    workflows?: Record<string, boolean | Preferences.UnionMember1> | null;
+    /**
+     * A setting for a preference set, where the key in the object is the workflow key,
+     * and the values are the preference settings for that workflow.
+     */
+    workflows?: Record<string, boolean | Preferences.PreferenceSetWorkflowCategorySettingObject> | null;
   }
 
   export namespace Preferences {
-    export interface UnionMember1 {
+    /**
+     * The settings object for a workflow or category, where you can specify channel
+     * types or conditions.
+     */
+    export interface PreferenceSetWorkflowCategorySettingObject {
       /**
        * Channel type preferences
        */
-      channel_types?: UnionMember1.ChannelTypes | null;
+      channel_types?: PreferenceSetWorkflowCategorySettingObject.ChannelTypes | null;
 
-      conditions?: Array<UnionMember1.Condition>;
+      conditions?: Array<PreferenceSetWorkflowCategorySettingObject.Condition> | null;
     }
 
-    export namespace UnionMember1 {
+    export namespace PreferenceSetWorkflowCategorySettingObject {
       /**
        * Channel type preferences
        */
       export interface ChannelTypes {
-        chat?: boolean | ChannelTypes.Conditions;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        chat?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-        email?: boolean | ChannelTypes.Conditions;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        email?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-        http?: boolean | ChannelTypes.Conditions;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        http?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-        in_app_feed?: boolean | ChannelTypes.Conditions;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        in_app_feed?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-        push?: boolean | ChannelTypes.Conditions;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        push?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-        sms?: boolean | ChannelTypes.Conditions;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        sms?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
       }
 
       export namespace ChannelTypes {
-        export interface Conditions {
-          conditions: Array<Conditions.Condition>;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        export interface PreferenceSetChannelTypeSettingObject {
+          conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
         }
 
-        export namespace Conditions {
+        export namespace PreferenceSetChannelTypeSettingObject {
           /**
            * A condition to be evaluated
            */
@@ -345,11 +395,15 @@ export namespace TenantSetParams {
           }
         }
 
-        export interface Conditions {
-          conditions: Array<Conditions.Condition>;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        export interface PreferenceSetChannelTypeSettingObject {
+          conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
         }
 
-        export namespace Conditions {
+        export namespace PreferenceSetChannelTypeSettingObject {
           /**
            * A condition to be evaluated
            */
@@ -379,11 +433,15 @@ export namespace TenantSetParams {
           }
         }
 
-        export interface Conditions {
-          conditions: Array<Conditions.Condition>;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        export interface PreferenceSetChannelTypeSettingObject {
+          conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
         }
 
-        export namespace Conditions {
+        export namespace PreferenceSetChannelTypeSettingObject {
           /**
            * A condition to be evaluated
            */
@@ -413,11 +471,15 @@ export namespace TenantSetParams {
           }
         }
 
-        export interface Conditions {
-          conditions: Array<Conditions.Condition>;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        export interface PreferenceSetChannelTypeSettingObject {
+          conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
         }
 
-        export namespace Conditions {
+        export namespace PreferenceSetChannelTypeSettingObject {
           /**
            * A condition to be evaluated
            */
@@ -447,11 +509,15 @@ export namespace TenantSetParams {
           }
         }
 
-        export interface Conditions {
-          conditions: Array<Conditions.Condition>;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        export interface PreferenceSetChannelTypeSettingObject {
+          conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
         }
 
-        export namespace Conditions {
+        export namespace PreferenceSetChannelTypeSettingObject {
           /**
            * A condition to be evaluated
            */
@@ -481,11 +547,15 @@ export namespace TenantSetParams {
           }
         }
 
-        export interface Conditions {
-          conditions: Array<Conditions.Condition>;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        export interface PreferenceSetChannelTypeSettingObject {
+          conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
         }
 
-        export namespace Conditions {
+        export namespace PreferenceSetChannelTypeSettingObject {
           /**
            * A condition to be evaluated
            */
@@ -549,25 +619,53 @@ export namespace TenantSetParams {
      * Channel type preferences
      */
     export interface ChannelTypes {
-      chat?: boolean | ChannelTypes.Conditions;
+      /**
+       * A set of settings for a channel type. Currently, this can only be a list of
+       * conditions to apply.
+       */
+      chat?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-      email?: boolean | ChannelTypes.Conditions;
+      /**
+       * A set of settings for a channel type. Currently, this can only be a list of
+       * conditions to apply.
+       */
+      email?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-      http?: boolean | ChannelTypes.Conditions;
+      /**
+       * A set of settings for a channel type. Currently, this can only be a list of
+       * conditions to apply.
+       */
+      http?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-      in_app_feed?: boolean | ChannelTypes.Conditions;
+      /**
+       * A set of settings for a channel type. Currently, this can only be a list of
+       * conditions to apply.
+       */
+      in_app_feed?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-      push?: boolean | ChannelTypes.Conditions;
+      /**
+       * A set of settings for a channel type. Currently, this can only be a list of
+       * conditions to apply.
+       */
+      push?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-      sms?: boolean | ChannelTypes.Conditions;
+      /**
+       * A set of settings for a channel type. Currently, this can only be a list of
+       * conditions to apply.
+       */
+      sms?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
     }
 
     export namespace ChannelTypes {
-      export interface Conditions {
-        conditions: Array<Conditions.Condition>;
+      /**
+       * A set of settings for a channel type. Currently, this can only be a list of
+       * conditions to apply.
+       */
+      export interface PreferenceSetChannelTypeSettingObject {
+        conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
       }
 
-      export namespace Conditions {
+      export namespace PreferenceSetChannelTypeSettingObject {
         /**
          * A condition to be evaluated
          */
@@ -597,11 +695,15 @@ export namespace TenantSetParams {
         }
       }
 
-      export interface Conditions {
-        conditions: Array<Conditions.Condition>;
+      /**
+       * A set of settings for a channel type. Currently, this can only be a list of
+       * conditions to apply.
+       */
+      export interface PreferenceSetChannelTypeSettingObject {
+        conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
       }
 
-      export namespace Conditions {
+      export namespace PreferenceSetChannelTypeSettingObject {
         /**
          * A condition to be evaluated
          */
@@ -631,11 +733,15 @@ export namespace TenantSetParams {
         }
       }
 
-      export interface Conditions {
-        conditions: Array<Conditions.Condition>;
+      /**
+       * A set of settings for a channel type. Currently, this can only be a list of
+       * conditions to apply.
+       */
+      export interface PreferenceSetChannelTypeSettingObject {
+        conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
       }
 
-      export namespace Conditions {
+      export namespace PreferenceSetChannelTypeSettingObject {
         /**
          * A condition to be evaluated
          */
@@ -665,11 +771,15 @@ export namespace TenantSetParams {
         }
       }
 
-      export interface Conditions {
-        conditions: Array<Conditions.Condition>;
+      /**
+       * A set of settings for a channel type. Currently, this can only be a list of
+       * conditions to apply.
+       */
+      export interface PreferenceSetChannelTypeSettingObject {
+        conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
       }
 
-      export namespace Conditions {
+      export namespace PreferenceSetChannelTypeSettingObject {
         /**
          * A condition to be evaluated
          */
@@ -699,11 +809,15 @@ export namespace TenantSetParams {
         }
       }
 
-      export interface Conditions {
-        conditions: Array<Conditions.Condition>;
+      /**
+       * A set of settings for a channel type. Currently, this can only be a list of
+       * conditions to apply.
+       */
+      export interface PreferenceSetChannelTypeSettingObject {
+        conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
       }
 
-      export namespace Conditions {
+      export namespace PreferenceSetChannelTypeSettingObject {
         /**
          * A condition to be evaluated
          */
@@ -733,11 +847,15 @@ export namespace TenantSetParams {
         }
       }
 
-      export interface Conditions {
-        conditions: Array<Conditions.Condition>;
+      /**
+       * A set of settings for a channel type. Currently, this can only be a list of
+       * conditions to apply.
+       */
+      export interface PreferenceSetChannelTypeSettingObject {
+        conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
       }
 
-      export namespace Conditions {
+      export namespace PreferenceSetChannelTypeSettingObject {
         /**
          * A condition to be evaluated
          */
@@ -768,39 +886,71 @@ export namespace TenantSetParams {
       }
     }
 
-    export interface UnionMember1 {
+    /**
+     * The settings object for a workflow or category, where you can specify channel
+     * types or conditions.
+     */
+    export interface PreferenceSetWorkflowCategorySettingObject {
       /**
        * Channel type preferences
        */
-      channel_types?: UnionMember1.ChannelTypes | null;
+      channel_types?: PreferenceSetWorkflowCategorySettingObject.ChannelTypes | null;
 
-      conditions?: Array<UnionMember1.Condition>;
+      conditions?: Array<PreferenceSetWorkflowCategorySettingObject.Condition> | null;
     }
 
-    export namespace UnionMember1 {
+    export namespace PreferenceSetWorkflowCategorySettingObject {
       /**
        * Channel type preferences
        */
       export interface ChannelTypes {
-        chat?: boolean | ChannelTypes.Conditions;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        chat?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-        email?: boolean | ChannelTypes.Conditions;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        email?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-        http?: boolean | ChannelTypes.Conditions;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        http?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-        in_app_feed?: boolean | ChannelTypes.Conditions;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        in_app_feed?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-        push?: boolean | ChannelTypes.Conditions;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        push?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-        sms?: boolean | ChannelTypes.Conditions;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        sms?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
       }
 
       export namespace ChannelTypes {
-        export interface Conditions {
-          conditions: Array<Conditions.Condition>;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        export interface PreferenceSetChannelTypeSettingObject {
+          conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
         }
 
-        export namespace Conditions {
+        export namespace PreferenceSetChannelTypeSettingObject {
           /**
            * A condition to be evaluated
            */
@@ -830,11 +980,15 @@ export namespace TenantSetParams {
           }
         }
 
-        export interface Conditions {
-          conditions: Array<Conditions.Condition>;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        export interface PreferenceSetChannelTypeSettingObject {
+          conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
         }
 
-        export namespace Conditions {
+        export namespace PreferenceSetChannelTypeSettingObject {
           /**
            * A condition to be evaluated
            */
@@ -864,11 +1018,15 @@ export namespace TenantSetParams {
           }
         }
 
-        export interface Conditions {
-          conditions: Array<Conditions.Condition>;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        export interface PreferenceSetChannelTypeSettingObject {
+          conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
         }
 
-        export namespace Conditions {
+        export namespace PreferenceSetChannelTypeSettingObject {
           /**
            * A condition to be evaluated
            */
@@ -898,11 +1056,15 @@ export namespace TenantSetParams {
           }
         }
 
-        export interface Conditions {
-          conditions: Array<Conditions.Condition>;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        export interface PreferenceSetChannelTypeSettingObject {
+          conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
         }
 
-        export namespace Conditions {
+        export namespace PreferenceSetChannelTypeSettingObject {
           /**
            * A condition to be evaluated
            */
@@ -932,11 +1094,15 @@ export namespace TenantSetParams {
           }
         }
 
-        export interface Conditions {
-          conditions: Array<Conditions.Condition>;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        export interface PreferenceSetChannelTypeSettingObject {
+          conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
         }
 
-        export namespace Conditions {
+        export namespace PreferenceSetChannelTypeSettingObject {
           /**
            * A condition to be evaluated
            */
@@ -966,11 +1132,15 @@ export namespace TenantSetParams {
           }
         }
 
-        export interface Conditions {
-          conditions: Array<Conditions.Condition>;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        export interface PreferenceSetChannelTypeSettingObject {
+          conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
         }
 
-        export namespace Conditions {
+        export namespace PreferenceSetChannelTypeSettingObject {
           /**
            * A condition to be evaluated
            */
@@ -1055,50 +1225,90 @@ export namespace TenantSetParams {
      * Set preferences for a recipient
      */
     export interface PreferenceSet {
-      categories?: Record<string, boolean | PreferenceSet.UnionMember1> | null;
+      /**
+       * A setting for a preference set, where the key in the object is the category, and
+       * the values are the preference settings for that category.
+       */
+      categories?: Record<string, boolean | PreferenceSet.PreferenceSetWorkflowCategorySettingObject> | null;
 
       /**
        * Channel type preferences
        */
       channel_types?: PreferenceSet.ChannelTypes | null;
 
-      workflows?: Record<string, boolean | PreferenceSet.UnionMember1> | null;
+      /**
+       * A setting for a preference set, where the key in the object is the workflow key,
+       * and the values are the preference settings for that workflow.
+       */
+      workflows?: Record<string, boolean | PreferenceSet.PreferenceSetWorkflowCategorySettingObject> | null;
     }
 
     export namespace PreferenceSet {
-      export interface UnionMember1 {
+      /**
+       * The settings object for a workflow or category, where you can specify channel
+       * types or conditions.
+       */
+      export interface PreferenceSetWorkflowCategorySettingObject {
         /**
          * Channel type preferences
          */
-        channel_types?: UnionMember1.ChannelTypes | null;
+        channel_types?: PreferenceSetWorkflowCategorySettingObject.ChannelTypes | null;
 
-        conditions?: Array<UnionMember1.Condition>;
+        conditions?: Array<PreferenceSetWorkflowCategorySettingObject.Condition> | null;
       }
 
-      export namespace UnionMember1 {
+      export namespace PreferenceSetWorkflowCategorySettingObject {
         /**
          * Channel type preferences
          */
         export interface ChannelTypes {
-          chat?: boolean | ChannelTypes.Conditions;
+          /**
+           * A set of settings for a channel type. Currently, this can only be a list of
+           * conditions to apply.
+           */
+          chat?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-          email?: boolean | ChannelTypes.Conditions;
+          /**
+           * A set of settings for a channel type. Currently, this can only be a list of
+           * conditions to apply.
+           */
+          email?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-          http?: boolean | ChannelTypes.Conditions;
+          /**
+           * A set of settings for a channel type. Currently, this can only be a list of
+           * conditions to apply.
+           */
+          http?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-          in_app_feed?: boolean | ChannelTypes.Conditions;
+          /**
+           * A set of settings for a channel type. Currently, this can only be a list of
+           * conditions to apply.
+           */
+          in_app_feed?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-          push?: boolean | ChannelTypes.Conditions;
+          /**
+           * A set of settings for a channel type. Currently, this can only be a list of
+           * conditions to apply.
+           */
+          push?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-          sms?: boolean | ChannelTypes.Conditions;
+          /**
+           * A set of settings for a channel type. Currently, this can only be a list of
+           * conditions to apply.
+           */
+          sms?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
         }
 
         export namespace ChannelTypes {
-          export interface Conditions {
-            conditions: Array<Conditions.Condition>;
+          /**
+           * A set of settings for a channel type. Currently, this can only be a list of
+           * conditions to apply.
+           */
+          export interface PreferenceSetChannelTypeSettingObject {
+            conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
           }
 
-          export namespace Conditions {
+          export namespace PreferenceSetChannelTypeSettingObject {
             /**
              * A condition to be evaluated
              */
@@ -1128,11 +1338,15 @@ export namespace TenantSetParams {
             }
           }
 
-          export interface Conditions {
-            conditions: Array<Conditions.Condition>;
+          /**
+           * A set of settings for a channel type. Currently, this can only be a list of
+           * conditions to apply.
+           */
+          export interface PreferenceSetChannelTypeSettingObject {
+            conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
           }
 
-          export namespace Conditions {
+          export namespace PreferenceSetChannelTypeSettingObject {
             /**
              * A condition to be evaluated
              */
@@ -1162,11 +1376,15 @@ export namespace TenantSetParams {
             }
           }
 
-          export interface Conditions {
-            conditions: Array<Conditions.Condition>;
+          /**
+           * A set of settings for a channel type. Currently, this can only be a list of
+           * conditions to apply.
+           */
+          export interface PreferenceSetChannelTypeSettingObject {
+            conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
           }
 
-          export namespace Conditions {
+          export namespace PreferenceSetChannelTypeSettingObject {
             /**
              * A condition to be evaluated
              */
@@ -1196,11 +1414,15 @@ export namespace TenantSetParams {
             }
           }
 
-          export interface Conditions {
-            conditions: Array<Conditions.Condition>;
+          /**
+           * A set of settings for a channel type. Currently, this can only be a list of
+           * conditions to apply.
+           */
+          export interface PreferenceSetChannelTypeSettingObject {
+            conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
           }
 
-          export namespace Conditions {
+          export namespace PreferenceSetChannelTypeSettingObject {
             /**
              * A condition to be evaluated
              */
@@ -1230,11 +1452,15 @@ export namespace TenantSetParams {
             }
           }
 
-          export interface Conditions {
-            conditions: Array<Conditions.Condition>;
+          /**
+           * A set of settings for a channel type. Currently, this can only be a list of
+           * conditions to apply.
+           */
+          export interface PreferenceSetChannelTypeSettingObject {
+            conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
           }
 
-          export namespace Conditions {
+          export namespace PreferenceSetChannelTypeSettingObject {
             /**
              * A condition to be evaluated
              */
@@ -1264,11 +1490,15 @@ export namespace TenantSetParams {
             }
           }
 
-          export interface Conditions {
-            conditions: Array<Conditions.Condition>;
+          /**
+           * A set of settings for a channel type. Currently, this can only be a list of
+           * conditions to apply.
+           */
+          export interface PreferenceSetChannelTypeSettingObject {
+            conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
           }
 
-          export namespace Conditions {
+          export namespace PreferenceSetChannelTypeSettingObject {
             /**
              * A condition to be evaluated
              */
@@ -1332,25 +1562,53 @@ export namespace TenantSetParams {
        * Channel type preferences
        */
       export interface ChannelTypes {
-        chat?: boolean | ChannelTypes.Conditions;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        chat?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-        email?: boolean | ChannelTypes.Conditions;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        email?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-        http?: boolean | ChannelTypes.Conditions;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        http?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-        in_app_feed?: boolean | ChannelTypes.Conditions;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        in_app_feed?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-        push?: boolean | ChannelTypes.Conditions;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        push?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-        sms?: boolean | ChannelTypes.Conditions;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        sms?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
       }
 
       export namespace ChannelTypes {
-        export interface Conditions {
-          conditions: Array<Conditions.Condition>;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        export interface PreferenceSetChannelTypeSettingObject {
+          conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
         }
 
-        export namespace Conditions {
+        export namespace PreferenceSetChannelTypeSettingObject {
           /**
            * A condition to be evaluated
            */
@@ -1380,11 +1638,15 @@ export namespace TenantSetParams {
           }
         }
 
-        export interface Conditions {
-          conditions: Array<Conditions.Condition>;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        export interface PreferenceSetChannelTypeSettingObject {
+          conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
         }
 
-        export namespace Conditions {
+        export namespace PreferenceSetChannelTypeSettingObject {
           /**
            * A condition to be evaluated
            */
@@ -1414,11 +1676,15 @@ export namespace TenantSetParams {
           }
         }
 
-        export interface Conditions {
-          conditions: Array<Conditions.Condition>;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        export interface PreferenceSetChannelTypeSettingObject {
+          conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
         }
 
-        export namespace Conditions {
+        export namespace PreferenceSetChannelTypeSettingObject {
           /**
            * A condition to be evaluated
            */
@@ -1448,11 +1714,15 @@ export namespace TenantSetParams {
           }
         }
 
-        export interface Conditions {
-          conditions: Array<Conditions.Condition>;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        export interface PreferenceSetChannelTypeSettingObject {
+          conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
         }
 
-        export namespace Conditions {
+        export namespace PreferenceSetChannelTypeSettingObject {
           /**
            * A condition to be evaluated
            */
@@ -1482,11 +1752,15 @@ export namespace TenantSetParams {
           }
         }
 
-        export interface Conditions {
-          conditions: Array<Conditions.Condition>;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        export interface PreferenceSetChannelTypeSettingObject {
+          conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
         }
 
-        export namespace Conditions {
+        export namespace PreferenceSetChannelTypeSettingObject {
           /**
            * A condition to be evaluated
            */
@@ -1516,11 +1790,15 @@ export namespace TenantSetParams {
           }
         }
 
-        export interface Conditions {
-          conditions: Array<Conditions.Condition>;
+        /**
+         * A set of settings for a channel type. Currently, this can only be a list of
+         * conditions to apply.
+         */
+        export interface PreferenceSetChannelTypeSettingObject {
+          conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
         }
 
-        export namespace Conditions {
+        export namespace PreferenceSetChannelTypeSettingObject {
           /**
            * A condition to be evaluated
            */
@@ -1551,39 +1829,71 @@ export namespace TenantSetParams {
         }
       }
 
-      export interface UnionMember1 {
+      /**
+       * The settings object for a workflow or category, where you can specify channel
+       * types or conditions.
+       */
+      export interface PreferenceSetWorkflowCategorySettingObject {
         /**
          * Channel type preferences
          */
-        channel_types?: UnionMember1.ChannelTypes | null;
+        channel_types?: PreferenceSetWorkflowCategorySettingObject.ChannelTypes | null;
 
-        conditions?: Array<UnionMember1.Condition>;
+        conditions?: Array<PreferenceSetWorkflowCategorySettingObject.Condition> | null;
       }
 
-      export namespace UnionMember1 {
+      export namespace PreferenceSetWorkflowCategorySettingObject {
         /**
          * Channel type preferences
          */
         export interface ChannelTypes {
-          chat?: boolean | ChannelTypes.Conditions;
+          /**
+           * A set of settings for a channel type. Currently, this can only be a list of
+           * conditions to apply.
+           */
+          chat?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-          email?: boolean | ChannelTypes.Conditions;
+          /**
+           * A set of settings for a channel type. Currently, this can only be a list of
+           * conditions to apply.
+           */
+          email?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-          http?: boolean | ChannelTypes.Conditions;
+          /**
+           * A set of settings for a channel type. Currently, this can only be a list of
+           * conditions to apply.
+           */
+          http?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-          in_app_feed?: boolean | ChannelTypes.Conditions;
+          /**
+           * A set of settings for a channel type. Currently, this can only be a list of
+           * conditions to apply.
+           */
+          in_app_feed?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-          push?: boolean | ChannelTypes.Conditions;
+          /**
+           * A set of settings for a channel type. Currently, this can only be a list of
+           * conditions to apply.
+           */
+          push?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
 
-          sms?: boolean | ChannelTypes.Conditions;
+          /**
+           * A set of settings for a channel type. Currently, this can only be a list of
+           * conditions to apply.
+           */
+          sms?: boolean | ChannelTypes.PreferenceSetChannelTypeSettingObject;
         }
 
         export namespace ChannelTypes {
-          export interface Conditions {
-            conditions: Array<Conditions.Condition>;
+          /**
+           * A set of settings for a channel type. Currently, this can only be a list of
+           * conditions to apply.
+           */
+          export interface PreferenceSetChannelTypeSettingObject {
+            conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
           }
 
-          export namespace Conditions {
+          export namespace PreferenceSetChannelTypeSettingObject {
             /**
              * A condition to be evaluated
              */
@@ -1613,11 +1923,15 @@ export namespace TenantSetParams {
             }
           }
 
-          export interface Conditions {
-            conditions: Array<Conditions.Condition>;
+          /**
+           * A set of settings for a channel type. Currently, this can only be a list of
+           * conditions to apply.
+           */
+          export interface PreferenceSetChannelTypeSettingObject {
+            conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
           }
 
-          export namespace Conditions {
+          export namespace PreferenceSetChannelTypeSettingObject {
             /**
              * A condition to be evaluated
              */
@@ -1647,11 +1961,15 @@ export namespace TenantSetParams {
             }
           }
 
-          export interface Conditions {
-            conditions: Array<Conditions.Condition>;
+          /**
+           * A set of settings for a channel type. Currently, this can only be a list of
+           * conditions to apply.
+           */
+          export interface PreferenceSetChannelTypeSettingObject {
+            conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
           }
 
-          export namespace Conditions {
+          export namespace PreferenceSetChannelTypeSettingObject {
             /**
              * A condition to be evaluated
              */
@@ -1681,11 +1999,15 @@ export namespace TenantSetParams {
             }
           }
 
-          export interface Conditions {
-            conditions: Array<Conditions.Condition>;
+          /**
+           * A set of settings for a channel type. Currently, this can only be a list of
+           * conditions to apply.
+           */
+          export interface PreferenceSetChannelTypeSettingObject {
+            conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
           }
 
-          export namespace Conditions {
+          export namespace PreferenceSetChannelTypeSettingObject {
             /**
              * A condition to be evaluated
              */
@@ -1715,11 +2037,15 @@ export namespace TenantSetParams {
             }
           }
 
-          export interface Conditions {
-            conditions: Array<Conditions.Condition>;
+          /**
+           * A set of settings for a channel type. Currently, this can only be a list of
+           * conditions to apply.
+           */
+          export interface PreferenceSetChannelTypeSettingObject {
+            conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
           }
 
-          export namespace Conditions {
+          export namespace PreferenceSetChannelTypeSettingObject {
             /**
              * A condition to be evaluated
              */
@@ -1749,11 +2075,15 @@ export namespace TenantSetParams {
             }
           }
 
-          export interface Conditions {
-            conditions: Array<Conditions.Condition>;
+          /**
+           * A set of settings for a channel type. Currently, this can only be a list of
+           * conditions to apply.
+           */
+          export interface PreferenceSetChannelTypeSettingObject {
+            conditions: Array<PreferenceSetChannelTypeSettingObject.Condition>;
           }
 
-          export namespace Conditions {
+          export namespace PreferenceSetChannelTypeSettingObject {
             /**
              * A condition to be evaluated
              */
@@ -1824,6 +2154,7 @@ export declare namespace Tenants {
     type TenantDeleteResponse as TenantDeleteResponse,
     type TenantGetResponse as TenantGetResponse,
     type TenantSetResponse as TenantSetResponse,
+    type TenantListResponsesEntriesCursor as TenantListResponsesEntriesCursor,
     type TenantListParams as TenantListParams,
     type TenantSetParams as TenantSetParams,
   };
@@ -1833,5 +2164,6 @@ export declare namespace Tenants {
     type BulkDeleteResponse as BulkDeleteResponse,
     type BulkSetResponse as BulkSetResponse,
     type BulkDeleteParams as BulkDeleteParams,
+    type BulkSetParams as BulkSetParams,
   };
 }

@@ -1,163 +1,131 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
-import { isRequestOptions } from '../../core';
-import * as Core from '../../core';
 import * as UsersAPI from './users';
+import { APIPromise } from '../../api-promise';
+import { EntriesCursor, type EntriesCursorParams, PagePromise } from '../../pagination';
+import { RequestOptions } from '../../internal/request-options';
+import { path } from '../../internal/utils/path';
 
 export class Feeds extends APIResource {
   /**
-   * Get a user's feed of in-app messages
+   * Returns the feed settings for a user.
    */
-  get(
-    userId: string,
+  getSettings(
     id: string,
-    query?: FeedGetParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<FeedGetResponse>;
-  get(userId: string, id: string, options?: Core.RequestOptions): Core.APIPromise<FeedGetResponse>;
-  get(
-    userId: string,
-    id: string,
-    query: FeedGetParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<FeedGetResponse> {
-    if (isRequestOptions(query)) {
-      return this.get(userId, id, {}, query);
-    }
-    return this._client.get(`/v1/users/${userId}/feeds/${id}`, { query, ...options });
+    params: FeedGetSettingsParams,
+    options?: RequestOptions,
+  ): APIPromise<FeedGetSettingsResponse> {
+    const { user_id } = params;
+    return this._client.get(path`/v1/users/${user_id}/feeds/${id}/settings`, options);
   }
 
   /**
-   * Get a user's feed settings
+   * Returns a paginated list of feed items for a user, including metadata about the
+   * feed.
    */
-  getSettings(
-    userId: string,
+  listItems(
     id: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<FeedGetSettingsResponse> {
-    return this._client.get(`/v1/users/${userId}/feeds/${id}/settings`, options);
+    params: FeedListItemsParams,
+    options?: RequestOptions,
+  ): PagePromise<FeedListItemsResponsesEntriesCursor, FeedListItemsResponse> {
+    const { user_id, ...query } = params;
+    return this._client.getAPIList(
+      path`/v1/users/${user_id}/feeds/${id}`,
+      EntriesCursor<FeedListItemsResponse>,
+      { query, ...options },
+    );
+  }
+}
+
+export type FeedListItemsResponsesEntriesCursor = EntriesCursor<FeedListItemsResponse>;
+
+/**
+ * The response for the user's feed settings
+ */
+export interface FeedGetSettingsResponse {
+  features: FeedGetSettingsResponse.Features;
+}
+
+export namespace FeedGetSettingsResponse {
+  export interface Features {
+    branding_required: boolean;
   }
 }
 
 /**
- * The response for the user's feed
+ * An in-app feed message in a user's feed
  */
-export interface FeedGetResponse {
-  entries: Array<FeedGetResponse.Entry>;
+export interface FeedListItemsResponse {
+  id: string;
 
-  meta: FeedGetResponse.Meta;
+  __typename: string;
 
-  page_info: FeedGetResponse.PageInfo;
+  activities: Array<FeedListItemsResponse.Activity>;
 
-  vars: Record<string, unknown>;
+  actors: Array<UsersAPI.User | FeedListItemsResponse.Object>;
+
+  blocks: Array<
+    FeedListItemsResponse.MessageInAppFeedContentBlock | FeedListItemsResponse.MessageInAppFeedButtonSetBlock
+  >;
+
+  data: Record<string, unknown> | null;
+
+  inserted_at: string;
+
+  source: FeedListItemsResponse.Source;
+
+  tenant: string | null;
+
+  total_activities: number;
+
+  total_actors: number;
+
+  updated_at: string;
+
+  archived_at?: string | null;
+
+  clicked_at?: string | null;
+
+  interacted_at?: string | null;
+
+  link_clicked_at?: string | null;
+
+  read_at?: string | null;
+
+  seen_at?: string | null;
 }
 
-export namespace FeedGetResponse {
+export namespace FeedListItemsResponse {
   /**
-   * An in-app feed message in a user's feed
+   * An activity associated with a workflow run
    */
-  export interface Entry {
-    id: string;
+  export interface Activity {
+    id?: string;
 
-    __typename: string;
+    __typename?: string;
 
-    activities: Array<Entry.Activity>;
+    /**
+     * A recipient, which is either a user or an object
+     */
+    actor?: UsersAPI.User | Activity.Object | null;
 
-    actors: Array<UsersAPI.User | Entry.Object>;
+    /**
+     * The data associated with the activity
+     */
+    data?: Record<string, unknown> | null;
 
-    blocks: Array<Entry.ContentBlock | Entry.ButtonSetBlock>;
+    inserted_at?: string;
 
-    data: Record<string, unknown> | null;
+    /**
+     * A recipient, which is either a user or an object
+     */
+    recipient?: UsersAPI.User | Activity.Object;
 
-    inserted_at: string;
-
-    source: Entry.Source;
-
-    tenant: string | null;
-
-    total_activities: number;
-
-    total_actors: number;
-
-    updated_at: string;
-
-    archived_at?: string | null;
-
-    clicked_at?: string | null;
-
-    interacted_at?: string | null;
-
-    link_clicked_at?: string | null;
-
-    read_at?: string | null;
-
-    seen_at?: string | null;
+    updated_at?: string;
   }
 
-  export namespace Entry {
-    /**
-     * An activity associated with a workflow run
-     */
-    export interface Activity {
-      id?: string;
-
-      __typename?: string;
-
-      /**
-       * A recipient, which is either a user or an object
-       */
-      actor?: UsersAPI.User | Activity.Object | null;
-
-      /**
-       * The data associated with the activity
-       */
-      data?: unknown | null;
-
-      inserted_at?: string;
-
-      /**
-       * A recipient, which is either a user or an object
-       */
-      recipient?: UsersAPI.User | Activity.Object;
-
-      updated_at?: string;
-    }
-
-    export namespace Activity {
-      /**
-       * A custom-object entity which belongs to a collection.
-       */
-      export interface Object {
-        id: string;
-
-        __typename: string;
-
-        collection: string;
-
-        updated_at: string;
-
-        created_at?: string | null;
-        [k: string]: unknown;
-      }
-
-      /**
-       * A custom-object entity which belongs to a collection.
-       */
-      export interface Object {
-        id: string;
-
-        __typename: string;
-
-        collection: string;
-
-        updated_at: string;
-
-        created_at?: string | null;
-        [k: string]: unknown;
-      }
-    }
-
+  export namespace Activity {
     /**
      * A custom-object entity which belongs to a collection.
      */
@@ -175,141 +143,141 @@ export namespace FeedGetResponse {
     }
 
     /**
-     * A content (text or markdown) block in a message in an app feed
+     * A custom-object entity which belongs to a collection.
      */
-    export interface ContentBlock {
-      content: string;
+    export interface Object {
+      id: string;
 
-      name: string;
-
-      rendered: string;
-
-      type: 'markdown' | 'text';
-    }
-
-    /**
-     * A set of buttons in a message in an app feed
-     */
-    export interface ButtonSetBlock {
-      buttons: Array<ButtonSetBlock.Button>;
-
-      name: string;
-
-      type: 'button_set';
-    }
-
-    export namespace ButtonSetBlock {
-      /**
-       * A button in a set of buttons
-       */
-      export interface Button {
-        action: string;
-
-        label: string;
-
-        name: string;
-      }
-    }
-
-    export interface Source {
       __typename: string;
 
-      categories: Array<string>;
+      collection: string;
 
-      key: string;
+      updated_at: string;
 
-      version_id: string;
+      created_at?: string | null;
+      [k: string]: unknown;
     }
   }
 
-  export interface Meta {
+  /**
+   * A custom-object entity which belongs to a collection.
+   */
+  export interface Object {
+    id: string;
+
     __typename: string;
 
-    total_count: number;
+    collection: string;
 
-    unread_count: number;
+    updated_at: string;
 
-    unseen_count: number;
+    created_at?: string | null;
+    [k: string]: unknown;
   }
 
-  export interface PageInfo {
-    has_next_page: boolean;
-
-    has_previous_page: boolean;
-
-    total_count: number;
-  }
-}
-
-/**
- * The response for the user's feed settings
- */
-export interface FeedGetSettingsResponse {
-  features: FeedGetSettingsResponse.Features;
-}
-
-export namespace FeedGetSettingsResponse {
-  export interface Features {
-    branding_required: boolean;
-  }
-}
-
-export interface FeedGetParams {
   /**
-   * The cursor to fetch entries after
+   * A content (text or markdown) block in a message in an app feed
    */
-  after?: string;
+  export interface MessageInAppFeedContentBlock {
+    content: string;
+
+    name: string;
+
+    rendered: string;
+
+    type: 'markdown' | 'text';
+  }
 
   /**
-   * The archived status of the feed items to return
+   * A set of buttons in a message in an app feed
+   */
+  export interface MessageInAppFeedButtonSetBlock {
+    buttons: Array<MessageInAppFeedButtonSetBlock.Button>;
+
+    name: string;
+
+    type: 'button_set';
+  }
+
+  export namespace MessageInAppFeedButtonSetBlock {
+    /**
+     * A button in a set of buttons
+     */
+    export interface Button {
+      action: string;
+
+      label: string;
+
+      name: string;
+    }
+  }
+
+  export interface Source {
+    __typename: string;
+
+    categories: Array<string>;
+
+    key: string;
+
+    version_id: string;
+  }
+}
+
+export interface FeedGetSettingsParams {
+  /**
+   * The user ID
+   */
+  user_id: string;
+}
+
+export interface FeedListItemsParams extends EntriesCursorParams {
+  /**
+   * Path param: The user ID
+   */
+  user_id: string;
+
+  /**
+   * Query param: The archived status of the feed items to return
    */
   archived?: 'exclude' | 'include' | 'only';
 
   /**
-   * The cursor to fetch entries before
-   */
-  before?: string;
-
-  /**
-   * Whether the feed items have a tenant
+   * Query param: Whether the feed items have a tenant
    */
   has_tenant?: boolean;
 
   /**
-   * The page size to fetch
-   */
-  page_size?: number;
-
-  /**
-   * The source of the feed items to return
+   * Query param: The source of the feed items to return
    */
   source?: string;
 
   /**
-   * The status of the feed items to return
+   * Query param: The status of the feed items to return
    */
   status?: 'unread' | 'read' | 'unseen' | 'seen' | 'all';
 
   /**
-   * The tenant of the feed items to return
+   * Query param: The tenant of the feed items to return
    */
   tenant?: string;
 
   /**
-   * The trigger data of the feed items to return (as a JSON string)
+   * Query param: The trigger data of the feed items to return (as a JSON string)
    */
   trigger_data?: string;
 
   /**
-   * The workflow categories of the feed items to return
+   * Query param: The workflow categories of the feed items to return
    */
   workflow_categories?: Array<string>;
 }
 
 export declare namespace Feeds {
   export {
-    type FeedGetResponse as FeedGetResponse,
     type FeedGetSettingsResponse as FeedGetSettingsResponse,
-    type FeedGetParams as FeedGetParams,
+    type FeedListItemsResponse as FeedListItemsResponse,
+    type FeedListItemsResponsesEntriesCursor as FeedListItemsResponsesEntriesCursor,
+    type FeedGetSettingsParams as FeedGetSettingsParams,
+    type FeedListItemsParams as FeedListItemsParams,
   };
 }

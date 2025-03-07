@@ -1,7 +1,7 @@
 import iconv from 'iconv-lite';
-import { stringify } from 'knock/internal/qs';
-import { encode } from 'knock/internal/qs/utils';
-import { StringifyOptions } from 'knock/internal/qs/types';
+import { stringify } from '@knocklabs/node/internal/qs';
+import { encode } from '@knocklabs/node/internal/qs/utils';
+import { StringifyOptions } from '@knocklabs/node/internal/qs/types';
 import { empty_test_cases } from './empty-keys-cases';
 import assert from 'assert';
 

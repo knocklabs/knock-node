@@ -1,6 +1,6 @@
 {
   "include": ["src", "tests", "examples"],
-  "exclude": ["src/_shims/**/*-deno.ts"],
+  "exclude": [],
   "compilerOptions": {
     "target": "es2020",
     "lib": ["es2020"],
@@ -9,9 +9,8 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-      "knock/_shims/auto/*": ["src/_shims/auto/*-node"],
-      "knock/*": ["src/*"],
-      "knock": ["src/index.ts"]
+      "@knocklabs/node/*": ["src/*"],
+      "@knocklabs/node": ["src/index.ts"]
     },
     "noEmit": true,
 

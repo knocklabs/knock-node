@@ -1,10 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Knock from 'knock';
-import { Response } from 'node-fetch';
+import Knock from '@knocklabs/node';
 
 const client = new Knock({
-  token: 'My Token',
+  bearerToken: 'My Bearer Token',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
@@ -50,8 +49,8 @@ describe('resource slack', () => {
       access_token_object: 'access_token_object',
       query_options: {
         cursor: 'cursor',
-        exclude_archived: 'exclude_archived',
-        limit: 'limit',
+        exclude_archived: true,
+        limit: 0,
         team_id: 'team_id',
         types: 'types',
       },

@@ -42,25 +42,25 @@ If you’d like to use the repository from source, you can either install from g
 To install via git:
 
 ```sh
-$ npm install git+ssh://git@github.com:stainless-sdks/knock-node.git
+$ npm install git+ssh://git@github.com:stainless-sdks/knock-typescript.git
 ```
 
 Alternatively, to link a local copy of the repo:
 
 ```sh
 # Clone
-$ git clone https://www.github.com/stainless-sdks/knock-node
-$ cd knock-node
+$ git clone https://www.github.com/stainless-sdks/knock-typescript
+$ cd knock-typescript
 
 # With yarn
 $ yarn link
 $ cd ../my-package
-$ yarn link knock
+$ yarn link @knocklabs/node
 
 # With pnpm
 $ pnpm link --global
 $ cd ../my-package
-$ pnpm link -—global knock
+$ pnpm link -—global @knocklabs/node
 ```
 
 ## Running tests

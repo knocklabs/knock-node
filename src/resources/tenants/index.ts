@@ -1,6 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { Bulk, type BulkDeleteResponse, type BulkSetResponse, type BulkDeleteParams } from './bulk';
+export {
+  Bulk,
+  type BulkDeleteResponse,
+  type BulkSetResponse,
+  type BulkDeleteParams,
+  type BulkSetParams,
+} from './bulk';
 export {
   Tenants,
   type TenantListResponse,
@@ -9,4 +15,5 @@ export {
   type TenantSetResponse,
   type TenantListParams,
   type TenantSetParams,
+  type TenantListResponsesEntriesCursor,
 } from './tenants';

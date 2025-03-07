@@ -1,10 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Knock from 'knock';
-import { Response } from 'node-fetch';
+import Knock from '@knocklabs/node';
 
 const client = new Knock({
-  token: 'My Token',
+  bearerToken: 'My Bearer Token',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
@@ -34,14 +33,6 @@ describe('resource users', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('list: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.users.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Knock.NotFoundError,
-    );
-  });
-
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -65,14 +56,6 @@ describe('resource users', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('delete: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.users.delete('user_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Knock.NotFoundError,
-    );
-  });
-
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('get', async () => {
     const responsePromise = client.users.get('user_id');
     const rawResponse = await responsePromise.asResponse();
@@ -85,16 +68,10 @@ describe('resource users', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('get: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.users.get('user_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Knock.NotFoundError,
-    );
-  });
-
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('getChannelData', async () => {
-    const responsePromise = client.users.getChannelData('user_id', '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+  test.skip('getChannelData: only required params', async () => {
+    const responsePromise = client.users.getChannelData('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      user_id: 'user_id',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -105,18 +82,15 @@ describe('resource users', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('getChannelData: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.users.getChannelData('user_id', '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-        path: '/_stainless_unknown_path',
-      }),
-    ).rejects.toThrow(Knock.NotFoundError);
+  test.skip('getChannelData: required and optional params', async () => {
+    const response = await client.users.getChannelData('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      user_id: 'user_id',
+    });
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('getPreferences', async () => {
-    const responsePromise = client.users.getPreferences('user_id', 'id');
+  test.skip('getPreferences: only required params', async () => {
+    const responsePromise = client.users.getPreferences('id', { user_id: 'user_id' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -127,24 +101,8 @@ describe('resource users', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('getPreferences: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.users.getPreferences('user_id', 'id', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Knock.NotFoundError);
-  });
-
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('getPreferences: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.users.getPreferences(
-        'user_id',
-        'id',
-        { tenant: 'tenant' },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Knock.NotFoundError);
+  test.skip('getPreferences: required and optional params', async () => {
+    const response = await client.users.getPreferences('id', { user_id: 'user_id', tenant: 'tenant' });
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
@@ -157,14 +115,6 @@ describe('resource users', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('listMessages: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.users.listMessages('user-123', { path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Knock.NotFoundError,
-    );
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
@@ -206,14 +156,6 @@ describe('resource users', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('listPreferences: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.users.listPreferences('user_id', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Knock.NotFoundError);
-  });
-
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('listSchedules', async () => {
     const responsePromise = client.users.listSchedules('user_id');
     const rawResponse = await responsePromise.asResponse();
@@ -223,14 +165,6 @@ describe('resource users', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('listSchedules: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.users.listSchedules('user_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Knock.NotFoundError,
-    );
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
@@ -258,28 +192,20 @@ describe('resource users', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('listSubscriptions: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.users.listSubscriptions('user_id', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Knock.NotFoundError);
-  });
-
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('listSubscriptions: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.users.listSubscriptions(
         'user_id',
-        { after: 'after', before: 'before', objects: ['user_123'], page_size: 0 },
+        { after: 'after', before: 'before', page_size: 0 },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Knock.NotFoundError);
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('merge', async () => {
-    const responsePromise = client.users.merge('user_id', {});
+  test.skip('merge: only required params', async () => {
+    const responsePromise = client.users.merge('user_id', { from_user_id: 'user_1' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -290,8 +216,16 @@ describe('resource users', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('setChannelData', async () => {
-    const responsePromise = client.users.setChannelData('user_id', '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+  test.skip('merge: required and optional params', async () => {
+    const response = await client.users.merge('user_id', { from_user_id: 'user_1' });
+  });
+
+  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  test.skip('setChannelData: only required params', async () => {
+    const responsePromise = client.users.setChannelData('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      user_id: 'user_id',
+      data: { tokens: ['push_token_1'] },
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -302,18 +236,16 @@ describe('resource users', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('setChannelData: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.users.setChannelData('user_id', '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-        path: '/_stainless_unknown_path',
-      }),
-    ).rejects.toThrow(Knock.NotFoundError);
+  test.skip('setChannelData: required and optional params', async () => {
+    const response = await client.users.setChannelData('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      user_id: 'user_id',
+      data: { tokens: ['push_token_1'] },
+    });
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('setPreferences', async () => {
-    const responsePromise = client.users.setPreferences('user_id', 'id', {});
+  test.skip('setPreferences: only required params', async () => {
+    const responsePromise = client.users.setPreferences('id', { user_id: 'user_id' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -324,8 +256,31 @@ describe('resource users', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('unsetChannelData', async () => {
-    const responsePromise = client.users.unsetChannelData('user_id', '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+  test.skip('setPreferences: required and optional params', async () => {
+    const response = await client.users.setPreferences('id', {
+      user_id: 'user_id',
+      categories: {
+        marketing: false,
+        transactional: {
+          channel_types: { chat: true, email: false, http: true, in_app_feed: true, push: true, sms: true },
+          conditions: [{ argument: 'some_property', operator: 'equal_to', variable: 'recipient.property' }],
+        },
+      },
+      channel_types: { chat: true, email: true, http: true, in_app_feed: true, push: true, sms: true },
+      workflows: {
+        'dinosaurs-loose': {
+          channel_types: { chat: true, email: false, http: true, in_app_feed: true, push: true, sms: true },
+          conditions: [{ argument: 'some_property', operator: 'equal_to', variable: 'recipient.property' }],
+        },
+      },
+    });
+  });
+
+  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  test.skip('unsetChannelData: only required params', async () => {
+    const responsePromise = client.users.unsetChannelData('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      user_id: 'user_id',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -336,12 +291,9 @@ describe('resource users', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('unsetChannelData: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.users.unsetChannelData('user_id', '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-        path: '/_stainless_unknown_path',
-      }),
-    ).rejects.toThrow(Knock.NotFoundError);
+  test.skip('unsetChannelData: required and optional params', async () => {
+    const response = await client.users.unsetChannelData('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      user_id: 'user_id',
+    });
   });
 });

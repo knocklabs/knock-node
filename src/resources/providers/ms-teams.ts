@@ -1,7 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
-import * as Core from '../../core';
+import { APIPromise } from '../../api-promise';
+import { RequestOptions } from '../../internal/request-options';
+import { path } from '../../internal/utils/path';
 
 export class MsTeams extends APIResource {
   /**
@@ -9,46 +11,47 @@ export class MsTeams extends APIResource {
    * Microsoft Teams tenant object
    */
   checkAuth(
-    channelId: string,
+    channelID: string,
     query: MsTeamCheckAuthParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<MsTeamCheckAuthResponse> {
-    return this._client.get(`/v1/providers/ms-teams/${channelId}/auth_check`, { query, ...options });
+    options?: RequestOptions,
+  ): APIPromise<MsTeamCheckAuthResponse> {
+    return this._client.get(path`/v1/providers/ms-teams/${channelID}/auth_check`, { query, ...options });
   }
 
   /**
-   * Get a list of the Microsoft Teams channels within a team. By default, archived
-   * and private channels are excluded from the results.
+   * List the Microsoft Teams channels within a team. By default, archived and
+   * private channels are excluded from the results.
    */
   listChannels(
-    channelId: string,
+    channelID: string,
     query: MsTeamListChannelsParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<MsTeamListChannelsResponse> {
-    return this._client.get(`/v1/providers/ms-teams/${channelId}/channels`, { query, ...options });
+    options?: RequestOptions,
+  ): APIPromise<MsTeamListChannelsResponse> {
+    return this._client.get(path`/v1/providers/ms-teams/${channelID}/channels`, { query, ...options });
   }
 
   /**
-   * Get a list of teams belonging to the Microsoft Entra tenant
+   * Get a list of teams belonging to the Microsoft Entra tenant. By default,
+   * archived and private channels are excluded from the results.
    */
   listTeams(
-    channelId: string,
+    channelID: string,
     query: MsTeamListTeamsParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<MsTeamListTeamsResponse> {
-    return this._client.get(`/v1/providers/ms-teams/${channelId}/teams`, { query, ...options });
+    options?: RequestOptions,
+  ): APIPromise<MsTeamListTeamsResponse> {
+    return this._client.get(path`/v1/providers/ms-teams/${channelID}/teams`, { query, ...options });
   }
 
   /**
    * Remove a Microsoft Entra tenant ID from a Microsoft Teams tenant object
    */
   revokeAccess(
-    channelId: string,
+    channelID: string,
     params: MsTeamRevokeAccessParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<string> {
+    options?: RequestOptions,
+  ): APIPromise<string> {
     const { ms_teams_tenant_object } = params;
-    return this._client.put(`/v1/providers/ms-teams/${channelId}/revoke_access`, {
+    return this._client.put(path`/v1/providers/ms-teams/${channelID}/revoke_access`, {
       query: { ms_teams_tenant_object },
       ...options,
     });
