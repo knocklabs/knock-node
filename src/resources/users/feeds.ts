@@ -2,7 +2,6 @@
 
 import { APIResource } from '../../resource';
 import * as Shared from '../shared';
-import * as UsersAPI from './users';
 import { APIPromise } from '../../api-promise';
 import { EntriesCursor, type EntriesCursorParams, PagePromise } from '../../pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -64,7 +63,7 @@ export interface FeedListItemsResponse {
 
   activities: Array<FeedListItemsResponse.Activity>;
 
-  actors: Array<UsersAPI.User | Shared.Object>;
+  actors: Array<Shared.Recipient>;
 
   blocks: Array<
     FeedListItemsResponse.MessageInAppFeedContentBlock | FeedListItemsResponse.MessageInAppFeedButtonSetBlock
@@ -109,7 +108,7 @@ export namespace FeedListItemsResponse {
     /**
      * A recipient, which is either a user or an object
      */
-    actor?: UsersAPI.User | Shared.Object | null;
+    actor?: Shared.Recipient | null;
 
     /**
      * The data associated with the activity
@@ -121,7 +120,7 @@ export namespace FeedListItemsResponse {
     /**
      * A recipient, which is either a user or an object
      */
-    recipient?: UsersAPI.User | Shared.Object;
+    recipient?: Shared.Recipient;
 
     updated_at?: string;
   }

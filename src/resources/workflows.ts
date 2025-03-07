@@ -68,7 +68,7 @@ export interface WorkflowTriggerParams {
    * (string), an inline user request (object), or an inline object request, which is
    * determined by the presence of a `collection` property.
    */
-  actor?: string | Shared.InlineIdentifyUserRequest | Shared.InlineIdentifyObjectRequest | null;
+  actor?: Shared.RecipientRequest | null;
 
   /**
    * An optional key that is used in the workflow cancellation endpoint to target a
@@ -86,7 +86,7 @@ export interface WorkflowTriggerParams {
    * The recipients to trigger the workflow for. Cannot exceed 1000 recipients in a
    * single trigger.
    */
-  recipients?: Array<string | Shared.InlineIdentifyUserRequest | Shared.InlineIdentifyObjectRequest>;
+  recipients?: Array<Shared.RecipientRequest>;
 
   /**
    * An inline tenant request

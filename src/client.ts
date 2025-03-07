@@ -42,8 +42,6 @@ import {
   ScheduleDeleteParams,
   ScheduleDeleteResponse,
   ScheduleListParams,
-  ScheduleListResponse,
-  ScheduleListResponsesEntriesCursor,
   ScheduleUpdateParams,
   ScheduleUpdateResponse,
   Schedules,
@@ -92,10 +90,8 @@ import {
   ObjectDeleteSubscriptionsParams,
   ObjectDeleteSubscriptionsResponse,
   ObjectGetChannelDataParams,
-  ObjectGetChannelDataResponse,
   ObjectGetParams,
   ObjectGetPreferencesParams,
-  ObjectGetPreferencesResponse,
   ObjectListMessagesParams,
   ObjectListMessagesResponse,
   ObjectListMessagesResponsesEntriesCursor,
@@ -103,16 +99,10 @@ import {
   ObjectListPreferencesParams,
   ObjectListPreferencesResponse,
   ObjectListSchedulesParams,
-  ObjectListSchedulesResponse,
-  ObjectListSchedulesResponsesEntriesCursor,
   ObjectListSubscriptionsParams,
-  ObjectListSubscriptionsResponse,
-  ObjectListSubscriptionsResponsesEntriesCursor,
   ObjectSetChannelDataParams,
-  ObjectSetChannelDataResponse,
   ObjectSetParams,
   ObjectSetPreferencesParams,
-  ObjectSetPreferencesResponse,
   ObjectUnsetChannelDataParams,
   ObjectUnsetChannelDataResponse,
   Objects,
@@ -120,42 +110,28 @@ import {
 import { Providers } from './resources/providers/providers';
 import {
   TenantDeleteResponse,
-  TenantGetResponse,
   TenantListParams,
-  TenantListResponse,
-  TenantListResponsesEntriesCursor,
   TenantSetParams,
-  TenantSetResponse,
   Tenants,
 } from './resources/tenants/tenants';
 import {
-  User,
   UserDeleteResponse,
   UserGetChannelDataParams,
-  UserGetChannelDataResponse,
   UserGetPreferencesParams,
-  UserGetPreferencesResponse,
   UserListMessagesParams,
   UserListMessagesResponse,
   UserListMessagesResponsesEntriesCursor,
   UserListParams,
   UserListPreferencesResponse,
   UserListSchedulesParams,
-  UserListSchedulesResponse,
-  UserListSchedulesResponsesEntriesCursor,
   UserListSubscriptionsParams,
-  UserListSubscriptionsResponse,
-  UserListSubscriptionsResponsesEntriesCursor,
   UserMergeParams,
   UserSetChannelDataParams,
-  UserSetChannelDataResponse,
   UserSetPreferencesParams,
-  UserSetPreferencesResponse,
   UserUnsetChannelDataParams,
   UserUnsetChannelDataResponse,
   UserUpdateParams,
   Users,
-  UsersEntriesCursor,
 } from './resources/users/users';
 
 const safeJSON = (text: string) => {
@@ -889,21 +865,11 @@ export declare namespace Knock {
 
   export {
     Users as Users,
-    type User as User,
     type UserDeleteResponse as UserDeleteResponse,
-    type UserGetChannelDataResponse as UserGetChannelDataResponse,
-    type UserGetPreferencesResponse as UserGetPreferencesResponse,
     type UserListMessagesResponse as UserListMessagesResponse,
     type UserListPreferencesResponse as UserListPreferencesResponse,
-    type UserListSchedulesResponse as UserListSchedulesResponse,
-    type UserListSubscriptionsResponse as UserListSubscriptionsResponse,
-    type UserSetChannelDataResponse as UserSetChannelDataResponse,
-    type UserSetPreferencesResponse as UserSetPreferencesResponse,
     type UserUnsetChannelDataResponse as UserUnsetChannelDataResponse,
-    type UsersEntriesCursor as UsersEntriesCursor,
     type UserListMessagesResponsesEntriesCursor as UserListMessagesResponsesEntriesCursor,
-    type UserListSchedulesResponsesEntriesCursor as UserListSchedulesResponsesEntriesCursor,
-    type UserListSubscriptionsResponsesEntriesCursor as UserListSubscriptionsResponsesEntriesCursor,
     type UserUpdateParams as UserUpdateParams,
     type UserListParams as UserListParams,
     type UserGetChannelDataParams as UserGetChannelDataParams,
@@ -922,18 +888,10 @@ export declare namespace Knock {
     type ObjectDeleteResponse as ObjectDeleteResponse,
     type ObjectAddSubscriptionsResponse as ObjectAddSubscriptionsResponse,
     type ObjectDeleteSubscriptionsResponse as ObjectDeleteSubscriptionsResponse,
-    type ObjectGetChannelDataResponse as ObjectGetChannelDataResponse,
-    type ObjectGetPreferencesResponse as ObjectGetPreferencesResponse,
     type ObjectListMessagesResponse as ObjectListMessagesResponse,
     type ObjectListPreferencesResponse as ObjectListPreferencesResponse,
-    type ObjectListSchedulesResponse as ObjectListSchedulesResponse,
-    type ObjectListSubscriptionsResponse as ObjectListSubscriptionsResponse,
-    type ObjectSetChannelDataResponse as ObjectSetChannelDataResponse,
-    type ObjectSetPreferencesResponse as ObjectSetPreferencesResponse,
     type ObjectUnsetChannelDataResponse as ObjectUnsetChannelDataResponse,
     type ObjectListMessagesResponsesEntriesCursor as ObjectListMessagesResponsesEntriesCursor,
-    type ObjectListSchedulesResponsesEntriesCursor as ObjectListSchedulesResponsesEntriesCursor,
-    type ObjectListSubscriptionsResponsesEntriesCursor as ObjectListSubscriptionsResponsesEntriesCursor,
     type ObjectListParams as ObjectListParams,
     type ObjectDeleteParams as ObjectDeleteParams,
     type ObjectAddSubscriptionsParams as ObjectAddSubscriptionsParams,
@@ -953,11 +911,7 @@ export declare namespace Knock {
 
   export {
     Tenants as Tenants,
-    type TenantListResponse as TenantListResponse,
     type TenantDeleteResponse as TenantDeleteResponse,
-    type TenantGetResponse as TenantGetResponse,
-    type TenantSetResponse as TenantSetResponse,
-    type TenantListResponsesEntriesCursor as TenantListResponsesEntriesCursor,
     type TenantListParams as TenantListParams,
     type TenantSetParams as TenantSetParams,
   };
@@ -1004,9 +958,7 @@ export declare namespace Knock {
     Schedules as Schedules,
     type ScheduleCreateResponse as ScheduleCreateResponse,
     type ScheduleUpdateResponse as ScheduleUpdateResponse,
-    type ScheduleListResponse as ScheduleListResponse,
     type ScheduleDeleteResponse as ScheduleDeleteResponse,
-    type ScheduleListResponsesEntriesCursor as ScheduleListResponsesEntriesCursor,
     type ScheduleCreateParams as ScheduleCreateParams,
     type ScheduleUpdateParams as ScheduleUpdateParams,
     type ScheduleListParams as ScheduleListParams,
@@ -1024,21 +976,30 @@ export declare namespace Knock {
     type AudienceRemoveMembersParams as AudienceRemoveMembersParams,
   };
 
+  export type ChannelData = API.ChannelData;
   export type ChannelDataRequest = API.ChannelDataRequest;
   export type Condition = API.Condition;
   export type DiscordChannelData = API.DiscordChannelData;
   export type InlineChannelDataRequest = API.InlineChannelDataRequest;
-  export type InlineIdentifyObjectRequest = API.InlineIdentifyObjectRequest;
   export type InlineIdentifyUserRequest = API.InlineIdentifyUserRequest;
+  export type InlineObjectRequest = API.InlineObjectRequest;
   export type InlinePreferenceSetRequest = API.InlinePreferenceSetRequest;
   export type InlineTenantRequest = API.InlineTenantRequest;
   export type MsTeamsChannelData = API.MsTeamsChannelData;
   export type Object = API.Object;
   export type OneSignalChannelData = API.OneSignalChannelData;
+  export type PreferenceSet = API.PreferenceSet;
+  export type PreferenceSetChannelTypeSetting = API.PreferenceSetChannelTypeSetting;
   export type PreferenceSetChannelTypes = API.PreferenceSetChannelTypes;
   export type PreferenceSetRequest = API.PreferenceSetRequest;
   export type PushChannelData = API.PushChannelData;
+  export type Recipient = API.Recipient;
+  export type RecipientRequest = API.RecipientRequest;
+  export type Schedule = API.Schedule;
   export type ScheduleRepeatRule = API.ScheduleRepeatRule;
   export type SlackChannelData = API.SlackChannelData;
+  export type Subscription = API.Subscription;
+  export type Tenant = API.Tenant;
   export type TenantRequest = API.TenantRequest;
+  export type User = API.User;
 }

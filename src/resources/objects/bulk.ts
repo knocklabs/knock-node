@@ -189,14 +189,14 @@ export namespace BulkAddSubscriptionsParams {
   export interface Subscription {
     id: string;
 
-    recipients: Array<string | Shared.InlineIdentifyUserRequest | Shared.InlineIdentifyObjectRequest>;
+    recipients: Array<Shared.RecipientRequest>;
 
     properties?: Record<string, unknown> | null;
   }
 }
 
 export interface BulkSetParams {
-  objects: Array<Shared.InlineIdentifyObjectRequest>;
+  objects: Array<Shared.InlineObjectRequest>;
 }
 
 export declare namespace Bulk {

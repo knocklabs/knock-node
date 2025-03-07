@@ -7,13 +7,4 @@ export {
   type BulkDeleteParams,
   type BulkSetParams,
 } from './bulk';
-export {
-  Tenants,
-  type TenantListResponse,
-  type TenantDeleteResponse,
-  type TenantGetResponse,
-  type TenantSetResponse,
-  type TenantListParams,
-  type TenantSetParams,
-  type TenantListResponsesEntriesCursor,
-} from './tenants';
+export { Tenants, type TenantDeleteResponse, type TenantListParams, type TenantSetParams } from './tenants';

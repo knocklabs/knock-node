@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../resource';
 import * as Shared from '../shared';
-import { ObjectsEntriesCursor } from '../shared';
+import { ObjectsEntriesCursor, SchedulesEntriesCursor, SubscriptionsEntriesCursor } from '../shared';
 import * as BulkAPI from './bulk';
 import {
   Bulk,
@@ -13,7 +13,6 @@ import {
   BulkSetParams,
   BulkSetResponse,
 } from './bulk';
-import * as UsersAPI from '../users/users';
 import { APIPromise } from '../../api-promise';
 import { EntriesCursor, type EntriesCursorParams, PagePromise } from '../../pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -87,7 +86,7 @@ export class Objects extends APIResource {
     channelID: string,
     params: ObjectGetChannelDataParams,
     options?: RequestOptions,
-  ): APIPromise<ObjectGetChannelDataResponse> {
+  ): APIPromise<Shared.ChannelData> {
     const { collection, object_id } = params;
     return this._client.get(path`/v1/objects/${collection}/${object_id}/channel_data/${channelID}`, options);
   }
@@ -99,7 +98,7 @@ export class Objects extends APIResource {
     id: string,
     params: ObjectGetPreferencesParams,
     options?: RequestOptions,
-  ): APIPromise<ObjectGetPreferencesResponse> {
+  ): APIPromise<Shared.PreferenceSet> {
     const { collection, object_id, ...query } = params;
     return this._client.get(path`/v1/objects/${collection}/${object_id}/preferences/${id}`, {
       query,
@@ -142,11 +141,11 @@ export class Objects extends APIResource {
     id: string,
     params: ObjectListSchedulesParams,
     options?: RequestOptions,
-  ): PagePromise<ObjectListSchedulesResponsesEntriesCursor, ObjectListSchedulesResponse> {
+  ): PagePromise<SchedulesEntriesCursor, Shared.Schedule> {
     const { collection, ...query } = params;
     return this._client.getAPIList(
       path`/v1/objects/${collection}/${id}/schedules`,
-      EntriesCursor<ObjectListSchedulesResponse>,
+      EntriesCursor<Shared.Schedule>,
       { query, ...options },
     );
   }
@@ -160,11 +159,11 @@ export class Objects extends APIResource {
     objectID: string,
     params: ObjectListSubscriptionsParams,
     options?: RequestOptions,
-  ): PagePromise<ObjectListSubscriptionsResponsesEntriesCursor, ObjectListSubscriptionsResponse> {
+  ): PagePromise<SubscriptionsEntriesCursor, Shared.Subscription> {
     const { collection, ...query } = params;
     return this._client.getAPIList(
       path`/v1/objects/${collection}/${objectID}/subscriptions`,
-      EntriesCursor<ObjectListSubscriptionsResponse>,
+      EntriesCursor<Shared.Subscription>,
       { query, ...options },
     );
   }
@@ -184,7 +183,7 @@ export class Objects extends APIResource {
     channelID: string,
     params: ObjectSetChannelDataParams,
     options?: RequestOptions,
-  ): APIPromise<ObjectSetChannelDataResponse> {
+  ): APIPromise<Shared.ChannelData> {
     const { collection, object_id, ...body } = params;
     return this._client.put(path`/v1/objects/${collection}/${object_id}/channel_data/${channelID}`, {
       body,
@@ -199,7 +198,7 @@ export class Objects extends APIResource {
     id: string,
     params: ObjectSetPreferencesParams,
     options?: RequestOptions,
-  ): APIPromise<ObjectSetPreferencesResponse> {
+  ): APIPromise<Shared.PreferenceSet> {
     const { collection, object_id, ...body } = params;
     return this._client.put(path`/v1/objects/${collection}/${object_id}/preferences/${id}`, {
       body,
@@ -225,10 +224,6 @@ export class Objects extends APIResource {
 
 export type ObjectListMessagesResponsesEntriesCursor = EntriesCursor<ObjectListMessagesResponse>;
 
-export type ObjectListSchedulesResponsesEntriesCursor = EntriesCursor<ObjectListSchedulesResponse>;
-
-export type ObjectListSubscriptionsResponsesEntriesCursor = EntriesCursor<ObjectListSubscriptionsResponse>;
-
 /**
  * An empty response
  */
@@ -237,147 +232,12 @@ export type ObjectDeleteResponse = string;
 /**
  * Response containing a list of subscriptions
  */
-export type ObjectAddSubscriptionsResponse =
-  Array<ObjectAddSubscriptionsResponse.ObjectAddSubscriptionsResponseItem>;
-
-export namespace ObjectAddSubscriptionsResponse {
-  /**
-   * A subscription object
-   */
-  export interface ObjectAddSubscriptionsResponseItem {
-    __typename: string;
-
-    inserted_at: string;
-
-    /**
-     * A custom-object entity which belongs to a collection.
-     */
-    object: Shared.Object;
-
-    /**
-     * A recipient, which is either a user or an object
-     */
-    recipient: UsersAPI.User | Shared.Object;
-
-    updated_at: string;
-
-    /**
-     * The custom properties associated with the subscription
-     */
-    properties?: Record<string, unknown> | null;
-  }
-}
+export type ObjectAddSubscriptionsResponse = Array<Shared.Subscription>;
 
 /**
  * Response containing a list of subscriptions
  */
-export type ObjectDeleteSubscriptionsResponse =
-  Array<ObjectDeleteSubscriptionsResponse.ObjectDeleteSubscriptionsResponseItem>;
-
-export namespace ObjectDeleteSubscriptionsResponse {
-  /**
-   * A subscription object
-   */
-  export interface ObjectDeleteSubscriptionsResponseItem {
-    __typename: string;
-
-    inserted_at: string;
-
-    /**
-     * A custom-object entity which belongs to a collection.
-     */
-    object: Shared.Object;
-
-    /**
-     * A recipient, which is either a user or an object
-     */
-    recipient: UsersAPI.User | Shared.Object;
-
-    updated_at: string;
-
-    /**
-     * The custom properties associated with the subscription
-     */
-    properties?: Record<string, unknown> | null;
-  }
-}
-
-/**
- * Channel data for various channel types
- */
-export interface ObjectGetChannelDataResponse {
-  __typename: string;
-
-  channel_id: string;
-
-  /**
-   * Channel data for push providers
-   */
-  data:
-    | Shared.PushChannelData
-    | Shared.SlackChannelData
-    | Shared.MsTeamsChannelData
-    | Shared.DiscordChannelData
-    | Shared.OneSignalChannelData;
-}
-
-/**
- * A preference set object.
- */
-export interface ObjectGetPreferencesResponse {
-  id: string;
-
-  __typename: string;
-
-  /**
-   * A map of categories and their settings
-   */
-  categories?: Record<
-    string,
-    boolean | ObjectGetPreferencesResponse.PreferenceSetWorkflowCategorySettingObject
-  > | null;
-
-  /**
-   * Channel type preferences
-   */
-  channel_types?: Shared.PreferenceSetChannelTypes | null;
-
-  /**
-   * A map of workflows and their settings
-   */
-  workflows?: Record<
-    string,
-    boolean | ObjectGetPreferencesResponse.PreferenceSetWorkflowCategorySettingObject
-  > | null;
-}
-
-export namespace ObjectGetPreferencesResponse {
-  /**
-   * The settings object for a workflow or category, where you can specify channel
-   * types or conditions.
-   */
-  export interface PreferenceSetWorkflowCategorySettingObject {
-    /**
-     * Channel type preferences
-     */
-    channel_types?: Shared.PreferenceSetChannelTypes | null;
-
-    conditions?: Array<Shared.Condition> | null;
-  }
-
-  /**
-   * The settings object for a workflow or category, where you can specify channel
-   * types or conditions.
-   */
-  export interface PreferenceSetWorkflowCategorySettingObject {
-    /**
-     * Channel type preferences
-     */
-    channel_types?: Shared.PreferenceSetChannelTypes | null;
-
-    conditions?: Array<Shared.Condition> | null;
-  }
-}
+export type ObjectDeleteSubscriptionsResponse = Array<Shared.Subscription>;
 
 /**
  * Represents a single message that was generated by a workflow for a given
@@ -545,206 +405,7 @@ export namespace ObjectListMessagesResponse {
 /**
  * A list of preference sets for the object
  */
-export type ObjectListPreferencesResponse =
-  Array<ObjectListPreferencesResponse.ObjectListPreferencesResponseItem>;
-
-export namespace ObjectListPreferencesResponse {
-  /**
-   * A preference set object.
-   */
-  export interface ObjectListPreferencesResponseItem {
-    id: string;
-
-    __typename: string;
-
-    /**
-     * A map of categories and their settings
-     */
-    categories?: Record<
-      string,
-      boolean | ObjectListPreferencesResponseItem.PreferenceSetWorkflowCategorySettingObject
-    > | null;
-
-    /**
-     * Channel type preferences
-     */
-    channel_types?: Shared.PreferenceSetChannelTypes | null;
-
-    /**
-     * A map of workflows and their settings
-     */
-    workflows?: Record<
-      string,
-      boolean | ObjectListPreferencesResponseItem.PreferenceSetWorkflowCategorySettingObject
-    > | null;
-  }
-
-  export namespace ObjectListPreferencesResponseItem {
-    /**
-     * The settings object for a workflow or category, where you can specify channel
-     * types or conditions.
-     */
-    export interface PreferenceSetWorkflowCategorySettingObject {
-      /**
-       * Channel type preferences
-       */
-      channel_types?: Shared.PreferenceSetChannelTypes | null;
-
-      conditions?: Array<Shared.Condition> | null;
-    }
-
-    /**
-     * The settings object for a workflow or category, where you can specify channel
-     * types or conditions.
-     */
-    export interface PreferenceSetWorkflowCategorySettingObject {
-      /**
-       * Channel type preferences
-       */
-      channel_types?: Shared.PreferenceSetChannelTypes | null;
-
-      conditions?: Array<Shared.Condition> | null;
-    }
-  }
-}
-
-/**
- * A schedule that represents a recurring workflow execution
- */
-export interface ObjectListSchedulesResponse {
-  id: string;
-
-  inserted_at: string;
-
-  /**
-   * A recipient, which is either a user or an object
-   */
-  recipient: UsersAPI.User | Shared.Object;
-
-  repeats: Array<Shared.ScheduleRepeatRule>;
-
-  updated_at: string;
-
-  workflow: string;
-
-  __typename?: string;
-
-  /**
-   * A recipient, which is either a user or an object
-   */
-  actor?: UsersAPI.User | Shared.Object | null;
-
-  data?: Record<string, unknown> | null;
-
-  last_occurrence_at?: string | null;
-
-  next_occurrence_at?: string | null;
-
-  tenant?: string | null;
-}
-
-/**
- * A subscription object
- */
-export interface ObjectListSubscriptionsResponse {
-  __typename: string;
-
-  inserted_at: string;
-
-  /**
-   * A custom-object entity which belongs to a collection.
-   */
-  object: Shared.Object;
-
-  /**
-   * A recipient, which is either a user or an object
-   */
-  recipient: UsersAPI.User | Shared.Object;
-
-  updated_at: string;
-
-  /**
-   * The custom properties associated with the subscription
-   */
-  properties?: Record<string, unknown> | null;
-}
-
-/**
- * Channel data for various channel types
- */
-export interface ObjectSetChannelDataResponse {
-  __typename: string;
-
-  channel_id: string;
-
-  /**
-   * Channel data for push providers
-   */
-  data:
-    | Shared.PushChannelData
-    | Shared.SlackChannelData
-    | Shared.MsTeamsChannelData
-    | Shared.DiscordChannelData
-    | Shared.OneSignalChannelData;
-}
-
-/**
- * A preference set object.
- */
-export interface ObjectSetPreferencesResponse {
-  id: string;
-
-  __typename: string;
-
-  /**
-   * A map of categories and their settings
-   */
-  categories?: Record<
-    string,
-    boolean | ObjectSetPreferencesResponse.PreferenceSetWorkflowCategorySettingObject
-  > | null;
-
-  /**
-   * Channel type preferences
-   */
-  channel_types?: Shared.PreferenceSetChannelTypes | null;
-
-  /**
-   * A map of workflows and their settings
-   */
-  workflows?: Record<
-    string,
-    boolean | ObjectSetPreferencesResponse.PreferenceSetWorkflowCategorySettingObject
-  > | null;
-}
-
-export namespace ObjectSetPreferencesResponse {
-  /**
-   * The settings object for a workflow or category, where you can specify channel
-   * types or conditions.
-   */
-  export interface PreferenceSetWorkflowCategorySettingObject {
-    /**
-     * Channel type preferences
-     */
-    channel_types?: Shared.PreferenceSetChannelTypes | null;
-
-    conditions?: Array<Shared.Condition> | null;
-  }
-
-  /**
-   * The settings object for a workflow or category, where you can specify channel
-   * types or conditions.
-   */
-  export interface PreferenceSetWorkflowCategorySettingObject {
-    /**
-     * Channel type preferences
-     */
-    channel_types?: Shared.PreferenceSetChannelTypes | null;
-
-    conditions?: Array<Shared.Condition> | null;
-  }
-}
+export type ObjectListPreferencesResponse = Array<Shared.PreferenceSet>;
 
 /**
  * An empty response
@@ -769,7 +430,7 @@ export interface ObjectAddSubscriptionsParams {
   /**
    * Body param: The recipients to subscribe to the object
    */
-  recipients: Array<string | Shared.InlineIdentifyUserRequest | Shared.InlineIdentifyObjectRequest>;
+  recipients: Array<Shared.RecipientRequest>;
 
   /**
    * Body param: The custom properties associated with the subscription
@@ -786,7 +447,7 @@ export interface ObjectDeleteSubscriptionsParams {
   /**
    * Body param:
    */
-  recipients: Array<string | Shared.InlineIdentifyUserRequest | Shared.InlineIdentifyObjectRequest>;
+  recipients: Array<Shared.RecipientRequest>;
 }
 
 export interface ObjectGetParams {
@@ -1065,18 +726,10 @@ export declare namespace Objects {
     type ObjectDeleteResponse as ObjectDeleteResponse,
     type ObjectAddSubscriptionsResponse as ObjectAddSubscriptionsResponse,
     type ObjectDeleteSubscriptionsResponse as ObjectDeleteSubscriptionsResponse,
-    type ObjectGetChannelDataResponse as ObjectGetChannelDataResponse,
-    type ObjectGetPreferencesResponse as ObjectGetPreferencesResponse,
     type ObjectListMessagesResponse as ObjectListMessagesResponse,
     type ObjectListPreferencesResponse as ObjectListPreferencesResponse,
-    type ObjectListSchedulesResponse as ObjectListSchedulesResponse,
-    type ObjectListSubscriptionsResponse as ObjectListSubscriptionsResponse,
-    type ObjectSetChannelDataResponse as ObjectSetChannelDataResponse,
-    type ObjectSetPreferencesResponse as ObjectSetPreferencesResponse,
     type ObjectUnsetChannelDataResponse as ObjectUnsetChannelDataResponse,
     type ObjectListMessagesResponsesEntriesCursor as ObjectListMessagesResponsesEntriesCursor,
-    type ObjectListSchedulesResponsesEntriesCursor as ObjectListSchedulesResponsesEntriesCursor,
-    type ObjectListSubscriptionsResponsesEntriesCursor as ObjectListSubscriptionsResponsesEntriesCursor,
     type ObjectListParams as ObjectListParams,
     type ObjectDeleteParams as ObjectDeleteParams,
     type ObjectAddSubscriptionsParams as ObjectAddSubscriptionsParams,
@@ -1105,4 +758,4 @@ export declare namespace Objects {
   };
 }
 
-export { type ObjectsEntriesCursor };
+export { type ObjectsEntriesCursor, type SchedulesEntriesCursor, type SubscriptionsEntriesCursor };

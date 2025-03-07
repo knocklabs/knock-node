@@ -22,7 +22,6 @@ import {
   BatchUnarchiveParams,
   BatchUnarchiveResponse,
 } from './batch';
-import * as UsersAPI from '../users/users';
 import { APIPromise } from '../../api-promise';
 import {
   EntriesCursor,
@@ -840,7 +839,7 @@ export interface MessageListActivitiesResponse {
   /**
    * A recipient, which is either a user or an object
    */
-  actor?: UsersAPI.User | Shared.Object | null;
+  actor?: Shared.Recipient | null;
 
   /**
    * The data associated with the activity
@@ -852,7 +851,7 @@ export interface MessageListActivitiesResponse {
   /**
    * A recipient, which is either a user or an object
    */
-  recipient?: UsersAPI.User | Shared.Object;
+  recipient?: Shared.Recipient;
 
   updated_at?: string;
 }

@@ -4,6 +4,20 @@ import * as Shared from './shared';
 import { EntriesCursor } from '../pagination';
 
 /**
+ * Channel data for various channel types
+ */
+export interface ChannelData {
+  __typename: string;
+
+  channel_id: string;
+
+  /**
+   * Channel data for push providers
+   */
+  data: PushChannelData | SlackChannelData | MsTeamsChannelData | DiscordChannelData | OneSignalChannelData;
+}
+
+/**
  * Set channel data for a type of channel
  */
 export interface ChannelDataRequest {
@@ -90,28 +104,6 @@ export namespace DiscordChannelData {
 export type InlineChannelDataRequest = Record<string, ChannelDataRequest>;
 
 /**
- * Inline identifies a custom object belonging to a collection
- */
-export interface InlineIdentifyObjectRequest {
-  id: string;
-
-  collection: string;
-
-  /**
-   * Allows inline setting channel data for a recipient
-   */
-  channel_data?: InlineChannelDataRequest | null;
-
-  created_at?: string | null;
-
-  /**
-   * Inline set preferences for a recipient, where the key is the preference set name
-   */
-  preferences?: InlinePreferenceSetRequest | null;
-  [k: string]: unknown;
-}
-
-/**
  * A set of parameters to inline-identify a user with. Inline identifying the user
  * will ensure that the user is available before the request is executed in Knock.
  * It will perform an upsert against the user you're supplying, replacing any
@@ -131,6 +123,28 @@ export interface InlineIdentifyUserRequest {
   /**
    * The creation date of the user from your system.
    */
+  created_at?: string | null;
+
+  /**
+   * Inline set preferences for a recipient, where the key is the preference set name
+   */
+  preferences?: InlinePreferenceSetRequest | null;
+  [k: string]: unknown;
+}
+
+/**
+ * Inline identifies a custom object belonging to a collection
+ */
+export interface InlineObjectRequest {
+  id: string;
+
+  collection: string;
+
+  /**
+   * Allows inline setting channel data for a recipient
+   */
+  channel_data?: InlineChannelDataRequest | null;
+
   created_at?: string | null;
 
   /**
@@ -240,6 +254,66 @@ export interface OneSignalChannelData {
 }
 
 /**
+ * A preference set object.
+ */
+export interface PreferenceSet {
+  id: string;
+
+  __typename: string;
+
+  /**
+   * A map of categories and their settings
+   */
+  categories?: Record<string, boolean | PreferenceSet.PreferenceSetWorkflowCategorySettingObject> | null;
+
+  /**
+   * Channel type preferences
+   */
+  channel_types?: PreferenceSetChannelTypes | null;
+
+  /**
+   * A map of workflows and their settings
+   */
+  workflows?: Record<string, boolean | PreferenceSet.PreferenceSetWorkflowCategorySettingObject> | null;
+}
+
+export namespace PreferenceSet {
+  /**
+   * The settings object for a workflow or category, where you can specify channel
+   * types or conditions.
+   */
+  export interface PreferenceSetWorkflowCategorySettingObject {
+    /**
+     * Channel type preferences
+     */
+    channel_types?: Shared.PreferenceSetChannelTypes | null;
+
+    conditions?: Array<Shared.Condition> | null;
+  }
+
+  /**
+   * The settings object for a workflow or category, where you can specify channel
+   * types or conditions.
+   */
+  export interface PreferenceSetWorkflowCategorySettingObject {
+    /**
+     * Channel type preferences
+     */
+    channel_types?: Shared.PreferenceSetChannelTypes | null;
+
+    conditions?: Array<Shared.Condition> | null;
+  }
+}
+
+/**
+ * A set of settings for a channel type. Currently, this can only be a list of
+ * conditions to apply.
+ */
+export interface PreferenceSetChannelTypeSetting {
+  conditions: Array<Condition>;
+}
+
+/**
  * Channel type preferences
  */
 export interface PreferenceSetChannelTypes {
@@ -247,87 +321,37 @@ export interface PreferenceSetChannelTypes {
    * A set of settings for a channel type. Currently, this can only be a list of
    * conditions to apply.
    */
-  chat?: boolean | PreferenceSetChannelTypes.PreferenceSetChannelTypeSettingObject;
+  chat?: boolean | PreferenceSetChannelTypeSetting;
 
   /**
    * A set of settings for a channel type. Currently, this can only be a list of
    * conditions to apply.
    */
-  email?: boolean | PreferenceSetChannelTypes.PreferenceSetChannelTypeSettingObject;
+  email?: boolean | PreferenceSetChannelTypeSetting;
 
   /**
    * A set of settings for a channel type. Currently, this can only be a list of
    * conditions to apply.
    */
-  http?: boolean | PreferenceSetChannelTypes.PreferenceSetChannelTypeSettingObject;
+  http?: boolean | PreferenceSetChannelTypeSetting;
 
   /**
    * A set of settings for a channel type. Currently, this can only be a list of
    * conditions to apply.
    */
-  in_app_feed?: boolean | PreferenceSetChannelTypes.PreferenceSetChannelTypeSettingObject;
+  in_app_feed?: boolean | PreferenceSetChannelTypeSetting;
 
   /**
    * A set of settings for a channel type. Currently, this can only be a list of
    * conditions to apply.
    */
-  push?: boolean | PreferenceSetChannelTypes.PreferenceSetChannelTypeSettingObject;
+  push?: boolean | PreferenceSetChannelTypeSetting;
 
   /**
    * A set of settings for a channel type. Currently, this can only be a list of
    * conditions to apply.
    */
-  sms?: boolean | PreferenceSetChannelTypes.PreferenceSetChannelTypeSettingObject;
-}
-
-export namespace PreferenceSetChannelTypes {
-  /**
-   * A set of settings for a channel type. Currently, this can only be a list of
-   * conditions to apply.
-   */
-  export interface PreferenceSetChannelTypeSettingObject {
-    conditions: Array<Shared.Condition>;
-  }
-
-  /**
-   * A set of settings for a channel type. Currently, this can only be a list of
-   * conditions to apply.
-   */
-  export interface PreferenceSetChannelTypeSettingObject {
-    conditions: Array<Shared.Condition>;
-  }
-
-  /**
-   * A set of settings for a channel type. Currently, this can only be a list of
-   * conditions to apply.
-   */
-  export interface PreferenceSetChannelTypeSettingObject {
-    conditions: Array<Shared.Condition>;
-  }
-
-  /**
-   * A set of settings for a channel type. Currently, this can only be a list of
-   * conditions to apply.
-   */
-  export interface PreferenceSetChannelTypeSettingObject {
-    conditions: Array<Shared.Condition>;
-  }
-
-  /**
-   * A set of settings for a channel type. Currently, this can only be a list of
-   * conditions to apply.
-   */
-  export interface PreferenceSetChannelTypeSettingObject {
-    conditions: Array<Shared.Condition>;
-  }
-
-  /**
-   * A set of settings for a channel type. Currently, this can only be a list of
-   * conditions to apply.
-   */
-  export interface PreferenceSetChannelTypeSettingObject {
-    conditions: Array<Shared.Condition>;
-  }
+  sms?: boolean | PreferenceSetChannelTypeSetting;
 }
 
 /**
@@ -394,6 +418,53 @@ export interface PushChannelData {
 }
 
 /**
+ * A recipient, which is either a user or an object
+ */
+export type Recipient = User | Object;
+
+/**
+ * Specifies a recipient in a request. This can either be a user identifier
+ * (string), an inline user request (object), or an inline object request, which is
+ * determined by the presence of a `collection` property.
+ */
+export type RecipientRequest = string | InlineIdentifyUserRequest | InlineObjectRequest;
+
+/**
+ * A schedule that represents a recurring workflow execution
+ */
+export interface Schedule {
+  id: string;
+
+  inserted_at: string;
+
+  /**
+   * A recipient, which is either a user or an object
+   */
+  recipient: Recipient;
+
+  repeats: Array<ScheduleRepeatRule>;
+
+  updated_at: string;
+
+  workflow: string;
+
+  __typename?: string;
+
+  /**
+   * A recipient, which is either a user or an object
+   */
+  actor?: Recipient | null;
+
+  data?: Record<string, unknown> | null;
+
+  last_occurrence_at?: string | null;
+
+  next_occurrence_at?: string | null;
+
+  tenant?: string | null;
+}
+
+/**
  * A schedule repeat rule
  */
 export interface ScheduleRepeatRule {
@@ -452,6 +523,42 @@ export namespace SlackChannelData {
 }
 
 /**
+ * A subscription object
+ */
+export interface Subscription {
+  __typename: string;
+
+  inserted_at: string;
+
+  /**
+   * A custom-object entity which belongs to a collection.
+   */
+  object: Object;
+
+  /**
+   * A recipient, which is either a user or an object
+   */
+  recipient: Recipient;
+
+  updated_at: string;
+
+  /**
+   * The custom properties associated with the subscription
+   */
+  properties?: Record<string, unknown> | null;
+}
+
+/**
+ * A tenant entity
+ */
+export interface Tenant {
+  id: string;
+
+  __typename: string;
+  [k: string]: unknown;
+}
+
+/**
  * A tenant to be set in the system
  */
 export interface TenantRequest {
@@ -494,4 +601,36 @@ export namespace TenantRequest {
   }
 }
 
+/**
+ * A user object
+ */
+export interface User {
+  id: string;
+
+  __typename: string;
+
+  updated_at: string;
+
+  avatar?: string | null;
+
+  created_at?: string | null;
+
+  email?: string | null;
+
+  name?: string | null;
+
+  phone_number?: string | null;
+
+  timezone?: string | null;
+  [k: string]: unknown;
+}
+
+export type UsersEntriesCursor = EntriesCursor<User>;
+
+export type SchedulesEntriesCursor = EntriesCursor<Schedule>;
+
+export type SubscriptionsEntriesCursor = EntriesCursor<Subscription>;
+
 export type ObjectsEntriesCursor = EntriesCursor<Object>;
+
+export type TenantsEntriesCursor = EntriesCursor<Tenant>;

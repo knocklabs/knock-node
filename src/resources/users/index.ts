@@ -19,16 +19,9 @@ export {
 } from './feeds';
 export {
   Users,
-  type User,
   type UserDeleteResponse,
-  type UserGetChannelDataResponse,
-  type UserGetPreferencesResponse,
   type UserListMessagesResponse,
   type UserListPreferencesResponse,
-  type UserListSchedulesResponse,
-  type UserListSubscriptionsResponse,
-  type UserSetChannelDataResponse,
-  type UserSetPreferencesResponse,
   type UserUnsetChannelDataResponse,
   type UserUpdateParams,
   type UserListParams,
@@ -41,8 +34,5 @@ export {
   type UserSetChannelDataParams,
   type UserSetPreferencesParams,
   type UserUnsetChannelDataParams,
-  type UsersEntriesCursor,
   type UserListMessagesResponsesEntriesCursor,
-  type UserListSchedulesResponsesEntriesCursor,
-  type UserListSubscriptionsResponsesEntriesCursor,
 } from './users';

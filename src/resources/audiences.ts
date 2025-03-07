@@ -2,7 +2,6 @@
 
 import { APIResource } from '../resource';
 import * as Shared from './shared';
-import * as UsersAPI from './users/users';
 import { APIPromise } from '../api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -63,7 +62,7 @@ export namespace AudienceListMembersResponse {
     /**
      * A user object
      */
-    user: UsersAPI.User;
+    user: Shared.User;
 
     user_id: string;
 

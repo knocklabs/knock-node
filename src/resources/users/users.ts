@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../resource';
 import * as Shared from '../shared';
+import { SchedulesEntriesCursor, SubscriptionsEntriesCursor, UsersEntriesCursor } from '../shared';
 import * as BulkAPI from './bulk';
 import {
   Bulk,
@@ -33,7 +34,7 @@ export class Users extends APIResource {
   /**
    * Identify user
    */
-  update(userID: string, body: UserUpdateParams, options?: RequestOptions): APIPromise<User> {
+  update(userID: string, body: UserUpdateParams, options?: RequestOptions): APIPromise<Shared.User> {
     return this._client.put(path`/v1/users/${userID}`, { body, ...options });
   }
 
@@ -43,8 +44,8 @@ export class Users extends APIResource {
   list(
     query: UserListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<UsersEntriesCursor, User> {
-    return this._client.getAPIList('/v1/users', EntriesCursor<User>, { query, ...options });
+  ): PagePromise<UsersEntriesCursor, Shared.User> {
+    return this._client.getAPIList('/v1/users', EntriesCursor<Shared.User>, { query, ...options });
   }
 
   /**
@@ -57,7 +58,7 @@ export class Users extends APIResource {
   /**
    * Get user
    */
-  get(userID: string, options?: RequestOptions): APIPromise<User> {
+  get(userID: string, options?: RequestOptions): APIPromise<Shared.User> {
     return this._client.get(path`/v1/users/${userID}`, options);
   }
 
@@ -68,7 +69,7 @@ export class Users extends APIResource {
     channelID: string,
     params: UserGetChannelDataParams,
     options?: RequestOptions,
-  ): APIPromise<UserGetChannelDataResponse> {
+  ): APIPromise<Shared.ChannelData> {
     const { user_id } = params;
     return this._client.get(path`/v1/users/${user_id}/channel_data/${channelID}`, options);
   }
@@ -80,7 +81,7 @@ export class Users extends APIResource {
     id: string,
     params: UserGetPreferencesParams,
     options?: RequestOptions,
-  ): APIPromise<UserGetPreferencesResponse> {
+  ): APIPromise<Shared.PreferenceSet> {
     const { user_id, ...query } = params;
     return this._client.get(path`/v1/users/${user_id}/preferences/${id}`, { query, ...options });
   }
@@ -114,12 +115,11 @@ export class Users extends APIResource {
     userID: string,
     query: UserListSchedulesParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<UserListSchedulesResponsesEntriesCursor, UserListSchedulesResponse> {
-    return this._client.getAPIList(
-      path`/v1/users/${userID}/schedules`,
-      EntriesCursor<UserListSchedulesResponse>,
-      { query, ...options },
-    );
+  ): PagePromise<SchedulesEntriesCursor, Shared.Schedule> {
+    return this._client.getAPIList(path`/v1/users/${userID}/schedules`, EntriesCursor<Shared.Schedule>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -129,10 +129,10 @@ export class Users extends APIResource {
     userID: string,
     query: UserListSubscriptionsParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<UserListSubscriptionsResponsesEntriesCursor, UserListSubscriptionsResponse> {
+  ): PagePromise<SubscriptionsEntriesCursor, Shared.Subscription> {
     return this._client.getAPIList(
       path`/v1/users/${userID}/subscriptions`,
-      EntriesCursor<UserListSubscriptionsResponse>,
+      EntriesCursor<Shared.Subscription>,
       { query, ...options },
     );
   }
@@ -141,7 +141,7 @@ export class Users extends APIResource {
    * Merge two users together, where the user specified with the `from_user_id` param
    * will be merged into the user specified by `user_id`.
    */
-  merge(userID: string, body: UserMergeParams, options?: RequestOptions): APIPromise<User> {
+  merge(userID: string, body: UserMergeParams, options?: RequestOptions): APIPromise<Shared.User> {
     return this._client.post(path`/v1/users/${userID}/merge`, { body, ...options });
   }
 
@@ -152,7 +152,7 @@ export class Users extends APIResource {
     channelID: string,
     params: UserSetChannelDataParams,
     options?: RequestOptions,
-  ): APIPromise<UserSetChannelDataResponse> {
+  ): APIPromise<Shared.ChannelData> {
     const { user_id, ...body } = params;
     return this._client.put(path`/v1/users/${user_id}/channel_data/${channelID}`, { body, ...options });
   }
@@ -165,7 +165,7 @@ export class Users extends APIResource {
     id: string,
     params: UserSetPreferencesParams,
     options?: RequestOptions,
-  ): APIPromise<UserSetPreferencesResponse> {
+  ): APIPromise<Shared.PreferenceSet> {
     const { user_id, ...body } = params;
     return this._client.put(path`/v1/users/${user_id}/preferences/${id}`, { body, ...options });
   }
@@ -183,119 +183,12 @@ export class Users extends APIResource {
   }
 }
 
-export type UsersEntriesCursor = EntriesCursor<User>;
-
 export type UserListMessagesResponsesEntriesCursor = EntriesCursor<UserListMessagesResponse>;
-
-export type UserListSchedulesResponsesEntriesCursor = EntriesCursor<UserListSchedulesResponse>;
-
-export type UserListSubscriptionsResponsesEntriesCursor = EntriesCursor<UserListSubscriptionsResponse>;
-
-/**
- * A user object
- */
-export interface User {
-  id: string;
-
-  __typename: string;
-
-  updated_at: string;
-
-  avatar?: string | null;
-
-  created_at?: string | null;
-
-  email?: string | null;
-
-  name?: string | null;
-
-  phone_number?: string | null;
-
-  timezone?: string | null;
-  [k: string]: unknown;
-}
 
 /**
  * An empty response
  */
 export type UserDeleteResponse = string;
-
-/**
- * Channel data for various channel types
- */
-export interface UserGetChannelDataResponse {
-  __typename: string;
-
-  channel_id: string;
-
-  /**
-   * Channel data for push providers
-   */
-  data:
-    | Shared.PushChannelData
-    | Shared.SlackChannelData
-    | Shared.MsTeamsChannelData
-    | Shared.DiscordChannelData
-    | Shared.OneSignalChannelData;
-}
-
-/**
- * A preference set object.
- */
-export interface UserGetPreferencesResponse {
-  id: string;
-
-  __typename: string;
-
-  /**
-   * A map of categories and their settings
-   */
-  categories?: Record<
-    string,
-    boolean | UserGetPreferencesResponse.PreferenceSetWorkflowCategorySettingObject
-  > | null;
-
-  /**
-   * Channel type preferences
-   */
-  channel_types?: Shared.PreferenceSetChannelTypes | null;
-
-  /**
-   * A map of workflows and their settings
-   */
-  workflows?: Record<
-    string,
-    boolean | UserGetPreferencesResponse.PreferenceSetWorkflowCategorySettingObject
-  > | null;
-}
-
-export namespace UserGetPreferencesResponse {
-  /**
-   * The settings object for a workflow or category, where you can specify channel
-   * types or conditions.
-   */
-  export interface PreferenceSetWorkflowCategorySettingObject {
-    /**
-     * Channel type preferences
-     */
-    channel_types?: Shared.PreferenceSetChannelTypes | null;
-
-    conditions?: Array<Shared.Condition> | null;
-  }
-
-  /**
-   * The settings object for a workflow or category, where you can specify channel
-   * types or conditions.
-   */
-  export interface PreferenceSetWorkflowCategorySettingObject {
-    /**
-     * Channel type preferences
-     */
-    channel_types?: Shared.PreferenceSetChannelTypes | null;
-
-    conditions?: Array<Shared.Condition> | null;
-  }
-}
 
 /**
  * Represents a single message that was generated by a workflow for a given
@@ -463,205 +356,7 @@ export namespace UserListMessagesResponse {
 /**
  * A list of preference sets for the user
  */
-export type UserListPreferencesResponse = Array<UserListPreferencesResponse.UserListPreferencesResponseItem>;
-
-export namespace UserListPreferencesResponse {
-  /**
-   * A preference set object.
-   */
-  export interface UserListPreferencesResponseItem {
-    id: string;
-
-    __typename: string;
-
-    /**
-     * A map of categories and their settings
-     */
-    categories?: Record<
-      string,
-      boolean | UserListPreferencesResponseItem.PreferenceSetWorkflowCategorySettingObject
-    > | null;
-
-    /**
-     * Channel type preferences
-     */
-    channel_types?: Shared.PreferenceSetChannelTypes | null;
-
-    /**
-     * A map of workflows and their settings
-     */
-    workflows?: Record<
-      string,
-      boolean | UserListPreferencesResponseItem.PreferenceSetWorkflowCategorySettingObject
-    > | null;
-  }
-
-  export namespace UserListPreferencesResponseItem {
-    /**
-     * The settings object for a workflow or category, where you can specify channel
-     * types or conditions.
-     */
-    export interface PreferenceSetWorkflowCategorySettingObject {
-      /**
-       * Channel type preferences
-       */
-      channel_types?: Shared.PreferenceSetChannelTypes | null;
-
-      conditions?: Array<Shared.Condition> | null;
-    }
-
-    /**
-     * The settings object for a workflow or category, where you can specify channel
-     * types or conditions.
-     */
-    export interface PreferenceSetWorkflowCategorySettingObject {
-      /**
-       * Channel type preferences
-       */
-      channel_types?: Shared.PreferenceSetChannelTypes | null;
-
-      conditions?: Array<Shared.Condition> | null;
-    }
-  }
-}
-
-/**
- * A schedule that represents a recurring workflow execution
- */
-export interface UserListSchedulesResponse {
-  id: string;
-
-  inserted_at: string;
-
-  /**
-   * A recipient, which is either a user or an object
-   */
-  recipient: User | Shared.Object;
-
-  repeats: Array<Shared.ScheduleRepeatRule>;
-
-  updated_at: string;
-
-  workflow: string;
-
-  __typename?: string;
-
-  /**
-   * A recipient, which is either a user or an object
-   */
-  actor?: User | Shared.Object | null;
-
-  data?: Record<string, unknown> | null;
-
-  last_occurrence_at?: string | null;
-
-  next_occurrence_at?: string | null;
-
-  tenant?: string | null;
-}
-
-/**
- * A subscription object
- */
-export interface UserListSubscriptionsResponse {
-  __typename: string;
-
-  inserted_at: string;
-
-  /**
-   * A custom-object entity which belongs to a collection.
-   */
-  object: Shared.Object;
-
-  /**
-   * A recipient, which is either a user or an object
-   */
-  recipient: User | Shared.Object;
-
-  updated_at: string;
-
-  /**
-   * The custom properties associated with the subscription
-   */
-  properties?: Record<string, unknown> | null;
-}
-
-/**
- * Channel data for various channel types
- */
-export interface UserSetChannelDataResponse {
-  __typename: string;
-
-  channel_id: string;
-
-  /**
-   * Channel data for push providers
-   */
-  data:
-    | Shared.PushChannelData
-    | Shared.SlackChannelData
-    | Shared.MsTeamsChannelData
-    | Shared.DiscordChannelData
-    | Shared.OneSignalChannelData;
-}
-
-/**
- * A preference set object.
- */
-export interface UserSetPreferencesResponse {
-  id: string;
-
-  __typename: string;
-
-  /**
-   * A map of categories and their settings
-   */
-  categories?: Record<
-    string,
-    boolean | UserSetPreferencesResponse.PreferenceSetWorkflowCategorySettingObject
-  > | null;
-
-  /**
-   * Channel type preferences
-   */
-  channel_types?: Shared.PreferenceSetChannelTypes | null;
-
-  /**
-   * A map of workflows and their settings
-   */
-  workflows?: Record<
-    string,
-    boolean | UserSetPreferencesResponse.PreferenceSetWorkflowCategorySettingObject
-  > | null;
-}
-
-export namespace UserSetPreferencesResponse {
-  /**
-   * The settings object for a workflow or category, where you can specify channel
-   * types or conditions.
-   */
-  export interface PreferenceSetWorkflowCategorySettingObject {
-    /**
-     * Channel type preferences
-     */
-    channel_types?: Shared.PreferenceSetChannelTypes | null;
-
-    conditions?: Array<Shared.Condition> | null;
-  }
-
-  /**
-   * The settings object for a workflow or category, where you can specify channel
-   * types or conditions.
-   */
-  export interface PreferenceSetWorkflowCategorySettingObject {
-    /**
-     * Channel type preferences
-     */
-    channel_types?: Shared.PreferenceSetChannelTypes | null;
-
-    conditions?: Array<Shared.Condition> | null;
-  }
-}
+export type UserListPreferencesResponse = Array<Shared.PreferenceSet>;
 
 /**
  * An empty response
@@ -865,21 +560,11 @@ Users.Bulk = Bulk;
 
 export declare namespace Users {
   export {
-    type User as User,
     type UserDeleteResponse as UserDeleteResponse,
-    type UserGetChannelDataResponse as UserGetChannelDataResponse,
-    type UserGetPreferencesResponse as UserGetPreferencesResponse,
     type UserListMessagesResponse as UserListMessagesResponse,
     type UserListPreferencesResponse as UserListPreferencesResponse,
-    type UserListSchedulesResponse as UserListSchedulesResponse,
-    type UserListSubscriptionsResponse as UserListSubscriptionsResponse,
-    type UserSetChannelDataResponse as UserSetChannelDataResponse,
-    type UserSetPreferencesResponse as UserSetPreferencesResponse,
     type UserUnsetChannelDataResponse as UserUnsetChannelDataResponse,
-    type UsersEntriesCursor as UsersEntriesCursor,
     type UserListMessagesResponsesEntriesCursor as UserListMessagesResponsesEntriesCursor,
-    type UserListSchedulesResponsesEntriesCursor as UserListSchedulesResponsesEntriesCursor,
-    type UserListSubscriptionsResponsesEntriesCursor as UserListSubscriptionsResponsesEntriesCursor,
     type UserUpdateParams as UserUpdateParams,
     type UserListParams as UserListParams,
     type UserGetChannelDataParams as UserGetChannelDataParams,
@@ -912,3 +597,5 @@ export declare namespace Users {
     type BulkSetPreferencesParams as BulkSetPreferencesParams,
   };
 }
+
+export { type UsersEntriesCursor, type SchedulesEntriesCursor, type SubscriptionsEntriesCursor };

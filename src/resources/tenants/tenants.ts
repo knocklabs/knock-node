@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../resource';
 import * as Shared from '../shared';
+import { TenantsEntriesCursor } from '../shared';
 import * as BulkAPI from './bulk';
 import { Bulk, BulkDeleteParams, BulkDeleteResponse, BulkSetParams, BulkSetResponse } from './bulk';
 import { APIPromise } from '../../api-promise';
@@ -18,8 +19,8 @@ export class Tenants extends APIResource {
   list(
     query: TenantListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<TenantListResponsesEntriesCursor, TenantListResponse> {
-    return this._client.getAPIList('/v1/tenants', EntriesCursor<TenantListResponse>, { query, ...options });
+  ): PagePromise<TenantsEntriesCursor, Shared.Tenant> {
+    return this._client.getAPIList('/v1/tenants', EntriesCursor<Shared.Tenant>, { query, ...options });
   }
 
   /**
@@ -32,54 +33,22 @@ export class Tenants extends APIResource {
   /**
    * Get a tenant
    */
-  get(id: string, options?: RequestOptions): APIPromise<TenantGetResponse> {
+  get(id: string, options?: RequestOptions): APIPromise<Shared.Tenant> {
     return this._client.get(path`/v1/tenants/${id}`, options);
   }
 
   /**
    * Set a tenant
    */
-  set(id: string, body: TenantSetParams, options?: RequestOptions): APIPromise<TenantSetResponse> {
+  set(id: string, body: TenantSetParams, options?: RequestOptions): APIPromise<Shared.Tenant> {
     return this._client.put(path`/v1/tenants/${id}`, { body, ...options });
   }
-}
-
-export type TenantListResponsesEntriesCursor = EntriesCursor<TenantListResponse>;
-
-/**
- * A tenant entity
- */
-export interface TenantListResponse {
-  id: string;
-
-  __typename: string;
-  [k: string]: unknown;
 }
 
 /**
  * An empty response
  */
 export type TenantDeleteResponse = string;
-
-/**
- * A tenant entity
- */
-export interface TenantGetResponse {
-  id: string;
-
-  __typename: string;
-  [k: string]: unknown;
-}
-
-/**
- * A tenant entity
- */
-export interface TenantSetResponse {
-  id: string;
-
-  __typename: string;
-  [k: string]: unknown;
-}
 
 export interface TenantListParams extends EntriesCursorParams {}
 
@@ -124,11 +93,7 @@ Tenants.Bulk = Bulk;
 
 export declare namespace Tenants {
   export {
-    type TenantListResponse as TenantListResponse,
     type TenantDeleteResponse as TenantDeleteResponse,
-    type TenantGetResponse as TenantGetResponse,
-    type TenantSetResponse as TenantSetResponse,
-    type TenantListResponsesEntriesCursor as TenantListResponsesEntriesCursor,
     type TenantListParams as TenantListParams,
     type TenantSetParams as TenantSetParams,
   };
@@ -141,3 +106,5 @@ export declare namespace Tenants {
     type BulkSetParams as BulkSetParams,
   };
 }
+
+export { type TenantsEntriesCursor };
