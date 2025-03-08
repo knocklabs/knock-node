@@ -10,10 +10,7 @@ const client = new Knock({
 describe('resource bulk', () => {
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('delete: only required params', async () => {
-    const responsePromise = client.users.bulk.delete({
-      query_user_ids: ['string'],
-      body_user_ids: ['user_1', 'user_2'],
-    });
+    const responsePromise = client.users.bulk.delete({ user_ids: ['user_1', 'user_2'] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -25,10 +22,7 @@ describe('resource bulk', () => {
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('delete: required and optional params', async () => {
-    const response = await client.users.bulk.delete({
-      query_user_ids: ['string'],
-      body_user_ids: ['user_1', 'user_2'],
-    });
+    const response = await client.users.bulk.delete({ user_ids: ['user_1', 'user_2'] });
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url

@@ -12,7 +12,6 @@ import * as BulkAPI from './bulk';
 import { Bulk, BulkDeleteParams, BulkIdentifyParams, BulkSetPreferencesParams } from './bulk';
 import * as FeedsAPI from './feeds';
 import {
-  FeedGetSettingsParams,
   FeedGetSettingsResponse,
   FeedListItemsParams,
   FeedListItemsResponse,
@@ -63,24 +62,23 @@ export class Users extends APIResource {
    * Get channel data
    */
   getChannelData(
+    userID: string,
     channelID: string,
-    params: UserGetChannelDataParams,
     options?: RequestOptions,
   ): APIPromise<RecipientsAPI.ChannelData> {
-    const { user_id } = params;
-    return this._client.get(path`/v1/users/${user_id}/channel_data/${channelID}`, options);
+    return this._client.get(path`/v1/users/${userID}/channel_data/${channelID}`, options);
   }
 
   /**
    * Get preference set
    */
   getPreferences(
-    id: string,
-    params: UserGetPreferencesParams,
+    userID: string,
+    preferenceSetID: string,
+    query: UserGetPreferencesParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<RecipientsAPI.PreferenceSet> {
-    const { user_id, ...query } = params;
-    return this._client.get(path`/v1/users/${user_id}/preferences/${id}`, { query, ...options });
+    return this._client.get(path`/v1/users/${userID}/preferences/${preferenceSetID}`, { query, ...options });
   }
 
   /**
@@ -146,12 +144,12 @@ export class Users extends APIResource {
    * Set channel data
    */
   setChannelData(
+    userID: string,
     channelID: string,
-    params: UserSetChannelDataParams,
+    body: UserSetChannelDataParams,
     options?: RequestOptions,
   ): APIPromise<RecipientsAPI.ChannelData> {
-    const { user_id, ...body } = params;
-    return this._client.put(path`/v1/users/${user_id}/channel_data/${channelID}`, { body, ...options });
+    return this._client.put(path`/v1/users/${userID}/channel_data/${channelID}`, { body, ...options });
   }
 
   /**
@@ -159,24 +157,19 @@ export class Users extends APIResource {
    * that will replace the existing preference set for the user.
    */
   setPreferences(
-    id: string,
-    params: UserSetPreferencesParams,
+    userID: string,
+    preferenceSetID: string,
+    body: UserSetPreferencesParams,
     options?: RequestOptions,
   ): APIPromise<RecipientsAPI.PreferenceSet> {
-    const { user_id, ...body } = params;
-    return this._client.put(path`/v1/users/${user_id}/preferences/${id}`, { body, ...options });
+    return this._client.put(path`/v1/users/${userID}/preferences/${preferenceSetID}`, { body, ...options });
   }
 
   /**
    * Unset channel data
    */
-  unsetChannelData(
-    channelID: string,
-    params: UserUnsetChannelDataParams,
-    options?: RequestOptions,
-  ): APIPromise<string> {
-    const { user_id } = params;
-    return this._client.delete(path`/v1/users/${user_id}/channel_data/${channelID}`, options);
+  unsetChannelData(userID: string, channelID: string, options?: RequestOptions): APIPromise<string> {
+    return this._client.delete(path`/v1/users/${userID}/channel_data/${channelID}`, options);
   }
 }
 
@@ -286,21 +279,9 @@ export interface UserUpdateParams {
 
 export interface UserListParams extends EntriesCursorParams {}
 
-export interface UserGetChannelDataParams {
-  /**
-   * The user ID
-   */
-  user_id: string;
-}
-
 export interface UserGetPreferencesParams {
   /**
-   * Path param: User ID
-   */
-  user_id: string;
-
-  /**
-   * Query param: Tenant ID
+   * Tenant ID
    */
   tenant?: string;
 }
@@ -382,12 +363,7 @@ export interface UserMergeParams {
 
 export interface UserSetChannelDataParams {
   /**
-   * Path param: The user ID
-   */
-  user_id: string;
-
-  /**
-   * Body param: Channel data for push providers
+   * Channel data for push providers
    */
   data:
     | RecipientsAPI.PushChannelData
@@ -399,13 +375,8 @@ export interface UserSetChannelDataParams {
 
 export interface UserSetPreferencesParams {
   /**
-   * Path param: User ID
-   */
-  user_id: string;
-
-  /**
-   * Body param: A setting for a preference set, where the key in the object is the
-   * category, and the values are the preference settings for that category.
+   * A setting for a preference set, where the key in the object is the category, and
+   * the values are the preference settings for that category.
    */
   categories?: Record<
     string,
@@ -413,13 +384,13 @@ export interface UserSetPreferencesParams {
   > | null;
 
   /**
-   * Body param: Channel type preferences
+   * Channel type preferences
    */
   channel_types?: RecipientsAPI.PreferenceSetChannelTypes | null;
 
   /**
-   * Body param: A setting for a preference set, where the key in the object is the
-   * workflow key, and the values are the preference settings for that workflow.
+   * A setting for a preference set, where the key in the object is the workflow key,
+   * and the values are the preference settings for that workflow.
    */
   workflows?: Record<
     string,
@@ -455,13 +426,6 @@ export namespace UserSetPreferencesParams {
   }
 }
 
-export interface UserUnsetChannelDataParams {
-  /**
-   * The user ID
-   */
-  user_id: string;
-}
-
 Users.Feeds = Feeds;
 Users.Bulk = Bulk;
 
@@ -476,7 +440,6 @@ export declare namespace Users {
     type UsersEntriesCursor as UsersEntriesCursor,
     type UserUpdateParams as UserUpdateParams,
     type UserListParams as UserListParams,
-    type UserGetChannelDataParams as UserGetChannelDataParams,
     type UserGetPreferencesParams as UserGetPreferencesParams,
     type UserListMessagesParams as UserListMessagesParams,
     type UserListSchedulesParams as UserListSchedulesParams,
@@ -484,7 +447,6 @@ export declare namespace Users {
     type UserMergeParams as UserMergeParams,
     type UserSetChannelDataParams as UserSetChannelDataParams,
     type UserSetPreferencesParams as UserSetPreferencesParams,
-    type UserUnsetChannelDataParams as UserUnsetChannelDataParams,
   };
 
   export {
@@ -492,7 +454,6 @@ export declare namespace Users {
     type FeedGetSettingsResponse as FeedGetSettingsResponse,
     type FeedListItemsResponse as FeedListItemsResponse,
     type FeedListItemsResponsesEntriesCursor as FeedListItemsResponsesEntriesCursor,
-    type FeedGetSettingsParams as FeedGetSettingsParams,
     type FeedListItemsParams as FeedListItemsParams,
   };
 

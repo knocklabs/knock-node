@@ -9,10 +9,8 @@ const client = new Knock({
 
 describe('resource feeds', () => {
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('getSettings: only required params', async () => {
-    const responsePromise = client.users.feeds.getSettings('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      user_id: 'user_id',
-    });
+  test.skip('getSettings', async () => {
+    const responsePromise = client.users.feeds.getSettings('user_id', '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,17 +21,8 @@ describe('resource feeds', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('getSettings: required and optional params', async () => {
-    const response = await client.users.feeds.getSettings('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      user_id: 'user_id',
-    });
-  });
-
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('listItems: only required params', async () => {
-    const responsePromise = client.users.feeds.listItems('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      user_id: 'user_id',
-    });
+  test.skip('listItems', async () => {
+    const responsePromise = client.users.feeds.listItems('user_id', '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -44,19 +33,26 @@ describe('resource feeds', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('listItems: required and optional params', async () => {
-    const response = await client.users.feeds.listItems('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      user_id: 'user_id',
-      after: 'after',
-      archived: 'exclude',
-      before: 'before',
-      has_tenant: true,
-      page_size: 0,
-      source: 'source',
-      status: 'unread',
-      tenant: 'tenant',
-      trigger_data: 'trigger_data',
-      workflow_categories: ['string'],
-    });
+  test.skip('listItems: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.users.feeds.listItems(
+        'user_id',
+        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+        {
+          after: 'after',
+          archived: 'exclude',
+          before: 'before',
+          has_tenant: true,
+          page_size: 0,
+          source: 'source',
+          status: 'unread',
+          tenant: 'tenant',
+          trigger_data: 'trigger_data',
+          workflow_categories: ['string'],
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Knock.NotFoundError);
   });
 });

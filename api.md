@@ -42,16 +42,16 @@ Methods:
 - <code title="get /v1/users">client.users.<a href="./src/resources/users/users.ts">list</a>({ ...params }) -> UsersEntriesCursor</code>
 - <code title="delete /v1/users/{user_id}">client.users.<a href="./src/resources/users/users.ts">delete</a>(userID) -> string</code>
 - <code title="get /v1/users/{user_id}">client.users.<a href="./src/resources/users/users.ts">get</a>(userID) -> User</code>
-- <code title="get /v1/users/{user_id}/channel_data/{channel_id}">client.users.<a href="./src/resources/users/users.ts">getChannelData</a>(channelID, { ...params }) -> ChannelData</code>
-- <code title="get /v1/users/{user_id}/preferences/{id}">client.users.<a href="./src/resources/users/users.ts">getPreferences</a>(id, { ...params }) -> PreferenceSet</code>
+- <code title="get /v1/users/{user_id}/channel_data/{channel_id}">client.users.<a href="./src/resources/users/users.ts">getChannelData</a>(userID, channelID) -> ChannelData</code>
+- <code title="get /v1/users/{user_id}/preferences/{preference_set_id}">client.users.<a href="./src/resources/users/users.ts">getPreferences</a>(userID, preferenceSetID, { ...params }) -> PreferenceSet</code>
 - <code title="get /v1/users/{user_id}/messages">client.users.<a href="./src/resources/users/users.ts">listMessages</a>(userID, { ...params }) -> MessagesEntriesCursor</code>
 - <code title="get /v1/users/{user_id}/preferences">client.users.<a href="./src/resources/users/users.ts">listPreferences</a>(userID) -> UserListPreferencesResponse</code>
 - <code title="get /v1/users/{user_id}/schedules">client.users.<a href="./src/resources/users/users.ts">listSchedules</a>(userID, { ...params }) -> SchedulesEntriesCursor</code>
 - <code title="get /v1/users/{user_id}/subscriptions">client.users.<a href="./src/resources/users/users.ts">listSubscriptions</a>(userID, { ...params }) -> SubscriptionsEntriesCursor</code>
 - <code title="post /v1/users/{user_id}/merge">client.users.<a href="./src/resources/users/users.ts">merge</a>(userID, { ...params }) -> User</code>
-- <code title="put /v1/users/{user_id}/channel_data/{channel_id}">client.users.<a href="./src/resources/users/users.ts">setChannelData</a>(channelID, { ...params }) -> ChannelData</code>
-- <code title="put /v1/users/{user_id}/preferences/{id}">client.users.<a href="./src/resources/users/users.ts">setPreferences</a>(id, { ...params }) -> PreferenceSet</code>
-- <code title="delete /v1/users/{user_id}/channel_data/{channel_id}">client.users.<a href="./src/resources/users/users.ts">unsetChannelData</a>(channelID, { ...params }) -> string</code>
+- <code title="put /v1/users/{user_id}/channel_data/{channel_id}">client.users.<a href="./src/resources/users/users.ts">setChannelData</a>(userID, channelID, { ...params }) -> ChannelData</code>
+- <code title="put /v1/users/{user_id}/preferences/{preference_set_id}">client.users.<a href="./src/resources/users/users.ts">setPreferences</a>(userID, preferenceSetID, { ...params }) -> PreferenceSet</code>
+- <code title="delete /v1/users/{user_id}/channel_data/{channel_id}">client.users.<a href="./src/resources/users/users.ts">unsetChannelData</a>(userID, channelID) -> string</code>
 
 ## Feeds
 
@@ -62,8 +62,8 @@ Types:
 
 Methods:
 
-- <code title="get /v1/users/{user_id}/feeds/{id}/settings">client.users.feeds.<a href="./src/resources/users/feeds.ts">getSettings</a>(id, { ...params }) -> FeedGetSettingsResponse</code>
-- <code title="get /v1/users/{user_id}/feeds/{id}">client.users.feeds.<a href="./src/resources/users/feeds.ts">listItems</a>(id, { ...params }) -> FeedListItemsResponsesEntriesCursor</code>
+- <code title="get /v1/users/{user_id}/feeds/{channel_id}/settings">client.users.feeds.<a href="./src/resources/users/feeds.ts">getSettings</a>(userID, channelID) -> FeedGetSettingsResponse</code>
+- <code title="get /v1/users/{user_id}/feeds/{channel_id}">client.users.feeds.<a href="./src/resources/users/feeds.ts">listItems</a>(userID, channelID, { ...params }) -> FeedListItemsResponsesEntriesCursor</code>
 
 ## Bulk
 
@@ -82,26 +82,24 @@ Types:
 - <code><a href="./src/resources/objects/objects.ts">ObjectDeleteResponse</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectAddSubscriptionsResponse</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectDeleteSubscriptionsResponse</a></code>
-- <code><a href="./src/resources/objects/objects.ts">ObjectListPreferencesResponse</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectUnsetChannelDataResponse</a></code>
 
 Methods:
 
 - <code title="get /v1/objects/{collection}">client.objects.<a href="./src/resources/objects/objects.ts">list</a>(collection, { ...params }) -> ObjectsEntriesCursor</code>
-- <code title="delete /v1/objects/{collection}/{id}">client.objects.<a href="./src/resources/objects/objects.ts">delete</a>(id, { ...params }) -> string</code>
-- <code title="post /v1/objects/{collection}/{object_id}/subscriptions">client.objects.<a href="./src/resources/objects/objects.ts">addSubscriptions</a>(objectID, { ...params }) -> ObjectAddSubscriptionsResponse</code>
-- <code title="delete /v1/objects/{collection}/{object_id}/subscriptions">client.objects.<a href="./src/resources/objects/objects.ts">deleteSubscriptions</a>(objectID, { ...params }) -> ObjectDeleteSubscriptionsResponse</code>
-- <code title="get /v1/objects/{collection}/{id}">client.objects.<a href="./src/resources/objects/objects.ts">get</a>(id, { ...params }) -> Object</code>
-- <code title="get /v1/objects/{collection}/{object_id}/channel_data/{channel_id}">client.objects.<a href="./src/resources/objects/objects.ts">getChannelData</a>(channelID, { ...params }) -> ChannelData</code>
-- <code title="get /v1/objects/{collection}/{object_id}/preferences/{id}">client.objects.<a href="./src/resources/objects/objects.ts">getPreferences</a>(id, { ...params }) -> PreferenceSet</code>
-- <code title="get /v1/objects/{collection}/{id}/messages">client.objects.<a href="./src/resources/objects/objects.ts">listMessages</a>(id, { ...params }) -> MessagesEntriesCursor</code>
-- <code title="get /v1/objects/{collection}/{object_id}/preferences">client.objects.<a href="./src/resources/objects/objects.ts">listPreferences</a>(objectID, { ...params }) -> ObjectListPreferencesResponse</code>
-- <code title="get /v1/objects/{collection}/{id}/schedules">client.objects.<a href="./src/resources/objects/objects.ts">listSchedules</a>(id, { ...params }) -> SchedulesEntriesCursor</code>
-- <code title="get /v1/objects/{collection}/{object_id}/subscriptions">client.objects.<a href="./src/resources/objects/objects.ts">listSubscriptions</a>(objectID, { ...params }) -> SubscriptionsEntriesCursor</code>
-- <code title="put /v1/objects/{collection}/{id}">client.objects.<a href="./src/resources/objects/objects.ts">set</a>(id, { ...params }) -> Object</code>
-- <code title="put /v1/objects/{collection}/{object_id}/channel_data/{channel_id}">client.objects.<a href="./src/resources/objects/objects.ts">setChannelData</a>(channelID, { ...params }) -> ChannelData</code>
-- <code title="put /v1/objects/{collection}/{object_id}/preferences/{id}">client.objects.<a href="./src/resources/objects/objects.ts">setPreferences</a>(id, { ...params }) -> PreferenceSet</code>
-- <code title="delete /v1/objects/{collection}/{object_id}/channel_data/{channel_id}">client.objects.<a href="./src/resources/objects/objects.ts">unsetChannelData</a>(channelID, { ...params }) -> string</code>
+- <code title="delete /v1/objects/{collection}/{object_id}">client.objects.<a href="./src/resources/objects/objects.ts">delete</a>(collection, objectID) -> string</code>
+- <code title="post /v1/objects/{collection}/{object_id}/subscriptions">client.objects.<a href="./src/resources/objects/objects.ts">addSubscriptions</a>(collection, objectID, { ...params }) -> ObjectAddSubscriptionsResponse</code>
+- <code title="delete /v1/objects/{collection}/{object_id}/subscriptions">client.objects.<a href="./src/resources/objects/objects.ts">deleteSubscriptions</a>(collection, objectID, { ...params }) -> ObjectDeleteSubscriptionsResponse</code>
+- <code title="get /v1/objects/{collection}/{object_id}">client.objects.<a href="./src/resources/objects/objects.ts">get</a>(collection, objectID) -> Object</code>
+- <code title="get /v1/objects/{collection}/{object_id}/channel_data/{channel_id}">client.objects.<a href="./src/resources/objects/objects.ts">getChannelData</a>(collection, objectID, channelID) -> ChannelData</code>
+- <code title="get /v1/objects/{collection}/{object_id}/preferences/{preference_set_id}">client.objects.<a href="./src/resources/objects/objects.ts">getPreferences</a>(collection, objectID, preferenceSetID, { ...params }) -> PreferenceSet</code>
+- <code title="get /v1/objects/{collection}/{object_id}/messages">client.objects.<a href="./src/resources/objects/objects.ts">listMessages</a>(collection, objectID, { ...params }) -> MessagesEntriesCursor</code>
+- <code title="get /v1/objects/{collection}/{object_id}/schedules">client.objects.<a href="./src/resources/objects/objects.ts">listSchedules</a>(collection, objectID, { ...params }) -> SchedulesEntriesCursor</code>
+- <code title="get /v1/objects/{collection}/{object_id}/subscriptions">client.objects.<a href="./src/resources/objects/objects.ts">listSubscriptions</a>(collection, objectID, { ...params }) -> SubscriptionsEntriesCursor</code>
+- <code title="put /v1/objects/{collection}/{object_id}">client.objects.<a href="./src/resources/objects/objects.ts">set</a>(collection, objectID, { ...params }) -> Object</code>
+- <code title="put /v1/objects/{collection}/{object_id}/channel_data/{channel_id}">client.objects.<a href="./src/resources/objects/objects.ts">setChannelData</a>(collection, objectID, channelID, { ...params }) -> ChannelData</code>
+- <code title="put /v1/objects/{collection}/{object_id}/preferences/{preference_set_id}">client.objects.<a href="./src/resources/objects/objects.ts">setPreferences</a>(collection, objectID, preferenceSetID, { ...params }) -> PreferenceSet</code>
+- <code title="delete /v1/objects/{collection}/{object_id}/channel_data/{channel_id}">client.objects.<a href="./src/resources/objects/objects.ts">unsetChannelData</a>(collection, objectID, channelID) -> string</code>
 
 ## Bulk
 
@@ -123,9 +121,9 @@ Types:
 Methods:
 
 - <code title="get /v1/tenants">client.tenants.<a href="./src/resources/tenants/tenants.ts">list</a>({ ...params }) -> TenantsEntriesCursor</code>
-- <code title="delete /v1/tenants/{id}">client.tenants.<a href="./src/resources/tenants/tenants.ts">delete</a>(id) -> string</code>
-- <code title="get /v1/tenants/{id}">client.tenants.<a href="./src/resources/tenants/tenants.ts">get</a>(id) -> Tenant</code>
-- <code title="put /v1/tenants/{id}">client.tenants.<a href="./src/resources/tenants/tenants.ts">set</a>(id, { ...params }) -> Tenant</code>
+- <code title="delete /v1/tenants/{tenant_id}">client.tenants.<a href="./src/resources/tenants/tenants.ts">delete</a>(tenantID) -> string</code>
+- <code title="get /v1/tenants/{tenant_id}">client.tenants.<a href="./src/resources/tenants/tenants.ts">get</a>(tenantID) -> Tenant</code>
+- <code title="put /v1/tenants/{tenant_id}">client.tenants.<a href="./src/resources/tenants/tenants.ts">set</a>(tenantID, { ...params }) -> Tenant</code>
 
 ## Bulk
 
@@ -261,7 +259,7 @@ Methods:
 
 Methods:
 
-- <code title="post /v1/channels/{channel_id}/messages/bulk/{action}">client.channels.bulk.<a href="./src/resources/channels/bulk.ts">updateMessageStatus</a>(action, { ...params }) -> BulkOperation</code>
+- <code title="post /v1/channels/{channel_id}/messages/bulk/{action}">client.channels.bulk.<a href="./src/resources/channels/bulk.ts">updateMessageStatus</a>(channelID, action, { ...params }) -> BulkOperation</code>
 
 # Audiences
 

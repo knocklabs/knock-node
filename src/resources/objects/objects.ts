@@ -35,9 +35,8 @@ export class Objects extends APIResource {
   /**
    * Delete an object
    */
-  delete(id: string, params: ObjectDeleteParams, options?: RequestOptions): APIPromise<string> {
-    const { collection } = params;
-    return this._client.delete(path`/v1/objects/${collection}/${id}`, options);
+  delete(collection: string, objectID: string, options?: RequestOptions): APIPromise<string> {
+    return this._client.delete(path`/v1/objects/${collection}/${objectID}`, options);
   }
 
   /**
@@ -45,11 +44,11 @@ export class Objects extends APIResource {
    * updated.
    */
   addSubscriptions(
+    collection: string,
     objectID: string,
-    params: ObjectAddSubscriptionsParams,
+    body: ObjectAddSubscriptionsParams,
     options?: RequestOptions,
   ): APIPromise<ObjectAddSubscriptionsResponse> {
-    const { collection, ...body } = params;
     return this._client.post(path`/v1/objects/${collection}/${objectID}/subscriptions`, { body, ...options });
   }
 
@@ -57,11 +56,11 @@ export class Objects extends APIResource {
    * Delete subscriptions
    */
   deleteSubscriptions(
+    collection: string,
     objectID: string,
-    params: ObjectDeleteSubscriptionsParams,
+    body: ObjectDeleteSubscriptionsParams,
     options?: RequestOptions,
   ): APIPromise<ObjectDeleteSubscriptionsResponse> {
-    const { collection, ...body } = params;
     return this._client.delete(path`/v1/objects/${collection}/${objectID}/subscriptions`, {
       body,
       ...options,
@@ -71,33 +70,33 @@ export class Objects extends APIResource {
   /**
    * Get an object
    */
-  get(id: string, params: ObjectGetParams, options?: RequestOptions): APIPromise<Object> {
-    const { collection } = params;
-    return this._client.get(path`/v1/objects/${collection}/${id}`, options);
+  get(collection: string, objectID: string, options?: RequestOptions): APIPromise<Object> {
+    return this._client.get(path`/v1/objects/${collection}/${objectID}`, options);
   }
 
   /**
    * Get channel data
    */
   getChannelData(
+    collection: string,
+    objectID: string,
     channelID: string,
-    params: ObjectGetChannelDataParams,
     options?: RequestOptions,
   ): APIPromise<RecipientsAPI.ChannelData> {
-    const { collection, object_id } = params;
-    return this._client.get(path`/v1/objects/${collection}/${object_id}/channel_data/${channelID}`, options);
+    return this._client.get(path`/v1/objects/${collection}/${objectID}/channel_data/${channelID}`, options);
   }
 
   /**
    * Get a preference set
    */
   getPreferences(
-    id: string,
-    params: ObjectGetPreferencesParams,
+    collection: string,
+    objectID: string,
+    preferenceSetID: string,
+    query: ObjectGetPreferencesParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<RecipientsAPI.PreferenceSet> {
-    const { collection, object_id, ...query } = params;
-    return this._client.get(path`/v1/objects/${collection}/${object_id}/preferences/${id}`, {
+    return this._client.get(path`/v1/objects/${collection}/${objectID}/preferences/${preferenceSetID}`, {
       query,
       ...options,
     });
@@ -107,41 +106,29 @@ export class Objects extends APIResource {
    * List messages
    */
   listMessages(
-    id: string,
-    params: ObjectListMessagesParams,
+    collection: string,
+    objectID: string,
+    query: ObjectListMessagesParams | null | undefined = {},
     options?: RequestOptions,
   ): PagePromise<MessagesEntriesCursor, MessagesAPI.Message> {
-    const { collection, ...query } = params;
     return this._client.getAPIList(
-      path`/v1/objects/${collection}/${id}/messages`,
+      path`/v1/objects/${collection}/${objectID}/messages`,
       EntriesCursor<MessagesAPI.Message>,
       { query, ...options },
     );
   }
 
   /**
-   * List preference sets
-   */
-  listPreferences(
-    objectID: string,
-    params: ObjectListPreferencesParams,
-    options?: RequestOptions,
-  ): APIPromise<ObjectListPreferencesResponse> {
-    const { collection } = params;
-    return this._client.get(path`/v1/objects/${collection}/${objectID}/preferences`, options);
-  }
-
-  /**
    * List schedules
    */
   listSchedules(
-    id: string,
-    params: ObjectListSchedulesParams,
+    collection: string,
+    objectID: string,
+    query: ObjectListSchedulesParams | null | undefined = {},
     options?: RequestOptions,
   ): PagePromise<SchedulesEntriesCursor, SchedulesAPI.Schedule> {
-    const { collection, ...query } = params;
     return this._client.getAPIList(
-      path`/v1/objects/${collection}/${id}/schedules`,
+      path`/v1/objects/${collection}/${objectID}/schedules`,
       EntriesCursor<SchedulesAPI.Schedule>,
       { query, ...options },
     );
@@ -153,11 +140,11 @@ export class Objects extends APIResource {
    * query parameter.
    */
   listSubscriptions(
+    collection: string,
     objectID: string,
-    params: ObjectListSubscriptionsParams,
+    query: ObjectListSubscriptionsParams | null | undefined = {},
     options?: RequestOptions,
   ): PagePromise<SubscriptionsEntriesCursor, RecipientsAPI.Subscription> {
-    const { collection, ...query } = params;
     return this._client.getAPIList(
       path`/v1/objects/${collection}/${objectID}/subscriptions`,
       EntriesCursor<RecipientsAPI.Subscription>,
@@ -168,21 +155,26 @@ export class Objects extends APIResource {
   /**
    * Set (identify) an object
    */
-  set(id: string, params: ObjectSetParams, options?: RequestOptions): APIPromise<Object> {
-    const { collection, ...body } = params;
-    return this._client.put(path`/v1/objects/${collection}/${id}`, { body, ...options });
+  set(
+    collection: string,
+    objectID: string,
+    body: ObjectSetParams,
+    options?: RequestOptions,
+  ): APIPromise<Object> {
+    return this._client.put(path`/v1/objects/${collection}/${objectID}`, { body, ...options });
   }
 
   /**
    * Set channel data
    */
   setChannelData(
+    collection: string,
+    objectID: string,
     channelID: string,
-    params: ObjectSetChannelDataParams,
+    body: ObjectSetChannelDataParams,
     options?: RequestOptions,
   ): APIPromise<RecipientsAPI.ChannelData> {
-    const { collection, object_id, ...body } = params;
-    return this._client.put(path`/v1/objects/${collection}/${object_id}/channel_data/${channelID}`, {
+    return this._client.put(path`/v1/objects/${collection}/${objectID}/channel_data/${channelID}`, {
       body,
       ...options,
     });
@@ -192,12 +184,13 @@ export class Objects extends APIResource {
    * Update a preference set
    */
   setPreferences(
-    id: string,
-    params: ObjectSetPreferencesParams,
+    collection: string,
+    objectID: string,
+    preferenceSetID: string,
+    body: ObjectSetPreferencesParams,
     options?: RequestOptions,
   ): APIPromise<RecipientsAPI.PreferenceSet> {
-    const { collection, object_id, ...body } = params;
-    return this._client.put(path`/v1/objects/${collection}/${object_id}/preferences/${id}`, {
+    return this._client.put(path`/v1/objects/${collection}/${objectID}/preferences/${preferenceSetID}`, {
       body,
       ...options,
     });
@@ -207,13 +200,13 @@ export class Objects extends APIResource {
    * Unset channel data
    */
   unsetChannelData(
+    collection: string,
+    objectID: string,
     channelID: string,
-    params: ObjectUnsetChannelDataParams,
     options?: RequestOptions,
   ): APIPromise<string> {
-    const { collection, object_id } = params;
     return this._client.delete(
-      path`/v1/objects/${collection}/${object_id}/channel_data/${channelID}`,
+      path`/v1/objects/${collection}/${objectID}/channel_data/${channelID}`,
       options,
     );
   }
@@ -275,186 +268,114 @@ export type ObjectAddSubscriptionsResponse = Array<RecipientsAPI.Subscription>;
 export type ObjectDeleteSubscriptionsResponse = Array<RecipientsAPI.Subscription>;
 
 /**
- * A list of preference sets for the object
- */
-export type ObjectListPreferencesResponse = Array<RecipientsAPI.PreferenceSet>;
-
-/**
  * An empty response
  */
 export type ObjectUnsetChannelDataResponse = string;
 
 export interface ObjectListParams extends EntriesCursorParams {}
 
-export interface ObjectDeleteParams {
-  /**
-   * Collection name
-   */
-  collection: string;
-}
-
 export interface ObjectAddSubscriptionsParams {
   /**
-   * Path param: Collection name
-   */
-  collection: string;
-
-  /**
-   * Body param: The recipients to subscribe to the object
+   * The recipients to subscribe to the object
    */
   recipients: Array<RecipientsAPI.RecipientRequest>;
 
   /**
-   * Body param: The custom properties associated with the subscription
+   * The custom properties associated with the subscription
    */
   properties?: Record<string, unknown> | null;
 }
 
 export interface ObjectDeleteSubscriptionsParams {
-  /**
-   * Path param: Collection name
-   */
-  collection: string;
-
-  /**
-   * Body param:
-   */
   recipients: Array<RecipientsAPI.RecipientRequest>;
-}
-
-export interface ObjectGetParams {
-  /**
-   * Collection name
-   */
-  collection: string;
-}
-
-export interface ObjectGetChannelDataParams {
-  /**
-   * The collection
-   */
-  collection: string;
-
-  /**
-   * The object ID
-   */
-  object_id: string;
 }
 
 export interface ObjectGetPreferencesParams {
   /**
-   * Path param: Collection
-   */
-  collection: string;
-
-  /**
-   * Path param: Object ID
-   */
-  object_id: string;
-
-  /**
-   * Query param: Tenant ID
+   * Tenant ID
    */
   tenant?: string;
 }
 
 export interface ObjectListMessagesParams extends EntriesCursorParams {
   /**
-   * Path param: The collection name
-   */
-  collection: string;
-
-  /**
-   * Query param: The channel ID
+   * The channel ID
    */
   channel_id?: string;
 
   /**
-   * Query param: The engagement status of the message
+   * The engagement status of the message
    */
   engagement_status?: Array<'seen' | 'read' | 'interacted' | 'link_clicked' | 'archived'>;
 
   /**
-   * Query param: The message IDs to filter messages by
+   * The message IDs to filter messages by
    */
   message_ids?: Array<string>;
 
   /**
-   * Query param: The source of the message (workflow key)
+   * The source of the message (workflow key)
    */
   source?: string;
 
   /**
-   * Query param: The status of the message
+   * The status of the message
    */
   status?: Array<
     'queued' | 'sent' | 'delivered' | 'delivery_attempted' | 'undelivered' | 'not_sent' | 'bounced'
   >;
 
   /**
-   * Query param: The tenant ID
+   * The tenant ID
    */
   tenant?: string;
 
   /**
-   * Query param: The trigger data to filter messages by. Must be a valid JSON
-   * object.
+   * The trigger data to filter messages by. Must be a valid JSON object.
    */
   trigger_data?: string;
 
   /**
-   * Query param: The workflow categories to filter messages by
+   * The workflow categories to filter messages by
    */
   workflow_categories?: Array<string>;
 
   /**
-   * Query param: The workflow recipient run ID to filter messages by
+   * The workflow recipient run ID to filter messages by
    */
   workflow_recipient_run_id?: string;
 
   /**
-   * Query param: The workflow run ID to filter messages by
+   * The workflow run ID to filter messages by
    */
   workflow_run_id?: string;
 }
 
-export interface ObjectListPreferencesParams {
-  /**
-   * Collection
-   */
-  collection: string;
-}
-
 export interface ObjectListSchedulesParams extends EntriesCursorParams {
   /**
-   * Path param: The collection of the object to list schedules for
-   */
-  collection: string;
-
-  /**
-   * Query param: The ID of the tenant to list schedules for
+   * The ID of the tenant to list schedules for
    */
   tenant?: string;
 
   /**
-   * Query param: The ID of the workflow to list schedules for
+   * The ID of the workflow to list schedules for
    */
   workflow?: string;
 }
 
 export interface ObjectListSubscriptionsParams extends EntriesCursorParams {
   /**
-   * Path param: Collection name
-   */
-  collection: string;
-
-  /**
-   * Query param: Mode of the request
+   * Mode of the request
    */
   mode?: 'recipient' | 'object';
 
   /**
-   * Query param: Recipients to filter by (only used if mode is `object`)
+   * Objects to filter by (only used if mode is `recipient`)
+   */
+  objects?: Array<string | ObjectListSubscriptionsParams.ObjectReference>;
+
+  /**
+   * Recipients to filter by (only used if mode is `object`)
    */
   recipients?: Array<string | ObjectListSubscriptionsParams.ObjectReference>;
 }
@@ -474,39 +395,38 @@ export namespace ObjectListSubscriptionsParams {
      */
     collection: string;
   }
+
+  /**
+   * An object reference to a recipient
+   */
+  export interface ObjectReference {
+    /**
+     * An object identifier
+     */
+    id: string;
+
+    /**
+     * The collection the object belongs to
+     */
+    collection: string;
+  }
 }
 
 export interface ObjectSetParams {
   /**
-   * Path param: Collection name
-   */
-  collection: string;
-
-  /**
-   * Body param: Allows inline setting channel data for a recipient
+   * Allows inline setting channel data for a recipient
    */
   channel_data?: RecipientsAPI.InlineChannelDataRequest | null;
 
   /**
-   * Body param: Inline set preferences for a recipient, where the key is the
-   * preference set name
+   * Inline set preferences for a recipient, where the key is the preference set name
    */
   preferences?: RecipientsAPI.InlinePreferenceSetRequest | null;
 }
 
 export interface ObjectSetChannelDataParams {
   /**
-   * Path param: The collection
-   */
-  collection: string;
-
-  /**
-   * Path param: The object ID
-   */
-  object_id: string;
-
-  /**
-   * Body param: Channel data for push providers
+   * Channel data for push providers
    */
   data:
     | RecipientsAPI.PushChannelData
@@ -518,18 +438,8 @@ export interface ObjectSetChannelDataParams {
 
 export interface ObjectSetPreferencesParams {
   /**
-   * Path param: Collection
-   */
-  collection: string;
-
-  /**
-   * Path param: Object ID
-   */
-  object_id: string;
-
-  /**
-   * Body param: A setting for a preference set, where the key in the object is the
-   * category, and the values are the preference settings for that category.
+   * A setting for a preference set, where the key in the object is the category, and
+   * the values are the preference settings for that category.
    */
   categories?: Record<
     string,
@@ -537,13 +447,13 @@ export interface ObjectSetPreferencesParams {
   > | null;
 
   /**
-   * Body param: Channel type preferences
+   * Channel type preferences
    */
   channel_types?: RecipientsAPI.PreferenceSetChannelTypes | null;
 
   /**
-   * Body param: A setting for a preference set, where the key in the object is the
-   * workflow key, and the values are the preference settings for that workflow.
+   * A setting for a preference set, where the key in the object is the workflow key,
+   * and the values are the preference settings for that workflow.
    */
   workflows?: Record<
     string,
@@ -579,18 +489,6 @@ export namespace ObjectSetPreferencesParams {
   }
 }
 
-export interface ObjectUnsetChannelDataParams {
-  /**
-   * The collection
-   */
-  collection: string;
-
-  /**
-   * The object ID
-   */
-  object_id: string;
-}
-
 Objects.Bulk = Bulk;
 
 export declare namespace Objects {
@@ -600,24 +498,18 @@ export declare namespace Objects {
     type ObjectDeleteResponse as ObjectDeleteResponse,
     type ObjectAddSubscriptionsResponse as ObjectAddSubscriptionsResponse,
     type ObjectDeleteSubscriptionsResponse as ObjectDeleteSubscriptionsResponse,
-    type ObjectListPreferencesResponse as ObjectListPreferencesResponse,
     type ObjectUnsetChannelDataResponse as ObjectUnsetChannelDataResponse,
     type ObjectsEntriesCursor as ObjectsEntriesCursor,
     type ObjectListParams as ObjectListParams,
-    type ObjectDeleteParams as ObjectDeleteParams,
     type ObjectAddSubscriptionsParams as ObjectAddSubscriptionsParams,
     type ObjectDeleteSubscriptionsParams as ObjectDeleteSubscriptionsParams,
-    type ObjectGetParams as ObjectGetParams,
-    type ObjectGetChannelDataParams as ObjectGetChannelDataParams,
     type ObjectGetPreferencesParams as ObjectGetPreferencesParams,
     type ObjectListMessagesParams as ObjectListMessagesParams,
-    type ObjectListPreferencesParams as ObjectListPreferencesParams,
     type ObjectListSchedulesParams as ObjectListSchedulesParams,
     type ObjectListSubscriptionsParams as ObjectListSubscriptionsParams,
     type ObjectSetParams as ObjectSetParams,
     type ObjectSetChannelDataParams as ObjectSetChannelDataParams,
     type ObjectSetPreferencesParams as ObjectSetPreferencesParams,
-    type ObjectUnsetChannelDataParams as ObjectUnsetChannelDataParams,
   };
 
   export {

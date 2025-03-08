@@ -14,6 +14,7 @@ export class Bulk extends APIResource {
    * `unarchive`).
    */
   updateMessageStatus(
+    channelID: string,
     action:
       | 'seen'
       | 'unseen'
@@ -25,28 +26,16 @@ export class Bulk extends APIResource {
       | 'archive'
       | 'unarchive'
       | 'delete',
-    params: BulkUpdateMessageStatusParams,
+    body: BulkUpdateMessageStatusParams,
     options?: RequestOptions,
   ): APIPromise<BulkOperationsAPI.BulkOperation> {
-    const { channel_id, ...body } = params;
-    return this._client.post(path`/v1/channels/${channel_id}/messages/bulk/${action}`, { body, ...options });
+    return this._client.post(path`/v1/channels/${channelID}/messages/bulk/${action}`, { body, ...options });
   }
 }
 
 export interface BulkUpdateMessageStatusParams {
-  /**
-   * Path param: The ID of the channel to update messages for
-   */
-  channel_id: string;
-
-  /**
-   * Body param:
-   */
   archived?: 'exclude' | 'include' | 'only';
 
-  /**
-   * Body param:
-   */
   delivery_status?:
     | 'queued'
     | 'sent'
@@ -56,9 +45,6 @@ export interface BulkUpdateMessageStatusParams {
     | 'not_sent'
     | 'bounced';
 
-  /**
-   * Body param:
-   */
   engagement_status?:
     | 'seen'
     | 'unseen'
@@ -69,39 +55,18 @@ export interface BulkUpdateMessageStatusParams {
     | 'link_clicked'
     | 'interacted';
 
-  /**
-   * Body param:
-   */
   has_tenant?: boolean;
 
-  /**
-   * Body param:
-   */
   newer_than?: string;
 
-  /**
-   * Body param:
-   */
   older_than?: string;
 
-  /**
-   * Body param:
-   */
   recipient_ids?: Array<string>;
 
-  /**
-   * Body param:
-   */
   tenants?: Array<string>;
 
-  /**
-   * Body param:
-   */
   trigger_data?: string;
 
-  /**
-   * Body param:
-   */
   workflows?: Array<string>;
 }
 

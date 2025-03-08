@@ -13,12 +13,11 @@ export class Feeds extends APIResource {
    * Returns the feed settings for a user.
    */
   getSettings(
-    id: string,
-    params: FeedGetSettingsParams,
+    userID: string,
+    channelID: string,
     options?: RequestOptions,
   ): APIPromise<FeedGetSettingsResponse> {
-    const { user_id } = params;
-    return this._client.get(path`/v1/users/${user_id}/feeds/${id}/settings`, options);
+    return this._client.get(path`/v1/users/${userID}/feeds/${channelID}/settings`, options);
   }
 
   /**
@@ -26,13 +25,13 @@ export class Feeds extends APIResource {
    * feed.
    */
   listItems(
-    id: string,
-    params: FeedListItemsParams,
+    userID: string,
+    channelID: string,
+    query: FeedListItemsParams | null | undefined = {},
     options?: RequestOptions,
   ): PagePromise<FeedListItemsResponsesEntriesCursor, FeedListItemsResponse> {
-    const { user_id, ...query } = params;
     return this._client.getAPIList(
-      path`/v1/users/${user_id}/feeds/${id}`,
+      path`/v1/users/${userID}/feeds/${channelID}`,
       EntriesCursor<FeedListItemsResponse>,
       { query, ...options },
     );
@@ -146,51 +145,39 @@ export namespace FeedListItemsResponse {
   }
 }
 
-export interface FeedGetSettingsParams {
-  /**
-   * The user ID
-   */
-  user_id: string;
-}
-
 export interface FeedListItemsParams extends EntriesCursorParams {
   /**
-   * Path param: The user ID
-   */
-  user_id: string;
-
-  /**
-   * Query param: The archived status of the feed items to return
+   * The archived status of the feed items to return
    */
   archived?: 'exclude' | 'include' | 'only';
 
   /**
-   * Query param: Whether the feed items have a tenant
+   * Whether the feed items have a tenant
    */
   has_tenant?: boolean;
 
   /**
-   * Query param: The source of the feed items to return
+   * The source of the feed items to return
    */
   source?: string;
 
   /**
-   * Query param: The status of the feed items to return
+   * The status of the feed items to return
    */
   status?: 'unread' | 'read' | 'unseen' | 'seen' | 'all';
 
   /**
-   * Query param: The tenant of the feed items to return
+   * The tenant of the feed items to return
    */
   tenant?: string;
 
   /**
-   * Query param: The trigger data of the feed items to return (as a JSON string)
+   * The trigger data of the feed items to return (as a JSON string)
    */
   trigger_data?: string;
 
   /**
-   * Query param: The workflow categories of the feed items to return
+   * The workflow categories of the feed items to return
    */
   workflow_categories?: Array<string>;
 }
@@ -200,7 +187,6 @@ export declare namespace Feeds {
     type FeedGetSettingsResponse as FeedGetSettingsResponse,
     type FeedListItemsResponse as FeedListItemsResponse,
     type FeedListItemsResponsesEntriesCursor as FeedListItemsResponsesEntriesCursor,
-    type FeedGetSettingsParams as FeedGetSettingsParams,
     type FeedListItemsParams as FeedListItemsParams,
   };
 }

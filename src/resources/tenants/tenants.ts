@@ -25,22 +25,22 @@ export class Tenants extends APIResource {
   /**
    * Delete a tenant
    */
-  delete(id: string, options?: RequestOptions): APIPromise<string> {
-    return this._client.delete(path`/v1/tenants/${id}`, options);
+  delete(tenantID: string, options?: RequestOptions): APIPromise<string> {
+    return this._client.delete(path`/v1/tenants/${tenantID}`, options);
   }
 
   /**
    * Get a tenant
    */
-  get(id: string, options?: RequestOptions): APIPromise<Tenant> {
-    return this._client.get(path`/v1/tenants/${id}`, options);
+  get(tenantID: string, options?: RequestOptions): APIPromise<Tenant> {
+    return this._client.get(path`/v1/tenants/${tenantID}`, options);
   }
 
   /**
    * Set a tenant
    */
-  set(id: string, body: TenantSetParams, options?: RequestOptions): APIPromise<Tenant> {
-    return this._client.put(path`/v1/tenants/${id}`, { body, ...options });
+  set(tenantID: string, body: TenantSetParams, options?: RequestOptions): APIPromise<Tenant> {
+    return this._client.put(path`/v1/tenants/${tenantID}`, { body, ...options });
   }
 }
 

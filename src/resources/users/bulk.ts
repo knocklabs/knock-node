@@ -11,13 +11,8 @@ export class Bulk extends APIResource {
   /**
    * Bulk delete users
    */
-  delete(params: BulkDeleteParams, options?: RequestOptions): APIPromise<BulkOperationsAPI.BulkOperation> {
-    const { query_user_ids, ...body } = params;
-    return this._client.post('/v1/users/bulk/delete', {
-      query: { user_ids: query_user_ids },
-      body,
-      ...options,
-    });
+  delete(body: BulkDeleteParams, options?: RequestOptions): APIPromise<BulkOperationsAPI.BulkOperation> {
+    return this._client.post('/v1/users/bulk/delete', { body, ...options });
   }
 
   /**
@@ -39,15 +34,7 @@ export class Bulk extends APIResource {
 }
 
 export interface BulkDeleteParams {
-  /**
-   * Query param: The IDs of the users to delete
-   */
-  query_user_ids: Array<string>;
-
-  /**
-   * Body param:
-   */
-  body_user_ids: Array<string>;
+  user_ids: Array<string>;
 }
 
 export interface BulkIdentifyParams {

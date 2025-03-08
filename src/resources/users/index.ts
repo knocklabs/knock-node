@@ -5,7 +5,6 @@ export {
   Feeds,
   type FeedGetSettingsResponse,
   type FeedListItemsResponse,
-  type FeedGetSettingsParams,
   type FeedListItemsParams,
   type FeedListItemsResponsesEntriesCursor,
 } from './feeds';
@@ -19,7 +18,6 @@ export {
   type UserUnsetChannelDataResponse,
   type UserUpdateParams,
   type UserListParams,
-  type UserGetChannelDataParams,
   type UserGetPreferencesParams,
   type UserListMessagesParams,
   type UserListSchedulesParams,
@@ -27,6 +25,5 @@ export {
   type UserMergeParams,
   type UserSetChannelDataParams,
   type UserSetPreferencesParams,
-  type UserUnsetChannelDataParams,
   type UsersEntriesCursor,
 } from './users';
