@@ -220,3 +220,55 @@ export class ItemsCursor<Item> extends AbstractPage<Item> implements ItemsCursor
     };
   }
 }
+
+export interface SlackChannelsCursorResponse<Item> {
+  next_cursor: string;
+
+  slack_channels: Array<Item>;
+}
+
+export interface SlackChannelsCursorParams {
+  'query_options.cursor'?: string;
+
+  'query_options.limit'?: number;
+}
+
+export class SlackChannelsCursor<Item>
+  extends AbstractPage<Item>
+  implements SlackChannelsCursorResponse<Item>
+{
+  next_cursor: string;
+
+  slack_channels: Array<Item>;
+
+  constructor(
+    client: Knock,
+    response: Response,
+    body: SlackChannelsCursorResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
+    super(client, response, body, options);
+
+    this.next_cursor = body.next_cursor || '';
+    this.slack_channels = body.slack_channels || [];
+  }
+
+  getPaginatedItems(): Item[] {
+    return this.slack_channels ?? [];
+  }
+
+  nextPageRequestOptions(): PageRequestOptions | null {
+    const cursor = this.next_cursor;
+    if (!cursor) {
+      return null;
+    }
+
+    return {
+      ...this.options,
+      query: {
+        ...maybeObj(this.options.query),
+        'query_options.cursor': cursor,
+      },
+    };
+  }
+}

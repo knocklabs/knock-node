@@ -20,6 +20,8 @@ import {
   EntriesCursorResponse,
   type ItemsCursorParams,
   ItemsCursorResponse,
+  type SlackChannelsCursorParams,
+  SlackChannelsCursorResponse,
 } from './pagination';
 import * as Uploads from './uploads';
 import * as API from './resources/index';
@@ -878,6 +880,12 @@ export declare namespace Knock {
 
   export import ItemsCursor = Pagination.ItemsCursor;
   export { type ItemsCursorParams as ItemsCursorParams, type ItemsCursorResponse as ItemsCursorResponse };
+
+  export import SlackChannelsCursor = Pagination.SlackChannelsCursor;
+  export {
+    type SlackChannelsCursorParams as SlackChannelsCursorParams,
+    type SlackChannelsCursorResponse as SlackChannelsCursorResponse,
+  };
 
   export {
     Recipients as Recipients,

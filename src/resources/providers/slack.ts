@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../resource';
 import { APIPromise } from '../../api-promise';
+import { PagePromise, SlackChannelsCursor, type SlackChannelsCursorParams } from '../../pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -24,8 +25,12 @@ export class Slack extends APIResource {
     channelID: string,
     query: SlackListChannelsParams,
     options?: RequestOptions,
-  ): APIPromise<SlackListChannelsResponse> {
-    return this._client.get(path`/v1/providers/slack/${channelID}/channels`, { query, ...options });
+  ): PagePromise<SlackListChannelsResponsesSlackChannelsCursor, SlackListChannelsResponse> {
+    return this._client.getAPIList(
+      path`/v1/providers/slack/${channelID}/channels`,
+      SlackChannelsCursor<SlackListChannelsResponse>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -44,6 +49,8 @@ export class Slack extends APIResource {
   }
 }
 
+export type SlackListChannelsResponsesSlackChannelsCursor = SlackChannelsCursor<SlackListChannelsResponse>;
+
 /**
  * The response from a Slack auth check request
  */
@@ -59,27 +66,16 @@ export namespace SlackCheckAuthResponse {
   }
 }
 
-/**
- * The response from a Slack channels for provider request
- */
 export interface SlackListChannelsResponse {
-  next_cursor: string | null;
+  id: string;
 
-  slack_channels: Array<SlackListChannelsResponse.SlackChannel>;
-}
+  context_team_id: string;
 
-export namespace SlackListChannelsResponse {
-  export interface SlackChannel {
-    id: string;
+  is_im: boolean;
 
-    context_team_id: string;
+  is_private: boolean;
 
-    is_im: boolean;
-
-    is_private: boolean;
-
-    name: string;
-  }
+  name: string;
 }
 
 export type SlackRevokeAccessResponse = string;
@@ -91,7 +87,7 @@ export interface SlackCheckAuthParams {
   access_token_object: string;
 }
 
-export interface SlackListChannelsParams {
+export interface SlackListChannelsParams extends SlackChannelsCursorParams {
   /**
    * A JSON encoded string containing the access token object reference
    */
@@ -141,6 +137,7 @@ export declare namespace Slack {
     type SlackCheckAuthResponse as SlackCheckAuthResponse,
     type SlackListChannelsResponse as SlackListChannelsResponse,
     type SlackRevokeAccessResponse as SlackRevokeAccessResponse,
+    type SlackListChannelsResponsesSlackChannelsCursor as SlackListChannelsResponsesSlackChannelsCursor,
     type SlackCheckAuthParams as SlackCheckAuthParams,
     type SlackListChannelsParams as SlackListChannelsParams,
     type SlackRevokeAccessParams as SlackRevokeAccessParams,

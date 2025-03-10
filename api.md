@@ -205,7 +205,7 @@ Types:
 Methods:
 
 - <code title="get /v1/providers/slack/{channel_id}/auth_check">client.providers.slack.<a href="./src/resources/providers/slack.ts">checkAuth</a>(channelID, { ...params }) -> SlackCheckAuthResponse</code>
-- <code title="get /v1/providers/slack/{channel_id}/channels">client.providers.slack.<a href="./src/resources/providers/slack.ts">listChannels</a>(channelID, { ...params }) -> SlackListChannelsResponse</code>
+- <code title="get /v1/providers/slack/{channel_id}/channels">client.providers.slack.<a href="./src/resources/providers/slack.ts">listChannels</a>(channelID, { ...params }) -> SlackListChannelsResponsesSlackChannelsCursor</code>
 - <code title="put /v1/providers/slack/{channel_id}/revoke_access">client.providers.slack.<a href="./src/resources/providers/slack.ts">revokeAccess</a>(channelID, { ...params }) -> string</code>
 
 ## MsTeams
