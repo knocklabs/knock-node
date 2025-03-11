@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../resource';
-import * as RecipientsAPI from './recipients';
+import * as RecipientsAPI from './recipients/recipients';
 import * as TenantsAPI from './tenants/tenants';
 import { APIPromise } from '../api-promise';
 import { RequestOptions } from '../internal/request-options';

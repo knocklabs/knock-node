@@ -40,25 +40,6 @@ import {
 } from './resources/audiences';
 import { BulkOperation, BulkOperations } from './resources/bulk-operations';
 import {
-  ChannelData,
-  ChannelDataRequest,
-  DiscordChannelData,
-  InlineChannelDataRequest,
-  InlinePreferenceSetRequest,
-  MsTeamsChannelData,
-  OneSignalChannelData,
-  PreferenceSet,
-  PreferenceSetChannelTypeSetting,
-  PreferenceSetChannelTypes,
-  PreferenceSetRequest,
-  PushChannelData,
-  Recipient,
-  RecipientRequest,
-  Recipients,
-  SlackChannelData,
-  Subscription,
-} from './resources/recipients';
-import {
   Schedule,
   ScheduleCreateParams,
   ScheduleCreateResponse,
@@ -120,6 +101,7 @@ import {
   ObjectsEntriesCursor,
 } from './resources/objects/objects';
 import { Providers } from './resources/providers/providers';
+import { Recipient, RecipientRequest, Recipients } from './resources/recipients/recipients';
 import {
   InlineTenantRequest,
   Tenant,
@@ -887,25 +869,7 @@ export declare namespace Knock {
     type SlackChannelsCursorResponse as SlackChannelsCursorResponse,
   };
 
-  export {
-    Recipients as Recipients,
-    type ChannelData as ChannelData,
-    type ChannelDataRequest as ChannelDataRequest,
-    type DiscordChannelData as DiscordChannelData,
-    type InlineChannelDataRequest as InlineChannelDataRequest,
-    type InlinePreferenceSetRequest as InlinePreferenceSetRequest,
-    type MsTeamsChannelData as MsTeamsChannelData,
-    type OneSignalChannelData as OneSignalChannelData,
-    type PreferenceSet as PreferenceSet,
-    type PreferenceSetChannelTypeSetting as PreferenceSetChannelTypeSetting,
-    type PreferenceSetChannelTypes as PreferenceSetChannelTypes,
-    type PreferenceSetRequest as PreferenceSetRequest,
-    type PushChannelData as PushChannelData,
-    type Recipient as Recipient,
-    type RecipientRequest as RecipientRequest,
-    type SlackChannelData as SlackChannelData,
-    type Subscription as Subscription,
-  };
+  export { Recipients as Recipients, type Recipient as Recipient, type RecipientRequest as RecipientRequest };
 
   export {
     Users as Users,

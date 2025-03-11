@@ -50,26 +50,7 @@ export {
   type ObjectsEntriesCursor,
 } from './objects/objects';
 export { Providers } from './providers/providers';
-export {
-  Recipients,
-  type ChannelData,
-  type ChannelDataRequest,
-  type DiscordChannelData,
-  type InlineChannelDataRequest,
-  type InlinePreferenceSetRequest,
-  type MsTeamsChannelData,
-  type OneSignalChannelData,
-  type PreferenceSet,
-  type PreferenceSetChannelTypeSetting,
-  type PreferenceSetChannelTypes,
-  type PreferenceSetRequest,
-  type PushChannelData,
-  type Recipient,
-  type RecipientRequest,
-  type SlackChannelData,
-  type Subscription,
-  type SubscriptionsEntriesCursor,
-} from './recipients';
+export { Recipients, type Recipient, type RecipientRequest } from './recipients/recipients';
 export {
   Schedules,
   type Schedule,

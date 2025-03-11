@@ -2,8 +2,8 @@
 
 import { APIResource } from '../../resource';
 import * as BulkOperationsAPI from '../bulk-operations';
-import * as RecipientsAPI from '../recipients';
 import * as ObjectsAPI from './objects';
+import * as RecipientsAPI from '../recipients/recipients';
 import { APIPromise } from '../../api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';

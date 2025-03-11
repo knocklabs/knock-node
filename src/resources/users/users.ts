@@ -1,13 +1,15 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
-import * as RecipientsAPI from '../recipients';
-import { SubscriptionsEntriesCursor } from '../recipients';
 import * as SchedulesAPI from '../schedules';
 import { SchedulesEntriesCursor } from '../schedules';
 import * as Shared from '../shared';
 import * as MessagesAPI from '../messages/messages';
 import { MessagesEntriesCursor } from '../messages/messages';
+import * as ChannelDataAPI from '../recipients/channel-data';
+import * as PreferencesAPI from '../recipients/preferences';
+import * as SubscriptionsAPI from '../recipients/subscriptions';
+import { SubscriptionsEntriesCursor } from '../recipients/subscriptions';
 import * as BulkAPI from './bulk';
 import { Bulk, BulkDeleteParams, BulkIdentifyParams, BulkSetPreferencesParams } from './bulk';
 import * as FeedsAPI from './feeds';
@@ -65,7 +67,7 @@ export class Users extends APIResource {
     userID: string,
     channelID: string,
     options?: RequestOptions,
-  ): APIPromise<RecipientsAPI.ChannelData> {
+  ): APIPromise<ChannelDataAPI.ChannelData> {
     return this._client.get(path`/v1/users/${userID}/channel_data/${channelID}`, options);
   }
 
@@ -77,7 +79,7 @@ export class Users extends APIResource {
     preferenceSetID: string,
     query: UserGetPreferencesParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<RecipientsAPI.PreferenceSet> {
+  ): APIPromise<PreferencesAPI.PreferenceSet> {
     return this._client.get(path`/v1/users/${userID}/preferences/${preferenceSetID}`, { query, ...options });
   }
 
@@ -124,10 +126,10 @@ export class Users extends APIResource {
     userID: string,
     query: UserListSubscriptionsParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<SubscriptionsEntriesCursor, RecipientsAPI.Subscription> {
+  ): PagePromise<SubscriptionsEntriesCursor, SubscriptionsAPI.Subscription> {
     return this._client.getAPIList(
       path`/v1/users/${userID}/subscriptions`,
-      EntriesCursor<RecipientsAPI.Subscription>,
+      EntriesCursor<SubscriptionsAPI.Subscription>,
       { query, ...options },
     );
   }
@@ -148,7 +150,7 @@ export class Users extends APIResource {
     channelID: string,
     body: UserSetChannelDataParams,
     options?: RequestOptions,
-  ): APIPromise<RecipientsAPI.ChannelData> {
+  ): APIPromise<ChannelDataAPI.ChannelData> {
     return this._client.put(path`/v1/users/${userID}/channel_data/${channelID}`, { body, ...options });
   }
 
@@ -161,7 +163,7 @@ export class Users extends APIResource {
     preferenceSetID: string,
     body: UserSetPreferencesParams,
     options?: RequestOptions,
-  ): APIPromise<RecipientsAPI.PreferenceSet> {
+  ): APIPromise<PreferencesAPI.PreferenceSet> {
     return this._client.put(path`/v1/users/${userID}/preferences/${preferenceSetID}`, { body, ...options });
   }
 
@@ -184,14 +186,14 @@ export interface IdentifyUserRequest {
   /**
    * Allows inline setting channel data for a recipient
    */
-  channel_data?: RecipientsAPI.InlineChannelDataRequest | null;
+  channel_data?: ChannelDataAPI.InlineChannelDataRequest | null;
 
   created_at?: string | null;
 
   /**
    * Inline set preferences for a recipient, where the key is the preference set name
    */
-  preferences?: RecipientsAPI.InlinePreferenceSetRequest | null;
+  preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
   [k: string]: unknown;
 }
 
@@ -210,7 +212,7 @@ export interface InlineIdentifyUserRequest {
   /**
    * Allows inline setting channel data for a recipient
    */
-  channel_data?: RecipientsAPI.InlineChannelDataRequest | null;
+  channel_data?: ChannelDataAPI.InlineChannelDataRequest | null;
 
   /**
    * The creation date of the user from your system.
@@ -220,7 +222,7 @@ export interface InlineIdentifyUserRequest {
   /**
    * Inline set preferences for a recipient, where the key is the preference set name
    */
-  preferences?: RecipientsAPI.InlinePreferenceSetRequest | null;
+  preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
   [k: string]: unknown;
 }
 
@@ -256,7 +258,7 @@ export type UserDeleteResponse = string;
 /**
  * A list of preference sets for the user
  */
-export type UserListPreferencesResponse = Array<RecipientsAPI.PreferenceSet>;
+export type UserListPreferencesResponse = Array<PreferencesAPI.PreferenceSet>;
 
 /**
  * An empty response
@@ -267,14 +269,14 @@ export interface UserUpdateParams {
   /**
    * Allows inline setting channel data for a recipient
    */
-  channel_data?: RecipientsAPI.InlineChannelDataRequest | null;
+  channel_data?: ChannelDataAPI.InlineChannelDataRequest | null;
 
   created_at?: string | null;
 
   /**
    * Inline set preferences for a recipient, where the key is the preference set name
    */
-  preferences?: RecipientsAPI.InlinePreferenceSetRequest | null;
+  preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
 }
 
 export interface UserListParams extends EntriesCursorParams {}
@@ -366,11 +368,11 @@ export interface UserSetChannelDataParams {
    * Channel data for push providers
    */
   data:
-    | RecipientsAPI.PushChannelData
-    | RecipientsAPI.OneSignalChannelData
-    | RecipientsAPI.SlackChannelData
-    | RecipientsAPI.MsTeamsChannelData
-    | RecipientsAPI.DiscordChannelData;
+    | ChannelDataAPI.PushChannelData
+    | ChannelDataAPI.OneSignalChannelData
+    | ChannelDataAPI.SlackChannelData
+    | ChannelDataAPI.MsTeamsChannelData
+    | ChannelDataAPI.DiscordChannelData;
 }
 
 export interface UserSetPreferencesParams {
@@ -386,7 +388,7 @@ export interface UserSetPreferencesParams {
   /**
    * Channel type preferences
    */
-  channel_types?: RecipientsAPI.PreferenceSetChannelTypes | null;
+  channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
 
   /**
    * A setting for a preference set, where the key in the object is the workflow key,
@@ -407,7 +409,7 @@ export namespace UserSetPreferencesParams {
     /**
      * Channel type preferences
      */
-    channel_types?: RecipientsAPI.PreferenceSetChannelTypes | null;
+    channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
 
     conditions?: Array<Shared.Condition> | null;
   }
@@ -420,7 +422,7 @@ export namespace UserSetPreferencesParams {
     /**
      * Channel type preferences
      */
-    channel_types?: RecipientsAPI.PreferenceSetChannelTypes | null;
+    channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
 
     conditions?: Array<Shared.Condition> | null;
   }

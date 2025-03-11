@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../resource';
 import * as BulkOperationsAPI from '../bulk-operations';
-import * as RecipientsAPI from '../recipients';
+import * as PreferencesAPI from '../recipients/preferences';
 import * as UsersAPI from './users';
 import { APIPromise } from '../../api-promise';
 import { RequestOptions } from '../../internal/request-options';
@@ -45,7 +45,7 @@ export interface BulkSetPreferencesParams {
   /**
    * Set preferences for a recipient
    */
-  preferences: RecipientsAPI.PreferenceSetRequest;
+  preferences: PreferencesAPI.PreferenceSetRequest;
 
   user_ids: Array<string>;
 }

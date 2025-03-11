@@ -1,7 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
-import * as RecipientsAPI from '../recipients';
+import * as ChannelDataAPI from '../recipients/channel-data';
+import * as PreferencesAPI from '../recipients/preferences';
 import * as BulkAPI from './bulk';
 import { Bulk, BulkDeleteParams, BulkSetParams } from './bulk';
 import { APIPromise } from '../../api-promise';
@@ -70,12 +71,12 @@ export interface TenantRequest {
   /**
    * Allows inline setting channel data for a recipient
    */
-  channel_data?: RecipientsAPI.InlineChannelDataRequest | null;
+  channel_data?: ChannelDataAPI.InlineChannelDataRequest | null;
 
   /**
    * Inline set preferences for a recipient, where the key is the preference set name
    */
-  preferences?: RecipientsAPI.InlinePreferenceSetRequest | null;
+  preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
 
   settings?: TenantRequest.Settings;
   [k: string]: unknown;
@@ -88,7 +89,7 @@ export namespace TenantRequest {
     /**
      * Set preferences for a recipient
      */
-    preference_set?: RecipientsAPI.PreferenceSetRequest | null;
+    preference_set?: PreferencesAPI.PreferenceSetRequest | null;
   }
 
   export namespace Settings {
@@ -115,12 +116,12 @@ export interface TenantSetParams {
   /**
    * Allows inline setting channel data for a recipient
    */
-  channel_data?: RecipientsAPI.InlineChannelDataRequest | null;
+  channel_data?: ChannelDataAPI.InlineChannelDataRequest | null;
 
   /**
    * Inline set preferences for a recipient, where the key is the preference set name
    */
-  preferences?: RecipientsAPI.InlinePreferenceSetRequest | null;
+  preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
 
   settings?: TenantSetParams.Settings;
 }
@@ -132,7 +133,7 @@ export namespace TenantSetParams {
     /**
      * Set preferences for a recipient
      */
-    preference_set?: RecipientsAPI.PreferenceSetRequest | null;
+    preference_set?: PreferencesAPI.PreferenceSetRequest | null;
   }
 
   export namespace Settings {

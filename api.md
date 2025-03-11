@@ -8,22 +8,37 @@ Types:
 
 Types:
 
-- <code><a href="./src/resources/recipients.ts">ChannelData</a></code>
-- <code><a href="./src/resources/recipients.ts">ChannelDataRequest</a></code>
-- <code><a href="./src/resources/recipients.ts">DiscordChannelData</a></code>
-- <code><a href="./src/resources/recipients.ts">InlineChannelDataRequest</a></code>
-- <code><a href="./src/resources/recipients.ts">InlinePreferenceSetRequest</a></code>
-- <code><a href="./src/resources/recipients.ts">MsTeamsChannelData</a></code>
-- <code><a href="./src/resources/recipients.ts">OneSignalChannelData</a></code>
-- <code><a href="./src/resources/recipients.ts">PreferenceSet</a></code>
-- <code><a href="./src/resources/recipients.ts">PreferenceSetChannelTypeSetting</a></code>
-- <code><a href="./src/resources/recipients.ts">PreferenceSetChannelTypes</a></code>
-- <code><a href="./src/resources/recipients.ts">PreferenceSetRequest</a></code>
-- <code><a href="./src/resources/recipients.ts">PushChannelData</a></code>
-- <code><a href="./src/resources/recipients.ts">Recipient</a></code>
-- <code><a href="./src/resources/recipients.ts">RecipientRequest</a></code>
-- <code><a href="./src/resources/recipients.ts">SlackChannelData</a></code>
-- <code><a href="./src/resources/recipients.ts">Subscription</a></code>
+- <code><a href="./src/resources/recipients/recipients.ts">Recipient</a></code>
+- <code><a href="./src/resources/recipients/recipients.ts">RecipientRequest</a></code>
+
+## Subscriptions
+
+Types:
+
+- <code><a href="./src/resources/recipients/subscriptions.ts">Subscription</a></code>
+
+## Preferences
+
+Types:
+
+- <code><a href="./src/resources/recipients/preferences.ts">InlinePreferenceSetRequest</a></code>
+- <code><a href="./src/resources/recipients/preferences.ts">PreferenceSet</a></code>
+- <code><a href="./src/resources/recipients/preferences.ts">PreferenceSetChannelTypeSetting</a></code>
+- <code><a href="./src/resources/recipients/preferences.ts">PreferenceSetChannelTypes</a></code>
+- <code><a href="./src/resources/recipients/preferences.ts">PreferenceSetRequest</a></code>
+
+## ChannelData
+
+Types:
+
+- <code><a href="./src/resources/recipients/channel-data.ts">ChannelData</a></code>
+- <code><a href="./src/resources/recipients/channel-data.ts">ChannelDataRequest</a></code>
+- <code><a href="./src/resources/recipients/channel-data.ts">DiscordChannelData</a></code>
+- <code><a href="./src/resources/recipients/channel-data.ts">InlineChannelDataRequest</a></code>
+- <code><a href="./src/resources/recipients/channel-data.ts">MsTeamsChannelData</a></code>
+- <code><a href="./src/resources/recipients/channel-data.ts">OneSignalChannelData</a></code>
+- <code><a href="./src/resources/recipients/channel-data.ts">PushChannelData</a></code>
+- <code><a href="./src/resources/recipients/channel-data.ts">SlackChannelData</a></code>
 
 # Users
 
