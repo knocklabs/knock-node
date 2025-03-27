@@ -2,10 +2,10 @@
 
 export { Knock as default } from './client';
 
-export { type Uploadable, toFile } from './uploads';
-export { APIPromise } from './api-promise';
+export { type Uploadable, toFile } from './core/uploads';
+export { APIPromise } from './core/api-promise';
 export { Knock, type ClientOptions } from './client';
-export { PagePromise } from './pagination';
+export { PagePromise } from './core/pagination';
 export {
   KnockError,
   APIError,
@@ -20,4 +20,4 @@ export {
   InternalServerError,
   PermissionDeniedError,
   UnprocessableEntityError,
-} from './error';
+} from './core/error';

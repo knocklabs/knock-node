@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
+import { APIResource } from '../../core/resource';
 import * as ObjectsAPI from '../objects/objects';
 import * as RecipientsAPI from './recipients';
-import { EntriesCursor } from '../../pagination';
+import { EntriesCursor } from '../../core/pagination';
 
 export class Subscriptions extends APIResource {}
 

@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
+import { APIResource } from '../../core/resource';
 import * as SchedulesAPI from '../schedules';
 import { SchedulesEntriesCursor } from '../schedules';
 import * as Shared from '../shared';
@@ -13,8 +13,8 @@ import * as PreferencesAPI from '../recipients/preferences';
 import * as RecipientsAPI from '../recipients/recipients';
 import * as SubscriptionsAPI from '../recipients/subscriptions';
 import { SubscriptionsEntriesCursor } from '../recipients/subscriptions';
-import { APIPromise } from '../../api-promise';
-import { EntriesCursor, type EntriesCursorParams, PagePromise } from '../../pagination';
+import { APIPromise } from '../../core/api-promise';
+import { EntriesCursor, type EntriesCursorParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 

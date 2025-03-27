@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
+import { APIResource } from '../../core/resource';
 import * as BatchAPI from './batch';
 import {
   Batch,
@@ -22,14 +22,14 @@ import {
   BatchUnarchiveResponse,
 } from './batch';
 import * as RecipientsAPI from '../recipients/recipients';
-import { APIPromise } from '../../api-promise';
+import { APIPromise } from '../../core/api-promise';
 import {
   EntriesCursor,
   type EntriesCursorParams,
   ItemsCursor,
   type ItemsCursorParams,
   PagePromise,
-} from '../../pagination';
+} from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 

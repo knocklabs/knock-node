@@ -1,6 +1,6 @@
 import fs from 'fs';
 import type { ResponseLike } from '@knocklabs/node/internal/to-file';
-import { toFile } from '@knocklabs/node/uploads';
+import { toFile } from '@knocklabs/node/core/uploads';
 import { File } from 'node:buffer';
 
 class MyClass {
@@ -97,7 +97,7 @@ describe('missing File error message', () => {
   });
 
   test('is thrown', async () => {
-    const uploads = await import('@knocklabs/node/uploads');
+    const uploads = await import('@knocklabs/node/core/uploads');
     await expect(
       uploads.toFile(mockResponse({ url: 'https://example.com/my/audio.mp3' })),
     ).rejects.toMatchInlineSnapshot(
