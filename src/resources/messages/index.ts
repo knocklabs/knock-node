@@ -77,14 +77,19 @@ export class Messages {
   async setStatus(
     messageId: string,
     status: Exclude<MessageEngagementStatus, "link_clicked">,
+    metadata?: Record<string, any>,
   ): Promise<Message> {
     if (!messageId) {
       throw new Error(`Incomplete arguments. You must provide a 'messageId'`);
     }
 
+    if (status !== "interacted" && metadata) {
+      throw new Error(`Metadata is only supported for 'interacted' status.`);
+    }
+
     const { data } = await this.knock.put(
       `/v1/messages/${messageId}/${status}`,
-      {},
+      { metadata },
     );
 
     return data;
@@ -112,9 +117,15 @@ export class Messages {
       | "unseen"
       | "unread"
       | "unarchived",
+    metadata?: Record<string, any>,
   ): Promise<Message[]> {
+    if (status !== "interacted" && metadata) {
+      throw new Error(`Metadata is only supported for 'interacted' status.`);
+    }
+
     const { data } = await this.knock.post(`/v1/messages/batch/${status}`, {
       message_ids: messageIds,
+      metadata,
     });
 
     return data;
