@@ -194,6 +194,7 @@ export interface IdentifyUserRequest {
    * Inline set preferences for a recipient, where the key is the preference set name
    */
   preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
+
   [k: string]: unknown;
 }
 
@@ -223,6 +224,7 @@ export interface InlineIdentifyUserRequest {
    * Inline set preferences for a recipient, where the key is the preference set name
    */
   preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
+
   [k: string]: unknown;
 }
 
@@ -247,6 +249,7 @@ export interface User {
   phone_number?: string | null;
 
   timezone?: string | null;
+
   [k: string]: unknown;
 }
 

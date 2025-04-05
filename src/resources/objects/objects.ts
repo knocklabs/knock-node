@@ -236,6 +236,7 @@ export interface InlineObjectRequest {
    * Inline set preferences for a recipient, where the key is the preference set name
    */
   preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
+
   [k: string]: unknown;
 }
 
@@ -252,6 +253,7 @@ export interface Object {
   updated_at: string;
 
   created_at?: string | null;
+
   [k: string]: unknown;
 }
 

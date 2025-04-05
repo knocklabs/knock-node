@@ -59,6 +59,7 @@ export interface Tenant {
   id: string;
 
   __typename: string;
+
   [k: string]: unknown;
 }
 
@@ -79,6 +80,7 @@ export interface TenantRequest {
   preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
 
   settings?: TenantRequest.Settings;
+
   [k: string]: unknown;
 }
 
