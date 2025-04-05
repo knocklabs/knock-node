@@ -126,6 +126,8 @@ export interface TenantSetParams {
   preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
 
   settings?: TenantSetParams.Settings;
+
+  [k: string]: unknown;
 }
 
 export namespace TenantSetParams {

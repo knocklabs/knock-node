@@ -280,6 +280,8 @@ export interface UserUpdateParams {
    * Inline set preferences for a recipient, where the key is the preference set name
    */
   preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
+
+  [k: string]: unknown;
 }
 
 export interface UserListParams extends EntriesCursorParams {}
