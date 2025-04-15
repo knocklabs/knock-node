@@ -20,5 +20,4 @@ export {
   type SlackCheckAuthParams,
   type SlackListChannelsParams,
   type SlackRevokeAccessParams,
-  type SlackListChannelsResponsesSlackChannelsCursor,
 } from './slack';

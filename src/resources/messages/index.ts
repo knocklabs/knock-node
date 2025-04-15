@@ -12,7 +12,6 @@ export {
   type BatchUnarchiveResponse,
   type BatchArchiveParams,
   type BatchGetContentParams,
-  type BatchMarkAsInteractedParams,
   type BatchMarkAsReadParams,
   type BatchMarkAsSeenParams,
   type BatchMarkAsUnreadParams,

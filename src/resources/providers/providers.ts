@@ -20,7 +20,6 @@ import {
   SlackCheckAuthResponse,
   SlackListChannelsParams,
   SlackListChannelsResponse,
-  SlackListChannelsResponsesSlackChannelsCursor,
   SlackRevokeAccessParams,
   SlackRevokeAccessResponse,
 } from './slack';
@@ -39,7 +38,6 @@ export declare namespace Providers {
     type SlackCheckAuthResponse as SlackCheckAuthResponse,
     type SlackListChannelsResponse as SlackListChannelsResponse,
     type SlackRevokeAccessResponse as SlackRevokeAccessResponse,
-    type SlackListChannelsResponsesSlackChannelsCursor as SlackListChannelsResponsesSlackChannelsCursor,
     type SlackCheckAuthParams as SlackCheckAuthParams,
     type SlackListChannelsParams as SlackListChannelsParams,
     type SlackRevokeAccessParams as SlackRevokeAccessParams,

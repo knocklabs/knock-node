@@ -2,15 +2,13 @@
 
 import { APIResource } from '../../core/resource';
 import * as BulkOperationsAPI from '../bulk-operations';
-import * as ObjectsAPI from './objects';
-import * as RecipientsAPI from '../recipients/recipients';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
 export class Bulk extends APIResource {
   /**
-   * Bulk delete objects
+   * Deletes objects in bulk for a given collection
    */
   delete(
     collection: string,
@@ -25,26 +23,20 @@ export class Bulk extends APIResource {
   }
 
   /**
-   * Add subscriptions for a set of objects in a single collection. If a subscription
-   * already exists, it will be updated.
+   * Bulk upserts subscriptions for a set of objects in a single collection
    */
   addSubscriptions(
     collection: string,
-    body: BulkAddSubscriptionsParams,
     options?: RequestOptions,
   ): APIPromise<BulkOperationsAPI.BulkOperation> {
-    return this._client.post(path`/v1/objects/${collection}/bulk/subscriptions/add`, { body, ...options });
+    return this._client.post(path`/v1/objects/${collection}/bulk/subscriptions/add`, options);
   }
 
   /**
-   * Bulk set objects
+   * Sets objects in bulk for a given collection
    */
-  set(
-    collection: string,
-    body: BulkSetParams,
-    options?: RequestOptions,
-  ): APIPromise<BulkOperationsAPI.BulkOperation> {
-    return this._client.post(path`/v1/objects/${collection}/bulk/set`, { body, ...options });
+  set(collection: string, options?: RequestOptions): APIPromise<BulkOperationsAPI.BulkOperation> {
+    return this._client.post(path`/v1/objects/${collection}/bulk/set`, options);
   }
 }
 
@@ -55,28 +47,6 @@ export interface BulkDeleteParams {
   object_ids: Array<string>;
 }
 
-export interface BulkAddSubscriptionsParams {
-  subscriptions: Array<BulkAddSubscriptionsParams.Subscription>;
-}
-
-export namespace BulkAddSubscriptionsParams {
-  export interface Subscription {
-    id: string;
-
-    recipients: Array<RecipientsAPI.RecipientRequest>;
-
-    properties?: Record<string, unknown> | null;
-  }
-}
-
-export interface BulkSetParams {
-  objects: Array<ObjectsAPI.InlineObjectRequest>;
-}
-
 export declare namespace Bulk {
-  export {
-    type BulkDeleteParams as BulkDeleteParams,
-    type BulkAddSubscriptionsParams as BulkAddSubscriptionsParams,
-    type BulkSetParams as BulkSetParams,
-  };
+  export { type BulkDeleteParams as BulkDeleteParams };
 }

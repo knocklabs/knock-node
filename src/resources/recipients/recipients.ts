@@ -17,7 +17,6 @@ import * as PreferencesAPI from './preferences';
 import {
   InlinePreferenceSetRequest,
   PreferenceSet,
-  PreferenceSetChannelTypeSetting,
   PreferenceSetChannelTypes,
   PreferenceSetRequest,
   Preferences,
@@ -56,7 +55,6 @@ export declare namespace Recipients {
     Preferences as Preferences,
     type InlinePreferenceSetRequest as InlinePreferenceSetRequest,
     type PreferenceSet as PreferenceSet,
-    type PreferenceSetChannelTypeSetting as PreferenceSetChannelTypeSetting,
     type PreferenceSetChannelTypes as PreferenceSetChannelTypes,
     type PreferenceSetRequest as PreferenceSetRequest,
   };

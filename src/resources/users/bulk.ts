@@ -2,58 +2,40 @@
 
 import { APIResource } from '../../core/resource';
 import * as BulkOperationsAPI from '../bulk-operations';
-import * as PreferencesAPI from '../recipients/preferences';
-import * as UsersAPI from './users';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
 export class Bulk extends APIResource {
   /**
-   * Bulk delete users
+   * Bulk deletes a list of users
    */
-  delete(body: BulkDeleteParams, options?: RequestOptions): APIPromise<BulkOperationsAPI.BulkOperation> {
-    return this._client.post('/v1/users/bulk/delete', { body, ...options });
+  delete(params: BulkDeleteParams, options?: RequestOptions): APIPromise<BulkOperationsAPI.BulkOperation> {
+    const { user_ids } = params;
+    return this._client.post('/v1/users/bulk/delete', { query: { user_ids }, ...options });
   }
 
   /**
-   * Bulk identifies users
+   * Bulk identifies a list of users
    */
-  identify(body: BulkIdentifyParams, options?: RequestOptions): APIPromise<BulkOperationsAPI.BulkOperation> {
-    return this._client.post('/v1/users/bulk/identify', { body, ...options });
+  identify(options?: RequestOptions): APIPromise<BulkOperationsAPI.BulkOperation> {
+    return this._client.post('/v1/users/bulk/identify', options);
   }
 
   /**
-   * Bulk set preferences
+   * Bulk sets user preferences
    */
-  setPreferences(
-    body: BulkSetPreferencesParams,
-    options?: RequestOptions,
-  ): APIPromise<BulkOperationsAPI.BulkOperation> {
-    return this._client.post('/v1/users/bulk/preferences', { body, ...options });
+  setPreferences(options?: RequestOptions): APIPromise<BulkOperationsAPI.BulkOperation> {
+    return this._client.post('/v1/users/bulk/preferences', options);
   }
 }
 
 export interface BulkDeleteParams {
-  user_ids: Array<string>;
-}
-
-export interface BulkIdentifyParams {
-  users: Array<UsersAPI.InlineIdentifyUserRequest>;
-}
-
-export interface BulkSetPreferencesParams {
   /**
-   * Set preferences for a recipient
+   * The IDs of the users to delete
    */
-  preferences: PreferencesAPI.PreferenceSetRequest;
-
   user_ids: Array<string>;
 }
 
 export declare namespace Bulk {
-  export {
-    type BulkDeleteParams as BulkDeleteParams,
-    type BulkIdentifyParams as BulkIdentifyParams,
-    type BulkSetPreferencesParams as BulkSetPreferencesParams,
-  };
+  export { type BulkDeleteParams as BulkDeleteParams };
 }

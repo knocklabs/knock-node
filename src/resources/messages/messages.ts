@@ -8,7 +8,6 @@ import {
   BatchArchiveResponse,
   BatchGetContentParams,
   BatchGetContentResponse,
-  BatchMarkAsInteractedParams,
   BatchMarkAsInteractedResponse,
   BatchMarkAsReadParams,
   BatchMarkAsReadResponse,
@@ -37,7 +36,7 @@ export class Messages extends APIResource {
   batch: BatchAPI.Batch = new BatchAPI.Batch(this._client);
 
   /**
-   * List messages
+   * Returns a paginated list of messages
    */
   list(
     query: MessageListParams | null | undefined = {},
@@ -47,29 +46,28 @@ export class Messages extends APIResource {
   }
 
   /**
-   * Archive message
+   * Archives a message
    */
   archive(messageID: string, options?: RequestOptions): APIPromise<Message> {
     return this._client.put(path`/v1/messages/${messageID}/archived`, options);
   }
 
   /**
-   * Get message
+   * Retrieves a single message
    */
   get(messageID: string, options?: RequestOptions): APIPromise<Message> {
     return this._client.get(path`/v1/messages/${messageID}`, options);
   }
 
   /**
-   * Returns the fully rendered contents of a message, where the response depends on
-   * the channel the message was sent on.
+   * Get the contents of a message
    */
   getContent(messageID: string, options?: RequestOptions): APIPromise<MessageGetContentResponse> {
     return this._client.get(path`/v1/messages/${messageID}/content`, options);
   }
 
   /**
-   * List activities
+   * Get activities for a message
    */
   listActivities(
     messageID: string,
@@ -83,7 +81,7 @@ export class Messages extends APIResource {
   }
 
   /**
-   * List delivery logs
+   * Get delivery logs for a message
    */
   listDeliveryLogs(
     messageID: string,
@@ -98,7 +96,7 @@ export class Messages extends APIResource {
   }
 
   /**
-   * List events
+   * Get events for a message
    */
   listEvents(
     messageID: string,
@@ -112,7 +110,7 @@ export class Messages extends APIResource {
   }
 
   /**
-   * Mark message as interacted
+   * Marks a message as interacted with
    */
   markAsInteracted(
     messageID: string,
@@ -123,35 +121,35 @@ export class Messages extends APIResource {
   }
 
   /**
-   * Mark message as read
+   * Marks a message as read
    */
   markAsRead(messageID: string, options?: RequestOptions): APIPromise<Message> {
     return this._client.put(path`/v1/messages/${messageID}/read`, options);
   }
 
   /**
-   * Mark message as seen
+   * Marks a message as seen
    */
   markAsSeen(messageID: string, options?: RequestOptions): APIPromise<Message> {
     return this._client.put(path`/v1/messages/${messageID}/seen`, options);
   }
 
   /**
-   * Mark message as unread
+   * Marks a message as unread
    */
   markAsUnread(messageID: string, options?: RequestOptions): APIPromise<Message> {
     return this._client.delete(path`/v1/messages/${messageID}/unread`, options);
   }
 
   /**
-   * Mark message as unseen
+   * Marks a message as unseen
    */
   markAsUnseen(messageID: string, options?: RequestOptions): APIPromise<Message> {
     return this._client.delete(path`/v1/messages/${messageID}/unseen`, options);
   }
 
   /**
-   * Unarchive message
+   * Unarchives a message
    */
   unarchive(messageID: string, options?: RequestOptions): APIPromise<Message> {
     return this._client.delete(path`/v1/messages/${messageID}/unarchived`, options);
@@ -182,7 +180,7 @@ export interface Activity {
   /**
    * The data associated with the activity
    */
-  data?: Record<string, unknown> | null;
+  data?: unknown | null;
 
   inserted_at?: string;
 
@@ -209,7 +207,7 @@ export interface Message {
   /**
    * A list of actor representations associated with the message (up to 10)
    */
-  actors?: Array<string | Message.ObjectReference>;
+  actors?: Array<string | Message.UnionMember1>;
 
   /**
    * Timestamp when message was archived
@@ -229,7 +227,7 @@ export interface Message {
   /**
    * Additional message data
    */
-  data?: Record<string, unknown> | null;
+  data?: unknown | null;
 
   /**
    * List of engagement statuses
@@ -254,7 +252,7 @@ export interface Message {
   /**
    * Message metadata
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: unknown | null;
 
   /**
    * Timestamp when message was read
@@ -265,7 +263,7 @@ export interface Message {
    * A reference to a recipient, either a user identifier (string) or an object
    * reference (id, collection).
    */
-  recipient?: string | Message.ObjectReference;
+  recipient?: string | Message.UnionMember1;
 
   /**
    * Timestamp when message was scheduled for
@@ -307,7 +305,7 @@ export namespace Message {
   /**
    * An object reference to a recipient
    */
-  export interface ObjectReference {
+  export interface UnionMember1 {
     /**
      * An object identifier
      */
@@ -322,7 +320,7 @@ export namespace Message {
   /**
    * An object reference to a recipient
    */
-  export interface ObjectReference {
+  export interface UnionMember1 {
     /**
      * An object identifier
      */
@@ -387,9 +385,9 @@ export namespace MessageDeliveryLog {
    * A message delivery log request
    */
   export interface Request {
-    body?: string | Record<string, unknown>;
+    body?: string | unknown;
 
-    headers?: Record<string, unknown> | null;
+    headers?: unknown | null;
 
     host?: string;
 
@@ -404,9 +402,9 @@ export namespace MessageDeliveryLog {
    * A message delivery log response
    */
   export interface Response {
-    body?: string | Record<string, unknown>;
+    body?: string | unknown;
 
-    headers?: Record<string, unknown> | null;
+    headers?: unknown | null;
 
     status?: number;
   }
@@ -426,7 +424,7 @@ export interface MessageEvent {
    * A reference to a recipient, either a user identifier (string) or an object
    * reference (id, collection).
    */
-  recipient: string | MessageEvent.ObjectReference;
+  recipient: string | MessageEvent.UnionMember1;
 
   type:
     | 'message.queued'
@@ -446,14 +444,14 @@ export interface MessageEvent {
   /**
    * The data associated with the event. Only present for some event types
    */
-  data?: Record<string, unknown> | null;
+  data?: unknown | null;
 }
 
 export namespace MessageEvent {
   /**
    * An object reference to a recipient
    */
-  export interface ObjectReference {
+  export interface UnionMember1 {
     /**
      * An object identifier
      */
@@ -534,7 +532,7 @@ export namespace MessageGetContentResponse {
 
     title: string;
 
-    data?: Record<string, unknown> | null;
+    data?: unknown | null;
   }
 
   /**
@@ -546,11 +544,11 @@ export namespace MessageGetContentResponse {
     /**
      * The channel data connection from the recipient to the underlying provider
      */
-    connection: Record<string, unknown>;
+    connection: unknown;
 
     template: MessageChatContent.Template;
 
-    metadata?: Record<string, unknown> | null;
+    metadata?: unknown | null;
   }
 
   export namespace MessageChatContent {
@@ -563,7 +561,7 @@ export namespace MessageGetContentResponse {
       /**
        * The JSON content of the message
        */
-      json_content?: Record<string, unknown> | null;
+      json_content?: unknown | null;
 
       summary?: string | null;
     }
@@ -591,17 +589,14 @@ export namespace MessageGetContentResponse {
     /**
      * The blocks of the message
      */
-    blocks: Array<
-      | MessageInAppFeedContent.MessageInAppFeedContentBlock
-      | MessageInAppFeedContent.MessageInAppFeedButtonSetBlock
-    >;
+    blocks: Array<MessageInAppFeedContent.ContentBlock | MessageInAppFeedContent.ButtonSetBlock>;
   }
 
   export namespace MessageInAppFeedContent {
     /**
      * A content (text or markdown) block in a message in an app feed
      */
-    export interface MessageInAppFeedContentBlock {
+    export interface ContentBlock {
       content: string;
 
       name: string;
@@ -614,15 +609,15 @@ export namespace MessageGetContentResponse {
     /**
      * A set of buttons in a message in an app feed
      */
-    export interface MessageInAppFeedButtonSetBlock {
-      buttons: Array<MessageInAppFeedButtonSetBlock.Button>;
+    export interface ButtonSetBlock {
+      buttons: Array<ButtonSetBlock.Button>;
 
       name: string;
 
       type: 'button_set';
     }
 
-    export namespace MessageInAppFeedButtonSetBlock {
+    export namespace ButtonSetBlock {
       /**
        * A button in a set of buttons
        */
@@ -741,7 +736,6 @@ export declare namespace Messages {
     type BatchUnarchiveResponse as BatchUnarchiveResponse,
     type BatchArchiveParams as BatchArchiveParams,
     type BatchGetContentParams as BatchGetContentParams,
-    type BatchMarkAsInteractedParams as BatchMarkAsInteractedParams,
     type BatchMarkAsReadParams as BatchMarkAsReadParams,
     type BatchMarkAsSeenParams as BatchMarkAsSeenParams,
     type BatchMarkAsUnreadParams as BatchMarkAsUnreadParams,

@@ -19,152 +19,110 @@ export interface PreferenceSet {
 
   __typename: string;
 
-  /**
-   * A map of categories and their settings
-   */
-  categories?: Record<string, boolean | PreferenceSet.PreferenceSetWorkflowCategorySettingObject> | null;
+  categories?: Record<string, boolean | PreferenceSet.UnionMember1> | null;
 
   /**
    * Channel type preferences
    */
   channel_types?: PreferenceSetChannelTypes | null;
 
-  /**
-   * A map of workflows and their settings
-   */
-  workflows?: Record<string, boolean | PreferenceSet.PreferenceSetWorkflowCategorySettingObject> | null;
+  workflows?: Record<string, boolean | PreferenceSet.UnionMember1> | null;
 }
 
 export namespace PreferenceSet {
-  /**
-   * The settings object for a workflow or category, where you can specify channel
-   * types or conditions.
-   */
-  export interface PreferenceSetWorkflowCategorySettingObject {
+  export interface UnionMember1 {
     /**
      * Channel type preferences
      */
     channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
 
-    conditions?: Array<Shared.Condition> | null;
+    conditions?: Array<Shared.Condition>;
   }
 
-  /**
-   * The settings object for a workflow or category, where you can specify channel
-   * types or conditions.
-   */
-  export interface PreferenceSetWorkflowCategorySettingObject {
+  export interface UnionMember1 {
     /**
      * Channel type preferences
      */
     channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
 
-    conditions?: Array<Shared.Condition> | null;
+    conditions?: Array<Shared.Condition>;
   }
-}
-
-/**
- * A set of settings for a channel type. Currently, this can only be a list of
- * conditions to apply.
- */
-export interface PreferenceSetChannelTypeSetting {
-  conditions: Array<Shared.Condition>;
 }
 
 /**
  * Channel type preferences
  */
 export interface PreferenceSetChannelTypes {
-  /**
-   * A set of settings for a channel type. Currently, this can only be a list of
-   * conditions to apply.
-   */
-  chat?: boolean | PreferenceSetChannelTypeSetting;
+  chat?: boolean | PreferenceSetChannelTypes.Conditions;
 
-  /**
-   * A set of settings for a channel type. Currently, this can only be a list of
-   * conditions to apply.
-   */
-  email?: boolean | PreferenceSetChannelTypeSetting;
+  email?: boolean | PreferenceSetChannelTypes.Conditions;
 
-  /**
-   * A set of settings for a channel type. Currently, this can only be a list of
-   * conditions to apply.
-   */
-  http?: boolean | PreferenceSetChannelTypeSetting;
+  http?: boolean | PreferenceSetChannelTypes.Conditions;
 
-  /**
-   * A set of settings for a channel type. Currently, this can only be a list of
-   * conditions to apply.
-   */
-  in_app_feed?: boolean | PreferenceSetChannelTypeSetting;
+  in_app_feed?: boolean | PreferenceSetChannelTypes.Conditions;
 
-  /**
-   * A set of settings for a channel type. Currently, this can only be a list of
-   * conditions to apply.
-   */
-  push?: boolean | PreferenceSetChannelTypeSetting;
+  push?: boolean | PreferenceSetChannelTypes.Conditions;
 
-  /**
-   * A set of settings for a channel type. Currently, this can only be a list of
-   * conditions to apply.
-   */
-  sms?: boolean | PreferenceSetChannelTypeSetting;
+  sms?: boolean | PreferenceSetChannelTypes.Conditions;
+}
+
+export namespace PreferenceSetChannelTypes {
+  export interface Conditions {
+    conditions: Array<Shared.Condition>;
+  }
+
+  export interface Conditions {
+    conditions: Array<Shared.Condition>;
+  }
+
+  export interface Conditions {
+    conditions: Array<Shared.Condition>;
+  }
+
+  export interface Conditions {
+    conditions: Array<Shared.Condition>;
+  }
+
+  export interface Conditions {
+    conditions: Array<Shared.Condition>;
+  }
+
+  export interface Conditions {
+    conditions: Array<Shared.Condition>;
+  }
 }
 
 /**
  * Set preferences for a recipient
  */
 export interface PreferenceSetRequest {
-  /**
-   * A setting for a preference set, where the key in the object is the category, and
-   * the values are the preference settings for that category.
-   */
-  categories?: Record<
-    string,
-    boolean | PreferenceSetRequest.PreferenceSetWorkflowCategorySettingObject
-  > | null;
+  categories?: Record<string, boolean | PreferenceSetRequest.UnionMember1> | null;
 
   /**
    * Channel type preferences
    */
   channel_types?: PreferenceSetChannelTypes | null;
 
-  /**
-   * A setting for a preference set, where the key in the object is the workflow key,
-   * and the values are the preference settings for that workflow.
-   */
-  workflows?: Record<
-    string,
-    boolean | PreferenceSetRequest.PreferenceSetWorkflowCategorySettingObject
-  > | null;
+  workflows?: Record<string, boolean | PreferenceSetRequest.UnionMember1> | null;
 }
 
 export namespace PreferenceSetRequest {
-  /**
-   * The settings object for a workflow or category, where you can specify channel
-   * types or conditions.
-   */
-  export interface PreferenceSetWorkflowCategorySettingObject {
+  export interface UnionMember1 {
     /**
      * Channel type preferences
      */
     channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
 
-    conditions?: Array<Shared.Condition> | null;
+    conditions?: Array<Shared.Condition>;
   }
 
-  /**
-   * The settings object for a workflow or category, where you can specify channel
-   * types or conditions.
-   */
-  export interface PreferenceSetWorkflowCategorySettingObject {
+  export interface UnionMember1 {
     /**
      * Channel type preferences
      */
     channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
 
-    conditions?: Array<Shared.Condition> | null;
+    conditions?: Array<Shared.Condition>;
   }
 }
 
@@ -172,7 +130,6 @@ export declare namespace Preferences {
   export {
     type InlinePreferenceSetRequest as InlinePreferenceSetRequest,
     type PreferenceSet as PreferenceSet,
-    type PreferenceSetChannelTypeSetting as PreferenceSetChannelTypeSetting,
     type PreferenceSetChannelTypes as PreferenceSetChannelTypes,
     type PreferenceSetRequest as PreferenceSetRequest,
   };

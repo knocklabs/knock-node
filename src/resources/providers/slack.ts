@@ -2,7 +2,6 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
-import { PagePromise, SlackChannelsCursor, type SlackChannelsCursorParams } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -19,18 +18,14 @@ export class Slack extends APIResource {
   }
 
   /**
-   * List Slack channels for a Slack workspace
+   * Get Slack channels from a Slack workspace
    */
   listChannels(
     channelID: string,
     query: SlackListChannelsParams,
     options?: RequestOptions,
-  ): PagePromise<SlackListChannelsResponsesSlackChannelsCursor, SlackListChannelsResponse> {
-    return this._client.getAPIList(
-      path`/v1/providers/slack/${channelID}/channels`,
-      SlackChannelsCursor<SlackListChannelsResponse>,
-      { query, ...options },
-    );
+  ): APIPromise<SlackListChannelsResponse> {
+    return this._client.get(path`/v1/providers/slack/${channelID}/channels`, { query, ...options });
   }
 
   /**
@@ -49,8 +44,6 @@ export class Slack extends APIResource {
   }
 }
 
-export type SlackListChannelsResponsesSlackChannelsCursor = SlackChannelsCursor<SlackListChannelsResponse>;
-
 /**
  * The response from a Slack auth check request
  */
@@ -66,16 +59,27 @@ export namespace SlackCheckAuthResponse {
   }
 }
 
+/**
+ * The response from a Slack channels for provider request
+ */
 export interface SlackListChannelsResponse {
-  id: string;
+  next_cursor: string | null;
 
-  context_team_id: string;
+  slack_channels: Array<SlackListChannelsResponse.SlackChannel>;
+}
 
-  is_im: boolean;
+export namespace SlackListChannelsResponse {
+  export interface SlackChannel {
+    id: string;
 
-  is_private: boolean;
+    context_team_id: string;
 
-  name: string;
+    is_im: boolean;
+
+    is_private: boolean;
+
+    name: string;
+  }
 }
 
 export type SlackRevokeAccessResponse = string;
@@ -87,7 +91,7 @@ export interface SlackCheckAuthParams {
   access_token_object: string;
 }
 
-export interface SlackListChannelsParams extends SlackChannelsCursorParams {
+export interface SlackListChannelsParams {
   /**
    * A JSON encoded string containing the access token object reference
    */
@@ -106,12 +110,12 @@ export namespace SlackListChannelsParams {
     /**
      * Whether to exclude archived channels
      */
-    exclude_archived?: boolean;
+    exclude_archived?: string;
 
     /**
      * The number of channels to return
      */
-    limit?: number;
+    limit?: string;
 
     /**
      * The ID of the Slack team to get channels for
@@ -119,7 +123,7 @@ export namespace SlackListChannelsParams {
     team_id?: string;
 
     /**
-     * The types of channels to return (comma separated list)
+     * The types of channels to return
      */
     types?: string;
   }
@@ -137,7 +141,6 @@ export declare namespace Slack {
     type SlackCheckAuthResponse as SlackCheckAuthResponse,
     type SlackListChannelsResponse as SlackListChannelsResponse,
     type SlackRevokeAccessResponse as SlackRevokeAccessResponse,
-    type SlackListChannelsResponsesSlackChannelsCursor as SlackListChannelsResponsesSlackChannelsCursor,
     type SlackCheckAuthParams as SlackCheckAuthParams,
     type SlackListChannelsParams as SlackListChannelsParams,
     type SlackRevokeAccessParams as SlackRevokeAccessParams,

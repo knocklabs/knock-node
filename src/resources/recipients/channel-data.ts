@@ -32,16 +32,14 @@ export interface ChannelDataRequest {
  * Discord channel data
  */
 export interface DiscordChannelData {
-  connections: Array<
-    DiscordChannelData.DiscordChannelConnection | DiscordChannelData.DiscordIncomingWebhookConnection
-  >;
+  connections: Array<DiscordChannelData.ChannelConnection | DiscordChannelData.IncomingWebhookConnection>;
 }
 
 export namespace DiscordChannelData {
   /**
    * Discord channel connection
    */
-  export interface DiscordChannelConnection {
+  export interface ChannelConnection {
     /**
      * The Discord channel ID
      */
@@ -49,25 +47,10 @@ export namespace DiscordChannelData {
   }
 
   /**
-   * Discord incoming webhook connection
+   * An incoming webhook Slack connection
    */
-  export interface DiscordIncomingWebhookConnection {
-    /**
-     * The incoming webhook
-     */
-    incoming_webhook: DiscordIncomingWebhookConnection.IncomingWebhook;
-  }
-
-  export namespace DiscordIncomingWebhookConnection {
-    /**
-     * The incoming webhook
-     */
-    export interface IncomingWebhook {
-      /**
-       * The URL of the incoming webhook
-       */
-      url: string;
-    }
+  export interface IncomingWebhookConnection {
+    url: string;
   }
 }
 
@@ -80,9 +63,7 @@ export type InlineChannelDataRequest = Record<string, ChannelDataRequest>;
  * Microsoft Teams channel data
  */
 export interface MsTeamsChannelData {
-  connections: Array<
-    MsTeamsChannelData.MsTeamsTokenConnection | MsTeamsChannelData.MsTeamsIncomingWebhookConnection
-  >;
+  connections: Array<MsTeamsChannelData.TokenConnection | MsTeamsChannelData.IncomingWebhookConnection>;
 
   /**
    * The Microsoft Teams tenant ID
@@ -92,50 +73,21 @@ export interface MsTeamsChannelData {
 
 export namespace MsTeamsChannelData {
   /**
-   * Microsoft Teams token connection
+   * A Slack connection, which either includes a channel_id or a user_id
    */
-  export interface MsTeamsTokenConnection {
-    /**
-     * The Microsoft Teams channel ID
-     */
-    ms_teams_channel_id?: string | null;
+  export interface TokenConnection {
+    access_token?: string | null;
 
-    /**
-     * The Microsoft Teams team ID
-     */
-    ms_teams_team_id?: string | null;
+    channel_id?: string | null;
 
-    /**
-     * The Microsoft Teams tenant ID
-     */
-    ms_teams_tenant_id?: string | null;
-
-    /**
-     * The Microsoft Teams user ID
-     */
-    ms_teams_user_id?: string | null;
+    user_id?: string | null;
   }
 
   /**
-   * Microsoft Teams incoming webhook connection
+   * An incoming webhook Slack connection
    */
-  export interface MsTeamsIncomingWebhookConnection {
-    /**
-     * The incoming webhook
-     */
-    incoming_webhook: MsTeamsIncomingWebhookConnection.IncomingWebhook;
-  }
-
-  export namespace MsTeamsIncomingWebhookConnection {
-    /**
-     * The incoming webhook
-     */
-    export interface IncomingWebhook {
-      /**
-       * The URL of the incoming webhook
-       */
-      url: string;
-    }
+  export interface IncomingWebhookConnection {
+    url: string;
   }
 }
 
@@ -160,11 +112,8 @@ export interface PushChannelData {
  * Slack channel data
  */
 export interface SlackChannelData {
-  connections: Array<SlackChannelData.SlackTokenConnection | SlackChannelData.SlackIncomingWebhookConnection>;
+  connections: Array<SlackChannelData.TokenConnection | SlackChannelData.IncomingWebhookConnection>;
 
-  /**
-   * A token that's used to store the access token for a Slack workspace.
-   */
   token?: SlackChannelData.Token | null;
 }
 
@@ -172,7 +121,7 @@ export namespace SlackChannelData {
   /**
    * A Slack connection, which either includes a channel_id or a user_id
    */
-  export interface SlackTokenConnection {
+  export interface TokenConnection {
     access_token?: string | null;
 
     channel_id?: string | null;
@@ -183,13 +132,10 @@ export namespace SlackChannelData {
   /**
    * An incoming webhook Slack connection
    */
-  export interface SlackIncomingWebhookConnection {
+  export interface IncomingWebhookConnection {
     url: string;
   }
 
-  /**
-   * A token that's used to store the access token for a Slack workspace.
-   */
   export interface Token {
     access_token: string | null;
   }

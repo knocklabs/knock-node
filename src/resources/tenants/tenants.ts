@@ -4,11 +4,9 @@ import { APIResource } from '../../core/resource';
 import * as ChannelDataAPI from '../recipients/channel-data';
 import * as PreferencesAPI from '../recipients/preferences';
 import * as BulkAPI from './bulk';
-import { Bulk, BulkDeleteParams, BulkSetParams } from './bulk';
-import { APIPromise } from '../../core/api-promise';
+import { Bulk, BulkDeleteParams } from './bulk';
 import { EntriesCursor, type EntriesCursorParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
-import { path } from '../../internal/utils/path';
 
 export class Tenants extends APIResource {
   bulk: BulkAPI.Bulk = new BulkAPI.Bulk(this._client);
@@ -21,27 +19,6 @@ export class Tenants extends APIResource {
     options?: RequestOptions,
   ): PagePromise<TenantsEntriesCursor, Tenant> {
     return this._client.getAPIList('/v1/tenants', EntriesCursor<Tenant>, { query, ...options });
-  }
-
-  /**
-   * Delete a tenant
-   */
-  delete(tenantID: string, options?: RequestOptions): APIPromise<string> {
-    return this._client.delete(path`/v1/tenants/${tenantID}`, options);
-  }
-
-  /**
-   * Get a tenant
-   */
-  get(tenantID: string, options?: RequestOptions): APIPromise<Tenant> {
-    return this._client.get(path`/v1/tenants/${tenantID}`, options);
-  }
-
-  /**
-   * Set a tenant
-   */
-  set(tenantID: string, body: TenantSetParams, options?: RequestOptions): APIPromise<Tenant> {
-    return this._client.put(path`/v1/tenants/${tenantID}`, { body, ...options });
   }
 }
 
@@ -107,51 +84,7 @@ export namespace TenantRequest {
   }
 }
 
-/**
- * An empty response
- */
-export type TenantDeleteResponse = string;
-
 export interface TenantListParams extends EntriesCursorParams {}
-
-export interface TenantSetParams {
-  /**
-   * Allows inline setting channel data for a recipient
-   */
-  channel_data?: ChannelDataAPI.InlineChannelDataRequest | null;
-
-  /**
-   * Inline set preferences for a recipient, where the key is the preference set name
-   */
-  preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
-
-  settings?: TenantSetParams.Settings;
-
-  [k: string]: unknown;
-}
-
-export namespace TenantSetParams {
-  export interface Settings {
-    branding?: Settings.Branding;
-
-    /**
-     * Set preferences for a recipient
-     */
-    preference_set?: PreferencesAPI.PreferenceSetRequest | null;
-  }
-
-  export namespace Settings {
-    export interface Branding {
-      icon_url?: string | null;
-
-      logo_url?: string | null;
-
-      primary_color?: string | null;
-
-      primary_color_contrast?: string | null;
-    }
-  }
-}
 
 Tenants.Bulk = Bulk;
 
@@ -160,11 +93,9 @@ export declare namespace Tenants {
     type InlineTenantRequest as InlineTenantRequest,
     type Tenant as Tenant,
     type TenantRequest as TenantRequest,
-    type TenantDeleteResponse as TenantDeleteResponse,
     type TenantsEntriesCursor as TenantsEntriesCursor,
     type TenantListParams as TenantListParams,
-    type TenantSetParams as TenantSetParams,
   };
 
-  export { Bulk as Bulk, type BulkDeleteParams as BulkDeleteParams, type BulkSetParams as BulkSetParams };
+  export { Bulk as Bulk, type BulkDeleteParams as BulkDeleteParams };
 }

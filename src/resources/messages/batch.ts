@@ -7,45 +7,42 @@ import { RequestOptions } from '../../internal/request-options';
 
 export class Batch extends APIResource {
   /**
-   * Mark messages as archived
+   * Marks one or more messages as archived
    */
   archive(body: BatchArchiveParams, options?: RequestOptions): APIPromise<BatchArchiveResponse> {
     return this._client.post('/v1/messages/batch/archived', options);
   }
 
   /**
-   * Get the contents of multiple messages in a single request.
+   * Get the contents of multiple messages
    */
   getContent(query: BatchGetContentParams, options?: RequestOptions): APIPromise<BatchGetContentResponse> {
     return this._client.get('/v1/messages/batch/content', { query, ...options });
   }
 
   /**
-   * Mark messages as interacted
+   * Marks one or more messages as interacted
    */
-  markAsInteracted(
-    body: BatchMarkAsInteractedParams,
-    options?: RequestOptions,
-  ): APIPromise<BatchMarkAsInteractedResponse> {
-    return this._client.post('/v1/messages/batch/interacted', { body, ...options });
+  markAsInteracted(options?: RequestOptions): APIPromise<BatchMarkAsInteractedResponse> {
+    return this._client.post('/v1/messages/batch/interacted', options);
   }
 
   /**
-   * Mark messages as read
+   * Marks one or more messages as read
    */
   markAsRead(body: BatchMarkAsReadParams, options?: RequestOptions): APIPromise<BatchMarkAsReadResponse> {
     return this._client.post('/v1/messages/batch/read', options);
   }
 
   /**
-   * Mark messages as seen
+   * Marks one or more messages as seen
    */
   markAsSeen(body: BatchMarkAsSeenParams, options?: RequestOptions): APIPromise<BatchMarkAsSeenResponse> {
     return this._client.post('/v1/messages/batch/seen', options);
   }
 
   /**
-   * Mark messages as unread
+   * Marks one or more messages as unread
    */
   markAsUnread(
     body: BatchMarkAsUnreadParams,
@@ -55,7 +52,7 @@ export class Batch extends APIResource {
   }
 
   /**
-   * Mark messages as unseen
+   * Marks one or more messages as unseen
    */
   markAsUnseen(
     body: BatchMarkAsUnseenParams,
@@ -65,7 +62,7 @@ export class Batch extends APIResource {
   }
 
   /**
-   * Mark messages as unarchived
+   * Marks one or more messages as unarchived
    */
   unarchive(body: BatchUnarchiveParams, options?: RequestOptions): APIPromise<BatchUnarchiveResponse> {
     return this._client.post('/v1/messages/batch/unarchived', options);
@@ -77,9 +74,6 @@ export class Batch extends APIResource {
  */
 export type BatchArchiveResponse = Array<MessagesAPI.Message>;
 
-/**
- * A list of message contents
- */
 export type BatchGetContentResponse = Array<BatchGetContentResponse.BatchGetContentResponseItem>;
 
 export namespace BatchGetContentResponse {
@@ -151,7 +145,7 @@ export namespace BatchGetContentResponse {
 
       title: string;
 
-      data?: Record<string, unknown> | null;
+      data?: unknown | null;
     }
 
     /**
@@ -163,11 +157,11 @@ export namespace BatchGetContentResponse {
       /**
        * The channel data connection from the recipient to the underlying provider
        */
-      connection: Record<string, unknown>;
+      connection: unknown;
 
       template: MessageChatContent.Template;
 
-      metadata?: Record<string, unknown> | null;
+      metadata?: unknown | null;
     }
 
     export namespace MessageChatContent {
@@ -180,7 +174,7 @@ export namespace BatchGetContentResponse {
         /**
          * The JSON content of the message
          */
-        json_content?: Record<string, unknown> | null;
+        json_content?: unknown | null;
 
         summary?: string | null;
       }
@@ -208,17 +202,14 @@ export namespace BatchGetContentResponse {
       /**
        * The blocks of the message
        */
-      blocks: Array<
-        | MessageInAppFeedContent.MessageInAppFeedContentBlock
-        | MessageInAppFeedContent.MessageInAppFeedButtonSetBlock
-      >;
+      blocks: Array<MessageInAppFeedContent.ContentBlock | MessageInAppFeedContent.ButtonSetBlock>;
     }
 
     export namespace MessageInAppFeedContent {
       /**
        * A content (text or markdown) block in a message in an app feed
        */
-      export interface MessageInAppFeedContentBlock {
+      export interface ContentBlock {
         content: string;
 
         name: string;
@@ -231,15 +222,15 @@ export namespace BatchGetContentResponse {
       /**
        * A set of buttons in a message in an app feed
        */
-      export interface MessageInAppFeedButtonSetBlock {
-        buttons: Array<MessageInAppFeedButtonSetBlock.Button>;
+      export interface ButtonSetBlock {
+        buttons: Array<ButtonSetBlock.Button>;
 
         name: string;
 
         type: 'button_set';
       }
 
-      export namespace MessageInAppFeedButtonSetBlock {
+      export namespace ButtonSetBlock {
         /**
          * A button in a set of buttons
          */
@@ -296,19 +287,7 @@ export interface BatchGetContentParams {
   /**
    * The IDs of the messages to fetch contents of
    */
-  message_ids: Array<string>;
-}
-
-export interface BatchMarkAsInteractedParams {
-  /**
-   * The message IDs to update
-   */
-  message_ids: Array<string>;
-
-  /**
-   * Metadata about the interaction
-   */
-  metadata?: Record<string, unknown> | null;
+  message_ids: Array<unknown>;
 }
 
 export interface BatchMarkAsReadParams {
@@ -358,7 +337,6 @@ export declare namespace Batch {
     type BatchUnarchiveResponse as BatchUnarchiveResponse,
     type BatchArchiveParams as BatchArchiveParams,
     type BatchGetContentParams as BatchGetContentParams,
-    type BatchMarkAsInteractedParams as BatchMarkAsInteractedParams,
     type BatchMarkAsReadParams as BatchMarkAsReadParams,
     type BatchMarkAsSeenParams as BatchMarkAsSeenParams,
     type BatchMarkAsUnreadParams as BatchMarkAsUnreadParams,

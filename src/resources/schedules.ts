@@ -2,7 +2,6 @@
 
 import { APIResource } from '../core/resource';
 import * as RecipientsAPI from './recipients/recipients';
-import * as TenantsAPI from './tenants/tenants';
 import { APIPromise } from '../core/api-promise';
 import { EntriesCursor, type EntriesCursorParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
@@ -11,15 +10,15 @@ export class Schedules extends APIResource {
   /**
    * Create schedules
    */
-  create(body: ScheduleCreateParams, options?: RequestOptions): APIPromise<ScheduleCreateResponse> {
-    return this._client.post('/v1/schedules', { body, ...options });
+  create(options?: RequestOptions): APIPromise<ScheduleCreateResponse> {
+    return this._client.post('/v1/schedules', options);
   }
 
   /**
    * Update schedules
    */
-  update(body: ScheduleUpdateParams, options?: RequestOptions): APIPromise<ScheduleUpdateResponse> {
-    return this._client.put('/v1/schedules', { body, ...options });
+  update(options?: RequestOptions): APIPromise<ScheduleUpdateResponse> {
+    return this._client.put('/v1/schedules', options);
   }
 
   /**
@@ -32,8 +31,8 @@ export class Schedules extends APIResource {
   /**
    * Delete schedules
    */
-  delete(body: ScheduleDeleteParams, options?: RequestOptions): APIPromise<ScheduleDeleteResponse> {
-    return this._client.delete('/v1/schedules', { body, ...options });
+  delete(options?: RequestOptions): APIPromise<ScheduleDeleteResponse> {
+    return this._client.delete('/v1/schedules', options);
   }
 }
 
@@ -65,7 +64,7 @@ export interface Schedule {
    */
   actor?: RecipientsAPI.Recipient | null;
 
-  data?: Record<string, unknown> | null;
+  data?: unknown | null;
 
   last_occurrence_at?: string | null;
 
@@ -93,80 +92,11 @@ export interface ScheduleRepeatRule {
   minutes?: number | null;
 }
 
-/**
- * A list of schedules
- */
 export type ScheduleCreateResponse = Array<Schedule>;
 
-/**
- * A list of schedules
- */
 export type ScheduleUpdateResponse = Array<Schedule>;
 
-/**
- * A list of schedules
- */
 export type ScheduleDeleteResponse = Array<Schedule>;
-
-export interface ScheduleCreateParams {
-  recipients: Array<string | ScheduleCreateParams.ObjectReference>;
-
-  repeats: Array<ScheduleRepeatRule>;
-
-  workflow: string;
-
-  data?: Record<string, unknown> | null;
-
-  ending_at?: string | null;
-
-  scheduled_at?: string | null;
-
-  /**
-   * An inline tenant request
-   */
-  tenant?: TenantsAPI.InlineTenantRequest | null;
-}
-
-export namespace ScheduleCreateParams {
-  /**
-   * An object reference to a recipient
-   */
-  export interface ObjectReference {
-    /**
-     * An object identifier
-     */
-    id: string;
-
-    /**
-     * The collection the object belongs to
-     */
-    collection: string;
-  }
-}
-
-export interface ScheduleUpdateParams {
-  schedule_ids: Array<string>;
-
-  /**
-   * Specifies a recipient in a request. This can either be a user identifier
-   * (string), an inline user request (object), or an inline object request, which is
-   * determined by the presence of a `collection` property.
-   */
-  actor?: RecipientsAPI.RecipientRequest | null;
-
-  data?: Record<string, unknown> | null;
-
-  ending_at?: string | null;
-
-  repeats?: Array<ScheduleRepeatRule>;
-
-  scheduled_at?: string | null;
-
-  /**
-   * An inline tenant request
-   */
-  tenant?: TenantsAPI.InlineTenantRequest | null;
-}
 
 export interface ScheduleListParams extends EntriesCursorParams {
   /**
@@ -177,7 +107,7 @@ export interface ScheduleListParams extends EntriesCursorParams {
   /**
    * Filter by recipient
    */
-  recipients?: Array<string | ScheduleListParams.ObjectReference>;
+  recipients?: Array<string | ScheduleListParams.UnionMember1>;
 
   /**
    * Filter by tenant
@@ -189,7 +119,7 @@ export namespace ScheduleListParams {
   /**
    * An object reference to a recipient
    */
-  export interface ObjectReference {
+  export interface UnionMember1 {
     /**
      * An object identifier
      */
@@ -202,10 +132,6 @@ export namespace ScheduleListParams {
   }
 }
 
-export interface ScheduleDeleteParams {
-  schedule_ids: Array<string>;
-}
-
 export declare namespace Schedules {
   export {
     type Schedule as Schedule,
@@ -214,9 +140,6 @@ export declare namespace Schedules {
     type ScheduleUpdateResponse as ScheduleUpdateResponse,
     type ScheduleDeleteResponse as ScheduleDeleteResponse,
     type SchedulesEntriesCursor as SchedulesEntriesCursor,
-    type ScheduleCreateParams as ScheduleCreateParams,
-    type ScheduleUpdateParams as ScheduleUpdateParams,
     type ScheduleListParams as ScheduleListParams,
-    type ScheduleDeleteParams as ScheduleDeleteParams,
   };
 }

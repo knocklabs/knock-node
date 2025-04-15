@@ -2,13 +2,12 @@
 
 import { APIResource } from '../../core/resource';
 import * as BulkOperationsAPI from '../bulk-operations';
-import * as TenantsAPI from './tenants';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
 export class Bulk extends APIResource {
   /**
-   * Bulk delete tenants
+   * Deletes tenants in bulk
    */
   delete(params: BulkDeleteParams, options?: RequestOptions): APIPromise<BulkOperationsAPI.BulkOperation> {
     const { tenant_ids } = params;
@@ -16,10 +15,10 @@ export class Bulk extends APIResource {
   }
 
   /**
-   * Bulk set tenants
+   * Sets tenants in bulk
    */
-  set(body: BulkSetParams, options?: RequestOptions): APIPromise<BulkOperationsAPI.BulkOperation> {
-    return this._client.post('/v1/tenants/bulk/set', { body, ...options });
+  set(options?: RequestOptions): APIPromise<BulkOperationsAPI.BulkOperation> {
+    return this._client.post('/v1/tenants/bulk/set', options);
   }
 }
 
@@ -30,10 +29,6 @@ export interface BulkDeleteParams {
   tenant_ids: Array<string>;
 }
 
-export interface BulkSetParams {
-  tenants: Array<TenantsAPI.InlineTenantRequest>;
-}
-
 export declare namespace Bulk {
-  export { type BulkDeleteParams as BulkDeleteParams, type BulkSetParams as BulkSetParams };
+  export { type BulkDeleteParams as BulkDeleteParams };
 }

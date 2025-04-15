@@ -31,7 +31,7 @@ describe('resource batch', () => {
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('getContent: only required params', async () => {
-    const responsePromise = client.messages.batch.getContent({ message_ids: ['string'] });
+    const responsePromise = client.messages.batch.getContent({ message_ids: [{}] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -43,14 +43,12 @@ describe('resource batch', () => {
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('getContent: required and optional params', async () => {
-    const response = await client.messages.batch.getContent({ message_ids: ['string'] });
+    const response = await client.messages.batch.getContent({ message_ids: [{}] });
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('markAsInteracted: only required params', async () => {
-    const responsePromise = client.messages.batch.markAsInteracted({
-      message_ids: ['1jNaXzB2RZX3LY8wVQnfCKyPnv7'],
-    });
+  test.skip('markAsInteracted', async () => {
+    const responsePromise = client.messages.batch.markAsInteracted();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -58,14 +56,6 @@ describe('resource batch', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('markAsInteracted: required and optional params', async () => {
-    const response = await client.messages.batch.markAsInteracted({
-      message_ids: ['1jNaXzB2RZX3LY8wVQnfCKyPnv7'],
-      metadata: { key: 'bar' },
-    });
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url

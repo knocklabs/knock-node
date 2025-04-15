@@ -9,18 +9,14 @@ import { path } from '../internal/utils/path';
 
 export class Workflows extends APIResource {
   /**
-   * When invoked for a workflow using a specific workflow key and cancellation key,
-   * will cancel any queued workflow runs associated with that key/cancellation key
-   * pair. Can optionally be provided one or more recipients to scope the request to.
+   * Issues a cancellation request to inflight workflow runs
    */
   cancel(key: string, body: WorkflowCancelParams, options?: RequestOptions): APIPromise<string> {
     return this._client.post(path`/v1/workflows/${key}/cancel`, { body, ...options });
   }
 
   /**
-   * Trigger a workflow specified by the key to run for the given recipients, using
-   * the parameters provided. Returns an identifier for the workflow run request. All
-   * workflow runs are executed asynchronously.
+   * Triggers a workflow
    */
   trigger(
     key: string,
@@ -31,9 +27,6 @@ export class Workflows extends APIResource {
   }
 }
 
-/**
- * An empty response
- */
 export type WorkflowCancelResponse = string;
 
 /**
@@ -81,11 +74,10 @@ export interface WorkflowTriggerParams {
    * An optional map of data to be used in the workflow. This data will be available
    * to the workflow as a map in the `data` field.
    */
-  data?: Record<string, unknown> | null;
+  data?: Record<string, string> | null;
 
   /**
-   * The recipients to trigger the workflow for. Cannot exceed 1000 recipients in a
-   * single trigger.
+   * The recipients to trigger the workflow for.
    */
   recipients?: Array<RecipientsAPI.RecipientRequest>;
 
