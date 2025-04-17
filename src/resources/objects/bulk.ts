@@ -2,13 +2,15 @@
 
 import { APIResource } from '../../core/resource';
 import * as BulkOperationsAPI from '../bulk-operations';
+import * as ObjectsAPI from './objects';
+import * as RecipientsAPI from '../recipients/recipients';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
 export class Bulk extends APIResource {
   /**
-   * Deletes objects in bulk for a given collection
+   * Bulk deletes objects from the specified collection.
    */
   delete(
     collection: string,
@@ -23,30 +25,73 @@ export class Bulk extends APIResource {
   }
 
   /**
-   * Bulk upserts subscriptions for a set of objects in a single collection
+   * Add subscriptions for a set of objects in a single collection. If a subscription
+   * already exists, it will be updated.
    */
   addSubscriptions(
     collection: string,
+    body: BulkAddSubscriptionsParams,
     options?: RequestOptions,
   ): APIPromise<BulkOperationsAPI.BulkOperation> {
-    return this._client.post(path`/v1/objects/${collection}/bulk/subscriptions/add`, options);
+    return this._client.post(path`/v1/objects/${collection}/bulk/subscriptions/add`, { body, ...options });
   }
 
   /**
-   * Sets objects in bulk for a given collection
+   * Bulk sets objects in the specified collection.
    */
-  set(collection: string, options?: RequestOptions): APIPromise<BulkOperationsAPI.BulkOperation> {
-    return this._client.post(path`/v1/objects/${collection}/bulk/set`, options);
+  set(
+    collection: string,
+    body: BulkSetParams,
+    options?: RequestOptions,
+  ): APIPromise<BulkOperationsAPI.BulkOperation> {
+    return this._client.post(path`/v1/objects/${collection}/bulk/set`, { body, ...options });
   }
 }
 
 export interface BulkDeleteParams {
   /**
-   * The IDs of the objects to delete
+   * A list of object IDs.
    */
   object_ids: Array<string>;
 }
 
+export interface BulkAddSubscriptionsParams {
+  /**
+   * A list of subscriptions.
+   */
+  subscriptions: Array<BulkAddSubscriptionsParams.Subscription>;
+}
+
+export namespace BulkAddSubscriptionsParams {
+  export interface Subscription {
+    /**
+     * Unique identifier for the subscription.
+     */
+    id: string;
+
+    /**
+     * The recipients of the subscription.
+     */
+    recipients: Array<RecipientsAPI.RecipientRequest>;
+
+    /**
+     * The custom properties associated with the recipients of the subscription.
+     */
+    properties?: Record<string, unknown> | null;
+  }
+}
+
+export interface BulkSetParams {
+  /**
+   * A list of objects.
+   */
+  objects: Array<ObjectsAPI.InlineObjectRequest>;
+}
+
 export declare namespace Bulk {
-  export { type BulkDeleteParams as BulkDeleteParams };
+  export {
+    type BulkDeleteParams as BulkDeleteParams,
+    type BulkAddSubscriptionsParams as BulkAddSubscriptionsParams,
+    type BulkSetParams as BulkSetParams,
+  };
 }

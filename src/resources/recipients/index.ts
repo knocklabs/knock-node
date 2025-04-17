@@ -14,6 +14,7 @@ export {
   Preferences,
   type InlinePreferenceSetRequest,
   type PreferenceSet,
+  type PreferenceSetChannelTypeSetting,
   type PreferenceSetChannelTypes,
   type PreferenceSetRequest,
 } from './preferences';

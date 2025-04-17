@@ -7,10 +7,10 @@ const client = new Knock({
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
-describe('resource bulk', () => {
+describe('resource feeds', () => {
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('delete: only required params', async () => {
-    const responsePromise = client.tenants.bulk.delete({ tenant_ids: ['string'] });
+  test.skip('getSettings', async () => {
+    const responsePromise = client.users.feeds.getSettings('user_id', '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,13 +21,8 @@ describe('resource bulk', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('delete: required and optional params', async () => {
-    const response = await client.tenants.bulk.delete({ tenant_ids: ['string'] });
-  });
-
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('set: only required params', async () => {
-    const responsePromise = client.tenants.bulk.set({ tenants: ['string'] });
+  test.skip('listItems', async () => {
+    const responsePromise = client.users.feeds.listItems('user_id', '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -38,7 +33,26 @@ describe('resource bulk', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('set: required and optional params', async () => {
-    const response = await client.tenants.bulk.set({ tenants: ['string'] });
+  test.skip('listItems: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.users.feeds.listItems(
+        'user_id',
+        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+        {
+          after: 'after',
+          archived: 'exclude',
+          before: 'before',
+          has_tenant: true,
+          page_size: 0,
+          source: 'source',
+          status: 'unread',
+          tenant: 'tenant',
+          trigger_data: 'trigger_data',
+          workflow_categories: ['string'],
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Knock.NotFoundError);
   });
 });

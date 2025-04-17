@@ -12,6 +12,7 @@ export {
   type BatchUnarchiveResponse,
   type BatchArchiveParams,
   type BatchGetContentParams,
+  type BatchMarkAsInteractedParams,
   type BatchMarkAsReadParams,
   type BatchMarkAsSeenParams,
   type BatchMarkAsUnreadParams,
@@ -31,7 +32,7 @@ export {
   type MessageListEventsParams,
   type MessageMarkAsInteractedParams,
   type MessagesEntriesCursor,
-  type ActivitiesItemsCursor,
+  type ActivitiesEntriesCursor,
   type MessageDeliveryLogsEntriesCursor,
   type MessageEventsEntriesCursor,
 } from './messages';

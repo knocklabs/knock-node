@@ -32,19 +32,24 @@ import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
 import {
+  AudienceAddMembersParams,
   AudienceAddMembersResponse,
   AudienceListMembersResponse,
   AudienceMember,
+  AudienceRemoveMembersParams,
   AudienceRemoveMembersResponse,
   Audiences,
 } from './resources/audiences';
 import { BulkOperation, BulkOperations } from './resources/bulk-operations';
 import {
   Schedule,
+  ScheduleCreateParams,
   ScheduleCreateResponse,
+  ScheduleDeleteParams,
   ScheduleDeleteResponse,
   ScheduleListParams,
   ScheduleRepeatRule,
+  ScheduleUpdateParams,
   ScheduleUpdateResponse,
   Schedules,
   SchedulesEntriesCursor,
@@ -61,7 +66,7 @@ import { formatRequestDetails, loggerFor } from './internal/utils/log';
 import { isEmptyObj } from './internal/utils/values';
 import { Channels } from './resources/channels/channels';
 import {
-  ActivitiesItemsCursor,
+  ActivitiesEntriesCursor,
   Activity,
   Message,
   MessageDeliveryLog,
@@ -82,10 +87,17 @@ import {
   Object,
   ObjectAddSubscriptionsParams,
   ObjectAddSubscriptionsResponse,
+  ObjectDeleteResponse,
   ObjectDeleteSubscriptionsParams,
   ObjectDeleteSubscriptionsResponse,
+  ObjectGetPreferencesParams,
+  ObjectListMessagesParams,
   ObjectListParams,
+  ObjectListSchedulesParams,
   ObjectListSubscriptionsParams,
+  ObjectSetChannelDataParams,
+  ObjectSetParams,
+  ObjectSetPreferencesParams,
   ObjectUnsetChannelDataResponse,
   Objects,
   ObjectsEntriesCursor,
@@ -95,8 +107,10 @@ import { Recipient, RecipientRequest, Recipients } from './resources/recipients/
 import {
   InlineTenantRequest,
   Tenant,
+  TenantDeleteResponse,
   TenantListParams,
   TenantRequest,
+  TenantSetParams,
   Tenants,
   TenantsEntriesCursor,
 } from './resources/tenants/tenants';
@@ -105,12 +119,15 @@ import {
   InlineIdentifyUserRequest,
   User,
   UserDeleteResponse,
+  UserGetPreferencesParams,
   UserListMessagesParams,
   UserListParams,
   UserListPreferencesResponse,
   UserListSchedulesParams,
   UserListSubscriptionsParams,
   UserMergeParams,
+  UserSetChannelDataParams,
+  UserSetPreferencesParams,
   UserUnsetChannelDataResponse,
   UserUpdateParams,
   Users,
@@ -263,6 +280,10 @@ export class Knock {
 
   protected validateHeaders({ values, nulls }: NullableHeaders) {
     return;
+  }
+
+  protected authHeaders(opts: FinalRequestOptions): NullableHeaders | undefined {
+    return buildHeaders([{ Authorization: `Bearer ${this.bearerToken}` }]);
   }
 
   protected stringifyQuery(query: Record<string, unknown>): string {
@@ -698,6 +719,7 @@ export class Knock {
         ...(options.timeout ? { 'X-Stainless-Timeout': String(Math.trunc(options.timeout / 1000)) } : {}),
         ...getPlatformHeaders(),
       },
+      this.authHeaders(options),
       this._options.defaultHeaders,
       bodyHeaders,
       options.headers,
@@ -818,16 +840,20 @@ export declare namespace Knock {
     type UsersEntriesCursor as UsersEntriesCursor,
     type UserUpdateParams as UserUpdateParams,
     type UserListParams as UserListParams,
+    type UserGetPreferencesParams as UserGetPreferencesParams,
     type UserListMessagesParams as UserListMessagesParams,
     type UserListSchedulesParams as UserListSchedulesParams,
     type UserListSubscriptionsParams as UserListSubscriptionsParams,
     type UserMergeParams as UserMergeParams,
+    type UserSetChannelDataParams as UserSetChannelDataParams,
+    type UserSetPreferencesParams as UserSetPreferencesParams,
   };
 
   export {
     Objects as Objects,
     type InlineObjectRequest as InlineObjectRequest,
     type Object as Object,
+    type ObjectDeleteResponse as ObjectDeleteResponse,
     type ObjectAddSubscriptionsResponse as ObjectAddSubscriptionsResponse,
     type ObjectDeleteSubscriptionsResponse as ObjectDeleteSubscriptionsResponse,
     type ObjectUnsetChannelDataResponse as ObjectUnsetChannelDataResponse,
@@ -835,7 +861,13 @@ export declare namespace Knock {
     type ObjectListParams as ObjectListParams,
     type ObjectAddSubscriptionsParams as ObjectAddSubscriptionsParams,
     type ObjectDeleteSubscriptionsParams as ObjectDeleteSubscriptionsParams,
+    type ObjectGetPreferencesParams as ObjectGetPreferencesParams,
+    type ObjectListMessagesParams as ObjectListMessagesParams,
+    type ObjectListSchedulesParams as ObjectListSchedulesParams,
     type ObjectListSubscriptionsParams as ObjectListSubscriptionsParams,
+    type ObjectSetParams as ObjectSetParams,
+    type ObjectSetChannelDataParams as ObjectSetChannelDataParams,
+    type ObjectSetPreferencesParams as ObjectSetPreferencesParams,
   };
 
   export {
@@ -843,8 +875,10 @@ export declare namespace Knock {
     type InlineTenantRequest as InlineTenantRequest,
     type Tenant as Tenant,
     type TenantRequest as TenantRequest,
+    type TenantDeleteResponse as TenantDeleteResponse,
     type TenantsEntriesCursor as TenantsEntriesCursor,
     type TenantListParams as TenantListParams,
+    type TenantSetParams as TenantSetParams,
   };
 
   export { BulkOperations as BulkOperations, type BulkOperation as BulkOperation };
@@ -857,7 +891,7 @@ export declare namespace Knock {
     type MessageEvent as MessageEvent,
     type MessageGetContentResponse as MessageGetContentResponse,
     type MessagesEntriesCursor as MessagesEntriesCursor,
-    type ActivitiesItemsCursor as ActivitiesItemsCursor,
+    type ActivitiesEntriesCursor as ActivitiesEntriesCursor,
     type MessageDeliveryLogsEntriesCursor as MessageDeliveryLogsEntriesCursor,
     type MessageEventsEntriesCursor as MessageEventsEntriesCursor,
     type MessageListParams as MessageListParams,
@@ -885,7 +919,10 @@ export declare namespace Knock {
     type ScheduleUpdateResponse as ScheduleUpdateResponse,
     type ScheduleDeleteResponse as ScheduleDeleteResponse,
     type SchedulesEntriesCursor as SchedulesEntriesCursor,
+    type ScheduleCreateParams as ScheduleCreateParams,
+    type ScheduleUpdateParams as ScheduleUpdateParams,
     type ScheduleListParams as ScheduleListParams,
+    type ScheduleDeleteParams as ScheduleDeleteParams,
   };
 
   export { Channels as Channels };
@@ -896,6 +933,8 @@ export declare namespace Knock {
     type AudienceAddMembersResponse as AudienceAddMembersResponse,
     type AudienceListMembersResponse as AudienceListMembersResponse,
     type AudienceRemoveMembersResponse as AudienceRemoveMembersResponse,
+    type AudienceAddMembersParams as AudienceAddMembersParams,
+    type AudienceRemoveMembersParams as AudienceRemoveMembersParams,
   };
 
   export type Condition = API.Condition;

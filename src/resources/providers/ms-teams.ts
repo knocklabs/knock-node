@@ -8,7 +8,7 @@ import { path } from '../../internal/utils/path';
 export class MsTeams extends APIResource {
   /**
    * Check if a connection to Microsoft Teams has been authorized for a given
-   * Microsoft Teams tenant object
+   * Microsoft Teams tenant object.
    */
   checkAuth(
     channelID: string,
@@ -19,8 +19,8 @@ export class MsTeams extends APIResource {
   }
 
   /**
-   * Get a list of the Microsoft Teams channels within a team. By default, archived
-   * and private channels are excluded from the results.
+   * List the Microsoft Teams channels within a team. By default, archived and
+   * private channels are excluded from the results.
    */
   listChannels(
     channelID: string,
@@ -31,7 +31,8 @@ export class MsTeams extends APIResource {
   }
 
   /**
-   * Get a list of teams belonging to the Microsoft Entra tenant
+   * Get a list of teams belonging to the Microsoft Entra tenant. By default,
+   * archived and private channels are excluded from the results.
    */
   listTeams(
     channelID: string,
@@ -42,7 +43,7 @@ export class MsTeams extends APIResource {
   }
 
   /**
-   * Remove a Microsoft Entra tenant ID from a Microsoft Teams tenant object
+   * Remove a Microsoft Entra tenant ID from a Microsoft Teams tenant object.
    */
   revokeAccess(
     channelID: string,
@@ -58,58 +59,109 @@ export class MsTeams extends APIResource {
 }
 
 /**
- * The response from a Microsoft Teams auth check request
+ * The response from a Microsoft Teams auth check request.
  */
 export interface MsTeamCheckAuthResponse {
+  /**
+   * A Microsoft Teams connection object.
+   */
   connection: MsTeamCheckAuthResponse.Connection;
 }
 
 export namespace MsTeamCheckAuthResponse {
+  /**
+   * A Microsoft Teams connection object.
+   */
   export interface Connection {
+    /**
+     * Whether the Microsoft Teams connection is valid.
+     */
     ok: boolean;
 
+    /**
+     * The reason for the Microsoft Teams connection if it is not valid.
+     */
     reason?: string | null;
   }
 }
 
 /**
- * The response from a channels for Microsoft Teams provider request
+ * The response from a Microsoft Teams provider request, containing a list of
+ * channels.
  */
 export interface MsTeamListChannelsResponse {
+  /**
+   * List of Microsoft Teams channels.
+   */
   ms_teams_channels: Array<MsTeamListChannelsResponse.MsTeamsChannel>;
 }
 
 export namespace MsTeamListChannelsResponse {
   export interface MsTeamsChannel {
+    /**
+     * Microsoft Teams channel ID.
+     */
     id: string;
 
+    /**
+     * Microsoft Teams channel name.
+     */
     displayName: string;
 
+    /**
+     * Microsoft Teams channel created date and time.
+     */
     createdDateTime?: string;
 
+    /**
+     * Microsoft Teams channel description.
+     */
     description?: string | null;
 
+    /**
+     * Whether the Microsoft Teams channel is archived.
+     */
     isArchived?: boolean;
 
+    /**
+     * Microsoft Teams channel membership type.
+     */
     membershipType?: string;
   }
 }
 
 /**
- * The response from a teams for Microsoft Teams provider request
+ * The response from a Microsoft Teams provider request, containing a list of
+ * teams.
  */
 export interface MsTeamListTeamsResponse {
+  /**
+   * List of Microsoft Teams teams.
+   */
   ms_teams_teams: Array<MsTeamListTeamsResponse.MsTeamsTeam>;
 
+  /**
+   * [OData param](https://learn.microsoft.com/en-us/graph/query-parameters) passed
+   * to the Microsoft Graph API to retrieve the next page of results.
+   */
   skip_token: string | null;
 }
 
 export namespace MsTeamListTeamsResponse {
   export interface MsTeamsTeam {
+    /**
+     * Microsoft Teams team ID.
+     */
     id: string;
 
+    /**
+     * Microsoft Teams team display name.
+     */
     displayName: string;
 
+    /**
+     * Microsoft Teams team description.
+     */
     description?: string | null;
   }
 }
@@ -118,19 +170,19 @@ export type MsTeamRevokeAccessResponse = string;
 
 export interface MsTeamCheckAuthParams {
   /**
-   * A JSON encoded string containing the Microsoft Teams tenant object reference
+   * A JSON encoded string containing the Microsoft Teams tenant object reference.
    */
   ms_teams_tenant_object: string;
 }
 
 export interface MsTeamListChannelsParams {
   /**
-   * A JSON encoded string containing the Microsoft Teams tenant object reference
+   * A JSON encoded string containing the Microsoft Teams tenant object reference.
    */
   ms_teams_tenant_object: string;
 
   /**
-   * The ID of the Microsoft Teams team to list channels from
+   * Microsoft Teams team ID.
    */
   team_id: string;
 
@@ -141,13 +193,13 @@ export namespace MsTeamListChannelsParams {
   export interface QueryOptions {
     /**
      * [OData param](https://learn.microsoft.com/en-us/graph/query-parameters) passed
-     * to the Microsoft Graph API to filter channels
+     * to the Microsoft Graph API to filter channels.
      */
     $filter?: string;
 
     /**
      * [OData param](https://learn.microsoft.com/en-us/graph/query-parameters) passed
-     * to the Microsoft Graph API to select fields on a channel
+     * to the Microsoft Graph API to select specific properties.
      */
     $select?: string;
   }
@@ -155,7 +207,7 @@ export namespace MsTeamListChannelsParams {
 
 export interface MsTeamListTeamsParams {
   /**
-   * A JSON encoded string containing the Microsoft Teams tenant object reference
+   * A JSON encoded string containing the Microsoft Teams tenant object reference.
    */
   ms_teams_tenant_object: string;
 
@@ -166,25 +218,25 @@ export namespace MsTeamListTeamsParams {
   export interface QueryOptions {
     /**
      * [OData param](https://learn.microsoft.com/en-us/graph/query-parameters) passed
-     * to the Microsoft Graph API to filter teams
+     * to the Microsoft Graph API to filter teams.
      */
     $filter?: string;
 
     /**
      * [OData param](https://learn.microsoft.com/en-us/graph/query-parameters) passed
-     * to the Microsoft Graph API to select fields on a team
+     * to the Microsoft Graph API to select fields on a team.
      */
     $select?: string;
 
     /**
      * [OData param](https://learn.microsoft.com/en-us/graph/query-parameters) passed
-     * to the Microsoft Graph API to retrieve the next page of results
+     * to the Microsoft Graph API to retrieve the next page of results.
      */
     $skiptoken?: string;
 
     /**
      * [OData param](https://learn.microsoft.com/en-us/graph/query-parameters) passed
-     * to the Microsoft Graph API to limit the number of teams returned
+     * to the Microsoft Graph API to limit the number of teams returned.
      */
     $top?: number;
   }
@@ -192,7 +244,7 @@ export namespace MsTeamListTeamsParams {
 
 export interface MsTeamRevokeAccessParams {
   /**
-   * A JSON encoded string containing the Microsoft Teams tenant object reference
+   * A JSON encoded string containing the Microsoft Teams tenant object reference.
    */
   ms_teams_tenant_object: string;
 }

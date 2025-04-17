@@ -1,11 +1,17 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 /**
- * A condition to be evaluated
+ * A condition to be evaluated.
  */
 export interface Condition {
+  /**
+   * The argument value to compare against in the condition.
+   */
   argument: string | null;
 
+  /**
+   * The operator to use in the condition evaluation.
+   */
   operator:
     | 'equal_to'
     | 'not_equal_to'
@@ -23,7 +29,11 @@ export interface Condition {
     | 'is_timestamp_after'
     | 'is_timestamp_before'
     | 'is_timestamp_between'
-    | 'is_audience_member';
+    | 'is_audience_member'
+    | 'is_not_audience_member';
 
+  /**
+   * The variable to be evaluated in the condition.
+   */
   variable: string;
 }

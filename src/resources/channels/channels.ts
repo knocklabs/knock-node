@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as BulkAPI from './bulk';
-import { Bulk } from './bulk';
+import { Bulk, BulkUpdateMessageStatusParams } from './bulk';
 
 export class Channels extends APIResource {
   bulk: BulkAPI.Bulk = new BulkAPI.Bulk(this._client);
@@ -11,5 +11,5 @@ export class Channels extends APIResource {
 Channels.Bulk = Bulk;
 
 export declare namespace Channels {
-  export { Bulk as Bulk };
+  export { Bulk as Bulk, type BulkUpdateMessageStatusParams as BulkUpdateMessageStatusParams };
 }

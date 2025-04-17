@@ -3,6 +3,7 @@
 import { APIResource } from '../../core/resource';
 import * as SchedulesAPI from '../schedules';
 import { SchedulesEntriesCursor } from '../schedules';
+import * as Shared from '../shared';
 import * as MessagesAPI from '../messages/messages';
 import { MessagesEntriesCursor } from '../messages/messages';
 import * as ChannelDataAPI from '../recipients/channel-data';
@@ -10,9 +11,15 @@ import * as PreferencesAPI from '../recipients/preferences';
 import * as SubscriptionsAPI from '../recipients/subscriptions';
 import { SubscriptionsEntriesCursor } from '../recipients/subscriptions';
 import * as BulkAPI from './bulk';
-import { Bulk, BulkDeleteParams } from './bulk';
+import { Bulk, BulkDeleteParams, BulkIdentifyParams, BulkSetPreferencesParams } from './bulk';
 import * as FeedsAPI from './feeds';
-import { Feeds } from './feeds';
+import {
+  FeedGetSettingsResponse,
+  FeedListItemsParams,
+  FeedListItemsResponse,
+  FeedListItemsResponsesEntriesCursor,
+  Feeds,
+} from './feeds';
 import { APIPromise } from '../../core/api-promise';
 import { EntriesCursor, type EntriesCursorParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -23,14 +30,14 @@ export class Users extends APIResource {
   bulk: BulkAPI.Bulk = new BulkAPI.Bulk(this._client);
 
   /**
-   * Identify a user
+   * Create or update a user with the provided identification data.
    */
   update(userID: string, body: UserUpdateParams, options?: RequestOptions): APIPromise<User> {
     return this._client.put(path`/v1/users/${userID}`, { body, ...options });
   }
 
   /**
-   * Returns a list of users
+   * Retrieve a paginated list of users in the environment.
    */
   list(
     query: UserListParams | null | undefined = {},
@@ -40,21 +47,21 @@ export class Users extends APIResource {
   }
 
   /**
-   * Deletes a user
+   * Permanently delete a user and all associated data.
    */
   delete(userID: string, options?: RequestOptions): APIPromise<string> {
     return this._client.delete(path`/v1/users/${userID}`, options);
   }
 
   /**
-   * Returns a user
+   * Retrieve a specific user by their ID.
    */
   get(userID: string, options?: RequestOptions): APIPromise<User> {
     return this._client.get(path`/v1/users/${userID}`, options);
   }
 
   /**
-   * Get channel data for a user
+   * Retrieves the channel data for a specific user and channel ID.
    */
   getChannelData(
     userID: string,
@@ -65,7 +72,21 @@ export class Users extends APIResource {
   }
 
   /**
-   * Returns a paginated list of messages for a user
+   * Retrieves a specific preference set for a user identified by the preference set
+   * ID.
+   */
+  getPreferences(
+    userID: string,
+    preferenceSetID: string,
+    query: UserGetPreferencesParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<PreferencesAPI.PreferenceSet> {
+    return this._client.get(path`/v1/users/${userID}/preferences/${preferenceSetID}`, { query, ...options });
+  }
+
+  /**
+   * Returns a paginated list of messages for a specific user. Allows filtering by
+   * message status and provides various sorting options.
    */
   listMessages(
     userID: string,
@@ -79,14 +100,15 @@ export class Users extends APIResource {
   }
 
   /**
-   * List preference sets for a user
+   * Retrieves a list of all preference sets for a specific user.
    */
   listPreferences(userID: string, options?: RequestOptions): APIPromise<UserListPreferencesResponse> {
     return this._client.get(path`/v1/users/${userID}/preferences`, options);
   }
 
   /**
-   * List schedules for a user
+   * Returns a paginated list of schedules for a specific user. Can be filtered by
+   * workflow and tenant.
    */
   listSchedules(
     userID: string,
@@ -101,7 +123,8 @@ export class Users extends APIResource {
   }
 
   /**
-   * List subscriptions for a user
+   * Retrieves a paginated list of subscriptions for a specific user. Allows
+   * filtering by objects and includes optional preference data.
    */
   listSubscriptions(
     userID: string,
@@ -116,25 +139,40 @@ export class Users extends APIResource {
   }
 
   /**
-   * Merges two users together
+   * Merge two users together, where the user specified with the `from_user_id` param
+   * will be merged into the user specified by `user_id`.
    */
   merge(userID: string, body: UserMergeParams, options?: RequestOptions): APIPromise<User> {
     return this._client.post(path`/v1/users/${userID}/merge`, { body, ...options });
   }
 
   /**
-   * Sets channel data for a user
+   * Updates or creates channel data for a specific user and channel ID.
    */
   setChannelData(
     userID: string,
     channelID: string,
+    body: UserSetChannelDataParams,
     options?: RequestOptions,
   ): APIPromise<ChannelDataAPI.ChannelData> {
-    return this._client.put(path`/v1/users/${userID}/channel_data/${channelID}`, options);
+    return this._client.put(path`/v1/users/${userID}/channel_data/${channelID}`, { body, ...options });
   }
 
   /**
-   * Unsets channel data for a user
+   * Updates a complete preference set for a user. This is a destructive operation
+   * that will replace the existing preference set for the user.
+   */
+  setPreferences(
+    userID: string,
+    preferenceSetID: string,
+    body: UserSetPreferencesParams,
+    options?: RequestOptions,
+  ): APIPromise<PreferencesAPI.PreferenceSet> {
+    return this._client.put(path`/v1/users/${userID}/preferences/${preferenceSetID}`, { body, ...options });
+  }
+
+  /**
+   * Deletes channel data for a specific user and channel ID.
    */
   unsetChannelData(userID: string, channelID: string, options?: RequestOptions): APIPromise<string> {
     return this._client.delete(path`/v1/users/${userID}/channel_data/${channelID}`, options);
@@ -150,10 +188,13 @@ export type UsersEntriesCursor = EntriesCursor<User>;
  */
 export interface IdentifyUserRequest {
   /**
-   * Allows inline setting channel data for a recipient
+   * A request to set channel data for a type of channel inline.
    */
   channel_data?: ChannelDataAPI.InlineChannelDataRequest | null;
 
+  /**
+   * The creation date of the user from your system.
+   */
   created_at?: string | null;
 
   /**
@@ -172,12 +213,12 @@ export interface IdentifyUserRequest {
  */
 export interface InlineIdentifyUserRequest {
   /**
-   * The ID of the user to identify. This is an ID that you supply.
+   * The unique identifier for the user.
    */
   id: string;
 
   /**
-   * Allows inline setting channel data for a recipient
+   * A request to set channel data for a type of channel inline.
    */
   channel_data?: ChannelDataAPI.InlineChannelDataRequest | null;
 
@@ -195,48 +236,81 @@ export interface InlineIdentifyUserRequest {
 }
 
 /**
- * A user object
+ * A user object.
  */
 export interface User {
+  /**
+   * The unique identifier for the user.
+   */
   id: string;
 
+  /**
+   * The type name of the schema.
+   */
   __typename: string;
 
+  /**
+   * The timestamp when the resource was last updated.
+   */
   updated_at: string;
 
+  /**
+   * URL to the user's avatar image.
+   */
   avatar?: string | null;
 
+  /**
+   * Timestamp when the resource was created.
+   */
   created_at?: string | null;
 
+  /**
+   * The email address of the user.
+   */
   email?: string | null;
 
+  /**
+   * Display name of the user.
+   */
   name?: string | null;
 
+  /**
+   * Phone number of the user.
+   */
   phone_number?: string | null;
 
+  /**
+   * Timezone of the user.
+   */
   timezone?: string | null;
 
   [k: string]: unknown;
 }
 
 /**
- * An empty response
+ * An empty response.
  */
 export type UserDeleteResponse = string;
 
+/**
+ * A list of preference sets for the user.
+ */
 export type UserListPreferencesResponse = Array<PreferencesAPI.PreferenceSet>;
 
 /**
- * An empty response
+ * An empty response.
  */
 export type UserUnsetChannelDataResponse = string;
 
 export interface UserUpdateParams {
   /**
-   * Allows inline setting channel data for a recipient
+   * A request to set channel data for a type of channel inline.
    */
   channel_data?: ChannelDataAPI.InlineChannelDataRequest | null;
 
+  /**
+   * The creation date of the user from your system.
+   */
   created_at?: string | null;
 
   /**
@@ -247,38 +321,50 @@ export interface UserUpdateParams {
   [k: string]: unknown;
 }
 
-export interface UserListParams extends EntriesCursorParams {}
+export interface UserListParams extends EntriesCursorParams {
+  /**
+   * Includes preferences of the users in the response.
+   */
+  include?: Array<'preferences'>;
+}
+
+export interface UserGetPreferencesParams {
+  /**
+   * The unique identifier for the tenant.
+   */
+  tenant?: string;
+}
 
 export interface UserListMessagesParams extends EntriesCursorParams {
   /**
-   * The channel ID
+   * The unique identifier for the channel.
    */
   channel_id?: string;
 
   /**
-   * The engagement status of the message
+   * The engagement status to filter messages by.
    */
   engagement_status?: Array<'seen' | 'read' | 'interacted' | 'link_clicked' | 'archived'>;
 
   /**
-   * The message IDs to filter messages by
+   * The message IDs to filter messages by.
    */
   message_ids?: Array<string>;
 
   /**
-   * The source of the message (workflow key)
+   * The source of the message (workflow key).
    */
   source?: string;
 
   /**
-   * The status of the message
+   * The delivery status to filter messages by.
    */
   status?: Array<
     'queued' | 'sent' | 'delivered' | 'delivery_attempted' | 'undelivered' | 'not_sent' | 'bounced'
   >;
 
   /**
-   * The tenant ID
+   * The unique identifier for the tenant.
    */
   tenant?: string;
 
@@ -288,59 +374,138 @@ export interface UserListMessagesParams extends EntriesCursorParams {
   trigger_data?: string;
 
   /**
-   * The workflow categories to filter messages by
+   * The workflow categories to filter messages by.
    */
   workflow_categories?: Array<string>;
 
   /**
-   * The workflow recipient run ID to filter messages by
+   * The workflow recipient run ID to filter messages by.
    */
   workflow_recipient_run_id?: string;
 
   /**
-   * The workflow run ID to filter messages by
+   * The workflow run ID to filter messages by.
    */
   workflow_run_id?: string;
 }
 
 export interface UserListSchedulesParams extends EntriesCursorParams {
   /**
-   * The ID of the tenant to list schedules for
+   * The ID of the tenant to list schedules for.
    */
   tenant?: string;
 
   /**
-   * The ID of the workflow to list schedules for
+   * The ID of the workflow to list schedules for.
    */
   workflow?: string;
 }
 
 export interface UserListSubscriptionsParams extends EntriesCursorParams {
   /**
-   * Objects to filter by
+   * Includes preferences of the recipient subscribers in the response.
    */
-  objects?: Array<string | UserListSubscriptionsParams.UnionMember1>;
+  include?: Array<'preferences'>;
+
+  /**
+   * Objects to filter by.
+   */
+  objects?: Array<string | UserListSubscriptionsParams.ObjectReference>;
 }
 
 export namespace UserListSubscriptionsParams {
   /**
-   * An object reference to a recipient
+   * An object reference to a recipient.
    */
-  export interface UnionMember1 {
+  export interface ObjectReference {
     /**
-     * An object identifier
+     * An identifier for the recipient object.
      */
     id: string;
 
     /**
-     * The collection the object belongs to
+     * The collection the recipient object belongs to.
      */
     collection: string;
   }
 }
 
 export interface UserMergeParams {
-  from_user_id?: string;
+  /**
+   * The user ID to merge from.
+   */
+  from_user_id: string;
+}
+
+export interface UserSetChannelDataParams {
+  /**
+   * Channel data for a given channel type.
+   */
+  data:
+    | ChannelDataAPI.PushChannelData
+    | ChannelDataAPI.OneSignalChannelData
+    | ChannelDataAPI.SlackChannelData
+    | ChannelDataAPI.MsTeamsChannelData
+    | ChannelDataAPI.DiscordChannelData;
+}
+
+export interface UserSetPreferencesParams {
+  /**
+   * A setting for a preference set, where the key in the object is the category, and
+   * the values are the preference settings for that category.
+   */
+  categories?: Record<
+    string,
+    boolean | UserSetPreferencesParams.PreferenceSetWorkflowCategorySettingObject
+  > | null;
+
+  /**
+   * Channel type preferences.
+   */
+  channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
+
+  /**
+   * A setting for a preference set, where the key in the object is the workflow key,
+   * and the values are the preference settings for that workflow.
+   */
+  workflows?: Record<
+    string,
+    boolean | UserSetPreferencesParams.PreferenceSetWorkflowCategorySettingObject
+  > | null;
+}
+
+export namespace UserSetPreferencesParams {
+  /**
+   * The settings object for a workflow or category, where you can specify channel
+   * types or conditions.
+   */
+  export interface PreferenceSetWorkflowCategorySettingObject {
+    /**
+     * Channel type preferences.
+     */
+    channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
+
+    /**
+     * A list of conditions to apply to a channel type.
+     */
+    conditions?: Array<Shared.Condition> | null;
+  }
+
+  /**
+   * The settings object for a workflow or category, where you can specify channel
+   * types or conditions.
+   */
+  export interface PreferenceSetWorkflowCategorySettingObject {
+    /**
+     * Channel type preferences.
+     */
+    channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
+
+    /**
+     * A list of conditions to apply to a channel type.
+     */
+    conditions?: Array<Shared.Condition> | null;
+  }
 }
 
 Users.Feeds = Feeds;
@@ -357,15 +522,29 @@ export declare namespace Users {
     type UsersEntriesCursor as UsersEntriesCursor,
     type UserUpdateParams as UserUpdateParams,
     type UserListParams as UserListParams,
+    type UserGetPreferencesParams as UserGetPreferencesParams,
     type UserListMessagesParams as UserListMessagesParams,
     type UserListSchedulesParams as UserListSchedulesParams,
     type UserListSubscriptionsParams as UserListSubscriptionsParams,
     type UserMergeParams as UserMergeParams,
+    type UserSetChannelDataParams as UserSetChannelDataParams,
+    type UserSetPreferencesParams as UserSetPreferencesParams,
   };
 
-  export { Feeds as Feeds };
+  export {
+    Feeds as Feeds,
+    type FeedGetSettingsResponse as FeedGetSettingsResponse,
+    type FeedListItemsResponse as FeedListItemsResponse,
+    type FeedListItemsResponsesEntriesCursor as FeedListItemsResponsesEntriesCursor,
+    type FeedListItemsParams as FeedListItemsParams,
+  };
 
-  export { Bulk as Bulk, type BulkDeleteParams as BulkDeleteParams };
+  export {
+    Bulk as Bulk,
+    type BulkDeleteParams as BulkDeleteParams,
+    type BulkIdentifyParams as BulkIdentifyParams,
+    type BulkSetPreferencesParams as BulkSetPreferencesParams,
+  };
 }
 
 export { type MessagesEntriesCursor, type SchedulesEntriesCursor, type SubscriptionsEntriesCursor };

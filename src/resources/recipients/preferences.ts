@@ -15,114 +15,173 @@ export type InlinePreferenceSetRequest = Record<string, PreferenceSetRequest>;
  * A preference set object.
  */
 export interface PreferenceSet {
+  /**
+   * Unique identifier for the preference set.
+   */
   id: string;
 
+  /**
+   * The type name of the schema.
+   */
   __typename: string;
 
-  categories?: Record<string, boolean | PreferenceSet.UnionMember1> | null;
+  /**
+   * A setting for a preference set, where the key in the object is the category, and
+   * the values are the preference settings for that category.
+   */
+  categories?: Record<string, boolean | PreferenceSet.PreferenceSetWorkflowCategorySettingObject> | null;
 
   /**
-   * Channel type preferences
+   * Channel type preferences.
    */
   channel_types?: PreferenceSetChannelTypes | null;
 
-  workflows?: Record<string, boolean | PreferenceSet.UnionMember1> | null;
+  /**
+   * A setting for a preference set, where the key in the object is the workflow key,
+   * and the values are the preference settings for that workflow.
+   */
+  workflows?: Record<string, boolean | PreferenceSet.PreferenceSetWorkflowCategorySettingObject> | null;
 }
 
 export namespace PreferenceSet {
-  export interface UnionMember1 {
+  /**
+   * The settings object for a workflow or category, where you can specify channel
+   * types or conditions.
+   */
+  export interface PreferenceSetWorkflowCategorySettingObject {
     /**
-     * Channel type preferences
+     * Channel type preferences.
      */
     channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
 
-    conditions?: Array<Shared.Condition>;
-  }
-
-  export interface UnionMember1 {
     /**
-     * Channel type preferences
+     * A list of conditions to apply to a channel type.
      */
-    channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
-
-    conditions?: Array<Shared.Condition>;
+    conditions?: Array<Shared.Condition> | null;
   }
-}
-
-/**
- * Channel type preferences
- */
-export interface PreferenceSetChannelTypes {
-  chat?: boolean | PreferenceSetChannelTypes.Conditions;
-
-  email?: boolean | PreferenceSetChannelTypes.Conditions;
-
-  http?: boolean | PreferenceSetChannelTypes.Conditions;
-
-  in_app_feed?: boolean | PreferenceSetChannelTypes.Conditions;
-
-  push?: boolean | PreferenceSetChannelTypes.Conditions;
-
-  sms?: boolean | PreferenceSetChannelTypes.Conditions;
-}
-
-export namespace PreferenceSetChannelTypes {
-  export interface Conditions {
-    conditions: Array<Shared.Condition>;
-  }
-
-  export interface Conditions {
-    conditions: Array<Shared.Condition>;
-  }
-
-  export interface Conditions {
-    conditions: Array<Shared.Condition>;
-  }
-
-  export interface Conditions {
-    conditions: Array<Shared.Condition>;
-  }
-
-  export interface Conditions {
-    conditions: Array<Shared.Condition>;
-  }
-
-  export interface Conditions {
-    conditions: Array<Shared.Condition>;
-  }
-}
-
-/**
- * Set preferences for a recipient
- */
-export interface PreferenceSetRequest {
-  categories?: Record<string, boolean | PreferenceSetRequest.UnionMember1> | null;
 
   /**
-   * Channel type preferences
+   * The settings object for a workflow or category, where you can specify channel
+   * types or conditions.
+   */
+  export interface PreferenceSetWorkflowCategorySettingObject {
+    /**
+     * Channel type preferences.
+     */
+    channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
+
+    /**
+     * A list of conditions to apply to a channel type.
+     */
+    conditions?: Array<Shared.Condition> | null;
+  }
+}
+
+/**
+ * A set of settings for a channel type. Currently, this can only be a list of
+ * conditions to apply.
+ */
+export interface PreferenceSetChannelTypeSetting {
+  /**
+   * A list of conditions to apply to a channel type.
+   */
+  conditions: Array<Shared.Condition>;
+}
+
+/**
+ * Channel type preferences.
+ */
+export interface PreferenceSetChannelTypes {
+  /**
+   * Whether the channel type is enabled for the preference set.
+   */
+  chat?: boolean | PreferenceSetChannelTypeSetting;
+
+  /**
+   * Whether the channel type is enabled for the preference set.
+   */
+  email?: boolean | PreferenceSetChannelTypeSetting;
+
+  /**
+   * Whether the channel type is enabled for the preference set.
+   */
+  http?: boolean | PreferenceSetChannelTypeSetting;
+
+  /**
+   * Whether the channel type is enabled for the preference set.
+   */
+  in_app_feed?: boolean | PreferenceSetChannelTypeSetting;
+
+  /**
+   * Whether the channel type is enabled for the preference set.
+   */
+  push?: boolean | PreferenceSetChannelTypeSetting;
+
+  /**
+   * Whether the channel type is enabled for the preference set.
+   */
+  sms?: boolean | PreferenceSetChannelTypeSetting;
+}
+
+/**
+ * A request to set a preference set for a recipient.
+ */
+export interface PreferenceSetRequest {
+  /**
+   * A setting for a preference set, where the key in the object is the category, and
+   * the values are the preference settings for that category.
+   */
+  categories?: Record<
+    string,
+    boolean | PreferenceSetRequest.PreferenceSetWorkflowCategorySettingObject
+  > | null;
+
+  /**
+   * Channel type preferences.
    */
   channel_types?: PreferenceSetChannelTypes | null;
 
-  workflows?: Record<string, boolean | PreferenceSetRequest.UnionMember1> | null;
+  /**
+   * A setting for a preference set, where the key in the object is the workflow key,
+   * and the values are the preference settings for that workflow.
+   */
+  workflows?: Record<
+    string,
+    boolean | PreferenceSetRequest.PreferenceSetWorkflowCategorySettingObject
+  > | null;
 }
 
 export namespace PreferenceSetRequest {
-  export interface UnionMember1 {
+  /**
+   * The settings object for a workflow or category, where you can specify channel
+   * types or conditions.
+   */
+  export interface PreferenceSetWorkflowCategorySettingObject {
     /**
-     * Channel type preferences
+     * Channel type preferences.
      */
     channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
 
-    conditions?: Array<Shared.Condition>;
+    /**
+     * A list of conditions to apply to a channel type.
+     */
+    conditions?: Array<Shared.Condition> | null;
   }
 
-  export interface UnionMember1 {
+  /**
+   * The settings object for a workflow or category, where you can specify channel
+   * types or conditions.
+   */
+  export interface PreferenceSetWorkflowCategorySettingObject {
     /**
-     * Channel type preferences
+     * Channel type preferences.
      */
     channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
 
-    conditions?: Array<Shared.Condition>;
+    /**
+     * A list of conditions to apply to a channel type.
+     */
+    conditions?: Array<Shared.Condition> | null;
   }
 }
 
@@ -130,6 +189,7 @@ export declare namespace Preferences {
   export {
     type InlinePreferenceSetRequest as InlinePreferenceSetRequest,
     type PreferenceSet as PreferenceSet,
+    type PreferenceSetChannelTypeSetting as PreferenceSetChannelTypeSetting,
     type PreferenceSetChannelTypes as PreferenceSetChannelTypes,
     type PreferenceSetRequest as PreferenceSetRequest,
   };

@@ -7,42 +7,45 @@ import { RequestOptions } from '../../internal/request-options';
 
 export class Batch extends APIResource {
   /**
-   * Marks one or more messages as archived
+   * Marks the given messages as archived.
    */
   archive(body: BatchArchiveParams, options?: RequestOptions): APIPromise<BatchArchiveResponse> {
     return this._client.post('/v1/messages/batch/archived', options);
   }
 
   /**
-   * Get the contents of multiple messages
+   * Get the contents of multiple messages in a single request.
    */
   getContent(query: BatchGetContentParams, options?: RequestOptions): APIPromise<BatchGetContentResponse> {
     return this._client.get('/v1/messages/batch/content', { query, ...options });
   }
 
   /**
-   * Marks one or more messages as interacted
+   * Marks the given messages as interacted with.
    */
-  markAsInteracted(options?: RequestOptions): APIPromise<BatchMarkAsInteractedResponse> {
-    return this._client.post('/v1/messages/batch/interacted', options);
+  markAsInteracted(
+    body: BatchMarkAsInteractedParams,
+    options?: RequestOptions,
+  ): APIPromise<BatchMarkAsInteractedResponse> {
+    return this._client.post('/v1/messages/batch/interacted', { body, ...options });
   }
 
   /**
-   * Marks one or more messages as read
+   * Marks the given messages as read.
    */
   markAsRead(body: BatchMarkAsReadParams, options?: RequestOptions): APIPromise<BatchMarkAsReadResponse> {
     return this._client.post('/v1/messages/batch/read', options);
   }
 
   /**
-   * Marks one or more messages as seen
+   * Marks the given messages as seen.
    */
   markAsSeen(body: BatchMarkAsSeenParams, options?: RequestOptions): APIPromise<BatchMarkAsSeenResponse> {
     return this._client.post('/v1/messages/batch/seen', options);
   }
 
   /**
-   * Marks one or more messages as unread
+   * Marks the given messages as unread.
    */
   markAsUnread(
     body: BatchMarkAsUnreadParams,
@@ -52,7 +55,7 @@ export class Batch extends APIResource {
   }
 
   /**
-   * Marks one or more messages as unseen
+   * Marks the given messages as unseen.
    */
   markAsUnseen(
     body: BatchMarkAsUnseenParams,
@@ -62,7 +65,7 @@ export class Batch extends APIResource {
   }
 
   /**
-   * Marks one or more messages as unarchived
+   * Marks the given messages as unarchived.
    */
   unarchive(body: BatchUnarchiveParams, options?: RequestOptions): APIPromise<BatchUnarchiveResponse> {
     return this._client.post('/v1/messages/batch/unarchived', options);
@@ -74,17 +77,23 @@ export class Batch extends APIResource {
  */
 export type BatchArchiveResponse = Array<MessagesAPI.Message>;
 
+/**
+ * A list of message contents
+ */
 export type BatchGetContentResponse = Array<BatchGetContentResponse.BatchGetContentResponseItem>;
 
 export namespace BatchGetContentResponse {
   /**
-   * The contents of a message
+   * The content of a message.
    */
   export interface BatchGetContentResponseItem {
+    /**
+     * The type name of the schema.
+     */
     __typename: string;
 
     /**
-     * The contents of an email message
+     * Content data specific to the channel type.
      */
     data:
       | BatchGetContentResponseItem.MessageEmailContent
@@ -93,152 +102,269 @@ export namespace BatchGetContentResponse {
       | BatchGetContentResponseItem.MessageChatContent
       | BatchGetContentResponseItem.MessageInAppFeedContent;
 
+    /**
+     * Timestamp when the message content was created.
+     */
     inserted_at: string;
 
+    /**
+     * The unique identifier for the message content.
+     */
     message_id: string;
   }
 
   export namespace BatchGetContentResponseItem {
     /**
-     * The contents of an email message
+     * The content of an email message.
      */
     export interface MessageEmailContent {
+      /**
+       * The type name of the schema.
+       */
       __typename: string;
 
+      /**
+       * The sender's email address.
+       */
       from: string;
 
+      /**
+       * The HTML body of the email message.
+       */
       html_body: string;
 
+      /**
+       * The subject line of the email message.
+       */
       subject_line: string;
 
+      /**
+       * The text body of the email message.
+       */
       text_body: string;
 
+      /**
+       * The recipient's email address.
+       */
       to: string;
 
+      /**
+       * The BCC email addresses.
+       */
       bcc?: string | null;
 
+      /**
+       * The CC email addresses.
+       */
       cc?: string | null;
 
+      /**
+       * The reply-to email address.
+       */
       reply_to?: string | null;
     }
 
     /**
-     * The contents of an SMS message
+     * The content of an SMS message.
      */
     export interface MessageSMSContent {
+      /**
+       * The type name of the schema.
+       */
       __typename: string;
 
+      /**
+       * The content body of the SMS message.
+       */
       body: string;
 
+      /**
+       * The phone number the SMS was sent to.
+       */
       to: string;
     }
 
     /**
-     * The contents of a push message
+     * The content of a push notification.
      */
     export interface MessagePushContent {
+      /**
+       * The device token to send the push notification to.
+       */
       token: string;
 
-      __typename: string;
-
-      body: string;
-
-      title: string;
-
-      data?: unknown | null;
-    }
-
-    /**
-     * The contents of a chat message
-     */
-    export interface MessageChatContent {
+      /**
+       * The type name of the schema.
+       */
       __typename: string;
 
       /**
-       * The channel data connection from the recipient to the underlying provider
+       * The content body of the push notification.
        */
-      connection: unknown;
+      body: string;
 
+      /**
+       * The title of the push notification.
+       */
+      title: string;
+
+      /**
+       * Additional data payload for the push notification.
+       */
+      data?: Record<string, unknown> | null;
+    }
+
+    /**
+     * The content of a chat message.
+     */
+    export interface MessageChatContent {
+      /**
+       * The type name of the schema.
+       */
+      __typename: string;
+
+      /**
+       * The channel data connection from the recipient to the underlying provider.
+       */
+      connection: Record<string, unknown>;
+
+      /**
+       * The template structure for the chat message.
+       */
       template: MessageChatContent.Template;
 
-      metadata?: unknown | null;
+      /**
+       * Additional metadata associated with the chat message.
+       */
+      metadata?: Record<string, unknown> | null;
     }
 
     export namespace MessageChatContent {
+      /**
+       * The template structure for the chat message.
+       */
       export interface Template {
         /**
-         * The structured blocks of the message
+         * The blocks of the message in a chat.
          */
         blocks?: Array<Template.Block> | null;
 
         /**
-         * The JSON content of the message
+         * The JSON content of the message.
          */
-        json_content?: unknown | null;
+        json_content?: Record<string, unknown> | null;
 
+        /**
+         * The summary of the chat message.
+         */
         summary?: string | null;
       }
 
       export namespace Template {
         /**
-         * A block in a chat message
+         * A block in a message in a chat.
          */
         export interface Block {
+          /**
+           * The actual content of the block.
+           */
           content: string;
 
+          /**
+           * The name of the block for identification.
+           */
           name: string;
 
+          /**
+           * The type of block in a message in a chat (text or markdown).
+           */
           type: 'text' | 'markdown';
         }
       }
     }
 
     /**
-     * The contents of a message in an app feed
+     * The content of an in-app feed message.
      */
     export interface MessageInAppFeedContent {
+      /**
+       * The type name of the schema.
+       */
       __typename: string;
 
       /**
-       * The blocks of the message
+       * The blocks of the message in an app feed.
        */
-      blocks: Array<MessageInAppFeedContent.ContentBlock | MessageInAppFeedContent.ButtonSetBlock>;
+      blocks: Array<
+        | MessageInAppFeedContent.MessageInAppFeedContentBlock
+        | MessageInAppFeedContent.MessageInAppFeedButtonSetBlock
+      >;
     }
 
     export namespace MessageInAppFeedContent {
       /**
-       * A content (text or markdown) block in a message in an app feed
+       * A block in a message in an app feed.
        */
-      export interface ContentBlock {
+      export interface MessageInAppFeedContentBlock {
+        /**
+         * The content of the block in a message in an app feed.
+         */
         content: string;
 
+        /**
+         * The name of the block in a message in an app feed.
+         */
         name: string;
 
+        /**
+         * The rendered HTML version of the content.
+         */
         rendered: string;
 
+        /**
+         * The type of block in a message in an app feed.
+         */
         type: 'markdown' | 'text';
       }
 
       /**
-       * A set of buttons in a message in an app feed
+       * A button set block in a message in an app feed.
        */
-      export interface ButtonSetBlock {
-        buttons: Array<ButtonSetBlock.Button>;
+      export interface MessageInAppFeedButtonSetBlock {
+        /**
+         * A list of buttons in an in app feed message.
+         */
+        buttons: Array<MessageInAppFeedButtonSetBlock.Button>;
 
+        /**
+         * The name of the button set in a message in an app feed.
+         */
         name: string;
 
+        /**
+         * The type of block in a message in an app feed.
+         */
         type: 'button_set';
       }
 
-      export namespace ButtonSetBlock {
+      export namespace MessageInAppFeedButtonSetBlock {
         /**
-         * A button in a set of buttons
+         * A button in an in app feed message.
          */
         export interface Button {
+          /**
+           * The action to take when the button is clicked.
+           */
           action: string;
 
+          /**
+           * The label of the button.
+           */
           label: string;
 
+          /**
+           * The name of the button.
+           */
           name: string;
         }
       }
@@ -278,49 +404,61 @@ export type BatchUnarchiveResponse = Array<MessagesAPI.Message>;
 
 export interface BatchArchiveParams {
   /**
-   * The message IDs to update
+   * The message IDs to update.
    */
   message_ids: Array<string>;
 }
 
 export interface BatchGetContentParams {
   /**
-   * The IDs of the messages to fetch contents of
+   * The IDs of the messages to fetch contents of.
    */
-  message_ids: Array<unknown>;
+  message_ids: Array<string>;
+}
+
+export interface BatchMarkAsInteractedParams {
+  /**
+   * The message IDs to batch mark as interacted with.
+   */
+  message_ids: Array<string>;
+
+  /**
+   * Metadata about the interaction.
+   */
+  metadata?: Record<string, unknown> | null;
 }
 
 export interface BatchMarkAsReadParams {
   /**
-   * The message IDs to update
+   * The message IDs to update.
    */
   message_ids: Array<string>;
 }
 
 export interface BatchMarkAsSeenParams {
   /**
-   * The message IDs to update
+   * The message IDs to update.
    */
   message_ids: Array<string>;
 }
 
 export interface BatchMarkAsUnreadParams {
   /**
-   * The message IDs to update
+   * The message IDs to update.
    */
   message_ids: Array<string>;
 }
 
 export interface BatchMarkAsUnseenParams {
   /**
-   * The message IDs to update
+   * The message IDs to update.
    */
   message_ids: Array<string>;
 }
 
 export interface BatchUnarchiveParams {
   /**
-   * The message IDs to update
+   * The message IDs to update.
    */
   message_ids: Array<string>;
 }
@@ -337,6 +475,7 @@ export declare namespace Batch {
     type BatchUnarchiveResponse as BatchUnarchiveResponse,
     type BatchArchiveParams as BatchArchiveParams,
     type BatchGetContentParams as BatchGetContentParams,
+    type BatchMarkAsInteractedParams as BatchMarkAsInteractedParams,
     type BatchMarkAsReadParams as BatchMarkAsReadParams,
     type BatchMarkAsSeenParams as BatchMarkAsSeenParams,
     type BatchMarkAsUnreadParams as BatchMarkAsUnreadParams,

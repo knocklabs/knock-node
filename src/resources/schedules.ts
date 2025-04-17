@@ -2,134 +2,285 @@
 
 import { APIResource } from '../core/resource';
 import * as RecipientsAPI from './recipients/recipients';
+import * as TenantsAPI from './tenants/tenants';
 import { APIPromise } from '../core/api-promise';
 import { EntriesCursor, type EntriesCursorParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
 export class Schedules extends APIResource {
   /**
-   * Create schedules
+   * Creates one or more schedules for a workflow with the specified recipients,
+   * timing, and data. Schedules can be one-time or recurring.
    */
-  create(options?: RequestOptions): APIPromise<ScheduleCreateResponse> {
-    return this._client.post('/v1/schedules', options);
+  create(body: ScheduleCreateParams, options?: RequestOptions): APIPromise<ScheduleCreateResponse> {
+    return this._client.post('/v1/schedules', { body, ...options });
   }
 
   /**
-   * Update schedules
+   * Updates one or more existing schedules with new timing, data, or other
+   * properties. All specified schedule IDs will be updated with the same values.
    */
-  update(options?: RequestOptions): APIPromise<ScheduleUpdateResponse> {
-    return this._client.put('/v1/schedules', options);
+  update(body: ScheduleUpdateParams, options?: RequestOptions): APIPromise<ScheduleUpdateResponse> {
+    return this._client.put('/v1/schedules', { body, ...options });
   }
 
   /**
-   * List schedules
+   * Returns a paginated list of schedules for the current environment, filtered by
+   * workflow and optionally by recipients and tenant.
    */
   list(query: ScheduleListParams, options?: RequestOptions): PagePromise<SchedulesEntriesCursor, Schedule> {
     return this._client.getAPIList('/v1/schedules', EntriesCursor<Schedule>, { query, ...options });
   }
 
   /**
-   * Delete schedules
+   * Permanently deletes one or more schedules identified by the provided schedule
+   * IDs. This operation cannot be undone.
    */
-  delete(options?: RequestOptions): APIPromise<ScheduleDeleteResponse> {
-    return this._client.delete('/v1/schedules', options);
+  delete(body: ScheduleDeleteParams, options?: RequestOptions): APIPromise<ScheduleDeleteResponse> {
+    return this._client.delete('/v1/schedules', { body, ...options });
   }
 }
 
 export type SchedulesEntriesCursor = EntriesCursor<Schedule>;
 
 /**
- * A schedule that represents a recurring workflow execution
+ * A schedule that represents a recurring workflow execution.
  */
 export interface Schedule {
+  /**
+   * Unique identifier for the schedule.
+   */
   id: string;
 
+  /**
+   * Timestamp when the resource was created.
+   */
   inserted_at: string;
 
   /**
-   * A recipient, which is either a user or an object
+   * A recipient, which is either a user or an object.
    */
   recipient: RecipientsAPI.Recipient;
 
+  /**
+   * The repeat rule for the schedule.
+   */
   repeats: Array<ScheduleRepeatRule>;
 
+  /**
+   * The timestamp when the resource was last updated.
+   */
   updated_at: string;
 
+  /**
+   * The workflow the schedule is applied to.
+   */
   workflow: string;
 
+  /**
+   * The type name of the schema.
+   */
   __typename?: string;
 
   /**
-   * A recipient, which is either a user or an object
+   * A recipient, which is either a user or an object.
    */
   actor?: RecipientsAPI.Recipient | null;
 
-  data?: unknown | null;
+  /**
+   * An optional map of data to pass into the workflow execution.
+   */
+  data?: Record<string, unknown> | null;
 
+  /**
+   * The last occurrence of the schedule.
+   */
   last_occurrence_at?: string | null;
 
+  /**
+   * The next occurrence of the schedule.
+   */
   next_occurrence_at?: string | null;
 
+  /**
+   * The tenant to trigger the workflow for. Triggering with a tenant will use any
+   * tenant-level overrides associated with the tenant object, and all messages
+   * produced from workflow runs will be tagged with the tenant.
+   */
   tenant?: string | null;
 }
 
 /**
- * A schedule repeat rule
+ * The repeat rule for the schedule.
  */
 export interface ScheduleRepeatRule {
+  /**
+   * The type name of the schema.
+   */
   __typename: string;
 
+  /**
+   * The frequency of the schedule.
+   */
   frequency: 'daily' | 'weekly' | 'monthly' | 'hourly';
 
+  /**
+   * The day of the month to repeat the schedule.
+   */
   day_of_month?: number | null;
 
+  /**
+   * The days of the week to repeat the schedule.
+   */
   days?: Array<'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun'> | null;
 
+  /**
+   * The hour of the day to repeat the schedule.
+   */
   hours?: number | null;
 
+  /**
+   * The interval of the schedule.
+   */
   interval?: number;
 
+  /**
+   * The minute of the hour to repeat the schedule.
+   */
   minutes?: number | null;
 }
 
+/**
+ * A list of schedules.
+ */
 export type ScheduleCreateResponse = Array<Schedule>;
 
+/**
+ * A list of schedules.
+ */
 export type ScheduleUpdateResponse = Array<Schedule>;
 
+/**
+ * A list of schedules.
+ */
 export type ScheduleDeleteResponse = Array<Schedule>;
 
-export interface ScheduleListParams extends EntriesCursorParams {
+export interface ScheduleCreateParams {
   /**
-   * Filter by workflow
+   * The recipients to trigger the workflow for. Cannot exceed 1000 recipients in a
+   * single trigger.
+   */
+  recipients: Array<string | ScheduleCreateParams.ObjectReference>;
+
+  /**
+   * The repeat rule for the schedule.
+   */
+  repeats: Array<ScheduleRepeatRule>;
+
+  /**
+   * The key of the workflow.
    */
   workflow: string;
 
   /**
-   * Filter by recipient
+   * An optional map of data to pass into the workflow execution.
    */
-  recipients?: Array<string | ScheduleListParams.UnionMember1>;
+  data?: Record<string, unknown> | null;
 
   /**
-   * Filter by tenant
+   * The ending date and time for the schedule.
    */
-  tenant?: string;
+  ending_at?: string | null;
+
+  /**
+   * The starting date and time for the schedule.
+   */
+  scheduled_at?: string | null;
+
+  /**
+   * An request to set a tenant inline.
+   */
+  tenant?: TenantsAPI.InlineTenantRequest | null;
 }
 
-export namespace ScheduleListParams {
+export namespace ScheduleCreateParams {
   /**
-   * An object reference to a recipient
+   * An object reference to a recipient.
    */
-  export interface UnionMember1 {
+  export interface ObjectReference {
     /**
-     * An object identifier
+     * An identifier for the recipient object.
      */
     id: string;
 
     /**
-     * The collection the object belongs to
+     * The collection the recipient object belongs to.
      */
     collection: string;
   }
+}
+
+export interface ScheduleUpdateParams {
+  /**
+   * A list of schedule IDs.
+   */
+  schedule_ids: Array<string>;
+
+  /**
+   * Specifies a recipient in a request. This can either be a user identifier
+   * (string), an inline user request (object), or an inline object request, which is
+   * determined by the presence of a `collection` property.
+   */
+  actor?: RecipientsAPI.RecipientRequest | null;
+
+  /**
+   * An optional map of data to pass into the workflow execution.
+   */
+  data?: Record<string, unknown> | null;
+
+  /**
+   * The ending date and time for the schedule.
+   */
+  ending_at?: string | null;
+
+  /**
+   * The repeat rule for the schedule.
+   */
+  repeats?: Array<ScheduleRepeatRule>;
+
+  /**
+   * The starting date and time for the schedule.
+   */
+  scheduled_at?: string | null;
+
+  /**
+   * An request to set a tenant inline.
+   */
+  tenant?: TenantsAPI.InlineTenantRequest | null;
+}
+
+export interface ScheduleListParams extends EntriesCursorParams {
+  /**
+   * Filter by workflow key.
+   */
+  workflow: string;
+
+  /**
+   * Filter by recipient IDs.
+   */
+  recipients?: Array<string>;
+
+  /**
+   * Filter by tenant ID.
+   */
+  tenant?: string;
+}
+
+export interface ScheduleDeleteParams {
+  /**
+   * A list of schedule IDs.
+   */
+  schedule_ids: Array<string>;
 }
 
 export declare namespace Schedules {
@@ -140,6 +291,9 @@ export declare namespace Schedules {
     type ScheduleUpdateResponse as ScheduleUpdateResponse,
     type ScheduleDeleteResponse as ScheduleDeleteResponse,
     type SchedulesEntriesCursor as SchedulesEntriesCursor,
+    type ScheduleCreateParams as ScheduleCreateParams,
+    type ScheduleUpdateParams as ScheduleUpdateParams,
     type ScheduleListParams as ScheduleListParams,
+    type ScheduleDeleteParams as ScheduleDeleteParams,
   };
 }

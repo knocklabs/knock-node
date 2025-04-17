@@ -49,8 +49,8 @@ describe('resource slack', () => {
       access_token_object: 'access_token_object',
       query_options: {
         cursor: 'cursor',
-        exclude_archived: 'exclude_archived',
-        limit: 'limit',
+        exclude_archived: true,
+        limit: 0,
         team_id: 'team_id',
         types: 'types',
       },
