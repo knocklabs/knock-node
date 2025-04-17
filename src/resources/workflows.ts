@@ -69,6 +69,12 @@ export interface WorkflowCancelParams {
 
 export interface WorkflowTriggerParams {
   /**
+   * The recipients to trigger the workflow for. Cannot exceed 1000 recipients in a
+   * single trigger.
+   */
+  recipients: Array<RecipientsAPI.RecipientRequest>;
+
+  /**
    * Specifies a recipient in a request. This can either be a user identifier
    * (string), an inline user request (object), or an inline object request, which is
    * determined by the presence of a `collection` property.
@@ -86,12 +92,6 @@ export interface WorkflowTriggerParams {
    * An optional map of data to pass into the workflow execution.
    */
   data?: Record<string, unknown> | null;
-
-  /**
-   * The recipients to trigger the workflow for. Cannot exceed 1000 recipients in a
-   * single trigger.
-   */
-  recipients?: Array<RecipientsAPI.RecipientRequest>;
 
   /**
    * An request to set a tenant inline.

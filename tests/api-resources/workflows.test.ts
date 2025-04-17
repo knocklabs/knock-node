@@ -30,8 +30,8 @@ describe('resource workflows', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('trigger', async () => {
-    const responsePromise = client.workflows.trigger('key', {});
+  test.skip('trigger: only required params', async () => {
+    const responsePromise = client.workflows.trigger('key', { recipients: ['jhammond'] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -39,5 +39,22 @@ describe('resource workflows', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  test.skip('trigger: required and optional params', async () => {
+    const response = await client.workflows.trigger('key', {
+      recipients: ['jhammond'],
+      actor: 'string',
+      cancellation_key: null,
+      data: {
+        dinosaur_names: 'bar',
+        is_alert: 'bar',
+        park_id: 'bar',
+        severity: 'bar',
+        welcome_message: 'bar',
+      },
+      tenant: 'acme_corp',
+    });
   });
 });

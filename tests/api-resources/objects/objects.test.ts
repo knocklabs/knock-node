@@ -69,7 +69,7 @@ describe('resource objects', () => {
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('deleteSubscriptions: only required params', async () => {
     const responsePromise = client.objects.deleteSubscriptions('collection', 'object_id', {
-      recipients: [{}],
+      recipients: [{ id: 'user_1' }],
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

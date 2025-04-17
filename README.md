@@ -31,8 +31,8 @@ const client = new Knock({
 
 async function main() {
   const response = await client.workflows.trigger('dinosaurs-loose', {
-    data: { dinosaur: 'triceratops' },
     recipients: ['dnedry'],
+    data: { dinosaur: 'triceratops' },
   });
 
   console.log(response.workflow_run_id);

@@ -232,17 +232,17 @@ export interface InlineObjectRequest {
   /**
    * Unique identifier for the object.
    */
-  id?: string;
+  id: string;
+
+  /**
+   * The collection this object belongs to.
+   */
+  collection: string;
 
   /**
    * A request to set channel data for a type of channel inline.
    */
   channel_data?: ChannelDataAPI.InlineChannelDataRequest | null;
-
-  /**
-   * The collection this object belongs to.
-   */
-  collection?: string;
 
   /**
    * Timestamp when the resource was created.

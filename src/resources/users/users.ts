@@ -215,7 +215,7 @@ export interface InlineIdentifyUserRequest {
   /**
    * The unique identifier for the user.
    */
-  id?: string;
+  id: string;
 
   /**
    * A request to set channel data for a type of channel inline.
