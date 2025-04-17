@@ -222,9 +222,10 @@ export interface Message {
   __typename?: string;
 
   /**
-   * A list of messages.
+   * One or more actors that are associated with this message. Note: this is a list
+   * that can contain up to 10 actors if the message is produced from a batch.
    */
-  actors?: Array<string | Message.RecipientReference>;
+  actors?: Array<string | Message.ObjectReference>;
 
   /**
    * Timestamp when the message was archived.
@@ -280,7 +281,7 @@ export interface Message {
    * A reference to a recipient, either a user identifier (string) or an object
    * reference (id, collection).
    */
-  recipient?: string | Message.RecipientReference;
+  recipient?: string | Message.ObjectReference;
 
   /**
    * Timestamp when the message was scheduled to be sent.
@@ -321,10 +322,9 @@ export interface Message {
 
 export namespace Message {
   /**
-   * A reference to a recipient, either a user identifier (string) or an object
-   * reference (id, collection).
+   * A reference to a recipient object.
    */
-  export interface RecipientReference {
+  export interface ObjectReference {
     /**
      * An identifier for the recipient object.
      */
@@ -337,10 +337,9 @@ export namespace Message {
   }
 
   /**
-   * A reference to a recipient, either a user identifier (string) or an object
-   * reference (id, collection).
+   * A reference to a recipient object.
    */
-  export interface RecipientReference {
+  export interface ObjectReference {
     /**
      * An identifier for the recipient object.
      */
@@ -495,7 +494,7 @@ export interface MessageEvent {
    * A reference to a recipient, either a user identifier (string) or an object
    * reference (id, collection).
    */
-  recipient: string | MessageEvent.RecipientReference;
+  recipient: string | MessageEvent.ObjectReference;
 
   /**
    * The type of event that occurred.
@@ -525,10 +524,9 @@ export interface MessageEvent {
 
 export namespace MessageEvent {
   /**
-   * A reference to a recipient, either a user identifier (string) or an object
-   * reference (id, collection).
+   * A reference to a recipient object.
    */
-  export interface RecipientReference {
+  export interface ObjectReference {
     /**
      * An identifier for the recipient object.
      */
@@ -831,54 +829,59 @@ export namespace MessageGetContentResponse {
 
 export interface MessageListParams extends EntriesCursorParams {
   /**
-   * The unique identifier for the channel.
+   * Limits the results to items with the corresponding channel id.
    */
   channel_id?: string;
 
   /**
-   * The engagement status to filter messages by.
+   * One or more of `read`, `seen`, `interacted`, `link_clicked`, `archived`. Limits
+   * results to messages with the given engagement status(es).
    */
   engagement_status?: Array<'seen' | 'read' | 'interacted' | 'link_clicked' | 'archived'>;
 
   /**
-   * The message IDs to filter messages by.
+   * Limits the results to only the message ids given (max 50). Note: when using this
+   * option, the results will be subject to any other filters applied to the query.
    */
   message_ids?: Array<string>;
 
   /**
-   * The source of the message (workflow key).
+   * Limits the results to only items of the source workflow.
    */
   source?: string;
 
   /**
-   * The delivery status to filter messages by.
+   * One or more of `queued`, `sent`, `delivered`, `delivery_attempted`,
+   * `undelivered`, `bounced`, `not_sent`. Limits results to messages with the given
+   * delivery status(es).
    */
   status?: Array<
     'queued' | 'sent' | 'delivered' | 'delivery_attempted' | 'undelivered' | 'not_sent' | 'bounced'
   >;
 
   /**
-   * The unique identifier for the tenant.
+   * Limits the results to items with the corresponding tenant, or where the tenant
+   * is empty.
    */
   tenant?: string;
 
   /**
-   * The trigger data to filter messages by. Must be a valid JSON object.
+   * Limits the results to only items that were generated with the given data.
    */
   trigger_data?: string;
 
   /**
-   * The workflow categories to filter messages by.
+   * Limits the results to only items related to any of the provided categories.
    */
   workflow_categories?: Array<string>;
 
   /**
-   * The workflow recipient run ID to filter messages by.
+   * Limits the results to messages for a specific recipient's workflow run.
    */
   workflow_recipient_run_id?: string;
 
   /**
-   * The workflow run ID to filter messages by.
+   * Limits the results to messages triggered by the top-level workflow run ID.
    */
   workflow_run_id?: string;
 }

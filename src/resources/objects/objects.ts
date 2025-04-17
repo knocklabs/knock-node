@@ -344,54 +344,59 @@ export interface ObjectGetPreferencesParams {
 
 export interface ObjectListMessagesParams extends EntriesCursorParams {
   /**
-   * The unique identifier for the channel.
+   * Limits the results to items with the corresponding channel id.
    */
   channel_id?: string;
 
   /**
-   * The engagement status to filter messages by.
+   * One or more of `read`, `seen`, `interacted`, `link_clicked`, `archived`. Limits
+   * results to messages with the given engagement status(es).
    */
   engagement_status?: Array<'seen' | 'read' | 'interacted' | 'link_clicked' | 'archived'>;
 
   /**
-   * The message IDs to filter messages by.
+   * Limits the results to only the message ids given (max 50). Note: when using this
+   * option, the results will be subject to any other filters applied to the query.
    */
   message_ids?: Array<string>;
 
   /**
-   * The source of the message (workflow key).
+   * Limits the results to only items of the source workflow.
    */
   source?: string;
 
   /**
-   * The delivery status to filter messages by.
+   * One or more of `queued`, `sent`, `delivered`, `delivery_attempted`,
+   * `undelivered`, `bounced`, `not_sent`. Limits results to messages with the given
+   * delivery status(es).
    */
   status?: Array<
     'queued' | 'sent' | 'delivered' | 'delivery_attempted' | 'undelivered' | 'not_sent' | 'bounced'
   >;
 
   /**
-   * The unique identifier for the tenant.
+   * Limits the results to items with the corresponding tenant, or where the tenant
+   * is empty.
    */
   tenant?: string;
 
   /**
-   * The trigger data to filter messages by. Must be a valid JSON object.
+   * Limits the results to only items that were generated with the given data.
    */
   trigger_data?: string;
 
   /**
-   * The workflow categories to filter messages by.
+   * Limits the results to only items related to any of the provided categories.
    */
   workflow_categories?: Array<string>;
 
   /**
-   * The workflow recipient run ID to filter messages by.
+   * Limits the results to messages for a specific recipient's workflow run.
    */
   workflow_recipient_run_id?: string;
 
   /**
-   * The workflow run ID to filter messages by.
+   * Limits the results to messages triggered by the top-level workflow run ID.
    */
   workflow_run_id?: string;
 }
@@ -422,20 +427,19 @@ export interface ObjectListSubscriptionsParams extends EntriesCursorParams {
   /**
    * Objects to filter by (only used if mode is `recipient`).
    */
-  objects?: Array<string | ObjectListSubscriptionsParams.RecipientReference>;
+  objects?: Array<string | ObjectListSubscriptionsParams.ObjectReference>;
 
   /**
    * Recipients to filter by (only used if mode is `object`).
    */
-  recipients?: Array<string | ObjectListSubscriptionsParams.RecipientReference>;
+  recipients?: Array<string | ObjectListSubscriptionsParams.ObjectReference>;
 }
 
 export namespace ObjectListSubscriptionsParams {
   /**
-   * A reference to a recipient, either a user identifier (string) or an object
-   * reference (id, collection).
+   * A reference to a recipient object.
    */
-  export interface RecipientReference {
+  export interface ObjectReference {
     /**
      * An identifier for the recipient object.
      */
@@ -448,10 +452,9 @@ export namespace ObjectListSubscriptionsParams {
   }
 
   /**
-   * A reference to a recipient, either a user identifier (string) or an object
-   * reference (id, collection).
+   * A reference to a recipient object.
    */
-  export interface RecipientReference {
+  export interface ObjectReference {
     /**
      * An identifier for the recipient object.
      */
