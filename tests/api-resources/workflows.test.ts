@@ -25,7 +25,6 @@ describe('resource workflows', () => {
     const response = await client.workflows.cancel('key', {
       cancellation_key: 'cancel-workflow-123',
       recipients: ['jhammond'],
-      tenant: 'prk_1',
     });
   });
 

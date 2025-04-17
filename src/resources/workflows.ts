@@ -60,17 +60,12 @@ export interface WorkflowCancelParams {
    * recipients associated with the cancellation key.
    */
   recipients?: Array<string> | null;
-
-  /**
-   * The unique identifier for the tenant.
-   */
-  tenant?: string | null;
 }
 
 export interface WorkflowTriggerParams {
   /**
-   * The recipients to trigger the workflow for. Cannot exceed 1000 recipients in a
-   * single trigger.
+   * The recipients to trigger the workflow for. Can inline identify users, objects,
+   * or use a list of user ids. Cannot exceed 1000 recipients in a single trigger.
    */
   recipients: Array<RecipientsAPI.RecipientRequest>;
 
