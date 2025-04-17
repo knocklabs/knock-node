@@ -410,23 +410,24 @@ export interface UserListSubscriptionsParams extends EntriesCursorParams {
   /**
    * Objects to filter by.
    */
-  objects?: Array<string | UserListSubscriptionsParams.ObjectReference>;
+  objects?: Array<string | UserListSubscriptionsParams.RecipientReference>;
 }
 
 export namespace UserListSubscriptionsParams {
   /**
-   * An object reference to a recipient.
+   * A reference to a recipient, either a user identifier (string) or an object
+   * reference (id, collection).
    */
-  export interface ObjectReference {
+  export interface RecipientReference {
     /**
      * An identifier for the recipient object.
      */
-    id: string;
+    id?: string;
 
     /**
      * The collection the recipient object belongs to.
      */
-    collection: string;
+    collection?: string;
   }
 }
 

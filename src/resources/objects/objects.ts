@@ -422,43 +422,45 @@ export interface ObjectListSubscriptionsParams extends EntriesCursorParams {
   /**
    * Objects to filter by (only used if mode is `recipient`).
    */
-  objects?: Array<string | ObjectListSubscriptionsParams.ObjectReference>;
+  objects?: Array<string | ObjectListSubscriptionsParams.RecipientReference>;
 
   /**
    * Recipients to filter by (only used if mode is `object`).
    */
-  recipients?: Array<string | ObjectListSubscriptionsParams.ObjectReference>;
+  recipients?: Array<string | ObjectListSubscriptionsParams.RecipientReference>;
 }
 
 export namespace ObjectListSubscriptionsParams {
   /**
-   * An object reference to a recipient.
+   * A reference to a recipient, either a user identifier (string) or an object
+   * reference (id, collection).
    */
-  export interface ObjectReference {
+  export interface RecipientReference {
     /**
      * An identifier for the recipient object.
      */
-    id: string;
+    id?: string;
 
     /**
      * The collection the recipient object belongs to.
      */
-    collection: string;
+    collection?: string;
   }
 
   /**
-   * An object reference to a recipient.
+   * A reference to a recipient, either a user identifier (string) or an object
+   * reference (id, collection).
    */
-  export interface ObjectReference {
+  export interface RecipientReference {
     /**
      * An identifier for the recipient object.
      */
-    id: string;
+    id?: string;
 
     /**
      * The collection the recipient object belongs to.
      */
-    collection: string;
+    collection?: string;
   }
 }
 

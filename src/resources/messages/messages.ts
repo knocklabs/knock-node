@@ -224,7 +224,7 @@ export interface Message {
   /**
    * A list of messages.
    */
-  actors?: Array<string | Message.ObjectReference>;
+  actors?: Array<string | Message.RecipientReference>;
 
   /**
    * Timestamp when the message was archived.
@@ -280,7 +280,7 @@ export interface Message {
    * A reference to a recipient, either a user identifier (string) or an object
    * reference (id, collection).
    */
-  recipient?: string | Message.ObjectReference;
+  recipient?: string | Message.RecipientReference;
 
   /**
    * Timestamp when the message was scheduled to be sent.
@@ -321,33 +321,35 @@ export interface Message {
 
 export namespace Message {
   /**
-   * An object reference to a recipient.
+   * A reference to a recipient, either a user identifier (string) or an object
+   * reference (id, collection).
    */
-  export interface ObjectReference {
+  export interface RecipientReference {
     /**
      * An identifier for the recipient object.
      */
-    id: string;
+    id?: string;
 
     /**
      * The collection the recipient object belongs to.
      */
-    collection: string;
+    collection?: string;
   }
 
   /**
-   * An object reference to a recipient.
+   * A reference to a recipient, either a user identifier (string) or an object
+   * reference (id, collection).
    */
-  export interface ObjectReference {
+  export interface RecipientReference {
     /**
      * An identifier for the recipient object.
      */
-    id: string;
+    id?: string;
 
     /**
      * The collection the recipient object belongs to.
      */
-    collection: string;
+    collection?: string;
   }
 
   /**
@@ -493,7 +495,7 @@ export interface MessageEvent {
    * A reference to a recipient, either a user identifier (string) or an object
    * reference (id, collection).
    */
-  recipient: string | MessageEvent.ObjectReference;
+  recipient: string | MessageEvent.RecipientReference;
 
   /**
    * The type of event that occurred.
@@ -523,18 +525,19 @@ export interface MessageEvent {
 
 export namespace MessageEvent {
   /**
-   * An object reference to a recipient.
+   * A reference to a recipient, either a user identifier (string) or an object
+   * reference (id, collection).
    */
-  export interface ObjectReference {
+  export interface RecipientReference {
     /**
      * An identifier for the recipient object.
      */
-    id: string;
+    id?: string;
 
     /**
      * The collection the recipient object belongs to.
      */
-    collection: string;
+    collection?: string;
   }
 }
 

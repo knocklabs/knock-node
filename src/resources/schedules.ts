@@ -170,7 +170,7 @@ export interface ScheduleCreateParams {
    * The recipients to trigger the workflow for. Cannot exceed 1000 recipients in a
    * single trigger.
    */
-  recipients: Array<string | ScheduleCreateParams.ObjectReference>;
+  recipients: Array<string | ScheduleCreateParams.RecipientReference>;
 
   /**
    * The repeat rule for the schedule.
@@ -205,18 +205,19 @@ export interface ScheduleCreateParams {
 
 export namespace ScheduleCreateParams {
   /**
-   * An object reference to a recipient.
+   * A reference to a recipient, either a user identifier (string) or an object
+   * reference (id, collection).
    */
-  export interface ObjectReference {
+  export interface RecipientReference {
     /**
      * An identifier for the recipient object.
      */
-    id: string;
+    id?: string;
 
     /**
      * The collection the recipient object belongs to.
      */
-    collection: string;
+    collection?: string;
   }
 }
 
