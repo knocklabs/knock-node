@@ -106,8 +106,8 @@ You can use the `maxRetries` option to configure or disable this:
 ```js
 // Configure the default for all requests:
 const client = new Knock({
-  maxRetries: 0, // default is 2
   bearerToken: 'My Bearer Token',
+  maxRetries: 0, // default is 2
 });
 
 // Or, configure per-request:
@@ -124,8 +124,8 @@ Requests time out after 1 minute by default. You can configure this with a `time
 ```ts
 // Configure the default for all requests:
 const client = new Knock({
-  timeout: 20 * 1000, // 20 seconds (default is 1 minute)
   bearerToken: 'My Bearer Token',
+  timeout: 20 * 1000, // 20 seconds (default is 1 minute)
 });
 
 // Override per-request:
