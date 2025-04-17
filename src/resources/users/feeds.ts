@@ -72,7 +72,7 @@ export interface FeedListItemsResponse {
   id: string;
 
   /**
-   * The type name of the schema.
+   * The typename of the schema.
    */
   __typename: string;
 
@@ -232,7 +232,7 @@ export namespace FeedListItemsResponse {
    */
   export interface Source {
     /**
-     * The type name of the schema.
+     * The typename of the schema.
      */
     __typename: string;
 
@@ -255,7 +255,7 @@ export namespace FeedListItemsResponse {
 
 export interface FeedListItemsParams extends EntriesCursorParams {
   /**
-   * The archived status of the feed items to return.
+   * The archived status of the feed items.
    */
   archived?: 'exclude' | 'include' | 'only';
 
@@ -265,27 +265,27 @@ export interface FeedListItemsParams extends EntriesCursorParams {
   has_tenant?: boolean;
 
   /**
-   * The source of the feed items to return.
+   * The source of the feed items.
    */
   source?: string;
 
   /**
-   * The status of the feed items to return.
+   * The status of the feed items.
    */
   status?: 'unread' | 'read' | 'unseen' | 'seen' | 'all';
 
   /**
-   * The tenant of the feed items to return.
+   * The tenant associated with the feed items.
    */
   tenant?: string;
 
   /**
-   * The trigger data of the feed items to return (as a JSON string).
+   * The trigger data of the feed items (as a JSON string).
    */
   trigger_data?: string;
 
   /**
-   * The workflow categories of the feed items to return.
+   * The workflow categories of the feed items.
    */
   workflow_categories?: Array<string>;
 }

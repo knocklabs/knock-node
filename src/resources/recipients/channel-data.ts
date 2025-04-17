@@ -9,7 +9,7 @@ export class ChannelData extends APIResource {}
  */
 export interface ChannelData {
   /**
-   * The type name of the schema.
+   * The typename of the schema.
    */
   __typename: string;
 

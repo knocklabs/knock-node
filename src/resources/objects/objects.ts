@@ -267,7 +267,7 @@ export interface Object {
   id: string;
 
   /**
-   * The type name of the schema.
+   * The typename of the schema.
    */
   __typename: string;
 
@@ -349,8 +349,8 @@ export interface ObjectListMessagesParams extends EntriesCursorParams {
   channel_id?: string;
 
   /**
-   * One or more of `read`, `seen`, `interacted`, `link_clicked`, `archived`. Limits
-   * results to messages with the given engagement status(es).
+   * One or more engagement statuses. Limits results to messages with the given
+   * engagement status(es).
    */
   engagement_status?: Array<'seen' | 'read' | 'interacted' | 'link_clicked' | 'archived'>;
 
@@ -366,8 +366,7 @@ export interface ObjectListMessagesParams extends EntriesCursorParams {
   source?: string;
 
   /**
-   * One or more of `queued`, `sent`, `delivered`, `delivery_attempted`,
-   * `undelivered`, `bounced`, `not_sent`. Limits results to messages with the given
+   * One or more delivery statuses. Limits results to messages with the given
    * delivery status(es).
    */
   status?: Array<
@@ -495,8 +494,8 @@ export interface ObjectSetChannelDataParams {
 
 export interface ObjectSetPreferencesParams {
   /**
-   * A setting for a preference set, where the key in the object is the category, and
-   * the values are the preference settings for that category.
+   * An object where the key is the category and the values are the preference
+   * settings for that category.
    */
   categories?: Record<
     string,
@@ -509,8 +508,8 @@ export interface ObjectSetPreferencesParams {
   channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
 
   /**
-   * A setting for a preference set, where the key in the object is the workflow key,
-   * and the values are the preference settings for that workflow.
+   * An object where the key is the workflow key and the values are the preference
+   * settings for that workflow.
    */
   workflows?: Record<
     string,

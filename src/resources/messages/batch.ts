@@ -88,7 +88,7 @@ export namespace BatchGetContentResponse {
    */
   export interface BatchGetContentResponseItem {
     /**
-     * The type name of the schema.
+     * The typename of the schema.
      */
     __typename: string;
 
@@ -119,7 +119,7 @@ export namespace BatchGetContentResponse {
      */
     export interface MessageEmailContent {
       /**
-       * The type name of the schema.
+       * The typename of the schema.
        */
       __typename: string;
 
@@ -169,7 +169,7 @@ export namespace BatchGetContentResponse {
      */
     export interface MessageSMSContent {
       /**
-       * The type name of the schema.
+       * The typename of the schema.
        */
       __typename: string;
 
@@ -194,7 +194,7 @@ export namespace BatchGetContentResponse {
       token: string;
 
       /**
-       * The type name of the schema.
+       * The typename of the schema.
        */
       __typename: string;
 
@@ -219,7 +219,7 @@ export namespace BatchGetContentResponse {
      */
     export interface MessageChatContent {
       /**
-       * The type name of the schema.
+       * The typename of the schema.
        */
       __typename: string;
 
@@ -288,7 +288,7 @@ export namespace BatchGetContentResponse {
      */
     export interface MessageInAppFeedContent {
       /**
-       * The type name of the schema.
+       * The typename of the schema.
        */
       __typename: string;
 

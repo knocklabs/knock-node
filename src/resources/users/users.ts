@@ -184,7 +184,7 @@ export type UsersEntriesCursor = EntriesCursor<User>;
 /**
  * A set of parameters to identify a user with. Does not include the user ID, as
  * that's specified elsewhere in the request. You can supply any additional
- * properties you'd like to upsert against the user.
+ * properties you'd like to upsert for the user.
  */
 export interface IdentifyUserRequest {
   /**
@@ -208,12 +208,12 @@ export interface IdentifyUserRequest {
 /**
  * A set of parameters to inline-identify a user with. Inline identifying the user
  * will ensure that the user is available before the request is executed in Knock.
- * It will perform an upsert against the user you're supplying, replacing any
+ * It will perform an upsert for the user you're supplying, replacing any
  * properties specified.
  */
 export interface InlineIdentifyUserRequest {
   /**
-   * The unique identifier for the user.
+   * The ID for the user that you set when identifying them in Knock.
    */
   id: string;
 
@@ -236,16 +236,17 @@ export interface InlineIdentifyUserRequest {
 }
 
 /**
- * A user object.
+ * A user who can receive notifications in Knock. They are always referenced by
+ * your internal identifier.
  */
 export interface User {
   /**
-   * The unique identifier for the user.
+   * The ID for the user that you set when identifying them in Knock.
    */
   id: string;
 
   /**
-   * The type name of the schema.
+   * The typename of the schema.
    */
   __typename: string;
 
@@ -260,7 +261,7 @@ export interface User {
   avatar?: string | null;
 
   /**
-   * Timestamp when the resource was created.
+   * The creation date of the user from your system.
    */
   created_at?: string | null;
 
@@ -323,7 +324,7 @@ export interface UserUpdateParams {
 
 export interface UserListParams extends EntriesCursorParams {
   /**
-   * Includes preferences of the users in the response.
+   * Associated resources to include in the response.
    */
   include?: Array<'preferences'>;
 }
@@ -342,8 +343,8 @@ export interface UserListMessagesParams extends EntriesCursorParams {
   channel_id?: string;
 
   /**
-   * One or more of `read`, `seen`, `interacted`, `link_clicked`, `archived`. Limits
-   * results to messages with the given engagement status(es).
+   * One or more engagement statuses. Limits results to messages with the given
+   * engagement status(es).
    */
   engagement_status?: Array<'seen' | 'read' | 'interacted' | 'link_clicked' | 'archived'>;
 
@@ -359,8 +360,7 @@ export interface UserListMessagesParams extends EntriesCursorParams {
   source?: string;
 
   /**
-   * One or more of `queued`, `sent`, `delivered`, `delivery_attempted`,
-   * `undelivered`, `bounced`, `not_sent`. Limits results to messages with the given
+   * One or more delivery statuses. Limits results to messages with the given
    * delivery status(es).
    */
   status?: Array<
@@ -408,12 +408,12 @@ export interface UserListSchedulesParams extends EntriesCursorParams {
 
 export interface UserListSubscriptionsParams extends EntriesCursorParams {
   /**
-   * Includes preferences of the recipient subscribers in the response.
+   * Associated resources to include in the response.
    */
   include?: Array<'preferences'>;
 
   /**
-   * Objects to filter by.
+   * Only return subscriptions for the given recipients.
    */
   objects?: Array<string | UserListSubscriptionsParams.ObjectReference>;
 }
@@ -456,8 +456,8 @@ export interface UserSetChannelDataParams {
 
 export interface UserSetPreferencesParams {
   /**
-   * A setting for a preference set, where the key in the object is the category, and
-   * the values are the preference settings for that category.
+   * An object where the key is the category and the values are the preference
+   * settings for that category.
    */
   categories?: Record<
     string,
@@ -470,8 +470,8 @@ export interface UserSetPreferencesParams {
   channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
 
   /**
-   * A setting for a preference set, where the key in the object is the workflow key,
-   * and the values are the preference settings for that workflow.
+   * An object where the key is the workflow key and the values are the preference
+   * settings for that workflow.
    */
   workflows?: Record<
     string,

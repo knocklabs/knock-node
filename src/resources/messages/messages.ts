@@ -176,12 +176,12 @@ export interface Activity {
   id?: string;
 
   /**
-   * The type name of the schema.
+   * The typename of the schema.
    */
   __typename?: string;
 
   /**
-   * A recipient, which is either a user or an object.
+   * A recipient of a notification, which is either a user or an object.
    */
   actor?: RecipientsAPI.Recipient | null;
 
@@ -196,7 +196,7 @@ export interface Activity {
   inserted_at?: string;
 
   /**
-   * A recipient, which is either a user or an object.
+   * A recipient of a notification, which is either a user or an object.
    */
   recipient?: RecipientsAPI.Recipient;
 
@@ -217,7 +217,7 @@ export interface Message {
   id?: string;
 
   /**
-   * The type name of the schema.
+   * The typename of the schema.
    */
   __typename?: string;
 
@@ -243,7 +243,7 @@ export interface Message {
   clicked_at?: string | null;
 
   /**
-   * The data associated with the message.
+   * Data from the activities linked to the message
    */
   data?: Record<string, unknown> | null;
 
@@ -299,8 +299,7 @@ export interface Message {
   source?: Message.Source;
 
   /**
-   * The message delivery status. Can be one of: queued, sent, delivered,
-   * delivery_attempted, undelivered, not_sent, bounced.
+   * The message delivery status.
    */
   status?: 'queued' | 'sent' | 'delivered' | 'delivery_attempted' | 'undelivered' | 'not_sent' | 'bounced';
 
@@ -384,7 +383,7 @@ export interface MessageDeliveryLog {
   id: string;
 
   /**
-   * The type name of the schema.
+   * The typename of the schema.
    */
   __typename: string;
 
@@ -481,7 +480,7 @@ export interface MessageEvent {
   id: string;
 
   /**
-   * The type name of the schema.
+   * The typename of the schema.
    */
   __typename: string;
 
@@ -544,7 +543,7 @@ export namespace MessageEvent {
  */
 export interface MessageGetContentResponse {
   /**
-   * The type name of the schema.
+   * The typename of the schema.
    */
   __typename: string;
 
@@ -575,7 +574,7 @@ export namespace MessageGetContentResponse {
    */
   export interface MessageEmailContent {
     /**
-     * The type name of the schema.
+     * The typename of the schema.
      */
     __typename: string;
 
@@ -625,7 +624,7 @@ export namespace MessageGetContentResponse {
    */
   export interface MessageSMSContent {
     /**
-     * The type name of the schema.
+     * The typename of the schema.
      */
     __typename: string;
 
@@ -650,7 +649,7 @@ export namespace MessageGetContentResponse {
     token: string;
 
     /**
-     * The type name of the schema.
+     * The typename of the schema.
      */
     __typename: string;
 
@@ -675,7 +674,7 @@ export namespace MessageGetContentResponse {
    */
   export interface MessageChatContent {
     /**
-     * The type name of the schema.
+     * The typename of the schema.
      */
     __typename: string;
 
@@ -744,7 +743,7 @@ export namespace MessageGetContentResponse {
    */
   export interface MessageInAppFeedContent {
     /**
-     * The type name of the schema.
+     * The typename of the schema.
      */
     __typename: string;
 
@@ -834,8 +833,8 @@ export interface MessageListParams extends EntriesCursorParams {
   channel_id?: string;
 
   /**
-   * One or more of `read`, `seen`, `interacted`, `link_clicked`, `archived`. Limits
-   * results to messages with the given engagement status(es).
+   * One or more engagement statuses. Limits results to messages with the given
+   * engagement status(es).
    */
   engagement_status?: Array<'seen' | 'read' | 'interacted' | 'link_clicked' | 'archived'>;
 
@@ -851,8 +850,7 @@ export interface MessageListParams extends EntriesCursorParams {
   source?: string;
 
   /**
-   * One or more of `queued`, `sent`, `delivered`, `delivery_attempted`,
-   * `undelivered`, `bounced`, `not_sent`. Limits results to messages with the given
+   * One or more delivery statuses. Limits results to messages with the given
    * delivery status(es).
    */
   status?: Array<

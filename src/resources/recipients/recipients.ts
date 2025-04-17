@@ -33,7 +33,7 @@ export class Recipients extends APIResource {
 }
 
 /**
- * A recipient, which is either a user or an object.
+ * A recipient of a notification, which is either a user or an object.
  */
 export type Recipient = UsersAPI.User | ObjectsAPI.Object;
 

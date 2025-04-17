@@ -44,7 +44,7 @@ export class Schedules extends APIResource {
 export type SchedulesEntriesCursor = EntriesCursor<Schedule>;
 
 /**
- * A schedule that represents a recurring workflow execution.
+ * A schedule represents a recurring workflow execution.
  */
 export interface Schedule {
   /**
@@ -58,7 +58,7 @@ export interface Schedule {
   inserted_at: string;
 
   /**
-   * A recipient, which is either a user or an object.
+   * A recipient of a notification, which is either a user or an object.
    */
   recipient: RecipientsAPI.Recipient;
 
@@ -78,12 +78,12 @@ export interface Schedule {
   workflow: string;
 
   /**
-   * The type name of the schema.
+   * The typename of the schema.
    */
   __typename?: string;
 
   /**
-   * A recipient, which is either a user or an object.
+   * A recipient of a notification, which is either a user or an object.
    */
   actor?: RecipientsAPI.Recipient | null;
 
@@ -115,7 +115,7 @@ export interface Schedule {
  */
 export interface ScheduleRepeatRule {
   /**
-   * The type name of the schema.
+   * The typename of the schema.
    */
   __typename: string;
 

@@ -24,7 +24,7 @@ export interface BulkOperation {
   id: string;
 
   /**
-   * The type name of the schema.
+   * The typename of the schema.
    */
   __typename: string;
 
@@ -49,7 +49,7 @@ export interface BulkOperation {
   processed_rows: number;
 
   /**
-   * The status of the bulk operation. One of: queued, processing, completed, failed.
+   * The status of the bulk operation.
    */
   status: 'queued' | 'processing' | 'completed' | 'failed';
 

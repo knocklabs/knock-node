@@ -38,7 +38,7 @@ export class Audiences extends APIResource {
  */
 export interface AudienceMember {
   /**
-   * The type name of the schema.
+   * The typename of the schema.
    */
   __typename: string;
 
@@ -48,12 +48,13 @@ export interface AudienceMember {
   added_at: string;
 
   /**
-   * A user object.
+   * A user who can receive notifications in Knock. They are always referenced by
+   * your internal identifier.
    */
   user: UsersAPI.User;
 
   /**
-   * The unique identifier for the user.
+   * The ID for the user that you set when identifying them in Knock.
    */
   user_id: string;
 
@@ -89,7 +90,7 @@ export namespace AudienceListMembersResponse {
    */
   export interface PageInfo {
     /**
-     * The type name of the schema.
+     * The typename of the schema.
      */
     __typename: string;
 
@@ -130,7 +131,7 @@ export namespace AudienceAddMembersParams {
     /**
      * A set of parameters to inline-identify a user with. Inline identifying the user
      * will ensure that the user is available before the request is executed in Knock.
-     * It will perform an upsert against the user you're supplying, replacing any
+     * It will perform an upsert for the user you're supplying, replacing any
      * properties specified.
      */
     user: UsersAPI.InlineIdentifyUserRequest;
@@ -157,7 +158,7 @@ export namespace AudienceRemoveMembersParams {
     /**
      * A set of parameters to inline-identify a user with. Inline identifying the user
      * will ensure that the user is available before the request is executed in Knock.
-     * It will perform an upsert against the user you're supplying, replacing any
+     * It will perform an upsert for the user you're supplying, replacing any
      * properties specified.
      */
     user: UsersAPI.InlineIdentifyUserRequest;

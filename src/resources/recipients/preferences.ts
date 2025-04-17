@@ -12,7 +12,9 @@ export class Preferences extends APIResource {}
 export type InlinePreferenceSetRequest = Record<string, PreferenceSetRequest>;
 
 /**
- * A preference set object.
+ * A preference set determines whether a recipient should receive a particular type
+ * of notification. By default all preferences are opted in unless a preference
+ * explicitly opts the recipient out of the notification
  */
 export interface PreferenceSet {
   /**
@@ -21,13 +23,13 @@ export interface PreferenceSet {
   id: string;
 
   /**
-   * The type name of the schema.
+   * The typename of the schema.
    */
   __typename: string;
 
   /**
-   * A setting for a preference set, where the key in the object is the category, and
-   * the values are the preference settings for that category.
+   * An object where the key is the category and the values are the preference
+   * settings for that category.
    */
   categories?: Record<string, boolean | PreferenceSet.PreferenceSetWorkflowCategorySettingObject> | null;
 
@@ -37,8 +39,8 @@ export interface PreferenceSet {
   channel_types?: PreferenceSetChannelTypes | null;
 
   /**
-   * A setting for a preference set, where the key in the object is the workflow key,
-   * and the values are the preference settings for that workflow.
+   * An object where the key is the workflow key and the values are the preference
+   * settings for that workflow.
    */
   workflows?: Record<string, boolean | PreferenceSet.PreferenceSetWorkflowCategorySettingObject> | null;
 }
@@ -128,8 +130,8 @@ export interface PreferenceSetChannelTypes {
  */
 export interface PreferenceSetRequest {
   /**
-   * A setting for a preference set, where the key in the object is the category, and
-   * the values are the preference settings for that category.
+   * An object where the key is the category and the values are the preference
+   * settings for that category.
    */
   categories?: Record<
     string,
@@ -142,8 +144,8 @@ export interface PreferenceSetRequest {
   channel_types?: PreferenceSetChannelTypes | null;
 
   /**
-   * A setting for a preference set, where the key in the object is the workflow key,
-   * and the values are the preference settings for that workflow.
+   * An object where the key is the workflow key and the values are the preference
+   * settings for that workflow.
    */
   workflows?: Record<
     string,

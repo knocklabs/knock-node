@@ -14,7 +14,7 @@ export type SubscriptionsEntriesCursor = EntriesCursor<Subscription>;
  */
 export interface Subscription {
   /**
-   * The type name of the schema.
+   * The typename of the schema.
    */
   __typename: string;
 
@@ -29,7 +29,7 @@ export interface Subscription {
   object: ObjectsAPI.Object;
 
   /**
-   * A recipient, which is either a user or an object.
+   * A recipient of a notification, which is either a user or an object.
    */
   recipient: RecipientsAPI.Recipient;
 

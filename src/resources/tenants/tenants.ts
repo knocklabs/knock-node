@@ -63,7 +63,7 @@ export interface Tenant {
   id: string;
 
   /**
-   * The type name of the schema.
+   * The typename of the schema.
    */
   __typename: string;
 
@@ -71,7 +71,8 @@ export interface Tenant {
 }
 
 /**
- * A request to get a tenant.
+ * A tenant to be set in the system. You can supply any additional properties on
+ * the tenant object.
  */
 export interface TenantRequest {
   /**
