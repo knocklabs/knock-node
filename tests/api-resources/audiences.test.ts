@@ -10,7 +10,7 @@ const client = new Knock({
 describe('resource audiences', () => {
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('addMembers: only required params', async () => {
-    const responsePromise = client.audiences.addMembers('key', { members: [{ user: { id: 'user_1' } }] });
+    const responsePromise = client.audiences.addMembers('key', { members: [{ user: {} }] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -94,7 +94,7 @@ describe('resource audiences', () => {
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('removeMembers: only required params', async () => {
-    const responsePromise = client.audiences.removeMembers('key', { members: [{ user: { id: 'user_1' } }] });
+    const responsePromise = client.audiences.removeMembers('key', { members: [{ user: {} }] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

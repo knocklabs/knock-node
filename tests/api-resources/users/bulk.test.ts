@@ -27,7 +27,7 @@ describe('resource bulk', () => {
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('identify: only required params', async () => {
-    const responsePromise = client.users.bulk.identify({ users: [{ id: 'user_1' }] });
+    const responsePromise = client.users.bulk.identify({ users: [{}] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
