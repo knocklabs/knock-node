@@ -37,7 +37,7 @@ export class Workflows extends APIResource {
 export type WorkflowCancelResponse = string;
 
 /**
- * The response from triggering a workflow
+ * The response from triggering a workflow.
  */
 export interface WorkflowTriggerResponse {
   /**

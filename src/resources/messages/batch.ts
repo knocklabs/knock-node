@@ -10,7 +10,7 @@ export class Batch extends APIResource {
    * Marks the given messages as archived.
    */
   archive(body: BatchArchiveParams, options?: RequestOptions): APIPromise<BatchArchiveResponse> {
-    return this._client.post('/v1/messages/batch/archived', options);
+    return this._client.post('/v1/messages/batch/archived', { body, ...options });
   }
 
   /**
@@ -34,14 +34,14 @@ export class Batch extends APIResource {
    * Marks the given messages as read.
    */
   markAsRead(body: BatchMarkAsReadParams, options?: RequestOptions): APIPromise<BatchMarkAsReadResponse> {
-    return this._client.post('/v1/messages/batch/read', options);
+    return this._client.post('/v1/messages/batch/read', { body, ...options });
   }
 
   /**
    * Marks the given messages as seen.
    */
   markAsSeen(body: BatchMarkAsSeenParams, options?: RequestOptions): APIPromise<BatchMarkAsSeenResponse> {
-    return this._client.post('/v1/messages/batch/seen', options);
+    return this._client.post('/v1/messages/batch/seen', { body, ...options });
   }
 
   /**
@@ -51,7 +51,7 @@ export class Batch extends APIResource {
     body: BatchMarkAsUnreadParams,
     options?: RequestOptions,
   ): APIPromise<BatchMarkAsUnreadResponse> {
-    return this._client.post('/v1/messages/batch/unread', options);
+    return this._client.post('/v1/messages/batch/unread', { body, ...options });
   }
 
   /**
@@ -61,19 +61,19 @@ export class Batch extends APIResource {
     body: BatchMarkAsUnseenParams,
     options?: RequestOptions,
   ): APIPromise<BatchMarkAsUnseenResponse> {
-    return this._client.post('/v1/messages/batch/unseen', options);
+    return this._client.post('/v1/messages/batch/unseen', { body, ...options });
   }
 
   /**
    * Marks the given messages as unarchived.
    */
   unarchive(body: BatchUnarchiveParams, options?: RequestOptions): APIPromise<BatchUnarchiveResponse> {
-    return this._client.post('/v1/messages/batch/unarchived', options);
+    return this._client.post('/v1/messages/batch/unarchived', { body, ...options });
   }
 }
 
 /**
- * The list of messages that were updated
+ * The list of messages that were updated.
  */
 export type BatchArchiveResponse = Array<MessagesAPI.Message>;
 
@@ -373,32 +373,32 @@ export namespace BatchGetContentResponse {
 }
 
 /**
- * The list of messages that were updated
+ * The list of messages that were updated.
  */
 export type BatchMarkAsInteractedResponse = Array<MessagesAPI.Message>;
 
 /**
- * The list of messages that were updated
+ * The list of messages that were updated.
  */
 export type BatchMarkAsReadResponse = Array<MessagesAPI.Message>;
 
 /**
- * The list of messages that were updated
+ * The list of messages that were updated.
  */
 export type BatchMarkAsSeenResponse = Array<MessagesAPI.Message>;
 
 /**
- * The list of messages that were updated
+ * The list of messages that were updated.
  */
 export type BatchMarkAsUnreadResponse = Array<MessagesAPI.Message>;
 
 /**
- * The list of messages that were updated
+ * The list of messages that were updated.
  */
 export type BatchMarkAsUnseenResponse = Array<MessagesAPI.Message>;
 
 /**
- * The list of messages that were updated
+ * The list of messages that were updated.
  */
 export type BatchUnarchiveResponse = Array<MessagesAPI.Message>;
 
