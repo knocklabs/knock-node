@@ -22,9 +22,13 @@ export namespace InlinePreferenceSetRequest {
     id: string;
 
     /**
-     * Workflow or category preferences within a preference set
+     * An object where the key is the category and the values are the preference
+     * settings for that category.
      */
-    categories?: boolean | InlinePreferenceSetRequestItem.PreferenceSetWorkflowCategorySettingObject;
+    categories?: Record<
+      string,
+      boolean | InlinePreferenceSetRequestItem.PreferenceSetWorkflowCategorySettingObject
+    > | null;
 
     /**
      * Channel type preferences.

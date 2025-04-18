@@ -54,21 +54,19 @@ describe('resource bulk', () => {
             {
               id: 'default',
               categories: {
-                channel_types: {
-                  chat: true,
-                  email: true,
-                  http: true,
-                  in_app_feed: true,
-                  push: true,
-                  sms: {
-                    conditions: [
-                      { argument: 'US', operator: 'equal_to', variable: 'recipient.country_code' },
-                    ],
+                transactional: {
+                  channel_types: {
+                    chat: true,
+                    email: false,
+                    http: true,
+                    in_app_feed: true,
+                    push: true,
+                    sms: true,
                   },
+                  conditions: [
+                    { argument: 'some_property', operator: 'equal_to', variable: 'recipient.property' },
+                  ],
                 },
-                conditions: [
-                  { argument: 'some_property', operator: 'equal_to', variable: 'recipient.property' },
-                ],
               },
               channel_types: {
                 chat: true,
