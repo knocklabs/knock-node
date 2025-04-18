@@ -40,7 +40,6 @@ export {
   type ObjectListParams,
   type ObjectAddSubscriptionsParams,
   type ObjectDeleteSubscriptionsParams,
-  type ObjectGetPreferencesParams,
   type ObjectListMessagesParams,
   type ObjectListSchedulesParams,
   type ObjectListSubscriptionsParams,

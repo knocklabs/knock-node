@@ -243,7 +243,7 @@ export interface Message {
   clicked_at?: string | null;
 
   /**
-   * Data from the activities linked to the message
+   * Data from the activities linked to the message.
    */
   data?: Record<string, unknown> | null;
 
@@ -314,7 +314,7 @@ export interface Message {
   updated_at?: string;
 
   /**
-   * @deprecated The key of the worklfow that generated the message.
+   * @deprecated The key of the workflow that generated the message.
    */
   workflow?: string | null;
 }
@@ -845,7 +845,7 @@ export interface MessageListParams extends EntriesCursorParams {
   message_ids?: Array<string>;
 
   /**
-   * Limits the results to only items of the source workflow.
+   * Key of the source that triggered the message to limit results to.
    */
   source?: string;
 

@@ -86,7 +86,11 @@ describe('resource objects', () => {
       recipients: [
         {
           id: 'user_1',
-          channel_data: { '97c5837d-c65c-4d54-aa39-080eeb81c69d': { data: { tokens: ['push_token_xxx'] } } },
+          channel_data: {
+            '97c5837d-c65c-4d54-aa39-080eeb81c69d': {
+              data: { __typename: 'PushChannelData', tokens: ['push_token_xxx'] },
+            },
+          },
           created_at: '2019-12-27T18:11:19.117Z',
           preferences: {
             default: {
@@ -173,20 +177,6 @@ describe('resource objects', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
-  test.skip('getPreferences: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.objects.getPreferences(
-        'collection',
-        'object_id',
-        'default',
-        { tenant: 'tenant' },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Knock.NotFoundError);
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
@@ -304,7 +294,7 @@ describe('resource objects', () => {
       'collection',
       'object_id',
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      { data: { tokens: ['push_token_1'] } },
+      { data: { __typename: 'PushChannelData', tokens: ['push_token_1'] } },
     );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -321,7 +311,7 @@ describe('resource objects', () => {
       'collection',
       'object_id',
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      { data: { tokens: ['push_token_1'] } },
+      { data: { __typename: 'PushChannelData', tokens: ['push_token_1'] } },
     );
   });
 

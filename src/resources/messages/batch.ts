@@ -404,7 +404,7 @@ export type BatchUnarchiveResponse = Array<MessagesAPI.Message>;
 
 export interface BatchArchiveParams {
   /**
-   * The message IDs to update.
+   * The message IDs to update the status of.
    */
   message_ids: Array<string>;
 }
@@ -430,35 +430,35 @@ export interface BatchMarkAsInteractedParams {
 
 export interface BatchMarkAsReadParams {
   /**
-   * The message IDs to update.
+   * The message IDs to update the status of.
    */
   message_ids: Array<string>;
 }
 
 export interface BatchMarkAsSeenParams {
   /**
-   * The message IDs to update.
+   * The message IDs to update the status of.
    */
   message_ids: Array<string>;
 }
 
 export interface BatchMarkAsUnreadParams {
   /**
-   * The message IDs to update.
+   * The message IDs to update the status of.
    */
   message_ids: Array<string>;
 }
 
 export interface BatchMarkAsUnseenParams {
   /**
-   * The message IDs to update.
+   * The message IDs to update the status of.
    */
   message_ids: Array<string>;
 }
 
 export interface BatchUnarchiveParams {
   /**
-   * The message IDs to update.
+   * The message IDs to update the status of.
    */
   message_ids: Array<string>;
 }

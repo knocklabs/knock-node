@@ -355,7 +355,7 @@ export interface UserListMessagesParams extends EntriesCursorParams {
   message_ids?: Array<string>;
 
   /**
-   * Limits the results to only items of the source workflow.
+   * Key of the source that triggered the message to limit results to.
    */
   source?: string;
 

@@ -107,7 +107,7 @@ Methods:
 - <code title="delete /v1/objects/{collection}/{object_id}/subscriptions">client.objects.<a href="./src/resources/objects/objects.ts">deleteSubscriptions</a>(collection, objectID, { ...params }) -> ObjectDeleteSubscriptionsResponse</code>
 - <code title="get /v1/objects/{collection}/{object_id}">client.objects.<a href="./src/resources/objects/objects.ts">get</a>(collection, objectID) -> Object</code>
 - <code title="get /v1/objects/{collection}/{object_id}/channel_data/{channel_id}">client.objects.<a href="./src/resources/objects/objects.ts">getChannelData</a>(collection, objectID, channelID) -> ChannelData</code>
-- <code title="get /v1/objects/{collection}/{object_id}/preferences/{preference_set_id}">client.objects.<a href="./src/resources/objects/objects.ts">getPreferences</a>(collection, objectID, preferenceSetID, { ...params }) -> PreferenceSet</code>
+- <code title="get /v1/objects/{collection}/{object_id}/preferences/{preference_set_id}">client.objects.<a href="./src/resources/objects/objects.ts">getPreferences</a>(collection, objectID, preferenceSetID) -> PreferenceSet</code>
 - <code title="get /v1/objects/{collection}/{object_id}/messages">client.objects.<a href="./src/resources/objects/objects.ts">listMessages</a>(collection, objectID, { ...params }) -> MessagesEntriesCursor</code>
 - <code title="get /v1/objects/{collection}/{object_id}/schedules">client.objects.<a href="./src/resources/objects/objects.ts">listSchedules</a>(collection, objectID, { ...params }) -> SchedulesEntriesCursor</code>
 - <code title="get /v1/objects/{collection}/{object_id}/subscriptions">client.objects.<a href="./src/resources/objects/objects.ts">listSubscriptions</a>(collection, objectID, { ...params }) -> SubscriptionsEntriesCursor</code>

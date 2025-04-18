@@ -100,13 +100,12 @@ export class Objects extends APIResource {
     collection: string,
     objectID: string,
     preferenceSetID: string,
-    query: ObjectGetPreferencesParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<PreferencesAPI.PreferenceSet> {
-    return this._client.get(path`/v1/objects/${collection}/${objectID}/preferences/${preferenceSetID}`, {
-      query,
-      ...options,
-    });
+    return this._client.get(
+      path`/v1/objects/${collection}/${objectID}/preferences/${preferenceSetID}`,
+      options,
+    );
   }
 
   /**
@@ -335,13 +334,6 @@ export interface ObjectDeleteSubscriptionsParams {
   recipients: Array<RecipientsAPI.RecipientRequest>;
 }
 
-export interface ObjectGetPreferencesParams {
-  /**
-   * The unique identifier for the tenant.
-   */
-  tenant?: string;
-}
-
 export interface ObjectListMessagesParams extends EntriesCursorParams {
   /**
    * Limits the results to items with the corresponding channel id.
@@ -361,7 +353,7 @@ export interface ObjectListMessagesParams extends EntriesCursorParams {
   message_ids?: Array<string>;
 
   /**
-   * Limits the results to only items of the source workflow.
+   * Key of the source that triggered the message to limit results to.
    */
   source?: string;
 
@@ -402,19 +394,19 @@ export interface ObjectListMessagesParams extends EntriesCursorParams {
 
 export interface ObjectListSchedulesParams extends EntriesCursorParams {
   /**
-   * The ID of the tenant to list schedules for.
+   * Filter schedules by tenant id.
    */
   tenant?: string;
 
   /**
-   * The ID of the workflow to list schedules for.
+   * Filter schedules by workflow id.
    */
   workflow?: string;
 }
 
 export interface ObjectListSubscriptionsParams extends EntriesCursorParams {
   /**
-   * Includes preferences of the recipient subscribers in the response.
+   * Additional fields to include in the response.
    */
   include?: Array<'preferences'>;
 
@@ -565,7 +557,6 @@ export declare namespace Objects {
     type ObjectListParams as ObjectListParams,
     type ObjectAddSubscriptionsParams as ObjectAddSubscriptionsParams,
     type ObjectDeleteSubscriptionsParams as ObjectDeleteSubscriptionsParams,
-    type ObjectGetPreferencesParams as ObjectGetPreferencesParams,
     type ObjectListMessagesParams as ObjectListMessagesParams,
     type ObjectListSchedulesParams as ObjectListSchedulesParams,
     type ObjectListSubscriptionsParams as ObjectListSubscriptionsParams,

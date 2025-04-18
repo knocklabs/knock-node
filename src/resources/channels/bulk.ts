@@ -82,6 +82,11 @@ export interface BulkUpdateMessageStatusParams {
   older_than?: string;
 
   /**
+   * The recipient GIDs to filter messages by.
+   */
+  recipient_gids?: Array<string>;
+
+  /**
    * The recipient IDs to filter messages by.
    */
   recipient_ids?: Array<string>;

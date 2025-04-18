@@ -166,6 +166,11 @@ export interface OneSignalChannelData {
  */
 export interface PushChannelData {
   /**
+   * The typename of the schema.
+   */
+  __typename: 'PushChannelData';
+
+  /**
    * A list of push channel tokens.
    */
   tokens: Array<string>;
@@ -176,17 +181,29 @@ export interface PushChannelData {
  */
 export interface SlackChannelData {
   /**
-   * List of Slack channel connections.
-   */
-  connections: Array<SlackChannelData.SlackTokenConnection | SlackChannelData.SlackIncomingWebhookConnection>;
-
-  /**
    * A Slack connection token.
    */
   token?: SlackChannelData.Token | null;
+
+  /**
+   * List of Slack channel connections.
+   */
+  connections?: Array<
+    SlackChannelData.SlackTokenConnection | SlackChannelData.SlackIncomingWebhookConnection
+  >;
 }
 
 export namespace SlackChannelData {
+  /**
+   * A Slack connection token.
+   */
+  export interface Token {
+    /**
+     * A Slack access token.
+     */
+    access_token: string | null;
+  }
+
   /**
    * A Slack connection token.
    */
@@ -215,16 +232,6 @@ export namespace SlackChannelData {
      * The URL of the incoming webhook for a Slack connection.
      */
     url: string;
-  }
-
-  /**
-   * A Slack connection token.
-   */
-  export interface Token {
-    /**
-     * A Slack access token.
-     */
-    access_token: string | null;
   }
 }
 

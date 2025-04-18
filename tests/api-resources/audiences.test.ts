@@ -28,7 +28,9 @@ describe('resource audiences', () => {
           user: {
             id: 'user_1',
             channel_data: {
-              '97c5837d-c65c-4d54-aa39-080eeb81c69d': { data: { tokens: ['push_token_xxx'] } },
+              '97c5837d-c65c-4d54-aa39-080eeb81c69d': {
+                data: { __typename: 'PushChannelData', tokens: ['push_token_xxx'] },
+              },
             },
             created_at: '2019-12-27T18:11:19.117Z',
             preferences: {
@@ -112,7 +114,9 @@ describe('resource audiences', () => {
           user: {
             id: 'user_1',
             channel_data: {
-              '97c5837d-c65c-4d54-aa39-080eeb81c69d': { data: { tokens: ['push_token_xxx'] } },
+              '97c5837d-c65c-4d54-aa39-080eeb81c69d': {
+                data: { __typename: 'PushChannelData', tokens: ['push_token_xxx'] },
+              },
             },
             created_at: '2019-12-27T18:11:19.117Z',
             preferences: {
