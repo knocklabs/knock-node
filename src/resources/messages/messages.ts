@@ -139,14 +139,14 @@ export class Messages extends APIResource {
    * Marks a message as unread for the current user, reversing the read state.
    */
   markAsUnread(messageID: string, options?: RequestOptions): APIPromise<Message> {
-    return this._client.delete(path`/v1/messages/${messageID}/unread`, options);
+    return this._client.delete(path`/v1/messages/${messageID}/read`, options);
   }
 
   /**
    * Marks a message as unseen for the current user, reversing the seen state.
    */
   markAsUnseen(messageID: string, options?: RequestOptions): APIPromise<Message> {
-    return this._client.delete(path`/v1/messages/${messageID}/unseen`, options);
+    return this._client.delete(path`/v1/messages/${messageID}/seen`, options);
   }
 
   /**
@@ -154,7 +154,7 @@ export class Messages extends APIResource {
    * message list again.
    */
   unarchive(messageID: string, options?: RequestOptions): APIPromise<Message> {
-    return this._client.delete(path`/v1/messages/${messageID}/unarchived`, options);
+    return this._client.delete(path`/v1/messages/${messageID}/archived`, options);
   }
 }
 

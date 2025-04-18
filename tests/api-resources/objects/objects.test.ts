@@ -219,6 +219,18 @@ describe('resource objects', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  test.skip('listPreferences', async () => {
+    const responsePromise = client.objects.listPreferences('collection', 'object_id');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('listSchedules', async () => {
     const responsePromise = client.objects.listSchedules('collection', 'object_id');
     const rawResponse = await responsePromise.asResponse();

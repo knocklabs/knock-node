@@ -8,6 +8,7 @@ export {
   type ObjectDeleteResponse,
   type ObjectAddSubscriptionsResponse,
   type ObjectDeleteSubscriptionsResponse,
+  type ObjectListPreferencesResponse,
   type ObjectUnsetChannelDataResponse,
   type ObjectListParams,
   type ObjectAddSubscriptionsParams,

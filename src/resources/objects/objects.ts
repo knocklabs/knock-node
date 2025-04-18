@@ -1,8 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as SchedulesAPI from '../schedules';
-import { SchedulesEntriesCursor } from '../schedules';
 import * as Shared from '../shared';
 import * as MessagesAPI from '../messages/messages';
 import { MessagesEntriesCursor } from '../messages/messages';
@@ -13,6 +11,8 @@ import * as PreferencesAPI from '../recipients/preferences';
 import * as RecipientsAPI from '../recipients/recipients';
 import * as SubscriptionsAPI from '../recipients/subscriptions';
 import { SubscriptionsEntriesCursor } from '../recipients/subscriptions';
+import * as SchedulesAPI from '../schedules/schedules';
+import { SchedulesEntriesCursor } from '../schedules/schedules';
 import { APIPromise } from '../../core/api-promise';
 import { EntriesCursor, type EntriesCursorParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -124,6 +124,17 @@ export class Objects extends APIResource {
       EntriesCursor<MessagesAPI.Message>,
       { query, ...options },
     );
+  }
+
+  /**
+   * Returns a paginated list of preference sets for the specified object.
+   */
+  listPreferences(
+    collection: string,
+    objectID: string,
+    options?: RequestOptions,
+  ): APIPromise<ObjectListPreferencesResponse> {
+    return this._client.get(path`/v1/objects/${collection}/${objectID}/preferences`, options);
   }
 
   /**
@@ -302,6 +313,11 @@ export type ObjectAddSubscriptionsResponse = Array<SubscriptionsAPI.Subscription
  * A response containing a list of subscriptions.
  */
 export type ObjectDeleteSubscriptionsResponse = Array<SubscriptionsAPI.Subscription>;
+
+/**
+ * A list of preference sets for the object
+ */
+export type ObjectListPreferencesResponse = Array<PreferencesAPI.PreferenceSet>;
 
 /**
  * An empty response.
@@ -552,6 +568,7 @@ export declare namespace Objects {
     type ObjectDeleteResponse as ObjectDeleteResponse,
     type ObjectAddSubscriptionsResponse as ObjectAddSubscriptionsResponse,
     type ObjectDeleteSubscriptionsResponse as ObjectDeleteSubscriptionsResponse,
+    type ObjectListPreferencesResponse as ObjectListPreferencesResponse,
     type ObjectUnsetChannelDataResponse as ObjectUnsetChannelDataResponse,
     type ObjectsEntriesCursor as ObjectsEntriesCursor,
     type ObjectListParams as ObjectListParams,

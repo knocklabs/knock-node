@@ -12,6 +12,7 @@ export {
 } from './audiences';
 export { BulkOperations, type BulkOperation } from './bulk-operations';
 export { Channels } from './channels/channels';
+export { Integrations } from './integrations/integrations';
 export {
   Messages,
   type Activity,
@@ -36,6 +37,7 @@ export {
   type ObjectDeleteResponse,
   type ObjectAddSubscriptionsResponse,
   type ObjectDeleteSubscriptionsResponse,
+  type ObjectListPreferencesResponse,
   type ObjectUnsetChannelDataResponse,
   type ObjectListParams,
   type ObjectAddSubscriptionsParams,
@@ -62,7 +64,7 @@ export {
   type ScheduleListParams,
   type ScheduleDeleteParams,
   type SchedulesEntriesCursor,
-} from './schedules';
+} from './schedules/schedules';
 export {
   Tenants,
   type InlineTenantRequest,

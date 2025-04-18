@@ -9,6 +9,17 @@ export {
   type FeedListItemsResponsesEntriesCursor,
 } from './feeds';
 export {
+  Guides,
+  type GuideGetChannelResponse,
+  type GuideMarkMessageAsArchivedResponse,
+  type GuideMarkMessageAsInteractedResponse,
+  type GuideMarkMessageAsSeenResponse,
+  type GuideGetChannelParams,
+  type GuideMarkMessageAsArchivedParams,
+  type GuideMarkMessageAsInteractedParams,
+  type GuideMarkMessageAsSeenParams,
+} from './guides';
+export {
   Users,
   type IdentifyUserRequest,
   type InlineIdentifyUserRequest,

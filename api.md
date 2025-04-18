@@ -80,6 +80,22 @@ Methods:
 - <code title="get /v1/users/{user_id}/feeds/{channel_id}/settings">client.users.feeds.<a href="./src/resources/users/feeds.ts">getSettings</a>(userID, channelID) -> FeedGetSettingsResponse</code>
 - <code title="get /v1/users/{user_id}/feeds/{channel_id}">client.users.feeds.<a href="./src/resources/users/feeds.ts">listItems</a>(userID, channelID, { ...params }) -> FeedListItemsResponsesEntriesCursor</code>
 
+## Guides
+
+Types:
+
+- <code><a href="./src/resources/users/guides.ts">GuideGetChannelResponse</a></code>
+- <code><a href="./src/resources/users/guides.ts">GuideMarkMessageAsArchivedResponse</a></code>
+- <code><a href="./src/resources/users/guides.ts">GuideMarkMessageAsInteractedResponse</a></code>
+- <code><a href="./src/resources/users/guides.ts">GuideMarkMessageAsSeenResponse</a></code>
+
+Methods:
+
+- <code title="get /v1/users/{user_id}/guides/{channel_id}">client.users.guides.<a href="./src/resources/users/guides.ts">getChannel</a>(userID, channelID, { ...params }) -> GuideGetChannelResponse</code>
+- <code title="put /v1/users/{user_id}/guides/messages/{message_id}/archived">client.users.guides.<a href="./src/resources/users/guides.ts">markMessageAsArchived</a>(userID, messageID, { ...params }) -> GuideMarkMessageAsArchivedResponse</code>
+- <code title="put /v1/users/{user_id}/guides/messages/{message_id}/interacted">client.users.guides.<a href="./src/resources/users/guides.ts">markMessageAsInteracted</a>(userID, messageID, { ...params }) -> GuideMarkMessageAsInteractedResponse</code>
+- <code title="put /v1/users/{user_id}/guides/messages/{message_id}/seen">client.users.guides.<a href="./src/resources/users/guides.ts">markMessageAsSeen</a>(userID, messageID, { ...params }) -> GuideMarkMessageAsSeenResponse</code>
+
 ## Bulk
 
 Methods:
@@ -97,6 +113,7 @@ Types:
 - <code><a href="./src/resources/objects/objects.ts">ObjectDeleteResponse</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectAddSubscriptionsResponse</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectDeleteSubscriptionsResponse</a></code>
+- <code><a href="./src/resources/objects/objects.ts">ObjectListPreferencesResponse</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectUnsetChannelDataResponse</a></code>
 
 Methods:
@@ -109,6 +126,7 @@ Methods:
 - <code title="get /v1/objects/{collection}/{object_id}/channel_data/{channel_id}">client.objects.<a href="./src/resources/objects/objects.ts">getChannelData</a>(collection, objectID, channelID) -> ChannelData</code>
 - <code title="get /v1/objects/{collection}/{object_id}/preferences/{preference_set_id}">client.objects.<a href="./src/resources/objects/objects.ts">getPreferences</a>(collection, objectID, preferenceSetID) -> PreferenceSet</code>
 - <code title="get /v1/objects/{collection}/{object_id}/messages">client.objects.<a href="./src/resources/objects/objects.ts">listMessages</a>(collection, objectID, { ...params }) -> MessagesEntriesCursor</code>
+- <code title="get /v1/objects/{collection}/{object_id}/preferences">client.objects.<a href="./src/resources/objects/objects.ts">listPreferences</a>(collection, objectID) -> ObjectListPreferencesResponse</code>
 - <code title="get /v1/objects/{collection}/{object_id}/schedules">client.objects.<a href="./src/resources/objects/objects.ts">listSchedules</a>(collection, objectID, { ...params }) -> SchedulesEntriesCursor</code>
 - <code title="get /v1/objects/{collection}/{object_id}/subscriptions">client.objects.<a href="./src/resources/objects/objects.ts">listSubscriptions</a>(collection, objectID, { ...params }) -> SubscriptionsEntriesCursor</code>
 - <code title="put /v1/objects/{collection}/{object_id}">client.objects.<a href="./src/resources/objects/objects.ts">set</a>(collection, objectID, { ...params }) -> Object</code>
@@ -179,9 +197,9 @@ Methods:
 - <code title="put /v1/messages/{message_id}/interacted">client.messages.<a href="./src/resources/messages/messages.ts">markAsInteracted</a>(messageID, { ...params }) -> Message</code>
 - <code title="put /v1/messages/{message_id}/read">client.messages.<a href="./src/resources/messages/messages.ts">markAsRead</a>(messageID) -> Message</code>
 - <code title="put /v1/messages/{message_id}/seen">client.messages.<a href="./src/resources/messages/messages.ts">markAsSeen</a>(messageID) -> Message</code>
-- <code title="delete /v1/messages/{message_id}/unread">client.messages.<a href="./src/resources/messages/messages.ts">markAsUnread</a>(messageID) -> Message</code>
-- <code title="delete /v1/messages/{message_id}/unseen">client.messages.<a href="./src/resources/messages/messages.ts">markAsUnseen</a>(messageID) -> Message</code>
-- <code title="delete /v1/messages/{message_id}/unarchived">client.messages.<a href="./src/resources/messages/messages.ts">unarchive</a>(messageID) -> Message</code>
+- <code title="delete /v1/messages/{message_id}/read">client.messages.<a href="./src/resources/messages/messages.ts">markAsUnread</a>(messageID) -> Message</code>
+- <code title="delete /v1/messages/{message_id}/seen">client.messages.<a href="./src/resources/messages/messages.ts">markAsUnseen</a>(messageID) -> Message</code>
+- <code title="delete /v1/messages/{message_id}/archived">client.messages.<a href="./src/resources/messages/messages.ts">unarchive</a>(messageID) -> Message</code>
 
 ## Batch
 
@@ -239,6 +257,28 @@ Methods:
 - <code title="get /v1/providers/ms-teams/{channel_id}/teams">client.providers.msTeams.<a href="./src/resources/providers/ms-teams.ts">listTeams</a>(channelID, { ...params }) -> MsTeamListTeamsResponse</code>
 - <code title="put /v1/providers/ms-teams/{channel_id}/revoke_access">client.providers.msTeams.<a href="./src/resources/providers/ms-teams.ts">revokeAccess</a>(channelID, { ...params }) -> string</code>
 
+# Integrations
+
+## Census
+
+Types:
+
+- <code><a href="./src/resources/integrations/census.ts">CensusCustomDestinationResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/integrations/census/custom-destination">client.integrations.census.<a href="./src/resources/integrations/census.ts">customDestination</a>({ ...params }) -> CensusCustomDestinationResponse</code>
+
+## Hightouch
+
+Types:
+
+- <code><a href="./src/resources/integrations/hightouch.ts">HightouchEmbeddedDestinationResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/integrations/hightouch/embedded-destination">client.integrations.hightouch.<a href="./src/resources/integrations/hightouch.ts">embeddedDestination</a>({ ...params }) -> HightouchEmbeddedDestinationResponse</code>
+
 # Workflows
 
 Types:
@@ -255,18 +295,24 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/schedules.ts">Schedule</a></code>
-- <code><a href="./src/resources/schedules.ts">ScheduleRepeatRule</a></code>
-- <code><a href="./src/resources/schedules.ts">ScheduleCreateResponse</a></code>
-- <code><a href="./src/resources/schedules.ts">ScheduleUpdateResponse</a></code>
-- <code><a href="./src/resources/schedules.ts">ScheduleDeleteResponse</a></code>
+- <code><a href="./src/resources/schedules/schedules.ts">Schedule</a></code>
+- <code><a href="./src/resources/schedules/schedules.ts">ScheduleRepeatRule</a></code>
+- <code><a href="./src/resources/schedules/schedules.ts">ScheduleCreateResponse</a></code>
+- <code><a href="./src/resources/schedules/schedules.ts">ScheduleUpdateResponse</a></code>
+- <code><a href="./src/resources/schedules/schedules.ts">ScheduleDeleteResponse</a></code>
 
 Methods:
 
-- <code title="post /v1/schedules">client.schedules.<a href="./src/resources/schedules.ts">create</a>({ ...params }) -> ScheduleCreateResponse</code>
-- <code title="put /v1/schedules">client.schedules.<a href="./src/resources/schedules.ts">update</a>({ ...params }) -> ScheduleUpdateResponse</code>
-- <code title="get /v1/schedules">client.schedules.<a href="./src/resources/schedules.ts">list</a>({ ...params }) -> SchedulesEntriesCursor</code>
-- <code title="delete /v1/schedules">client.schedules.<a href="./src/resources/schedules.ts">delete</a>({ ...params }) -> ScheduleDeleteResponse</code>
+- <code title="post /v1/schedules">client.schedules.<a href="./src/resources/schedules/schedules.ts">create</a>({ ...params }) -> ScheduleCreateResponse</code>
+- <code title="put /v1/schedules">client.schedules.<a href="./src/resources/schedules/schedules.ts">update</a>({ ...params }) -> ScheduleUpdateResponse</code>
+- <code title="get /v1/schedules">client.schedules.<a href="./src/resources/schedules/schedules.ts">list</a>({ ...params }) -> SchedulesEntriesCursor</code>
+- <code title="delete /v1/schedules">client.schedules.<a href="./src/resources/schedules/schedules.ts">delete</a>({ ...params }) -> ScheduleDeleteResponse</code>
+
+## Bulk
+
+Methods:
+
+- <code title="post /v1/schedules/bulk/create">client.schedules.bulk.<a href="./src/resources/schedules/bulk.ts">create</a>() -> BulkOperation</code>
 
 # Channels
 

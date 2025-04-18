@@ -42,19 +42,6 @@ import {
 } from './resources/audiences';
 import { BulkOperation, BulkOperations } from './resources/bulk-operations';
 import {
-  Schedule,
-  ScheduleCreateParams,
-  ScheduleCreateResponse,
-  ScheduleDeleteParams,
-  ScheduleDeleteResponse,
-  ScheduleListParams,
-  ScheduleRepeatRule,
-  ScheduleUpdateParams,
-  ScheduleUpdateResponse,
-  Schedules,
-  SchedulesEntriesCursor,
-} from './resources/schedules';
-import {
   WorkflowCancelParams,
   WorkflowCancelResponse,
   WorkflowTriggerParams,
@@ -65,6 +52,7 @@ import { readEnv } from './internal/utils/env';
 import { formatRequestDetails, loggerFor } from './internal/utils/log';
 import { isEmptyObj } from './internal/utils/values';
 import { Channels } from './resources/channels/channels';
+import { Integrations } from './resources/integrations/integrations';
 import {
   ActivitiesEntriesCursor,
   Activity,
@@ -92,6 +80,7 @@ import {
   ObjectDeleteSubscriptionsResponse,
   ObjectListMessagesParams,
   ObjectListParams,
+  ObjectListPreferencesResponse,
   ObjectListSchedulesParams,
   ObjectListSubscriptionsParams,
   ObjectSetChannelDataParams,
@@ -103,6 +92,19 @@ import {
 } from './resources/objects/objects';
 import { Providers } from './resources/providers/providers';
 import { Recipient, RecipientRequest, Recipients } from './resources/recipients/recipients';
+import {
+  Schedule,
+  ScheduleCreateParams,
+  ScheduleCreateResponse,
+  ScheduleDeleteParams,
+  ScheduleDeleteResponse,
+  ScheduleListParams,
+  ScheduleRepeatRule,
+  ScheduleUpdateParams,
+  ScheduleUpdateResponse,
+  Schedules,
+  SchedulesEntriesCursor,
+} from './resources/schedules/schedules';
 import {
   InlineTenantRequest,
   Tenant,
@@ -792,6 +794,7 @@ export class Knock {
   bulkOperations: API.BulkOperations = new API.BulkOperations(this);
   messages: API.Messages = new API.Messages(this);
   providers: API.Providers = new API.Providers(this);
+  integrations: API.Integrations = new API.Integrations(this);
   workflows: API.Workflows = new API.Workflows(this);
   schedules: API.Schedules = new API.Schedules(this);
   channels: API.Channels = new API.Channels(this);
@@ -804,6 +807,7 @@ Knock.Tenants = Tenants;
 Knock.BulkOperations = BulkOperations;
 Knock.Messages = Messages;
 Knock.Providers = Providers;
+Knock.Integrations = Integrations;
 Knock.Workflows = Workflows;
 Knock.Schedules = Schedules;
 Knock.Channels = Channels;
@@ -855,6 +859,7 @@ export declare namespace Knock {
     type ObjectDeleteResponse as ObjectDeleteResponse,
     type ObjectAddSubscriptionsResponse as ObjectAddSubscriptionsResponse,
     type ObjectDeleteSubscriptionsResponse as ObjectDeleteSubscriptionsResponse,
+    type ObjectListPreferencesResponse as ObjectListPreferencesResponse,
     type ObjectUnsetChannelDataResponse as ObjectUnsetChannelDataResponse,
     type ObjectsEntriesCursor as ObjectsEntriesCursor,
     type ObjectListParams as ObjectListParams,
@@ -900,6 +905,8 @@ export declare namespace Knock {
   };
 
   export { Providers as Providers };
+
+  export { Integrations as Integrations };
 
   export {
     Workflows as Workflows,

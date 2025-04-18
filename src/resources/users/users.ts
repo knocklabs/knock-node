@@ -1,8 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as SchedulesAPI from '../schedules';
-import { SchedulesEntriesCursor } from '../schedules';
 import * as Shared from '../shared';
 import * as MessagesAPI from '../messages/messages';
 import { MessagesEntriesCursor } from '../messages/messages';
@@ -10,6 +8,8 @@ import * as ChannelDataAPI from '../recipients/channel-data';
 import * as PreferencesAPI from '../recipients/preferences';
 import * as SubscriptionsAPI from '../recipients/subscriptions';
 import { SubscriptionsEntriesCursor } from '../recipients/subscriptions';
+import * as SchedulesAPI from '../schedules/schedules';
+import { SchedulesEntriesCursor } from '../schedules/schedules';
 import * as BulkAPI from './bulk';
 import { Bulk, BulkDeleteParams, BulkIdentifyParams, BulkSetPreferencesParams } from './bulk';
 import * as FeedsAPI from './feeds';
@@ -20,6 +20,18 @@ import {
   FeedListItemsResponsesEntriesCursor,
   Feeds,
 } from './feeds';
+import * as GuidesAPI from './guides';
+import {
+  GuideGetChannelParams,
+  GuideGetChannelResponse,
+  GuideMarkMessageAsArchivedParams,
+  GuideMarkMessageAsArchivedResponse,
+  GuideMarkMessageAsInteractedParams,
+  GuideMarkMessageAsInteractedResponse,
+  GuideMarkMessageAsSeenParams,
+  GuideMarkMessageAsSeenResponse,
+  Guides,
+} from './guides';
 import { APIPromise } from '../../core/api-promise';
 import { EntriesCursor, type EntriesCursorParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -27,6 +39,7 @@ import { path } from '../../internal/utils/path';
 
 export class Users extends APIResource {
   feeds: FeedsAPI.Feeds = new FeedsAPI.Feeds(this._client);
+  guides: GuidesAPI.Guides = new GuidesAPI.Guides(this._client);
   bulk: BulkAPI.Bulk = new BulkAPI.Bulk(this._client);
 
   /**
@@ -514,6 +527,7 @@ export namespace UserSetPreferencesParams {
 }
 
 Users.Feeds = Feeds;
+Users.Guides = Guides;
 Users.Bulk = Bulk;
 
 export declare namespace Users {
@@ -542,6 +556,18 @@ export declare namespace Users {
     type FeedListItemsResponse as FeedListItemsResponse,
     type FeedListItemsResponsesEntriesCursor as FeedListItemsResponsesEntriesCursor,
     type FeedListItemsParams as FeedListItemsParams,
+  };
+
+  export {
+    Guides as Guides,
+    type GuideGetChannelResponse as GuideGetChannelResponse,
+    type GuideMarkMessageAsArchivedResponse as GuideMarkMessageAsArchivedResponse,
+    type GuideMarkMessageAsInteractedResponse as GuideMarkMessageAsInteractedResponse,
+    type GuideMarkMessageAsSeenResponse as GuideMarkMessageAsSeenResponse,
+    type GuideGetChannelParams as GuideGetChannelParams,
+    type GuideMarkMessageAsArchivedParams as GuideMarkMessageAsArchivedParams,
+    type GuideMarkMessageAsInteractedParams as GuideMarkMessageAsInteractedParams,
+    type GuideMarkMessageAsSeenParams as GuideMarkMessageAsSeenParams,
   };
 
   export {
