@@ -9,7 +9,76 @@ export class Preferences extends APIResource {}
 /**
  * Inline set preferences for a recipient, where the key is the preference set name
  */
-export type InlinePreferenceSetRequest = Record<string, PreferenceSetRequest>;
+export type InlinePreferenceSetRequest = Array<InlinePreferenceSetRequest.InlinePreferenceSetRequestItem>;
+
+export namespace InlinePreferenceSetRequest {
+  /**
+   * Inline set preferences for a recipient, where the key is the preference set name
+   */
+  export interface InlinePreferenceSetRequestItem {
+    /**
+     * The ID of the preference set
+     */
+    id: string;
+
+    /**
+     * An object where the key is the category and the values are the preference
+     * settings for that category.
+     */
+    categories?: Record<
+      string,
+      boolean | InlinePreferenceSetRequestItem.PreferenceSetWorkflowCategorySettingObject
+    > | null;
+
+    /**
+     * Channel type preferences.
+     */
+    channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
+
+    /**
+     * An object where the key is the workflow key and the values are the preference
+     * settings for that workflow.
+     */
+    workflows?: Record<
+      string,
+      boolean | InlinePreferenceSetRequestItem.PreferenceSetWorkflowCategorySettingObject
+    > | null;
+  }
+
+  export namespace InlinePreferenceSetRequestItem {
+    /**
+     * The settings object for a workflow or category, where you can specify channel
+     * types or conditions.
+     */
+    export interface PreferenceSetWorkflowCategorySettingObject {
+      /**
+       * Channel type preferences.
+       */
+      channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
+
+      /**
+       * A list of conditions to apply to a channel type.
+       */
+      conditions?: Array<Shared.Condition> | null;
+    }
+
+    /**
+     * The settings object for a workflow or category, where you can specify channel
+     * types or conditions.
+     */
+    export interface PreferenceSetWorkflowCategorySettingObject {
+      /**
+       * Channel type preferences.
+       */
+      channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
+
+      /**
+       * A list of conditions to apply to a channel type.
+       */
+      conditions?: Array<Shared.Condition> | null;
+    }
+  }
+}
 
 /**
  * A preference set determines whether a recipient should receive a particular type
