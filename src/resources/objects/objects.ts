@@ -46,7 +46,7 @@ export class Objects extends APIResource {
 
   /**
    * Add subscriptions for an object. If a subscription already exists, it will be
-   * updated.
+   * updated. Can accept inline-identifications for recipients.
    */
   addSubscriptions(
     collection: string,
@@ -154,7 +154,7 @@ export class Objects extends APIResource {
   }
 
   /**
-   * List subscriptions for an object. Eitherlist the recipients that subscribe to
+   * List subscriptions for an object. Either list the recipients that subscribe to
    * the provided object, or list the objects that the provided object is subscribed
    * to. Determined by the `mode` query parameter.
    */
@@ -347,7 +347,7 @@ export interface ObjectDeleteSubscriptionsParams {
   /**
    * The recipients of the subscription.
    */
-  recipients: Array<RecipientsAPI.RecipientRequest>;
+  recipients: Array<RecipientsAPI.RecipientReference>;
 }
 
 export interface ObjectListMessagesParams extends EntriesCursorParams {

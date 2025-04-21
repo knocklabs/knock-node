@@ -61,7 +61,7 @@ export interface WorkflowCancelParams {
    * A list of recipients to cancel the notification for. If omitted, cancels for all
    * recipients associated with the cancellation key.
    */
-  recipients?: Array<RecipientsAPI.RecipientRequest> | null;
+  recipients?: Array<RecipientsAPI.RecipientReference> | null;
 }
 
 export interface WorkflowTriggerParams {
