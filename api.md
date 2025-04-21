@@ -311,9 +311,13 @@ Methods:
 
 ## Bulk
 
+Types:
+
+- <code><a href="./src/resources/schedules/bulk.ts">BulkCreateSchedulesRequest</a></code>
+
 Methods:
 
-- <code title="post /v1/schedules/bulk/create">client.schedules.bulk.<a href="./src/resources/schedules/bulk.ts">create</a>() -> BulkOperation</code>
+- <code title="post /v1/schedules/bulk/create">client.schedules.bulk.<a href="./src/resources/schedules/bulk.ts">create</a>({ ...params }) -> BulkOperation</code>
 
 # Channels
 
