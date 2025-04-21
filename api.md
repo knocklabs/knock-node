@@ -9,6 +9,7 @@ Types:
 Types:
 
 - <code><a href="./src/resources/recipients/recipients.ts">Recipient</a></code>
+- <code><a href="./src/resources/recipients/recipients.ts">RecipientReference</a></code>
 - <code><a href="./src/resources/recipients/recipients.ts">RecipientRequest</a></code>
 
 ## Subscriptions

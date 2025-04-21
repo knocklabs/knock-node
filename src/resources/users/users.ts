@@ -6,6 +6,7 @@ import * as MessagesAPI from '../messages/messages';
 import { MessagesEntriesCursor } from '../messages/messages';
 import * as ChannelDataAPI from '../recipients/channel-data';
 import * as PreferencesAPI from '../recipients/preferences';
+import * as RecipientsAPI from '../recipients/recipients';
 import * as SubscriptionsAPI from '../recipients/subscriptions';
 import { SubscriptionsEntriesCursor } from '../recipients/subscriptions';
 import * as SchedulesAPI from '../schedules/schedules';
@@ -428,24 +429,7 @@ export interface UserListSubscriptionsParams extends EntriesCursorParams {
   /**
    * Only return subscriptions for the given recipients.
    */
-  objects?: Array<string | UserListSubscriptionsParams.ObjectReference>;
-}
-
-export namespace UserListSubscriptionsParams {
-  /**
-   * A reference to a recipient object.
-   */
-  export interface ObjectReference {
-    /**
-     * An identifier for the recipient object.
-     */
-    id?: string;
-
-    /**
-     * The collection the recipient object belongs to.
-     */
-    collection?: string;
-  }
+  objects?: Array<RecipientsAPI.RecipientReference>;
 }
 
 export interface UserMergeParams {

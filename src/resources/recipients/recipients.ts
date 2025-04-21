@@ -38,6 +38,29 @@ export class Recipients extends APIResource {
 export type Recipient = UsersAPI.User | ObjectsAPI.Object;
 
 /**
+ * A reference to a recipient, either a user identifier (string) or an object
+ * reference (ID, collection).
+ */
+export type RecipientReference = string | RecipientReference.ObjectReference;
+
+export namespace RecipientReference {
+  /**
+   * A reference to a recipient object.
+   */
+  export interface ObjectReference {
+    /**
+     * An identifier for the recipient object.
+     */
+    id?: string;
+
+    /**
+     * The collection the recipient object belongs to.
+     */
+    collection?: string;
+  }
+}
+
+/**
  * Specifies a recipient in a request. This can either be a user identifier
  * (string), an inline user request (object), or an inline object request, which is
  * determined by the presence of a `collection` property.
@@ -48,7 +71,11 @@ Recipients.Subscriptions = Subscriptions;
 Recipients.Preferences = Preferences;
 
 export declare namespace Recipients {
-  export { type Recipient as Recipient, type RecipientRequest as RecipientRequest };
+  export {
+    type Recipient as Recipient,
+    type RecipientReference as RecipientReference,
+    type RecipientRequest as RecipientRequest,
+  };
 
   export { Subscriptions as Subscriptions, type Subscription as Subscription };
 

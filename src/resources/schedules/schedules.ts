@@ -174,7 +174,7 @@ export interface ScheduleCreateParams {
    * The recipients to trigger the workflow for. Can inline identify users, objects,
    * or use a list of user IDs. Limited to 1,000 recipients in a single trigger.
    */
-  recipients: Array<string | ScheduleCreateParams.ObjectReference>;
+  recipients: Array<RecipientsAPI.RecipientReference>;
 
   /**
    * The repeat rule for the schedule.
@@ -205,23 +205,6 @@ export interface ScheduleCreateParams {
    * An request to set a tenant inline.
    */
   tenant?: TenantsAPI.InlineTenantRequest | null;
-}
-
-export namespace ScheduleCreateParams {
-  /**
-   * A reference to a recipient object.
-   */
-  export interface ObjectReference {
-    /**
-     * An identifier for the recipient object.
-     */
-    id?: string;
-
-    /**
-     * The collection the recipient object belongs to.
-     */
-    collection?: string;
-  }
 }
 
 export interface ScheduleUpdateParams {

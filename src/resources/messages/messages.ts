@@ -225,7 +225,7 @@ export interface Message {
    * One or more actors that are associated with this message. Note: this is a list
    * that can contain up to 10 actors if the message is produced from a batch.
    */
-  actors?: Array<string | Message.ObjectReference>;
+  actors?: Array<RecipientsAPI.RecipientReference>;
 
   /**
    * Timestamp when the message was archived.
@@ -281,7 +281,7 @@ export interface Message {
    * A reference to a recipient, either a user identifier (string) or an object
    * reference (ID, collection).
    */
-  recipient?: string | Message.ObjectReference;
+  recipient?: RecipientsAPI.RecipientReference;
 
   /**
    * Timestamp when the message was scheduled to be sent.
@@ -320,36 +320,6 @@ export interface Message {
 }
 
 export namespace Message {
-  /**
-   * A reference to a recipient object.
-   */
-  export interface ObjectReference {
-    /**
-     * An identifier for the recipient object.
-     */
-    id?: string;
-
-    /**
-     * The collection the recipient object belongs to.
-     */
-    collection?: string;
-  }
-
-  /**
-   * A reference to a recipient object.
-   */
-  export interface ObjectReference {
-    /**
-     * An identifier for the recipient object.
-     */
-    id?: string;
-
-    /**
-     * The collection the recipient object belongs to.
-     */
-    collection?: string;
-  }
-
   /**
    * The source that triggered the message.
    */
@@ -493,7 +463,7 @@ export interface MessageEvent {
    * A reference to a recipient, either a user identifier (string) or an object
    * reference (ID, collection).
    */
-  recipient: string | MessageEvent.ObjectReference;
+  recipient: RecipientsAPI.RecipientReference;
 
   /**
    * The type of event that occurred.
@@ -519,23 +489,6 @@ export interface MessageEvent {
    * The data associated with the message event. Only present for some event types.
    */
   data?: Record<string, unknown> | null;
-}
-
-export namespace MessageEvent {
-  /**
-   * A reference to a recipient object.
-   */
-  export interface ObjectReference {
-    /**
-     * An identifier for the recipient object.
-     */
-    id?: string;
-
-    /**
-     * The collection the recipient object belongs to.
-     */
-    collection?: string;
-  }
 }
 
 /**

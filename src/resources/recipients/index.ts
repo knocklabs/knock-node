@@ -18,5 +18,5 @@ export {
   type PreferenceSetChannelTypes,
   type PreferenceSetRequest,
 } from './preferences';
-export { Recipients, type Recipient, type RecipientRequest } from './recipients';
+export { Recipients, type Recipient, type RecipientReference, type RecipientRequest } from './recipients';
 export { Subscriptions, type Subscription, type SubscriptionsEntriesCursor } from './subscriptions';
