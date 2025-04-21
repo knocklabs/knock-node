@@ -166,9 +166,6 @@ export namespace MsTeamListTeamsResponse {
   }
 }
 
-/**
- * A response indicating the access was revoked.
- */
 export type MsTeamRevokeAccessResponse = string;
 
 export interface MsTeamCheckAuthParams {
