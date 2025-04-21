@@ -48,7 +48,7 @@ export class Objects extends APIResource {
    * Add subscriptions for an object. If a subscription already exists, it will be
    * updated. This endpoint also handles
    * [inline identifications](/managing-recipients/identifying-recipients#inline-identifying-recipients)
-   * for the `recipient`
+   * for the `recipient`.
    */
   addSubscriptions(
     collection: string,

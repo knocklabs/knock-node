@@ -40,7 +40,7 @@ export class Slack extends APIResource {
     channelID: string,
     params: SlackRevokeAccessParams,
     options?: RequestOptions,
-  ): APIPromise<string> {
+  ): APIPromise<SlackRevokeAccessResponse> {
     const { access_token_object } = params;
     return this._client.put(path`/v1/providers/slack/${channelID}/revoke_access`, {
       query: { access_token_object },
@@ -108,7 +108,15 @@ export interface SlackListChannelsResponse {
   name: string;
 }
 
-export type SlackRevokeAccessResponse = string;
+/**
+ * A response indicating the access was revoked.
+ */
+export interface SlackRevokeAccessResponse {
+  /**
+   * OK response.
+   */
+  ok?: string;
+}
 
 export interface SlackCheckAuthParams {
   /**
