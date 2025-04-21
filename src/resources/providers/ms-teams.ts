@@ -49,7 +49,7 @@ export class MsTeams extends APIResource {
     channelID: string,
     params: MsTeamRevokeAccessParams,
     options?: RequestOptions,
-  ): APIPromise<string> {
+  ): APIPromise<MsTeamRevokeAccessResponse> {
     const { ms_teams_tenant_object } = params;
     return this._client.put(path`/v1/providers/ms-teams/${channelID}/revoke_access`, {
       query: { ms_teams_tenant_object },
@@ -167,9 +167,14 @@ export namespace MsTeamListTeamsResponse {
 }
 
 /**
- * A response indicating the access was revoked.
+ * A response indicating the operation was successful.
  */
-export type MsTeamRevokeAccessResponse = string;
+export interface MsTeamRevokeAccessResponse {
+  /**
+   * OK response.
+   */
+  ok?: string;
+}
 
 export interface MsTeamCheckAuthParams {
   /**

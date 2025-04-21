@@ -257,7 +257,7 @@ Methods:
 - <code title="get /v1/providers/ms-teams/{channel_id}/auth_check">client.providers.msTeams.<a href="./src/resources/providers/ms-teams.ts">checkAuth</a>(channelID, { ...params }) -> MsTeamCheckAuthResponse</code>
 - <code title="get /v1/providers/ms-teams/{channel_id}/channels">client.providers.msTeams.<a href="./src/resources/providers/ms-teams.ts">listChannels</a>(channelID, { ...params }) -> MsTeamListChannelsResponse</code>
 - <code title="get /v1/providers/ms-teams/{channel_id}/teams">client.providers.msTeams.<a href="./src/resources/providers/ms-teams.ts">listTeams</a>(channelID, { ...params }) -> MsTeamListTeamsResponse</code>
-- <code title="put /v1/providers/ms-teams/{channel_id}/revoke_access">client.providers.msTeams.<a href="./src/resources/providers/ms-teams.ts">revokeAccess</a>(channelID, { ...params }) -> string</code>
+- <code title="put /v1/providers/ms-teams/{channel_id}/revoke_access">client.providers.msTeams.<a href="./src/resources/providers/ms-teams.ts">revokeAccess</a>(channelID, { ...params }) -> MsTeamRevokeAccessResponse</code>
 
 # Integrations
 

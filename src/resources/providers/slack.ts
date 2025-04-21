@@ -109,7 +109,7 @@ export interface SlackListChannelsResponse {
 }
 
 /**
- * A response indicating the access was revoked.
+ * A response indicating the operation was successful.
  */
 export interface SlackRevokeAccessResponse {
   /**

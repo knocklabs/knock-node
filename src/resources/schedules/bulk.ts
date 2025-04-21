@@ -71,9 +71,11 @@ export namespace BulkCreateParams {
     scheduled_at?: string | null;
 
     /**
-     * An request to set a tenant inline.
+     * The tenant to trigger the workflow for. Triggering with a tenant will use any
+     * tenant-level overrides associated with the tenant object, and all messages
+     * produced from workflow runs will be tagged with the tenant.
      */
-    tenant?: TenantsAPI.InlineTenantRequest | null;
+    tenant?: string | TenantsAPI.TenantRequest | null;
   }
 }
 
