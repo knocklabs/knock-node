@@ -1,9 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as ObjectsAPI from './objects/objects';
+import * as RecipientsAPI from './recipients/recipients';
 import * as TenantsAPI from './tenants/tenants';
-import * as UsersAPI from './users/users';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -62,7 +61,7 @@ export interface WorkflowCancelParams {
    * A list of recipients to cancel the notification for. If omitted, cancels for all
    * recipients associated with the cancellation key.
    */
-  recipients?: Array<string | UsersAPI.InlineIdentifyUserRequest | ObjectsAPI.InlineObjectRequest> | null;
+  recipients?: Array<RecipientsAPI.RecipientRequest> | null;
 }
 
 export interface WorkflowTriggerParams {
@@ -70,14 +69,14 @@ export interface WorkflowTriggerParams {
    * The recipients to trigger the workflow for. Can inline identify users, objects,
    * or use a list of user IDs. Limited to 1,000 recipients in a single trigger.
    */
-  recipients: Array<string | UsersAPI.InlineIdentifyUserRequest | ObjectsAPI.InlineObjectRequest>;
+  recipients: Array<RecipientsAPI.RecipientRequest>;
 
   /**
    * Specifies a recipient in a request. This can either be a user identifier
    * (string), an inline user request (object), or an inline object request, which is
    * determined by the presence of a `collection` property.
    */
-  actor?: string | UsersAPI.InlineIdentifyUserRequest | ObjectsAPI.InlineObjectRequest | null;
+  actor?: RecipientsAPI.RecipientRequest | null;
 
   /**
    * An optional key that is used to reference a specific workflow trigger request

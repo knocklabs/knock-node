@@ -91,7 +91,7 @@ import {
   ObjectsEntriesCursor,
 } from './resources/objects/objects';
 import { Providers } from './resources/providers/providers';
-import { Recipient, Recipients } from './resources/recipients/recipients';
+import { Recipient, RecipientRequest, Recipients } from './resources/recipients/recipients';
 import {
   Schedule,
   ScheduleCreateParams,
@@ -830,7 +830,7 @@ export declare namespace Knock {
     type SlackChannelsCursorResponse as SlackChannelsCursorResponse,
   };
 
-  export { Recipients as Recipients, type Recipient as Recipient };
+  export { Recipients as Recipients, type Recipient as Recipient, type RecipientRequest as RecipientRequest };
 
   export {
     Users as Users,
