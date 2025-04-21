@@ -41,6 +41,7 @@ import {
   Audiences,
 } from './resources/audiences';
 import { BulkOperation, BulkOperations } from './resources/bulk-operations';
+import { Condition, Shared } from './resources/shared';
 import {
   WorkflowCancelParams,
   WorkflowCancelResponse,
@@ -792,6 +793,7 @@ export class Knock {
 
   static toFile = Uploads.toFile;
 
+  shared: API.Shared = new API.Shared(this);
   recipients: API.Recipients = new API.Recipients(this);
   users: API.Users = new API.Users(this);
   objects: API.Objects = new API.Objects(this);
@@ -805,6 +807,7 @@ export class Knock {
   channels: API.Channels = new API.Channels(this);
   audiences: API.Audiences = new API.Audiences(this);
 }
+Knock.Shared = Shared;
 Knock.Recipients = Recipients;
 Knock.Users = Users;
 Knock.Objects = Objects;
@@ -834,6 +837,8 @@ export declare namespace Knock {
     type SlackChannelsCursorParams as SlackChannelsCursorParams,
     type SlackChannelsCursorResponse as SlackChannelsCursorResponse,
   };
+
+  export { Shared as Shared, type Condition as Condition };
 
   export {
     Recipients as Recipients,
@@ -951,6 +956,4 @@ export declare namespace Knock {
     type AudienceAddMembersParams as AudienceAddMembersParams,
     type AudienceRemoveMembersParams as AudienceRemoveMembersParams,
   };
-
-  export type Condition = API.Condition;
 }

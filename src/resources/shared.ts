@@ -1,5 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+import { APIResource } from '../core/resource';
+
+export class Shared extends APIResource {}
+
 /**
  * A condition to be evaluated.
  */
@@ -36,4 +40,8 @@ export interface Condition {
    * The variable to be evaluated in the condition.
    */
   variable: string;
+}
+
+export declare namespace Shared {
+  export { type Condition as Condition };
 }

@@ -3,7 +3,7 @@
 import { APIResource } from '../../core/resource';
 import * as RecipientsAPI from '../recipients/recipients';
 import * as BulkAPI from './bulk';
-import { Bulk, BulkCreateParams, BulkCreateSchedulesRequest } from './bulk';
+import { Bulk, BulkCreateParams } from './bulk';
 import * as TenantsAPI from '../tenants/tenants';
 import { APIPromise } from '../../core/api-promise';
 import { EntriesCursor, type EntriesCursorParams, PagePromise } from '../../core/pagination';
@@ -291,9 +291,5 @@ export declare namespace Schedules {
     type ScheduleDeleteParams as ScheduleDeleteParams,
   };
 
-  export {
-    Bulk as Bulk,
-    type BulkCreateSchedulesRequest as BulkCreateSchedulesRequest,
-    type BulkCreateParams as BulkCreateParams,
-  };
+  export { Bulk as Bulk, type BulkCreateParams as BulkCreateParams };
 }

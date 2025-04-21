@@ -1,6 +1,5 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export * from './shared';
 export {
   Audiences,
   type AudienceMember,
@@ -70,6 +69,7 @@ export {
   type ScheduleDeleteParams,
   type SchedulesEntriesCursor,
 } from './schedules/schedules';
+export { Shared, type Condition } from './shared';
 export {
   Tenants,
   type InlineTenantRequest,

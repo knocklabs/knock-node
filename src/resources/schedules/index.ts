@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { Bulk, type BulkCreateSchedulesRequest, type BulkCreateParams } from './bulk';
+export { Bulk, type BulkCreateParams } from './bulk';
 export {
   Schedules,
   type Schedule,
