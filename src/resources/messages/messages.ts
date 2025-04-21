@@ -231,7 +231,8 @@ export interface Message {
 
   /**
    * One or more actors that are associated with this message. Note: this is a list
-   * that can contain up to 10 actors if the message is produced from a batch.
+   * that can contain up to 10 actors if the message is produced from a
+   * [batch](/designing-workflows/batch-function).
    */
   actors?: Array<RecipientsAPI.RecipientReference>;
 
@@ -241,7 +242,7 @@ export interface Message {
   archived_at?: string | null;
 
   /**
-   * The id for the channel the message was sent through.
+   * The ID for the channel the message was sent through.
    */
   channel_id?: string;
 
@@ -316,7 +317,8 @@ export interface Message {
   status?: 'queued' | 'sent' | 'delivered' | 'delivery_attempted' | 'undelivered' | 'not_sent' | 'bounced';
 
   /**
-   * The id for the tenant set for the message.
+   * The ID of the `tenant` associated with the message. Only present when a `tenant`
+   * is provided on a workflow trigger request.
    */
   tenant?: string | null;
 
