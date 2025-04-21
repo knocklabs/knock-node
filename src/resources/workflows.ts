@@ -69,7 +69,7 @@ export interface WorkflowCancelParams {
 export interface WorkflowTriggerParams {
   /**
    * The recipients to trigger the workflow for. Can inline identify users, objects,
-   * or use a list of user IDs. Limited to 1,000 recipients in a single trigger.
+   * or use a list of user IDs. Limited to 1,000 recipients.
    */
   recipients: Array<RecipientsAPI.RecipientRequest>;
 
