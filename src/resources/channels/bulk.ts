@@ -35,12 +35,12 @@ export class Bulk extends APIResource {
 
 export interface BulkUpdateMessageStatusParams {
   /**
-   * The archived status to filter messages by.
+   * Limits the results to messages with the given archived status.
    */
   archived?: 'exclude' | 'include' | 'only';
 
   /**
-   * The delivery status to filter messages by.
+   * Limits the results to messages with the given delivery status.
    */
   delivery_status?:
     | 'queued'
@@ -52,7 +52,7 @@ export interface BulkUpdateMessageStatusParams {
     | 'bounced';
 
   /**
-   * The engagement status to filter messages by.
+   * Limits the results to messages with the given engagement status.
    */
   engagement_status?:
     | 'seen'
@@ -65,44 +65,38 @@ export interface BulkUpdateMessageStatusParams {
     | 'interacted';
 
   /**
-   * Whether to include only messages that have a tenant or not.
+   * Limits the results to messages that have a tenant or not.
    */
   has_tenant?: boolean;
 
-  /**
-   * The timestamp to filter messages by. Only include messages created after this
-   * timestamp.
-   */
   newer_than?: string;
 
-  /**
-   * The timestamp to filter messages by. Only include messages created before this
-   * timestamp.
-   */
   older_than?: string;
 
   /**
-   * The recipient GIDs to filter messages by.
+   * Limits the results to messages with the given recipient GIDs.
    */
   recipient_gids?: Array<string>;
 
   /**
-   * The recipient IDs to filter messages by.
+   * Limits the results to messages with the given recipient IDs.
    */
   recipient_ids?: Array<string>;
 
   /**
-   * The tenant IDs to filter messages by.
+   * Limits the results to messages with the given tenant IDs.
    */
   tenants?: Array<string>;
 
   /**
-   * The trigger data to filter messages by. Must be a valid JSON object.
+   * Limits the results to only messages that were generated with the given data. See
+   * [trigger data filtering](/api-reference/overview/trigger-data-filtering) for
+   * more information.
    */
   trigger_data?: string;
 
   /**
-   * The workflow keys to filter messages by.
+   * Limits the results to messages with the given workflow keys.
    */
   workflows?: Array<string>;
 }

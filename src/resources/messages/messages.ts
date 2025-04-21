@@ -41,8 +41,8 @@ export class Messages extends APIResource {
   }
 
   /**
-   * Archives a message for the current user. Archived messages are hidden from the
-   * default message list but can still be accessed and unarchived later.
+   * Archives a message for the user. Archived messages are hidden from the default
+   * message list in the feed but can still be accessed and unarchived later.
    */
   archive(messageID: string, options?: RequestOptions): APIPromise<Message> {
     return this._client.put(path`/v1/messages/${messageID}/archived`, options);
@@ -107,9 +107,11 @@ export class Messages extends APIResource {
   }
 
   /**
-   * Marks a message as interacted with by the current user. This can include any
-   * user action on the message, with optional metadata about the specific
-   * interaction.
+   * Marks a message as `interacted` with by the user. This can include any user
+   * action on the message, with optional metadata about the specific interaction.
+   * Cannot include more than 5 key-value pairs, must not contain nested data. Read
+   * more about message engagement statuses
+   * [here](/send-notifications/message-statuses#engagement-status).
    */
   markAsInteracted(
     messageID: string,
@@ -120,30 +122,36 @@ export class Messages extends APIResource {
   }
 
   /**
-   * Marks a message as read for the current user. This indicates that the user has
-   * read the message content.
+   * Marks a message as `read`. This indicates that the user has read the message
+   * content. Read more about message engagement statuses
+   * [here](/send-notifications/message-statuses#engagement-status).
    */
   markAsRead(messageID: string, options?: RequestOptions): APIPromise<Message> {
     return this._client.put(path`/v1/messages/${messageID}/read`, options);
   }
 
   /**
-   * Marks a message as seen for the current user. This indicates that the user has
-   * viewed the message in their feed or inbox.
+   * Marks a message as `seen`. This indicates that the user has viewed the message
+   * in their feed or inbox. Read more about message engagement statuses
+   * [here](/send-notifications/message-statuses#engagement-status).
    */
   markAsSeen(messageID: string, options?: RequestOptions): APIPromise<Message> {
     return this._client.put(path`/v1/messages/${messageID}/seen`, options);
   }
 
   /**
-   * Marks a message as unread for the current user, reversing the read state.
+   * Marks a message as `unread`. This reverses the `read` state. Read more about
+   * message engagement statuses
+   * [here](/send-notifications/message-statuses#engagement-status).
    */
   markAsUnread(messageID: string, options?: RequestOptions): APIPromise<Message> {
     return this._client.delete(path`/v1/messages/${messageID}/read`, options);
   }
 
   /**
-   * Marks a message as unseen for the current user, reversing the seen state.
+   * Marks a message as `unseen`. This reverses the `seen` state. Read more about
+   * message engagement statuses
+   * [here](/send-notifications/message-statuses#engagement-status).
    */
   markAsUnseen(messageID: string, options?: RequestOptions): APIPromise<Message> {
     return this._client.delete(path`/v1/messages/${messageID}/seen`, options);
@@ -151,7 +159,7 @@ export class Messages extends APIResource {
 
   /**
    * Removes a message from the archived state, making it visible in the default
-   * message list again.
+   * message list in the feed again.
    */
   unarchive(messageID: string, options?: RequestOptions): APIPromise<Message> {
     return this._client.delete(path`/v1/messages/${messageID}/archived`, options);
@@ -243,7 +251,11 @@ export interface Message {
   clicked_at?: string | null;
 
   /**
-   * Data from the activities linked to the message.
+   * Data associated with the message’s workflow run. Includes the workflow trigger
+   * request’s `data` payload merged with any additional data returned by a
+   * [fetch function](/designing-workflows/fetch-function). For messages produced
+   * after a [batch step](/designing-workflows/batch-function), includes the payload
+   * `data` from the most-recent trigger request (the final `activity` in the batch).
    */
   data?: Record<string, unknown> | null;
 
@@ -294,7 +306,7 @@ export interface Message {
   seen_at?: string | null;
 
   /**
-   * The source that triggered the message.
+   * The workflow that triggered the message.
    */
   source?: Message.Source;
 
@@ -321,7 +333,7 @@ export interface Message {
 
 export namespace Message {
   /**
-   * The source that triggered the message.
+   * The workflow that triggered the message.
    */
   export interface Source {
     __typename: string;
@@ -332,12 +344,12 @@ export namespace Message {
     categories: Array<string>;
 
     /**
-     * The key of the source that triggered the message.
+     * The key of the workflow that triggered the message.
      */
     key: string;
 
     /**
-     * The ID of the version of the source that triggered the message.
+     * The ID of the version of the workflow that triggered the message.
      */
     version_id: string;
   }
@@ -786,8 +798,7 @@ export interface MessageListParams extends EntriesCursorParams {
   channel_id?: string;
 
   /**
-   * One or more engagement statuses. Limits results to messages with the given
-   * engagement status(es).
+   * Limits the results to messages with the given engagement status.
    */
   engagement_status?: Array<'seen' | 'read' | 'interacted' | 'link_clicked' | 'archived'>;
 
@@ -798,31 +809,31 @@ export interface MessageListParams extends EntriesCursorParams {
   message_ids?: Array<string>;
 
   /**
-   * Key of the source that triggered the message to limit results to.
+   * Limits the results to messages triggered by the given workflow key.
    */
   source?: string;
 
   /**
-   * One or more delivery statuses. Limits results to messages with the given
-   * delivery status(es).
+   * Limits the results to messages with the given delivery status.
    */
   status?: Array<
     'queued' | 'sent' | 'delivered' | 'delivery_attempted' | 'undelivered' | 'not_sent' | 'bounced'
   >;
 
   /**
-   * Limits the results to items with the corresponding tenant, or where the tenant
-   * is empty.
+   * Limits the results to items with the corresponding tenant.
    */
   tenant?: string;
 
   /**
-   * Limits the results to only items that were generated with the given data.
+   * Limits the results to only messages that were generated with the given data. See
+   * [trigger data filtering](/api-reference/overview/trigger-data-filtering) for
+   * more information.
    */
   trigger_data?: string;
 
   /**
-   * Limits the results to only items related to any of the provided categories.
+   * Limits the results to messages related to any of the provided categories.
    */
   workflow_categories?: Array<string>;
 
@@ -832,7 +843,8 @@ export interface MessageListParams extends EntriesCursorParams {
   workflow_recipient_run_id?: string;
 
   /**
-   * Limits the results to messages triggered by the top-level workflow run ID.
+   * Limits the results to messages associated with the top-level workflow run ID
+   * returned by the workflow trigger request.
    */
   workflow_run_id?: string;
 }

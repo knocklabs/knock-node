@@ -357,8 +357,7 @@ export interface UserListMessagesParams extends EntriesCursorParams {
   channel_id?: string;
 
   /**
-   * One or more engagement statuses. Limits results to messages with the given
-   * engagement status(es).
+   * Limits the results to messages with the given engagement status.
    */
   engagement_status?: Array<'seen' | 'read' | 'interacted' | 'link_clicked' | 'archived'>;
 
@@ -369,31 +368,31 @@ export interface UserListMessagesParams extends EntriesCursorParams {
   message_ids?: Array<string>;
 
   /**
-   * Key of the source that triggered the message to limit results to.
+   * Limits the results to messages triggered by the given workflow key.
    */
   source?: string;
 
   /**
-   * One or more delivery statuses. Limits results to messages with the given
-   * delivery status(es).
+   * Limits the results to messages with the given delivery status.
    */
   status?: Array<
     'queued' | 'sent' | 'delivered' | 'delivery_attempted' | 'undelivered' | 'not_sent' | 'bounced'
   >;
 
   /**
-   * Limits the results to items with the corresponding tenant, or where the tenant
-   * is empty.
+   * Limits the results to items with the corresponding tenant.
    */
   tenant?: string;
 
   /**
-   * Limits the results to only items that were generated with the given data.
+   * Limits the results to only messages that were generated with the given data. See
+   * [trigger data filtering](/api-reference/overview/trigger-data-filtering) for
+   * more information.
    */
   trigger_data?: string;
 
   /**
-   * Limits the results to only items related to any of the provided categories.
+   * Limits the results to messages related to any of the provided categories.
    */
   workflow_categories?: Array<string>;
 
@@ -403,7 +402,8 @@ export interface UserListMessagesParams extends EntriesCursorParams {
   workflow_recipient_run_id?: string;
 
   /**
-   * Limits the results to messages triggered by the top-level workflow run ID.
+   * Limits the results to messages associated with the top-level workflow run ID
+   * returned by the workflow trigger request.
    */
   workflow_run_id?: string;
 }

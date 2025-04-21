@@ -148,12 +148,12 @@ export interface GuideMarkMessageAsSeenResponse {
 
 export interface GuideGetChannelParams {
   /**
-   * The data to filter guides by.
+   * The data (JSON encoded object) to use for targeting and rendering guides.
    */
   data?: string;
 
   /**
-   * The tenant ID to filter guides by.
+   * The tenant ID to use for targeting and rendering guides.
    */
   tenant?: string;
 
