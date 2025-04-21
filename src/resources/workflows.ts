@@ -1,8 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as RecipientsAPI from './recipients/recipients';
+import * as ObjectsAPI from './objects/objects';
 import * as TenantsAPI from './tenants/tenants';
+import * as UsersAPI from './users/users';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -18,7 +19,7 @@ export class Workflows extends APIResource {
   }
 
   /**
-   * Trigger a workflow specified by the key to run for the given recipients, using
+   * Trigger a workflow (specified by the key) to run for the given recipients, using
    * the parameters provided. Returns an identifier for the workflow run request. All
    * workflow runs are executed asynchronously.
    */
@@ -41,17 +42,19 @@ export type WorkflowCancelResponse = string;
  */
 export interface WorkflowTriggerResponse {
   /**
-   * The ID of the workflow trigger. This value allows you to track individual
-   * workflow runs associated with this trigger request.
+   * This value allows you to track individual messages associated with this trigger
+   * request.
    */
   workflow_run_id: string;
 }
 
 export interface WorkflowCancelParams {
   /**
-   * The cancellation key provided during the initial notify call. If used in a
-   * cancel request, will cancel the notification for the recipients specified in the
-   * cancel request.
+   * An optional key that is used to reference a specific workflow trigger request
+   * when issuing a [workflow cancellation](/send-notifications/canceling-workflows)
+   * request. Must be provided while triggering a workflow in order to enable
+   * subsequent cancellation. Should be unique across trigger requests to avoid
+   * unintentional cancellations.
    */
   cancellation_key: string;
 
@@ -59,27 +62,29 @@ export interface WorkflowCancelParams {
    * A list of recipients to cancel the notification for. If omitted, cancels for all
    * recipients associated with the cancellation key.
    */
-  recipients?: Array<string> | null;
+  recipients?: Array<string | UsersAPI.InlineIdentifyUserRequest | ObjectsAPI.InlineObjectRequest> | null;
 }
 
 export interface WorkflowTriggerParams {
   /**
    * The recipients to trigger the workflow for. Can inline identify users, objects,
-   * or use a list of user ids. Cannot exceed 1000 recipients in a single trigger.
+   * or use a list of user IDs. Limited to 1,000 recipients in a single trigger.
    */
-  recipients: Array<RecipientsAPI.RecipientRequest>;
+  recipients: Array<string | UsersAPI.InlineIdentifyUserRequest | ObjectsAPI.InlineObjectRequest>;
 
   /**
    * Specifies a recipient in a request. This can either be a user identifier
    * (string), an inline user request (object), or an inline object request, which is
    * determined by the presence of a `collection` property.
    */
-  actor?: RecipientsAPI.RecipientRequest | null;
+  actor?: string | UsersAPI.InlineIdentifyUserRequest | ObjectsAPI.InlineObjectRequest | null;
 
   /**
-   * The cancellation key provided during the initial notify call. If used in a
-   * cancel request, will cancel the notification for the recipients specified in the
-   * cancel request.
+   * An optional key that is used to reference a specific workflow trigger request
+   * when issuing a [workflow cancellation](/send-notifications/canceling-workflows)
+   * request. Must be provided while triggering a workflow in order to enable
+   * subsequent cancellation. Should be unique across trigger requests to avoid
+   * unintentional cancellations.
    */
   cancellation_key?: string | null;
 

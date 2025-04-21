@@ -351,7 +351,7 @@ export interface UserGetPreferencesParams {
 
 export interface UserListMessagesParams extends EntriesCursorParams {
   /**
-   * Limits the results to items with the corresponding channel id.
+   * Limits the results to items with the corresponding channel ID.
    */
   channel_id?: string;
 

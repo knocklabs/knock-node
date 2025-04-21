@@ -3,7 +3,7 @@
 import { APIResource } from '../../core/resource';
 import * as BulkOperationsAPI from '../bulk-operations';
 import * as ObjectsAPI from './objects';
-import * as RecipientsAPI from '../recipients/recipients';
+import * as UsersAPI from '../users/users';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -72,7 +72,7 @@ export namespace BulkAddSubscriptionsParams {
     /**
      * The recipients of the subscription.
      */
-    recipients: Array<RecipientsAPI.RecipientRequest>;
+    recipients: Array<string | UsersAPI.InlineIdentifyUserRequest | ObjectsAPI.InlineObjectRequest>;
 
     /**
      * The custom properties associated with the recipients of the subscription.

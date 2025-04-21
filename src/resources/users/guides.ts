@@ -205,7 +205,7 @@ export interface GuideMarkMessageAsArchivedParams {
   metadata?: unknown;
 
   /**
-   * The tenant id of the guide.
+   * The tenant ID of the guide.
    */
   tenant?: string | null;
 }
@@ -252,7 +252,7 @@ export interface GuideMarkMessageAsInteractedParams {
   metadata?: unknown;
 
   /**
-   * The tenant id of the guide.
+   * The tenant ID of the guide.
    */
   tenant?: string | null;
 }
@@ -299,7 +299,7 @@ export interface GuideMarkMessageAsSeenParams {
   metadata?: unknown;
 
   /**
-   * The tenant id of the guide.
+   * The tenant ID of the guide.
    */
   tenant?: string | null;
 }

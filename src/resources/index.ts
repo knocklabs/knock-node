@@ -51,7 +51,7 @@ export {
   type ObjectsEntriesCursor,
 } from './objects/objects';
 export { Providers } from './providers/providers';
-export { Recipients, type Recipient, type RecipientRequest } from './recipients/recipients';
+export { Recipients, type Recipient } from './recipients/recipients';
 export {
   Schedules,
   type Schedule,

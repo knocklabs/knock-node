@@ -279,7 +279,7 @@ export interface Message {
 
   /**
    * A reference to a recipient, either a user identifier (string) or an object
-   * reference (id, collection).
+   * reference (ID, collection).
    */
   recipient?: string | Message.ObjectReference;
 
@@ -367,7 +367,7 @@ export namespace Message {
     key: string;
 
     /**
-     * The id of the version of the source that triggered the message.
+     * The ID of the version of the source that triggered the message.
      */
     version_id: string;
   }
@@ -491,7 +491,7 @@ export interface MessageEvent {
 
   /**
    * A reference to a recipient, either a user identifier (string) or an object
-   * reference (id, collection).
+   * reference (ID, collection).
    */
   recipient: string | MessageEvent.ObjectReference;
 
@@ -828,7 +828,7 @@ export namespace MessageGetContentResponse {
 
 export interface MessageListParams extends EntriesCursorParams {
   /**
-   * Limits the results to items with the corresponding channel id.
+   * Limits the results to items with the corresponding channel ID.
    */
   channel_id?: string;
 

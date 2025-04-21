@@ -1,10 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as ObjectsAPI from '../objects/objects';
 import * as RecipientsAPI from '../recipients/recipients';
 import * as BulkAPI from './bulk';
 import { Bulk } from './bulk';
 import * as TenantsAPI from '../tenants/tenants';
+import * as UsersAPI from '../users/users';
 import { APIPromise } from '../../core/api-promise';
 import { EntriesCursor, type EntriesCursorParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -172,7 +174,7 @@ export type ScheduleDeleteResponse = Array<Schedule>;
 export interface ScheduleCreateParams {
   /**
    * The recipients to trigger the workflow for. Can inline identify users, objects,
-   * or use a list of user ids. Cannot exceed 1000 recipients in a single trigger.
+   * or use a list of user IDs. Limited to 1,000 recipients in a single trigger.
    */
   recipients: Array<string | ScheduleCreateParams.ObjectReference>;
 
@@ -235,7 +237,7 @@ export interface ScheduleUpdateParams {
    * (string), an inline user request (object), or an inline object request, which is
    * determined by the presence of a `collection` property.
    */
-  actor?: RecipientsAPI.RecipientRequest | null;
+  actor?: string | UsersAPI.InlineIdentifyUserRequest | ObjectsAPI.InlineObjectRequest | null;
 
   /**
    * An optional map of data to pass into the workflow execution.

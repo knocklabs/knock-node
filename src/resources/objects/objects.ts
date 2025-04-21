@@ -8,11 +8,11 @@ import * as BulkAPI from './bulk';
 import { Bulk, BulkAddSubscriptionsParams, BulkDeleteParams, BulkSetParams } from './bulk';
 import * as ChannelDataAPI from '../recipients/channel-data';
 import * as PreferencesAPI from '../recipients/preferences';
-import * as RecipientsAPI from '../recipients/recipients';
 import * as SubscriptionsAPI from '../recipients/subscriptions';
 import { SubscriptionsEntriesCursor } from '../recipients/subscriptions';
 import * as SchedulesAPI from '../schedules/schedules';
 import { SchedulesEntriesCursor } from '../schedules/schedules';
+import * as UsersAPI from '../users/users';
 import { APIPromise } from '../../core/api-promise';
 import { EntriesCursor, type EntriesCursorParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -335,7 +335,7 @@ export interface ObjectAddSubscriptionsParams {
   /**
    * The recipients of the subscription.
    */
-  recipients: Array<RecipientsAPI.RecipientRequest>;
+  recipients: Array<string | UsersAPI.InlineIdentifyUserRequest | InlineObjectRequest>;
 
   /**
    * The custom properties associated with the recipients of the subscription.
@@ -347,12 +347,12 @@ export interface ObjectDeleteSubscriptionsParams {
   /**
    * The recipients of the subscription.
    */
-  recipients: Array<RecipientsAPI.RecipientRequest>;
+  recipients: Array<string | UsersAPI.InlineIdentifyUserRequest | InlineObjectRequest>;
 }
 
 export interface ObjectListMessagesParams extends EntriesCursorParams {
   /**
-   * Limits the results to items with the corresponding channel id.
+   * Limits the results to items with the corresponding channel ID.
    */
   channel_id?: string;
 
