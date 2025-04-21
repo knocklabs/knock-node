@@ -7,9 +7,9 @@ import { RequestOptions } from '../../internal/request-options';
 
 export class Bulk extends APIResource {
   /**
-   * Creates up to 1,000 schedules in a single asynchronous bulk operation. The list
-   * of schedules can include inline-identifications for each recipient, tenant, and
-   * actor specified on a schedule.
+   * Bulk creates up to 1,000 schedules at a time. This endpoint also handles
+   * [inline identifications](/managing-recipients/identifying-recipients#inline-identifying-recipients)
+   * for the `actor`, `recipient`, and `tenant` fields.
    */
   create(options?: RequestOptions): APIPromise<BulkOperationsAPI.BulkOperation> {
     return this._client.post('/v1/schedules/bulk/create', options);

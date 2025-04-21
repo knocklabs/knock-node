@@ -214,11 +214,10 @@ export interface ScheduleUpdateParams {
   schedule_ids: Array<string>;
 
   /**
-   * Specifies a recipient in a request. This can either be a user identifier
-   * (string), an inline user request (object), or an inline object request, which is
-   * determined by the presence of a `collection` property.
+   * A reference to a recipient, either a user identifier (string) or an object
+   * reference (ID, collection).
    */
-  actor?: RecipientsAPI.RecipientRequest | null;
+  actor?: RecipientsAPI.RecipientReference | null;
 
   /**
    * An optional map of data to pass into the workflow execution.
