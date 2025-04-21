@@ -26,7 +26,10 @@ export class Bulk extends APIResource {
 
   /**
    * Add subscriptions for all objects in a single collection. If a subscription for
-   * an object in the collection already exists, it will be updated.
+   * an object in the collection already exists, it will be updated. This endpoint
+   * also handles
+   * [inline identifications](/managing-recipients/identifying-recipients#inline-identifying-recipients)
+   * for the `recipient` field.
    */
   addSubscriptions(
     collection: string,

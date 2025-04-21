@@ -14,7 +14,10 @@ export class Schedules extends APIResource {
 
   /**
    * Creates one or more schedules for a workflow with the specified recipients,
-   * timing, and data. Schedules can be one-time or recurring.
+   * timing, and data. Schedules can be one-time or recurring. This endpoint also
+   * handles
+   * [inline identifications](/managing-recipients/identifying-recipients#inline-identifying-recipients)
+   * for the `actor`, `recipient`, and `tenant` fields.
    */
   create(body: ScheduleCreateParams, options?: RequestOptions): APIPromise<ScheduleCreateResponse> {
     return this._client.post('/v1/schedules', { body, ...options });
@@ -23,6 +26,9 @@ export class Schedules extends APIResource {
   /**
    * Updates one or more existing schedules with new timing, data, or other
    * properties. All specified schedule IDs will be updated with the same values.
+   * This endpoint also handles
+   * [inline identifications](/managing-recipients/identifying-recipients#inline-identifying-recipients)
+   * for the `actor`, `recipient`, and `tenant` fields.
    */
   update(body: ScheduleUpdateParams, options?: RequestOptions): APIPromise<ScheduleUpdateResponse> {
     return this._client.put('/v1/schedules', { body, ...options });
@@ -174,7 +180,7 @@ export interface ScheduleCreateParams {
    * The recipients to trigger the workflow for. Can inline identify users, objects,
    * or use a list of user IDs. Limited to 1,000 recipients in a single trigger.
    */
-  recipients: Array<RecipientsAPI.RecipientReference>;
+  recipients: Array<RecipientsAPI.RecipientRequest>;
 
   /**
    * The repeat rule for the schedule.
