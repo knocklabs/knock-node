@@ -303,7 +303,7 @@ export interface User {
 }
 
 /**
- * An empty response.
+ * A `204 No Content` response.
  */
 export type UserDeleteResponse = string;
 
@@ -313,7 +313,7 @@ export type UserDeleteResponse = string;
 export type UserListPreferencesResponse = Array<PreferencesAPI.PreferenceSet>;
 
 /**
- * An empty response.
+ * A `204 No Content` response.
  */
 export type UserUnsetChannelDataResponse = string;
 

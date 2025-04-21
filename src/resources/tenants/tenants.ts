@@ -143,7 +143,7 @@ export namespace TenantRequest {
 }
 
 /**
- * An empty response.
+ * A `204 No Content` response.
  */
 export type TenantDeleteResponse = string;
 

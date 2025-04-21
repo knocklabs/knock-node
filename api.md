@@ -3,6 +3,7 @@
 Types:
 
 - <code><a href="./src/resources/shared.ts">Condition</a></code>
+- <code><a href="./src/resources/shared.ts">PageInfo</a></code>
 
 # Recipients
 

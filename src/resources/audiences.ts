@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as SharedAPI from './shared';
 import * as UsersAPI from './users/users';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
@@ -65,7 +66,7 @@ export interface AudienceMember {
 }
 
 /**
- * An empty response.
+ * A `204 No Content` response.
  */
 export type AudienceAddMembersResponse = string;
 
@@ -81,38 +82,11 @@ export interface AudienceListMembersResponse {
   /**
    * Pagination information for a list of resources.
    */
-  page_info: AudienceListMembersResponse.PageInfo;
-}
-
-export namespace AudienceListMembersResponse {
-  /**
-   * Pagination information for a list of resources.
-   */
-  export interface PageInfo {
-    /**
-     * The typename of the schema.
-     */
-    __typename: string;
-
-    /**
-     * The number of items per page.
-     */
-    page_size: number;
-
-    /**
-     * The cursor to fetch entries after.
-     */
-    after?: string | null;
-
-    /**
-     * The cursor to fetch entries before.
-     */
-    before?: string | null;
-  }
+  page_info: SharedAPI.PageInfo;
 }
 
 /**
- * An empty response.
+ * A `204 No Content` response.
  */
 export type AudienceRemoveMembersResponse = string;
 

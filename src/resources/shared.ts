@@ -42,6 +42,31 @@ export interface Condition {
   variable: string;
 }
 
+/**
+ * Pagination information for a list of resources.
+ */
+export interface PageInfo {
+  /**
+   * The typename of the schema.
+   */
+  __typename: string;
+
+  /**
+   * The number of items per page.
+   */
+  page_size: number;
+
+  /**
+   * The cursor to fetch entries after.
+   */
+  after?: string | null;
+
+  /**
+   * The cursor to fetch entries before.
+   */
+  before?: string | null;
+}
+
 export declare namespace Shared {
-  export { type Condition as Condition };
+  export { type Condition as Condition, type PageInfo as PageInfo };
 }

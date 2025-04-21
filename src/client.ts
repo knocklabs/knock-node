@@ -41,7 +41,7 @@ import {
   Audiences,
 } from './resources/audiences';
 import { BulkOperation, BulkOperations } from './resources/bulk-operations';
-import { Condition, Shared } from './resources/shared';
+import { Condition, PageInfo, Shared } from './resources/shared';
 import {
   WorkflowCancelParams,
   WorkflowCancelResponse,
@@ -838,7 +838,7 @@ export declare namespace Knock {
     type SlackChannelsCursorResponse as SlackChannelsCursorResponse,
   };
 
-  export { Shared as Shared, type Condition as Condition };
+  export { Shared as Shared, type Condition as Condition, type PageInfo as PageInfo };
 
   export {
     Recipients as Recipients,

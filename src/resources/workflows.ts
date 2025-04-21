@@ -34,7 +34,7 @@ export class Workflows extends APIResource {
 }
 
 /**
- * An empty response.
+ * A `204 No Content` response.
  */
 export type WorkflowCancelResponse = string;
 

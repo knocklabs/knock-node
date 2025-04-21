@@ -302,7 +302,7 @@ export interface Object {
 }
 
 /**
- * An empty response.
+ * A `204 No Content` response.
  */
 export type ObjectDeleteResponse = string;
 
@@ -322,7 +322,7 @@ export type ObjectDeleteSubscriptionsResponse = Array<SubscriptionsAPI.Subscript
 export type ObjectListPreferencesResponse = Array<PreferencesAPI.PreferenceSet>;
 
 /**
- * An empty response.
+ * A `204 No Content` response.
  */
 export type ObjectUnsetChannelDataResponse = string;
 

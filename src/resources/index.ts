@@ -69,7 +69,7 @@ export {
   type ScheduleDeleteParams,
   type SchedulesEntriesCursor,
 } from './schedules/schedules';
-export { Shared, type Condition } from './shared';
+export { Shared, type Condition, type PageInfo } from './shared';
 export {
   Tenants,
   type InlineTenantRequest,
