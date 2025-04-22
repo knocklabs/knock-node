@@ -326,6 +326,10 @@ Methods:
 
 ## Bulk
 
+Methods:
+
+- <code title="post /v1/channels/{channel_id}/messages/bulk/{status}">client.channels.bulk.<a href="./src/resources/channels/bulk.ts">updateMessageStatus</a>(channelID, status, { ...params }) -> BulkOperation</code>
+
 # Audiences
 
 Types:
