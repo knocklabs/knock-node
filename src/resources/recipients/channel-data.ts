@@ -40,6 +40,11 @@ export interface ChannelDataRequest {
  */
 export interface DiscordChannelData {
   /**
+   * The typename of the schema.
+   */
+  __typename: 'DiscordChannelData';
+
+  /**
    * List of Discord channel connections.
    */
   connections: Array<
@@ -113,6 +118,11 @@ export namespace InlineChannelDataRequest {
  */
 export interface MsTeamsChannelData {
   /**
+   * The typename of the schema.
+   */
+  __typename: 'MsTeamsChannelData';
+
+  /**
    * List of Microsoft Teams connections.
    */
   connections: Array<
@@ -179,6 +189,11 @@ export namespace MsTeamsChannelData {
  */
 export interface OneSignalChannelData {
   /**
+   * The typename of the schema.
+   */
+  __typename: 'OneSignalChannelData';
+
+  /**
    * A list of OneSignal player IDs.
    */
   player_ids: Array<string>;
@@ -204,29 +219,22 @@ export interface PushChannelData {
  */
 export interface SlackChannelData {
   /**
-   * A Slack connection token.
+   * The typename of the schema.
    */
-  token?: SlackChannelData.Token | null;
+  __typename: 'SlackChannelData';
 
   /**
    * List of Slack channel connections.
    */
-  connections?: Array<
-    SlackChannelData.SlackTokenConnection | SlackChannelData.SlackIncomingWebhookConnection
-  >;
-}
+  connections: Array<SlackChannelData.SlackTokenConnection | SlackChannelData.SlackIncomingWebhookConnection>;
 
-export namespace SlackChannelData {
   /**
    * A Slack connection token.
    */
-  export interface Token {
-    /**
-     * A Slack access token.
-     */
-    access_token: string | null;
-  }
+  token?: SlackChannelData.Token | null;
+}
 
+export namespace SlackChannelData {
   /**
    * A Slack connection token.
    */
@@ -255,6 +263,16 @@ export namespace SlackChannelData {
      * The URL of the incoming webhook for a Slack connection.
      */
     url: string;
+  }
+
+  /**
+   * A Slack connection token.
+   */
+  export interface Token {
+    /**
+     * A Slack access token.
+     */
+    access_token: string | null;
   }
 }
 
