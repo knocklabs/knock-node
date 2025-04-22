@@ -26,6 +26,7 @@ export {
   type MessageListEventsParams,
   type MessageMarkAsInteractedParams,
   type MessagesEntriesCursor,
+  type ActivitiesEntriesCursor,
   type MessageDeliveryLogsEntriesCursor,
   type MessageEventsEntriesCursor,
 } from './messages/messages';

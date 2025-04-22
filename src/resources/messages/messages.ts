@@ -3,7 +3,7 @@
 import { APIResource } from '../../core/resource';
 import * as SharedAPI from '../shared';
 import * as ActivitiesAPI from './activities';
-import { Activities, ActivityListParams, ActivityListResponse } from './activities';
+import { Activities, ActivityListParams } from './activities';
 import * as BatchAPI from './batch';
 import {
   Batch,
@@ -172,6 +172,8 @@ export type MessagesEntriesCursor = EntriesCursor<Message>;
 export type MessageDeliveryLogsEntriesCursor = EntriesCursor<MessageDeliveryLog>;
 
 export type MessageEventsEntriesCursor = EntriesCursor<MessageEvent>;
+
+export type ActivitiesEntriesCursor = EntriesCursor<Activity>;
 
 /**
  * An activity associated with a workflow run.
@@ -942,9 +944,5 @@ export declare namespace Messages {
     type BatchUnarchiveParams as BatchUnarchiveParams,
   };
 
-  export {
-    Activities as Activities,
-    type ActivityListResponse as ActivityListResponse,
-    type ActivityListParams as ActivityListParams,
-  };
+  export { Activities as Activities, type ActivityListParams as ActivityListParams };
 }

@@ -230,13 +230,9 @@ Methods:
 
 ## Activities
 
-Types:
-
-- <code><a href="./src/resources/messages/activities.ts">ActivityListResponse</a></code>
-
 Methods:
 
-- <code title="get /v1/messages/{message_id}/activities">client.messages.activities.<a href="./src/resources/messages/activities.ts">list</a>(messageID, { ...params }) -> ActivityListResponse</code>
+- <code title="get /v1/messages/{message_id}/activities">client.messages.activities.<a href="./src/resources/messages/activities.ts">list</a>(messageID, { ...params }) -> ActivitiesEntriesCursor</code>
 
 # Providers
 
