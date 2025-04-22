@@ -60,7 +60,7 @@ describe('resource guides', () => {
       content: { body: 'Guide content body', title: 'Guide Title' },
       data: { product_id: 'product_123' },
       is_final: true,
-      metadata: { source: 'onboarding' },
+      metadata: { source: 'bar' },
       tenant: 'tenant_12345',
     });
   });
@@ -92,7 +92,7 @@ describe('resource guides', () => {
       content: { body: 'Guide content body', title: 'Guide Title' },
       data: { product_id: 'product_123' },
       is_final: true,
-      metadata: { source: 'onboarding' },
+      metadata: { source: 'bar' },
       tenant: 'tenant_12345',
     });
   });
@@ -124,7 +124,7 @@ describe('resource guides', () => {
       content: { body: 'Guide content body', title: 'Guide Title' },
       data: { product_id: 'product_123' },
       is_final: true,
-      metadata: { source: 'onboarding' },
+      metadata: { source: 'bar' },
       tenant: 'tenant_12345',
     });
   });

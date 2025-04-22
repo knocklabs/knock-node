@@ -202,7 +202,7 @@ export interface GuideMarkMessageAsArchivedParams {
   /**
    * The metadata of the guide.
    */
-  metadata?: unknown;
+  metadata?: Record<string, unknown>;
 
   /**
    * The tenant ID of the guide.
@@ -249,7 +249,7 @@ export interface GuideMarkMessageAsInteractedParams {
   /**
    * The metadata of the guide.
    */
-  metadata?: unknown;
+  metadata?: Record<string, unknown>;
 
   /**
    * The tenant ID of the guide.
@@ -296,7 +296,7 @@ export interface GuideMarkMessageAsSeenParams {
   /**
    * The metadata of the guide.
    */
-  metadata?: unknown;
+  metadata?: Record<string, unknown>;
 
   /**
    * The tenant ID of the guide.
