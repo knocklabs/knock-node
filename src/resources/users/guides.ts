@@ -187,12 +187,12 @@ export interface GuideMarkMessageAsArchivedParams {
   /**
    * The content of the guide.
    */
-  content?: unknown;
+  content?: Record<string, unknown>;
 
   /**
    * The data of the guide.
    */
-  data?: unknown;
+  data?: Record<string, unknown>;
 
   /**
    * Whether the guide is final.
@@ -234,12 +234,12 @@ export interface GuideMarkMessageAsInteractedParams {
   /**
    * The content of the guide.
    */
-  content?: unknown;
+  content?: Record<string, unknown>;
 
   /**
    * The data of the guide.
    */
-  data?: unknown;
+  data?: Record<string, unknown>;
 
   /**
    * Whether the guide is final.
@@ -281,12 +281,12 @@ export interface GuideMarkMessageAsSeenParams {
   /**
    * The content of the guide.
    */
-  content?: unknown;
+  content?: Record<string, unknown>;
 
   /**
    * The data of the guide.
    */
-  data?: unknown;
+  data?: Record<string, unknown>;
 
   /**
    * Whether the guide is final.

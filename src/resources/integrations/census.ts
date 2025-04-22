@@ -25,7 +25,7 @@ export interface CensusCustomDestinationResponse {
   /**
    * The result of the RPC call.
    */
-  result?: unknown;
+  result?: Record<string, unknown>;
 }
 
 export interface CensusCustomDestinationParams {
@@ -47,7 +47,7 @@ export interface CensusCustomDestinationParams {
   /**
    * The parameters for the method.
    */
-  params?: unknown;
+  params?: Record<string, unknown>;
 }
 
 export declare namespace Census {

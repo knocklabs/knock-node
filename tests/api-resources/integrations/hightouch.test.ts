@@ -30,7 +30,7 @@ describe('resource hightouch', () => {
       id: 'id',
       jsonrpc: 'jsonrpc',
       method: 'method',
-      params: {},
+      params: { foo: 'bar' },
     });
   });
 });

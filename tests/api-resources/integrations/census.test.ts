@@ -30,7 +30,7 @@ describe('resource census', () => {
       id: 'id',
       jsonrpc: 'jsonrpc',
       method: 'method',
-      params: {},
+      params: { foo: 'bar' },
     });
   });
 });
