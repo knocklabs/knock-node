@@ -15,7 +15,7 @@ export class Bulk extends APIResource {
    */
   updateMessageStatus(
     channelID: string,
-    status:
+    action:
       | 'seen'
       | 'unseen'
       | 'read'
@@ -29,7 +29,7 @@ export class Bulk extends APIResource {
     body: BulkUpdateMessageStatusParams,
     options?: RequestOptions,
   ): APIPromise<BulkOperationsAPI.BulkOperation> {
-    return this._client.post(path`/v1/channels/${channelID}/messages/bulk/${status}`, { body, ...options });
+    return this._client.post(path`/v1/channels/${channelID}/messages/bulk/${action}`, { body, ...options });
   }
 }
 
