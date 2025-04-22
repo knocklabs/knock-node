@@ -84,6 +84,11 @@ export interface BulkOperation {
   failed_at?: string | null;
 
   /**
+   * The URI to the bulk operation's progress.
+   */
+  progress_path?: string;
+
+  /**
    * Timestamp when the bulk operation was started.
    */
   started_at?: string | null;

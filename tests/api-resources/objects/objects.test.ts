@@ -151,6 +151,7 @@ describe('resource objects', () => {
           before: 'before',
           channel_id: 'channel_id',
           engagement_status: ['seen'],
+          inserted_at: { gt: 'gt', gte: 'gte', lt: 'lt', lte: 'lte' },
           message_ids: ['string'],
           page_size: 0,
           source: 'source',

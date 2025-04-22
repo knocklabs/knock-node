@@ -175,8 +175,8 @@ export class Objects extends APIResource {
 
   /**
    * Creates a new object or updates an existing one in the specified collection.
-   * This operation is used to identify objects with their properties and channel
-   * data.
+   * This operation is used to identify objects with their properties, as well as
+   * optional preferences and channel data.
    */
   set(
     collection: string,
@@ -363,8 +363,10 @@ export interface ObjectListMessagesParams extends EntriesCursorParams {
    */
   engagement_status?: Array<'seen' | 'read' | 'interacted' | 'link_clicked' | 'archived'>;
 
+  inserted_at?: ObjectListMessagesParams.InsertedAt;
+
   /**
-   * Limits the results to only the message ids given (max 50). Note: when using this
+   * Limits the results to only the message IDs given (max 50). Note: when using this
    * option, the results will be subject to any other filters applied to the query.
    */
   message_ids?: Array<string>;
@@ -408,6 +410,30 @@ export interface ObjectListMessagesParams extends EntriesCursorParams {
    * returned by the workflow trigger request.
    */
   workflow_run_id?: string;
+}
+
+export namespace ObjectListMessagesParams {
+  export interface InsertedAt {
+    /**
+     * Limits the results to messages inserted after the given date.
+     */
+    gt?: string;
+
+    /**
+     * Limits the results to messages inserted after or on the given date.
+     */
+    gte?: string;
+
+    /**
+     * Limits the results to messages inserted before the given date.
+     */
+    lt?: string;
+
+    /**
+     * Limits the results to messages inserted before or on the given date.
+     */
+    lte?: string;
+  }
 }
 
 export interface ObjectListSchedulesParams extends EntriesCursorParams {

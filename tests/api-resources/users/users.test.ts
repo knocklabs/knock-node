@@ -127,6 +127,7 @@ describe('resource users', () => {
           before: 'before',
           channel_id: 'channel_id',
           engagement_status: ['seen'],
+          inserted_at: { gt: 'gt', gte: 'gte', lt: 'lt', lte: 'lte' },
           message_ids: ['string'],
           page_size: 0,
           source: 'source',
@@ -196,7 +197,7 @@ describe('resource users', () => {
     await expect(
       client.users.listSubscriptions(
         'user_id',
-        { after: 'after', before: 'before', include: ['preferences'], objects: ['user_123'], page_size: 0 },
+        { after: 'after', before: 'before', include: ['preferences'], objects: ['string'], page_size: 0 },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Knock.NotFoundError);

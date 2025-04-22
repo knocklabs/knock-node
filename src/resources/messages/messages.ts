@@ -184,7 +184,10 @@ export type MessageDeliveryLogsEntriesCursor = EntriesCursor<MessageDeliveryLog>
 export type MessageEventsEntriesCursor = EntriesCursor<MessageEvent>;
 
 /**
- * An activity associated with a workflow run.
+ * An activity associated with a workflow trigger request. Messages produced after
+ * a [batch step](/designing-workflows/batch-function) can be associated with one
+ * or more activities. Non-batched messages will always be associated with a single
+ * activity.
  */
 export interface Activity {
   /**
@@ -203,12 +206,12 @@ export interface Activity {
   actor?: RecipientsAPI.Recipient | null;
 
   /**
-   * The data associated with the activity.
+   * The workflow trigger `data` payload associated with the activity.
    */
   data?: Record<string, unknown> | null;
 
   /**
-   * Timestamp when the resource was created.
+   * Timestamp when the activity was created.
    */
   inserted_at?: string;
 
@@ -218,7 +221,7 @@ export interface Activity {
   recipient?: RecipientsAPI.Recipient;
 
   /**
-   * The timestamp when the resource was last updated.
+   * Timestamp when the activity was last updated.
    */
   updated_at?: string;
 }
@@ -367,7 +370,8 @@ export namespace Message {
 }
 
 /**
- * A message delivery log.
+ * A message delivery log contains a `request` from Knock to a downstream provider
+ * and the `response` that was returned.
  */
 export interface MessageDeliveryLog {
   /**
@@ -464,7 +468,8 @@ export namespace MessageDeliveryLog {
 }
 
 /**
- * A message event.
+ * A message event. Occurs when a message
+ * [delivery or engagement status](/send-notifications/message-statuses) changes.
  */
 export interface MessageEvent {
   /**
@@ -813,8 +818,10 @@ export interface MessageListParams extends EntriesCursorParams {
    */
   engagement_status?: Array<'seen' | 'read' | 'interacted' | 'link_clicked' | 'archived'>;
 
+  inserted_at?: MessageListParams.InsertedAt;
+
   /**
-   * Limits the results to only the message ids given (max 50). Note: when using this
+   * Limits the results to only the message IDs given (max 50). Note: when using this
    * option, the results will be subject to any other filters applied to the query.
    */
   message_ids?: Array<string>;
@@ -858,6 +865,30 @@ export interface MessageListParams extends EntriesCursorParams {
    * returned by the workflow trigger request.
    */
   workflow_run_id?: string;
+}
+
+export namespace MessageListParams {
+  export interface InsertedAt {
+    /**
+     * Limits the results to messages inserted after the given date.
+     */
+    gt?: string;
+
+    /**
+     * Limits the results to messages inserted after or on the given date.
+     */
+    gte?: string;
+
+    /**
+     * Limits the results to messages inserted before the given date.
+     */
+    lt?: string;
+
+    /**
+     * Limits the results to messages inserted before or on the given date.
+     */
+    lte?: string;
+  }
 }
 
 export interface MessageListActivitiesParams extends ItemsCursorParams {

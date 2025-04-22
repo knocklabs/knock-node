@@ -6,7 +6,6 @@ import * as MessagesAPI from '../messages/messages';
 import { MessagesEntriesCursor } from '../messages/messages';
 import * as ChannelDataAPI from '../recipients/channel-data';
 import * as PreferencesAPI from '../recipients/preferences';
-import * as RecipientsAPI from '../recipients/recipients';
 import * as SubscriptionsAPI from '../recipients/subscriptions';
 import { SubscriptionsEntriesCursor } from '../recipients/subscriptions';
 import * as SchedulesAPI from '../schedules/schedules';
@@ -44,14 +43,17 @@ export class Users extends APIResource {
   bulk: BulkAPI.Bulk = new BulkAPI.Bulk(this._client);
 
   /**
-   * Create or update a user with the provided identification data.
+   * Create or update a user with the provided identification data. When you identify
+   * an existing user, the system merges the properties you specific with what is
+   * currently set on the user, updating only the fields included in your requests.
    */
-  update(userID: string, body: UserUpdateParams, options?: RequestOptions): APIPromise<User> {
+  update(userID: string, body: UserUpdateParams, options?: RequestOptions): APIPromise<UserUpdateResponse> {
     return this._client.put(path`/v1/users/${userID}`, { body, ...options });
   }
 
   /**
-   * Retrieve a paginated list of users in the environment.
+   * Retrieve a paginated list of users in the environment. Defaults to 50 users per
+   * page.
    */
   list(
     query: UserListParams | null | undefined = {},
@@ -100,7 +102,8 @@ export class Users extends APIResource {
 
   /**
    * Returns a paginated list of messages for a specific user. Allows filtering by
-   * message status and provides various sorting options.
+   * message status and provides various sorting options. Messages outside the
+   * account's retention window will not be included in the results.
    */
   listMessages(
     userID: string,
@@ -121,8 +124,7 @@ export class Users extends APIResource {
   }
 
   /**
-   * Returns a paginated list of schedules for a specific user. Can be filtered by
-   * workflow and tenant.
+   * Returns a paginated list of schedules for a specific user, in descending order.
    */
   listSchedules(
     userID: string,
@@ -137,8 +139,8 @@ export class Users extends APIResource {
   }
 
   /**
-   * Retrieves a paginated list of subscriptions for a specific user. Allows
-   * filtering by objects and includes optional preference data.
+   * Retrieves a paginated list of subscriptions for a specific user, in descending
+   * order.
    */
   listSubscriptions(
     userID: string,
@@ -202,6 +204,11 @@ export type UsersEntriesCursor = EntriesCursor<User>;
  */
 export interface IdentifyUserRequest {
   /**
+   * URL to the user's avatar image.
+   */
+  avatar?: string | null;
+
+  /**
    * A request to set channel data for a type of channel inline.
    */
   channel_data?: ChannelDataAPI.InlineChannelDataRequest | null;
@@ -212,9 +219,38 @@ export interface IdentifyUserRequest {
   created_at?: string | null;
 
   /**
+   * The primary email address for the user.
+   */
+  email?: string | null;
+
+  /**
+   * The locale of the user. Used for [message localization](/concepts/translations)
+   */
+  locale?: string | null;
+
+  /**
+   * Display name of the user.
+   */
+  name?: string | null;
+
+  /**
+   * The [E.164](https://www.twilio.com/docs/glossary/what-e164) phone number of the
+   * user (required for SMS channels).
+   */
+  phone_number?: string | null;
+
+  /**
    * Inline set preferences for a recipient, where the key is the preference set name
    */
   preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
+
+  /**
+   * The timezone of the user. Must be a valid
+   * [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+   * Used for
+   * [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients)
+   */
+  timezone?: string | null;
 
   [k: string]: unknown;
 }
@@ -250,8 +286,9 @@ export interface InlineIdentifyUserRequest {
 }
 
 /**
- * A user who can receive notifications in Knock. They are always referenced by
- * your internal identifier.
+ * A [User](/concepts/users) represents an individual in your system who can
+ * receive notifications through Knock. Users are the most common recipients of
+ * notifications and are always referenced by your internal identifier.
  */
 export interface User {
   /**
@@ -280,7 +317,7 @@ export interface User {
   created_at?: string | null;
 
   /**
-   * The email address of the user.
+   * The primary email address for the user.
    */
   email?: string | null;
 
@@ -290,16 +327,91 @@ export interface User {
   name?: string | null;
 
   /**
-   * Phone number of the user.
+   * The [E.164](https://www.twilio.com/docs/glossary/what-e164) phone number of the
+   * user (required for SMS channels).
    */
   phone_number?: string | null;
 
   /**
-   * Timezone of the user.
+   * The timezone of the user. Must be a valid
+   * [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+   * Used for
+   * [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients)
    */
   timezone?: string | null;
 
   [k: string]: unknown;
+}
+
+/**
+ * The user that was created or updated.
+ */
+export interface UserUpdateResponse {
+  /**
+   * The ID for the user that you set when identifying them in Knock.
+   */
+  id: string;
+
+  /**
+   * The creation date of the user from your system.
+   */
+  created_at: string;
+
+  /**
+   * The timestamp when the resource was last updated.
+   */
+  updated_at: string;
+
+  /**
+   * The typename of the schema.
+   */
+  __typename?: string;
+
+  /**
+   * URL to the user's avatar image.
+   */
+  avatar?: string | null;
+
+  /**
+   * Channel-specific information that's needed to deliver a notification to an end
+   * provider.
+   */
+  channel_data?: Array<ChannelDataAPI.ChannelData> | null;
+
+  /**
+   * The primary email address for the user.
+   */
+  email?: string | null;
+
+  /**
+   * The locale of the user. Used for [message localization](/concepts/translations)
+   */
+  locale?: string | null;
+
+  /**
+   * Display name of the user.
+   */
+  name?: string | null;
+
+  /**
+   * The [E.164](https://www.twilio.com/docs/glossary/what-e164) phone number of the
+   * user (required for SMS channels).
+   */
+  phone_number?: string | null;
+
+  /**
+   * A preference set represents a specific set of notification preferences for a
+   * recipient. A recipient can have multiple preference sets.
+   */
+  preferences?: PreferencesAPI.PreferenceSet | null;
+
+  /**
+   * The timezone of the user. Must be a valid
+   * [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+   * Used for
+   * [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients)
+   */
+  timezone?: string | null;
 }
 
 /**
@@ -319,6 +431,11 @@ export type UserUnsetChannelDataResponse = string;
 
 export interface UserUpdateParams {
   /**
+   * URL to the user's avatar image.
+   */
+  avatar?: string | null;
+
+  /**
    * A request to set channel data for a type of channel inline.
    */
   channel_data?: ChannelDataAPI.InlineChannelDataRequest | null;
@@ -329,9 +446,38 @@ export interface UserUpdateParams {
   created_at?: string | null;
 
   /**
+   * The primary email address for the user.
+   */
+  email?: string | null;
+
+  /**
+   * The locale of the user. Used for [message localization](/concepts/translations)
+   */
+  locale?: string | null;
+
+  /**
+   * Display name of the user.
+   */
+  name?: string | null;
+
+  /**
+   * The [E.164](https://www.twilio.com/docs/glossary/what-e164) phone number of the
+   * user (required for SMS channels).
+   */
+  phone_number?: string | null;
+
+  /**
    * Inline set preferences for a recipient, where the key is the preference set name
    */
   preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
+
+  /**
+   * The timezone of the user. Must be a valid
+   * [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+   * Used for
+   * [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients)
+   */
+  timezone?: string | null;
 
   [k: string]: unknown;
 }
@@ -361,8 +507,10 @@ export interface UserListMessagesParams extends EntriesCursorParams {
    */
   engagement_status?: Array<'seen' | 'read' | 'interacted' | 'link_clicked' | 'archived'>;
 
+  inserted_at?: UserListMessagesParams.InsertedAt;
+
   /**
-   * Limits the results to only the message ids given (max 50). Note: when using this
+   * Limits the results to only the message IDs given (max 50). Note: when using this
    * option, the results will be subject to any other filters applied to the query.
    */
   message_ids?: Array<string>;
@@ -408,14 +556,38 @@ export interface UserListMessagesParams extends EntriesCursorParams {
   workflow_run_id?: string;
 }
 
+export namespace UserListMessagesParams {
+  export interface InsertedAt {
+    /**
+     * Limits the results to messages inserted after the given date.
+     */
+    gt?: string;
+
+    /**
+     * Limits the results to messages inserted after or on the given date.
+     */
+    gte?: string;
+
+    /**
+     * Limits the results to messages inserted before the given date.
+     */
+    lt?: string;
+
+    /**
+     * Limits the results to messages inserted before or on the given date.
+     */
+    lte?: string;
+  }
+}
+
 export interface UserListSchedulesParams extends EntriesCursorParams {
   /**
-   * The ID of the tenant to list schedules for.
+   * The tenant ID to filter schedules for.
    */
   tenant?: string;
 
   /**
-   * The ID of the workflow to list schedules for.
+   * The workflow key to filter schedules for.
    */
   workflow?: string;
 }
@@ -427,9 +599,9 @@ export interface UserListSubscriptionsParams extends EntriesCursorParams {
   include?: Array<'preferences'>;
 
   /**
-   * Only return subscriptions for the given recipients.
+   * Only returns subscriptions for the specified object GIDs.
    */
-  objects?: Array<RecipientsAPI.RecipientReference>;
+  objects?: Array<string>;
 }
 
 export interface UserMergeParams {
@@ -519,6 +691,7 @@ export declare namespace Users {
     type IdentifyUserRequest as IdentifyUserRequest,
     type InlineIdentifyUserRequest as InlineIdentifyUserRequest,
     type User as User,
+    type UserUpdateResponse as UserUpdateResponse,
     type UserDeleteResponse as UserDeleteResponse,
     type UserListPreferencesResponse as UserListPreferencesResponse,
     type UserUnsetChannelDataResponse as UserUnsetChannelDataResponse,

@@ -85,6 +85,7 @@ export {
   type IdentifyUserRequest,
   type InlineIdentifyUserRequest,
   type User,
+  type UserUpdateResponse,
   type UserDeleteResponse,
   type UserListPreferencesResponse,
   type UserUnsetChannelDataResponse,
