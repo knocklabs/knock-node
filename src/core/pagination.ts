@@ -272,3 +272,52 @@ export class SlackChannelsCursor<Item>
     };
   }
 }
+
+export interface MsTeamsPaginationResponse<Item> {
+  skip_token: string;
+
+  ms_teams_teams: Array<Item>;
+}
+
+export interface MsTeamsPaginationParams {
+  'query_options.$skiptoken'?: string;
+
+  'query_options.$top'?: number;
+}
+
+export class MsTeamsPagination<Item> extends AbstractPage<Item> implements MsTeamsPaginationResponse<Item> {
+  skip_token: string;
+
+  ms_teams_teams: Array<Item>;
+
+  constructor(
+    client: Knock,
+    response: Response,
+    body: MsTeamsPaginationResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
+    super(client, response, body, options);
+
+    this.skip_token = body.skip_token || '';
+    this.ms_teams_teams = body.ms_teams_teams || [];
+  }
+
+  getPaginatedItems(): Item[] {
+    return this.ms_teams_teams ?? [];
+  }
+
+  nextPageRequestOptions(): PageRequestOptions | null {
+    const cursor = this.skip_token;
+    if (!cursor) {
+      return null;
+    }
+
+    return {
+      ...this.options,
+      query: {
+        ...maybeObj(this.options.query),
+        'query_options.$skiptoken': cursor,
+      },
+    };
+  }
+}

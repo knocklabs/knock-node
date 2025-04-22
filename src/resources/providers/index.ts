@@ -10,6 +10,7 @@ export {
   type MsTeamListChannelsParams,
   type MsTeamListTeamsParams,
   type MsTeamRevokeAccessParams,
+  type MsTeamListTeamsResponsesMsTeamsPagination,
 } from './ms-teams';
 export { Providers } from './providers';
 export {

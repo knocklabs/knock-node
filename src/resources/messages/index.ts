@@ -1,5 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+export { Activities, type ActivityListResponse, type ActivityListParams } from './activities';
 export {
   Batch,
   type BatchArchiveResponse,
@@ -26,13 +27,13 @@ export {
   type MessageDeliveryLog,
   type MessageEvent,
   type MessageGetContentResponse,
+  type MessageListActivitiesResponse,
   type MessageListParams,
   type MessageListActivitiesParams,
   type MessageListDeliveryLogsParams,
   type MessageListEventsParams,
   type MessageMarkAsInteractedParams,
   type MessagesEntriesCursor,
-  type ActivitiesEntriesCursor,
   type MessageDeliveryLogsEntriesCursor,
   type MessageEventsEntriesCursor,
 } from './messages';

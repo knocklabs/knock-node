@@ -1,6 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as SharedAPI from '../shared';
+import * as ActivitiesAPI from './activities';
+import { Activities, ActivityListParams, ActivityListResponse } from './activities';
 import * as BatchAPI from './batch';
 import {
   Batch,
@@ -29,6 +32,7 @@ import { path } from '../../internal/utils/path';
 
 export class Messages extends APIResource {
   batch: BatchAPI.Batch = new BatchAPI.Batch(this._client);
+  activities: ActivitiesAPI.Activities = new ActivitiesAPI.Activities(this._client);
 
   /**
    * Returns a paginated list of messages for the current environment.
@@ -70,11 +74,8 @@ export class Messages extends APIResource {
     messageID: string,
     query: MessageListActivitiesParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<ActivitiesEntriesCursor, Activity> {
-    return this._client.getAPIList(path`/v1/messages/${messageID}/activities`, EntriesCursor<Activity>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<MessageListActivitiesResponse> {
+    return this._client.get(path`/v1/messages/${messageID}/activities`, { query, ...options });
   }
 
   /**
@@ -167,8 +168,6 @@ export class Messages extends APIResource {
 }
 
 export type MessagesEntriesCursor = EntriesCursor<Message>;
-
-export type ActivitiesEntriesCursor = EntriesCursor<Activity>;
 
 export type MessageDeliveryLogsEntriesCursor = EntriesCursor<MessageDeliveryLog>;
 
@@ -793,6 +792,24 @@ export namespace MessageGetContentResponse {
   }
 }
 
+/**
+ * Returns a paginated list of `activities` associated with a given message. For
+ * messages produced after a [batch step](/designing-workflows/batch-function),
+ * this will contain one or more activities. Non-batched messages will always
+ * return a single activity.
+ */
+export interface MessageListActivitiesResponse {
+  /**
+   * A list of activities.
+   */
+  entries: Array<Activity>;
+
+  /**
+   * Pagination information for a list of resources.
+   */
+  page_info: SharedAPI.PageInfo;
+}
+
 export interface MessageListParams extends EntriesCursorParams {
   /**
    * Limits the results to items with the corresponding channel ID.
@@ -851,7 +868,22 @@ export interface MessageListParams extends EntriesCursorParams {
   workflow_run_id?: string;
 }
 
-export interface MessageListActivitiesParams extends EntriesCursorParams {
+export interface MessageListActivitiesParams {
+  /**
+   * The cursor to fetch entries after.
+   */
+  after?: string;
+
+  /**
+   * The cursor to fetch entries before.
+   */
+  before?: string;
+
+  /**
+   * The number of items per page.
+   */
+  page_size?: number;
+
   /**
    * The trigger data to filter activities by.
    */
@@ -870,6 +902,7 @@ export interface MessageMarkAsInteractedParams {
 }
 
 Messages.Batch = Batch;
+Messages.Activities = Activities;
 
 export declare namespace Messages {
   export {
@@ -878,8 +911,8 @@ export declare namespace Messages {
     type MessageDeliveryLog as MessageDeliveryLog,
     type MessageEvent as MessageEvent,
     type MessageGetContentResponse as MessageGetContentResponse,
+    type MessageListActivitiesResponse as MessageListActivitiesResponse,
     type MessagesEntriesCursor as MessagesEntriesCursor,
-    type ActivitiesEntriesCursor as ActivitiesEntriesCursor,
     type MessageDeliveryLogsEntriesCursor as MessageDeliveryLogsEntriesCursor,
     type MessageEventsEntriesCursor as MessageEventsEntriesCursor,
     type MessageListParams as MessageListParams,
@@ -907,5 +940,11 @@ export declare namespace Messages {
     type BatchMarkAsUnreadParams as BatchMarkAsUnreadParams,
     type BatchMarkAsUnseenParams as BatchMarkAsUnseenParams,
     type BatchUnarchiveParams as BatchUnarchiveParams,
+  };
+
+  export {
+    Activities as Activities,
+    type ActivityListResponse as ActivityListResponse,
+    type ActivityListParams as ActivityListParams,
   };
 }

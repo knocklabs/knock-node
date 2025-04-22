@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
+import { MsTeamsPagination, type MsTeamsPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -38,8 +39,12 @@ export class MsTeams extends APIResource {
     channelID: string,
     query: MsTeamListTeamsParams,
     options?: RequestOptions,
-  ): APIPromise<MsTeamListTeamsResponse> {
-    return this._client.get(path`/v1/providers/ms-teams/${channelID}/teams`, { query, ...options });
+  ): PagePromise<MsTeamListTeamsResponsesMsTeamsPagination, MsTeamListTeamsResponse> {
+    return this._client.getAPIList(
+      path`/v1/providers/ms-teams/${channelID}/teams`,
+      MsTeamsPagination<MsTeamListTeamsResponse>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -57,6 +62,8 @@ export class MsTeams extends APIResource {
     });
   }
 }
+
+export type MsTeamListTeamsResponsesMsTeamsPagination = MsTeamsPagination<MsTeamListTeamsResponse>;
 
 /**
  * The response from a Microsoft Teams auth check request.
@@ -130,40 +137,21 @@ export namespace MsTeamListChannelsResponse {
   }
 }
 
-/**
- * The response from a Microsoft Teams provider request, containing a list of
- * teams.
- */
 export interface MsTeamListTeamsResponse {
   /**
-   * List of Microsoft Teams teams.
+   * Microsoft Teams team ID.
    */
-  ms_teams_teams: Array<MsTeamListTeamsResponse.MsTeamsTeam>;
+  id: string;
 
   /**
-   * [OData param](https://learn.microsoft.com/en-us/graph/query-parameters) passed
-   * to the Microsoft Graph API to retrieve the next page of results.
+   * Microsoft Teams team display name.
    */
-  skip_token: string | null;
-}
+  displayName: string;
 
-export namespace MsTeamListTeamsResponse {
-  export interface MsTeamsTeam {
-    /**
-     * Microsoft Teams team ID.
-     */
-    id: string;
-
-    /**
-     * Microsoft Teams team display name.
-     */
-    displayName: string;
-
-    /**
-     * Microsoft Teams team description.
-     */
-    description?: string | null;
-  }
+  /**
+   * Microsoft Teams team description.
+   */
+  description?: string | null;
 }
 
 /**
@@ -213,7 +201,7 @@ export namespace MsTeamListChannelsParams {
   }
 }
 
-export interface MsTeamListTeamsParams {
+export interface MsTeamListTeamsParams extends MsTeamsPaginationParams {
   /**
    * A JSON encoded string containing the Microsoft Teams tenant object reference.
    */
@@ -263,6 +251,7 @@ export declare namespace MsTeams {
     type MsTeamListChannelsResponse as MsTeamListChannelsResponse,
     type MsTeamListTeamsResponse as MsTeamListTeamsResponse,
     type MsTeamRevokeAccessResponse as MsTeamRevokeAccessResponse,
+    type MsTeamListTeamsResponsesMsTeamsPagination as MsTeamListTeamsResponsesMsTeamsPagination,
     type MsTeamCheckAuthParams as MsTeamCheckAuthParams,
     type MsTeamListChannelsParams as MsTeamListChannelsParams,
     type MsTeamListTeamsParams as MsTeamListTeamsParams,

@@ -22,6 +22,8 @@ import {
   EntriesCursorResponse,
   type ItemsCursorParams,
   ItemsCursorResponse,
+  type MsTeamsPaginationParams,
+  MsTeamsPaginationResponse,
   type SlackChannelsCursorParams,
   SlackChannelsCursorResponse,
 } from './core/pagination';
@@ -55,7 +57,6 @@ import { isEmptyObj } from './internal/utils/values';
 import { Channels } from './resources/channels/channels';
 import { Integrations } from './resources/integrations/integrations';
 import {
-  ActivitiesEntriesCursor,
   Activity,
   Message,
   MessageDeliveryLog,
@@ -64,6 +65,7 @@ import {
   MessageEventsEntriesCursor,
   MessageGetContentResponse,
   MessageListActivitiesParams,
+  MessageListActivitiesResponse,
   MessageListDeliveryLogsParams,
   MessageListEventsParams,
   MessageListParams,
@@ -838,6 +840,12 @@ export declare namespace Knock {
     type SlackChannelsCursorResponse as SlackChannelsCursorResponse,
   };
 
+  export import MsTeamsPagination = Pagination.MsTeamsPagination;
+  export {
+    type MsTeamsPaginationParams as MsTeamsPaginationParams,
+    type MsTeamsPaginationResponse as MsTeamsPaginationResponse,
+  };
+
   export { Shared as Shared, type Condition as Condition, type PageInfo as PageInfo };
 
   export {
@@ -908,8 +916,8 @@ export declare namespace Knock {
     type MessageDeliveryLog as MessageDeliveryLog,
     type MessageEvent as MessageEvent,
     type MessageGetContentResponse as MessageGetContentResponse,
+    type MessageListActivitiesResponse as MessageListActivitiesResponse,
     type MessagesEntriesCursor as MessagesEntriesCursor,
-    type ActivitiesEntriesCursor as ActivitiesEntriesCursor,
     type MessageDeliveryLogsEntriesCursor as MessageDeliveryLogsEntriesCursor,
     type MessageEventsEntriesCursor as MessageEventsEntriesCursor,
     type MessageListParams as MessageListParams,

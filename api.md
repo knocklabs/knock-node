@@ -186,6 +186,7 @@ Types:
 - <code><a href="./src/resources/messages/messages.ts">MessageDeliveryLog</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageEvent</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageGetContentResponse</a></code>
+- <code><a href="./src/resources/messages/messages.ts">MessageListActivitiesResponse</a></code>
 
 Methods:
 
@@ -193,7 +194,7 @@ Methods:
 - <code title="put /v1/messages/{message_id}/archived">client.messages.<a href="./src/resources/messages/messages.ts">archive</a>(messageID) -> Message</code>
 - <code title="get /v1/messages/{message_id}">client.messages.<a href="./src/resources/messages/messages.ts">get</a>(messageID) -> Message</code>
 - <code title="get /v1/messages/{message_id}/content">client.messages.<a href="./src/resources/messages/messages.ts">getContent</a>(messageID) -> MessageGetContentResponse</code>
-- <code title="get /v1/messages/{message_id}/activities">client.messages.<a href="./src/resources/messages/messages.ts">listActivities</a>(messageID, { ...params }) -> ActivitiesEntriesCursor</code>
+- <code title="get /v1/messages/{message_id}/activities">client.messages.<a href="./src/resources/messages/messages.ts">listActivities</a>(messageID, { ...params }) -> MessageListActivitiesResponse</code>
 - <code title="get /v1/messages/{message_id}/delivery_logs">client.messages.<a href="./src/resources/messages/messages.ts">listDeliveryLogs</a>(messageID, { ...params }) -> MessageDeliveryLogsEntriesCursor</code>
 - <code title="get /v1/messages/{message_id}/events">client.messages.<a href="./src/resources/messages/messages.ts">listEvents</a>(messageID, { ...params }) -> MessageEventsEntriesCursor</code>
 - <code title="put /v1/messages/{message_id}/interacted">client.messages.<a href="./src/resources/messages/messages.ts">markAsInteracted</a>(messageID, { ...params }) -> Message</code>
@@ -227,6 +228,16 @@ Methods:
 - <code title="post /v1/messages/batch/unseen">client.messages.batch.<a href="./src/resources/messages/batch.ts">markAsUnseen</a>({ ...params }) -> BatchMarkAsUnseenResponse</code>
 - <code title="post /v1/messages/batch/unarchived">client.messages.batch.<a href="./src/resources/messages/batch.ts">unarchive</a>({ ...params }) -> BatchUnarchiveResponse</code>
 
+## Activities
+
+Types:
+
+- <code><a href="./src/resources/messages/activities.ts">ActivityListResponse</a></code>
+
+Methods:
+
+- <code title="get /v1/messages/{message_id}/activities">client.messages.activities.<a href="./src/resources/messages/activities.ts">list</a>(messageID, { ...params }) -> ActivityListResponse</code>
+
 # Providers
 
 ## Slack
@@ -256,7 +267,7 @@ Methods:
 
 - <code title="get /v1/providers/ms-teams/{channel_id}/auth_check">client.providers.msTeams.<a href="./src/resources/providers/ms-teams.ts">checkAuth</a>(channelID, { ...params }) -> MsTeamCheckAuthResponse</code>
 - <code title="get /v1/providers/ms-teams/{channel_id}/channels">client.providers.msTeams.<a href="./src/resources/providers/ms-teams.ts">listChannels</a>(channelID, { ...params }) -> MsTeamListChannelsResponse</code>
-- <code title="get /v1/providers/ms-teams/{channel_id}/teams">client.providers.msTeams.<a href="./src/resources/providers/ms-teams.ts">listTeams</a>(channelID, { ...params }) -> MsTeamListTeamsResponse</code>
+- <code title="get /v1/providers/ms-teams/{channel_id}/teams">client.providers.msTeams.<a href="./src/resources/providers/ms-teams.ts">listTeams</a>(channelID, { ...params }) -> MsTeamListTeamsResponsesMsTeamsPagination</code>
 - <code title="put /v1/providers/ms-teams/{channel_id}/revoke_access">client.providers.msTeams.<a href="./src/resources/providers/ms-teams.ts">revokeAccess</a>(channelID, { ...params }) -> MsTeamRevokeAccessResponse</code>
 
 # Integrations
