@@ -2,8 +2,8 @@
 
 import { APIResource } from '../../core/resource';
 import * as MessagesAPI from './messages';
-import { ActivitiesEntriesCursor } from './messages';
-import { EntriesCursor, type EntriesCursorParams, PagePromise } from '../../core/pagination';
+import { ActivitiesItemsCursor } from './messages';
+import { ItemsCursor, type ItemsCursorParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -15,16 +15,16 @@ export class Activities extends APIResource {
     messageID: string,
     query: ActivityListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<ActivitiesEntriesCursor, MessagesAPI.Activity> {
+  ): PagePromise<ActivitiesItemsCursor, MessagesAPI.Activity> {
     return this._client.getAPIList(
       path`/v1/messages/${messageID}/activities`,
-      EntriesCursor<MessagesAPI.Activity>,
+      ItemsCursor<MessagesAPI.Activity>,
       { query, ...options },
     );
   }
 }
 
-export interface ActivityListParams extends EntriesCursorParams {
+export interface ActivityListParams extends ItemsCursorParams {
   /**
    * The trigger data to filter activities by.
    */
@@ -35,4 +35,4 @@ export declare namespace Activities {
   export { type ActivityListParams as ActivityListParams };
 }
 
-export { type ActivitiesEntriesCursor };
+export { type ActivitiesItemsCursor };

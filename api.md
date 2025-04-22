@@ -186,7 +186,6 @@ Types:
 - <code><a href="./src/resources/messages/messages.ts">MessageDeliveryLog</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageEvent</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageGetContentResponse</a></code>
-- <code><a href="./src/resources/messages/messages.ts">MessageListActivitiesResponse</a></code>
 
 Methods:
 
@@ -194,7 +193,7 @@ Methods:
 - <code title="put /v1/messages/{message_id}/archived">client.messages.<a href="./src/resources/messages/messages.ts">archive</a>(messageID) -> Message</code>
 - <code title="get /v1/messages/{message_id}">client.messages.<a href="./src/resources/messages/messages.ts">get</a>(messageID) -> Message</code>
 - <code title="get /v1/messages/{message_id}/content">client.messages.<a href="./src/resources/messages/messages.ts">getContent</a>(messageID) -> MessageGetContentResponse</code>
-- <code title="get /v1/messages/{message_id}/activities">client.messages.<a href="./src/resources/messages/messages.ts">listActivities</a>(messageID, { ...params }) -> MessageListActivitiesResponse</code>
+- <code title="get /v1/messages/{message_id}/activities">client.messages.<a href="./src/resources/messages/messages.ts">listActivities</a>(messageID, { ...params }) -> ActivitiesItemsCursor</code>
 - <code title="get /v1/messages/{message_id}/delivery_logs">client.messages.<a href="./src/resources/messages/messages.ts">listDeliveryLogs</a>(messageID, { ...params }) -> MessageDeliveryLogsEntriesCursor</code>
 - <code title="get /v1/messages/{message_id}/events">client.messages.<a href="./src/resources/messages/messages.ts">listEvents</a>(messageID, { ...params }) -> MessageEventsEntriesCursor</code>
 - <code title="put /v1/messages/{message_id}/interacted">client.messages.<a href="./src/resources/messages/messages.ts">markAsInteracted</a>(messageID, { ...params }) -> Message</code>
@@ -232,7 +231,7 @@ Methods:
 
 Methods:
 
-- <code title="get /v1/messages/{message_id}/activities">client.messages.activities.<a href="./src/resources/messages/activities.ts">list</a>(messageID, { ...params }) -> ActivitiesEntriesCursor</code>
+- <code title="get /v1/messages/{message_id}/activities">client.messages.activities.<a href="./src/resources/messages/activities.ts">list</a>(messageID, { ...params }) -> ActivitiesItemsCursor</code>
 
 # Providers
 
