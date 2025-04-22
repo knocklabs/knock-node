@@ -139,7 +139,6 @@ import {
   UserSetPreferencesParams,
   UserUnsetChannelDataResponse,
   UserUpdateParams,
-  UserUpdateResponse,
   Users,
   UsersEntriesCursor,
 } from './resources/users/users';
@@ -861,7 +860,6 @@ export declare namespace Knock {
     type IdentifyUserRequest as IdentifyUserRequest,
     type InlineIdentifyUserRequest as InlineIdentifyUserRequest,
     type User as User,
-    type UserUpdateResponse as UserUpdateResponse,
     type UserDeleteResponse as UserDeleteResponse,
     type UserListPreferencesResponse as UserListPreferencesResponse,
     type UserUnsetChannelDataResponse as UserUnsetChannelDataResponse,

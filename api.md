@@ -49,14 +49,13 @@ Types:
 - <code><a href="./src/resources/users/users.ts">IdentifyUserRequest</a></code>
 - <code><a href="./src/resources/users/users.ts">InlineIdentifyUserRequest</a></code>
 - <code><a href="./src/resources/users/users.ts">User</a></code>
-- <code><a href="./src/resources/users/users.ts">UserUpdateResponse</a></code>
 - <code><a href="./src/resources/users/users.ts">UserDeleteResponse</a></code>
 - <code><a href="./src/resources/users/users.ts">UserListPreferencesResponse</a></code>
 - <code><a href="./src/resources/users/users.ts">UserUnsetChannelDataResponse</a></code>
 
 Methods:
 
-- <code title="put /v1/users/{user_id}">client.users.<a href="./src/resources/users/users.ts">update</a>(userID, { ...params }) -> UserUpdateResponse</code>
+- <code title="put /v1/users/{user_id}">client.users.<a href="./src/resources/users/users.ts">update</a>(userID, { ...params }) -> User</code>
 - <code title="get /v1/users">client.users.<a href="./src/resources/users/users.ts">list</a>({ ...params }) -> UsersEntriesCursor</code>
 - <code title="delete /v1/users/{user_id}">client.users.<a href="./src/resources/users/users.ts">delete</a>(userID) -> string</code>
 - <code title="get /v1/users/{user_id}">client.users.<a href="./src/resources/users/users.ts">get</a>(userID) -> User</code>

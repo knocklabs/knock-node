@@ -47,7 +47,7 @@ export class Users extends APIResource {
    * an existing user, the system merges the properties you specific with what is
    * currently set on the user, updating only the fields included in your requests.
    */
-  update(userID: string, body: UserUpdateParams, options?: RequestOptions): APIPromise<UserUpdateResponse> {
+  update(userID: string, body: UserUpdateParams, options?: RequestOptions): APIPromise<User> {
     return this._client.put(path`/v1/users/${userID}`, { body, ...options });
   }
 
@@ -224,7 +224,7 @@ export interface IdentifyUserRequest {
   email?: string | null;
 
   /**
-   * The locale of the user. Used for [message localization](/concepts/translations)
+   * The locale of the user. Used for [message localization](/concepts/translations).
    */
   locale?: string | null;
 
@@ -248,7 +248,7 @@ export interface IdentifyUserRequest {
    * The timezone of the user. Must be a valid
    * [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
    * Used for
-   * [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients)
+   * [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
    */
   timezone?: string | null;
 
@@ -336,82 +336,11 @@ export interface User {
    * The timezone of the user. Must be a valid
    * [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
    * Used for
-   * [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients)
+   * [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
    */
   timezone?: string | null;
 
   [k: string]: unknown;
-}
-
-/**
- * The user that was created or updated.
- */
-export interface UserUpdateResponse {
-  /**
-   * The ID for the user that you set when identifying them in Knock.
-   */
-  id: string;
-
-  /**
-   * The creation date of the user from your system.
-   */
-  created_at: string;
-
-  /**
-   * The timestamp when the resource was last updated.
-   */
-  updated_at: string;
-
-  /**
-   * The typename of the schema.
-   */
-  __typename?: string;
-
-  /**
-   * URL to the user's avatar image.
-   */
-  avatar?: string | null;
-
-  /**
-   * Channel-specific information that's needed to deliver a notification to an end
-   * provider.
-   */
-  channel_data?: Array<ChannelDataAPI.ChannelData> | null;
-
-  /**
-   * The primary email address for the user.
-   */
-  email?: string | null;
-
-  /**
-   * The locale of the user. Used for [message localization](/concepts/translations)
-   */
-  locale?: string | null;
-
-  /**
-   * Display name of the user.
-   */
-  name?: string | null;
-
-  /**
-   * The [E.164](https://www.twilio.com/docs/glossary/what-e164) phone number of the
-   * user (required for SMS channels).
-   */
-  phone_number?: string | null;
-
-  /**
-   * A preference set represents a specific set of notification preferences for a
-   * recipient. A recipient can have multiple preference sets.
-   */
-  preferences?: PreferencesAPI.PreferenceSet | null;
-
-  /**
-   * The timezone of the user. Must be a valid
-   * [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
-   * Used for
-   * [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients)
-   */
-  timezone?: string | null;
 }
 
 /**
@@ -451,7 +380,7 @@ export interface UserUpdateParams {
   email?: string | null;
 
   /**
-   * The locale of the user. Used for [message localization](/concepts/translations)
+   * The locale of the user. Used for [message localization](/concepts/translations).
    */
   locale?: string | null;
 
@@ -475,7 +404,7 @@ export interface UserUpdateParams {
    * The timezone of the user. Must be a valid
    * [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
    * Used for
-   * [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients)
+   * [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
    */
   timezone?: string | null;
 
@@ -691,7 +620,6 @@ export declare namespace Users {
     type IdentifyUserRequest as IdentifyUserRequest,
     type InlineIdentifyUserRequest as InlineIdentifyUserRequest,
     type User as User,
-    type UserUpdateResponse as UserUpdateResponse,
     type UserDeleteResponse as UserDeleteResponse,
     type UserListPreferencesResponse as UserListPreferencesResponse,
     type UserUnsetChannelDataResponse as UserUnsetChannelDataResponse,
