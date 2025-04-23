@@ -477,9 +477,23 @@ export interface ObjectSetParams {
   channel_data?: ChannelDataAPI.InlineChannelDataRequest | null;
 
   /**
+   * The locale of the object. Used for
+   * [message localization](/concepts/translations).
+   */
+  locale?: string | null;
+
+  /**
    * Inline set preferences for a recipient, where the key is the preference set name
    */
   preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
+
+  /**
+   * The timezone of the object. Must be a valid
+   * [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+   * Used for
+   * [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
+   */
+  timezone?: string | null;
 
   [k: string]: unknown;
 }
