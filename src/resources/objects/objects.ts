@@ -472,10 +472,9 @@ export interface ObjectListSubscriptionsParams extends EntriesCursorParams {
 
 export interface ObjectSetParams {
   /**
-   * An optional set of [channel data](/managing-recipients/setting-channel-data) for
-   * the object. This is a list of `ChannelData` objects.
+   * A request to set channel data for a type of channel inline.
    */
-  channel_data?: Array<ChannelDataAPI.InlineChannelDataRequest> | null;
+  channel_data?: ChannelDataAPI.InlineChannelDataRequest;
 
   /**
    * The locale of the object. Used for
