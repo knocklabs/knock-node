@@ -255,7 +255,7 @@ describe('resource objects', () => {
       'collection',
       'object_id',
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      { data: { __typename: 'PushChannelData', tokens: ['push_token_1'] } },
+      { data: { __typename: 'PushChannelData', tokens: ['push_token_1'], type: 'push_fcm' } },
     );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -272,7 +272,7 @@ describe('resource objects', () => {
       'collection',
       'object_id',
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      { data: { __typename: 'PushChannelData', tokens: ['push_token_1'] } },
+      { data: { __typename: 'PushChannelData', tokens: ['push_token_1'], type: 'push_fcm' } },
     );
   });
 

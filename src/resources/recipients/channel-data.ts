@@ -50,6 +50,11 @@ export interface DiscordChannelData {
   connections: Array<
     DiscordChannelData.DiscordChannelConnection | DiscordChannelData.DiscordIncomingWebhookConnection
   >;
+
+  /**
+   * The channel type identifier
+   */
+  type: 'chat_discord';
 }
 
 export namespace DiscordChannelData {
@@ -135,6 +140,11 @@ export interface MsTeamsChannelData {
   >;
 
   /**
+   * The channel type identifier
+   */
+  type: 'chat_ms_teams';
+
+  /**
    * Microsoft Teams tenant ID.
    */
   ms_teams_tenant_id?: string | null;
@@ -202,6 +212,11 @@ export interface OneSignalChannelData {
    * A list of OneSignal player IDs.
    */
   player_ids: Array<string>;
+
+  /**
+   * The channel type identifier
+   */
+  type: 'push_one_signal';
 }
 
 /**
@@ -217,6 +232,11 @@ export interface PushChannelData {
    * A list of push channel tokens.
    */
   tokens: Array<string>;
+
+  /**
+   * The push provider type
+   */
+  type: 'push_fcm' | 'push_apns' | 'push_expo';
 }
 
 /**
@@ -232,6 +252,11 @@ export interface SlackChannelData {
    * List of Slack channel connections.
    */
   connections: Array<SlackChannelData.SlackTokenConnection | SlackChannelData.SlackIncomingWebhookConnection>;
+
+  /**
+   * The channel type identifier
+   */
+  type: 'chat_slack';
 
   /**
    * A Slack connection token.
