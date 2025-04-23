@@ -91,7 +91,7 @@ export class Objects extends APIResource {
     objectID: string,
     channelID: string,
     options?: RequestOptions,
-  ): APIPromise<ChannelDataAPI.ChannelData | null> {
+  ): APIPromise<ChannelDataAPI.ChannelData> {
     return this._client.get(path`/v1/objects/${collection}/${objectID}/channel_data/${channelID}`, options);
   }
 
@@ -196,7 +196,7 @@ export class Objects extends APIResource {
     channelID: string,
     body: ObjectSetChannelDataParams,
     options?: RequestOptions,
-  ): APIPromise<ChannelDataAPI.ChannelData | null> {
+  ): APIPromise<ChannelDataAPI.ChannelData> {
     return this._client.put(path`/v1/objects/${collection}/${objectID}/channel_data/${channelID}`, {
       body,
       ...options,
@@ -472,9 +472,10 @@ export interface ObjectListSubscriptionsParams extends EntriesCursorParams {
 
 export interface ObjectSetParams {
   /**
-   * A request to set channel data for a type of channel inline.
+   * An optional set of [channel data](/managing-recipients/setting-channel-data) for
+   * the object. This is a list of `ChannelData` objects.
    */
-  channel_data?: ChannelDataAPI.InlineChannelDataRequest | null;
+  channel_data?: Array<ChannelDataAPI.InlineChannelDataRequest> | null;
 
   /**
    * The locale of the object. Used for
