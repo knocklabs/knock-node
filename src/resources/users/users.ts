@@ -83,7 +83,7 @@ export class Users extends APIResource {
     userID: string,
     channelID: string,
     options?: RequestOptions,
-  ): APIPromise<ChannelDataAPI.ChannelData> {
+  ): APIPromise<ChannelDataAPI.ChannelData | null> {
     return this._client.get(path`/v1/users/${userID}/channel_data/${channelID}`, options);
   }
 
@@ -170,7 +170,7 @@ export class Users extends APIResource {
     channelID: string,
     body: UserSetChannelDataParams,
     options?: RequestOptions,
-  ): APIPromise<ChannelDataAPI.ChannelData> {
+  ): APIPromise<ChannelDataAPI.ChannelData | null> {
     return this._client.put(path`/v1/users/${userID}/channel_data/${channelID}`, { body, ...options });
   }
 

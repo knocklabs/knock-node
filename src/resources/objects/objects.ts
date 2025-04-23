@@ -91,7 +91,7 @@ export class Objects extends APIResource {
     objectID: string,
     channelID: string,
     options?: RequestOptions,
-  ): APIPromise<ChannelDataAPI.ChannelData> {
+  ): APIPromise<ChannelDataAPI.ChannelData | null> {
     return this._client.get(path`/v1/objects/${collection}/${objectID}/channel_data/${channelID}`, options);
   }
 
@@ -196,7 +196,7 @@ export class Objects extends APIResource {
     channelID: string,
     body: ObjectSetChannelDataParams,
     options?: RequestOptions,
-  ): APIPromise<ChannelDataAPI.ChannelData> {
+  ): APIPromise<ChannelDataAPI.ChannelData | null> {
     return this._client.put(path`/v1/objects/${collection}/${objectID}/channel_data/${channelID}`, {
       body,
       ...options,

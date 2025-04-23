@@ -6,23 +6,35 @@ import * as ChannelDataAPI from './channel-data';
 export class ChannelData extends APIResource {}
 
 /**
- * Channel data for a given channel type.
+ * A request to set channel data for a type of channel inline.
  */
-export interface ChannelData {
-  /**
-   * The typename of the schema.
-   */
-  __typename: string;
+export type ChannelData = Array<ChannelData.ChannelDataItem>;
 
+export namespace ChannelData {
   /**
-   * The unique identifier for the channel.
+   * A request to set channel data for a type of channel inline.
    */
-  channel_id: string;
+  export interface ChannelDataItem {
+    /**
+     * The ID of the channel to associate data with.
+     */
+    channel_id: string;
 
-  /**
-   * Channel data for a given channel type.
-   */
-  data: PushChannelData | SlackChannelData | MsTeamsChannelData | DiscordChannelData | OneSignalChannelData;
+    /**
+     * Channel data for a given channel type.
+     */
+    data:
+      | ChannelDataAPI.PushChannelData
+      | ChannelDataAPI.OneSignalChannelData
+      | ChannelDataAPI.SlackChannelData
+      | ChannelDataAPI.MsTeamsChannelData
+      | ChannelDataAPI.DiscordChannelData;
+
+    /**
+     * The provider identifier (must match the data.type value)
+     */
+    provider: string;
+  }
 }
 
 /**
