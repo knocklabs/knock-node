@@ -97,7 +97,7 @@ export namespace InlineChannelDataRequest {
    */
   export interface InlineChannelDataRequestItem {
     /**
-     * The ID of the channel to associate data with
+     * The ID of the channel to associate data with.
      */
     channel_id: string;
 
@@ -110,6 +110,11 @@ export namespace InlineChannelDataRequest {
       | ChannelDataAPI.SlackChannelData
       | ChannelDataAPI.MsTeamsChannelData
       | ChannelDataAPI.DiscordChannelData;
+
+    /**
+     * The provider identifier (must match the data.type value)
+     */
+    provider: string;
   }
 }
 
