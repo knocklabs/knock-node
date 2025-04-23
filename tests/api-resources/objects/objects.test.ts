@@ -45,8 +45,79 @@ describe('resource objects', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  test.skip('addSubscriptions: only required params', async () => {
+    const responsePromise = client.objects.addSubscriptions('collection', 'object_id', {
+      recipients: ['user_1', 'user_2'],
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  test.skip('addSubscriptions: required and optional params', async () => {
+    const response = await client.objects.addSubscriptions('collection', 'object_id', {
+      recipients: ['user_1', 'user_2'],
+      properties: { key: 'bar' },
+    });
+  });
+
+  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  test.skip('deleteSubscriptions: only required params', async () => {
+    const responsePromise = client.objects.deleteSubscriptions('collection', 'object_id', {
+      recipients: ['user_123'],
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  test.skip('deleteSubscriptions: required and optional params', async () => {
+    const response = await client.objects.deleteSubscriptions('collection', 'object_id', {
+      recipients: ['user_123'],
+    });
+  });
+
+  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('get', async () => {
     const responsePromise = client.objects.get('collection', 'id');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  test.skip('getChannelData', async () => {
+    const responsePromise = client.objects.getChannelData(
+      'collection',
+      'object_id',
+      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    );
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  test.skip('getPreferences', async () => {
+    const responsePromise = client.objects.getPreferences('collection', 'object_id', 'default');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -97,6 +168,18 @@ describe('resource objects', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  test.skip('listPreferences', async () => {
+    const responsePromise = client.objects.listPreferences('collection', 'object_id');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('listSchedules', async () => {
     const responsePromise = client.objects.listSchedules('collection', 'id');
     const rawResponse = await responsePromise.asResponse();
@@ -122,8 +205,94 @@ describe('resource objects', () => {
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  test.skip('listSubscriptions', async () => {
+    const responsePromise = client.objects.listSubscriptions('collection', 'object_id');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  test.skip('listSubscriptions: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.objects.listSubscriptions(
+        'collection',
+        'object_id',
+        {
+          after: 'after',
+          before: 'before',
+          include: ['preferences'],
+          mode: 'recipient',
+          objects: ['user_123'],
+          page_size: 0,
+          recipients: ['user_123'],
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Knock.NotFoundError);
+  });
+
+  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('set', async () => {
     const responsePromise = client.objects.set('collection', 'id', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  test.skip('setChannelData: only required params', async () => {
+    const responsePromise = client.objects.setChannelData(
+      'collection',
+      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      { object_id: 'object_id', data: { __typename: 'PushChannelData', tokens: ['push_token_1'] } },
+    );
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  test.skip('setChannelData: required and optional params', async () => {
+    const response = await client.objects.setChannelData(
+      'collection',
+      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      { object_id: 'object_id', data: { __typename: 'PushChannelData', tokens: ['push_token_1'] } },
+    );
+  });
+
+  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  test.skip('setPreferences', async () => {
+    const responsePromise = client.objects.setPreferences('collection', 'object_id', 'default', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  test.skip('unsetChannelData', async () => {
+    const responsePromise = client.objects.unsetChannelData(
+      'collection',
+      'object_id',
+      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

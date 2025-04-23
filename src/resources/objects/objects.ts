@@ -1,12 +1,16 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as SharedAPI from '../shared';
 import * as MessagesAPI from '../messages/messages';
 import { MessagesEntriesCursor } from '../messages/messages';
 import * as BulkAPI from './bulk';
 import { Bulk, BulkAddSubscriptionsParams, BulkDeleteParams, BulkSetParams } from './bulk';
 import * as ChannelDataAPI from '../recipients/channel-data';
 import * as PreferencesAPI from '../recipients/preferences';
+import * as RecipientsAPI from '../recipients/recipients';
+import * as SubscriptionsAPI from '../recipients/subscriptions';
+import { SubscriptionsEntriesCursor } from '../recipients/subscriptions';
 import * as SchedulesAPI from '../schedules/schedules';
 import { SchedulesEntriesCursor } from '../schedules/schedules';
 import { APIPromise } from '../../core/api-promise';
@@ -41,11 +45,66 @@ export class Objects extends APIResource {
   }
 
   /**
+   * Add subscriptions for an object. If a subscription already exists, it will be
+   * updated. This endpoint also handles
+   * [inline identifications](/managing-recipients/identifying-recipients#inline-identifying-recipients)
+   * for the `recipient`.
+   */
+  addSubscriptions(
+    collection: string,
+    objectID: string,
+    body: ObjectAddSubscriptionsParams,
+    options?: RequestOptions,
+  ): APIPromise<ObjectAddSubscriptionsResponse> {
+    return this._client.post(path`/v1/objects/${collection}/${objectID}/subscriptions`, { body, ...options });
+  }
+
+  /**
+   * Delete subscriptions for the specified recipients from an object. Returns the
+   * list of deleted subscriptions.
+   */
+  deleteSubscriptions(
+    collection: string,
+    objectID: string,
+    body: ObjectDeleteSubscriptionsParams,
+    options?: RequestOptions,
+  ): APIPromise<ObjectDeleteSubscriptionsResponse> {
+    return this._client.delete(path`/v1/objects/${collection}/${objectID}/subscriptions`, {
+      body,
+      ...options,
+    });
+  }
+
+  /**
    * Retrieves a specific object by its ID from the specified collection. Returns the
    * object with all its properties.
    */
   get(collection: string, id: string, options?: RequestOptions): APIPromise<Object> {
     return this._client.get(path`/v1/objects/${collection}/${id}`, options);
+  }
+
+  /**
+   * Returns the channel data for the specified object and channel.
+   */
+  getChannelData(
+    collection: string,
+    objectID: string,
+    channelID: string,
+    options?: RequestOptions,
+  ): APIPromise<ChannelDataAPI.ChannelData> {
+    return this._client.get(path`/v1/objects/${collection}/${objectID}/channel_data/${channelID}`, options);
+  }
+
+  /**
+   * Returns the preference set for the specified object.
+   */
+  getPreferences(
+    collection: string,
+    objectID: string,
+    id: string,
+    options?: RequestOptions,
+  ): APIPromise<PreferencesAPI.PreferenceSet> {
+    return this._client.get(path`/v1/objects/${collection}/${objectID}/preferences/${id}`, options);
   }
 
   /**
@@ -67,6 +126,17 @@ export class Objects extends APIResource {
   }
 
   /**
+   * Returns a paginated list of preference sets for the specified object.
+   */
+  listPreferences(
+    collection: string,
+    objectID: string,
+    options?: RequestOptions,
+  ): APIPromise<ObjectListPreferencesResponse> {
+    return this._client.get(path`/v1/objects/${collection}/${objectID}/preferences`, options);
+  }
+
+  /**
    * Returns a paginated list of schedules for an object.
    */
   listSchedules(
@@ -83,12 +153,77 @@ export class Objects extends APIResource {
   }
 
   /**
+   * List subscriptions for an object. Either list the recipients that subscribe to
+   * the provided object, or list the objects that the provided object is subscribed
+   * to. Determined by the `mode` query parameter.
+   */
+  listSubscriptions(
+    collection: string,
+    objectID: string,
+    query: ObjectListSubscriptionsParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<SubscriptionsEntriesCursor, SubscriptionsAPI.Subscription> {
+    return this._client.getAPIList(
+      path`/v1/objects/${collection}/${objectID}/subscriptions`,
+      EntriesCursor<SubscriptionsAPI.Subscription>,
+      { query, ...options },
+    );
+  }
+
+  /**
    * Creates a new object or updates an existing one in the specified collection.
    * This operation is used to identify objects with their properties, as well as
    * optional preferences and channel data.
    */
   set(collection: string, id: string, body: ObjectSetParams, options?: RequestOptions): APIPromise<Object> {
     return this._client.put(path`/v1/objects/${collection}/${id}`, { body, ...options });
+  }
+
+  /**
+   * Sets the channel data for the specified object and channel.
+   */
+  setChannelData(
+    collection: string,
+    channelID: string,
+    params: ObjectSetChannelDataParams,
+    options?: RequestOptions,
+  ): APIPromise<ChannelDataAPI.ChannelData> {
+    const { object_id, ...body } = params;
+    return this._client.put(path`/v1/objects/${collection}/${object_id}/channel_data/${channelID}`, {
+      body,
+      ...options,
+    });
+  }
+
+  /**
+   * Updates the preference set for the specified object.
+   */
+  setPreferences(
+    collection: string,
+    objectID: string,
+    id: string,
+    body: ObjectSetPreferencesParams,
+    options?: RequestOptions,
+  ): APIPromise<PreferencesAPI.PreferenceSet> {
+    return this._client.put(path`/v1/objects/${collection}/${objectID}/preferences/${id}`, {
+      body,
+      ...options,
+    });
+  }
+
+  /**
+   * Unsets the channel data for the specified object and channel.
+   */
+  unsetChannelData(
+    collection: string,
+    objectID: string,
+    channelID: string,
+    options?: RequestOptions,
+  ): APIPromise<string> {
+    return this._client.delete(
+      path`/v1/objects/${collection}/${objectID}/channel_data/${channelID}`,
+      options,
+    );
   }
 }
 
@@ -163,11 +298,50 @@ export interface Object {
  */
 export type ObjectDeleteResponse = string;
 
+/**
+ * A response containing a list of subscriptions.
+ */
+export type ObjectAddSubscriptionsResponse = Array<SubscriptionsAPI.Subscription>;
+
+/**
+ * A response containing a list of subscriptions.
+ */
+export type ObjectDeleteSubscriptionsResponse = Array<SubscriptionsAPI.Subscription>;
+
+/**
+ * A list of preference sets for the object
+ */
+export type ObjectListPreferencesResponse = Array<PreferencesAPI.PreferenceSet>;
+
+/**
+ * A `204 No Content` response.
+ */
+export type ObjectUnsetChannelDataResponse = string;
+
 export interface ObjectListParams extends EntriesCursorParams {
   /**
    * Includes preferences of the objects in the response.
    */
   include?: Array<'preferences'>;
+}
+
+export interface ObjectAddSubscriptionsParams {
+  /**
+   * The recipients of the subscription.
+   */
+  recipients: Array<RecipientsAPI.RecipientRequest>;
+
+  /**
+   * The custom properties associated with the recipients of the subscription.
+   */
+  properties?: Record<string, unknown> | null;
+}
+
+export interface ObjectDeleteSubscriptionsParams {
+  /**
+   * The recipients of the subscription.
+   */
+  recipients: Array<RecipientsAPI.RecipientReference>;
 }
 
 export interface ObjectListMessagesParams extends EntriesCursorParams {
@@ -266,6 +440,28 @@ export interface ObjectListSchedulesParams extends EntriesCursorParams {
   workflow?: string;
 }
 
+export interface ObjectListSubscriptionsParams extends EntriesCursorParams {
+  /**
+   * Additional fields to include in the response.
+   */
+  include?: Array<'preferences'>;
+
+  /**
+   * Mode of the request.
+   */
+  mode?: 'recipient' | 'object';
+
+  /**
+   * Objects to filter by (only used if mode is `recipient`).
+   */
+  objects?: Array<RecipientsAPI.RecipientReference>;
+
+  /**
+   * Recipients to filter by (only used if mode is `object`).
+   */
+  recipients?: Array<RecipientsAPI.RecipientReference>;
+}
+
 export interface ObjectSetParams {
   /**
    * A request to set channel data for a type of channel inline.
@@ -294,6 +490,82 @@ export interface ObjectSetParams {
   [k: string]: unknown;
 }
 
+export interface ObjectSetChannelDataParams {
+  /**
+   * Path param: Unique identifier for the object.
+   */
+  object_id: string;
+
+  /**
+   * Body param: Channel data for a given channel type.
+   */
+  data:
+    | ChannelDataAPI.PushChannelData
+    | ChannelDataAPI.OneSignalChannelData
+    | ChannelDataAPI.SlackChannelData
+    | ChannelDataAPI.MsTeamsChannelData
+    | ChannelDataAPI.DiscordChannelData;
+}
+
+export interface ObjectSetPreferencesParams {
+  /**
+   * An object where the key is the category and the values are the preference
+   * settings for that category.
+   */
+  categories?: Record<
+    string,
+    boolean | ObjectSetPreferencesParams.PreferenceSetWorkflowCategorySettingObject
+  > | null;
+
+  /**
+   * Channel type preferences.
+   */
+  channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
+
+  /**
+   * An object where the key is the workflow key and the values are the preference
+   * settings for that workflow.
+   */
+  workflows?: Record<
+    string,
+    boolean | ObjectSetPreferencesParams.PreferenceSetWorkflowCategorySettingObject
+  > | null;
+}
+
+export namespace ObjectSetPreferencesParams {
+  /**
+   * The settings object for a workflow or category, where you can specify channel
+   * types or conditions.
+   */
+  export interface PreferenceSetWorkflowCategorySettingObject {
+    /**
+     * Channel type preferences.
+     */
+    channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
+
+    /**
+     * A list of conditions to apply to a channel type.
+     */
+    conditions?: Array<SharedAPI.Condition> | null;
+  }
+
+  /**
+   * The settings object for a workflow or category, where you can specify channel
+   * types or conditions.
+   */
+  export interface PreferenceSetWorkflowCategorySettingObject {
+    /**
+     * Channel type preferences.
+     */
+    channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
+
+    /**
+     * A list of conditions to apply to a channel type.
+     */
+    conditions?: Array<SharedAPI.Condition> | null;
+  }
+}
+
 Objects.Bulk = Bulk;
 
 export declare namespace Objects {
@@ -301,11 +573,20 @@ export declare namespace Objects {
     type InlineObjectRequest as InlineObjectRequest,
     type Object as Object,
     type ObjectDeleteResponse as ObjectDeleteResponse,
+    type ObjectAddSubscriptionsResponse as ObjectAddSubscriptionsResponse,
+    type ObjectDeleteSubscriptionsResponse as ObjectDeleteSubscriptionsResponse,
+    type ObjectListPreferencesResponse as ObjectListPreferencesResponse,
+    type ObjectUnsetChannelDataResponse as ObjectUnsetChannelDataResponse,
     type ObjectsEntriesCursor as ObjectsEntriesCursor,
     type ObjectListParams as ObjectListParams,
+    type ObjectAddSubscriptionsParams as ObjectAddSubscriptionsParams,
+    type ObjectDeleteSubscriptionsParams as ObjectDeleteSubscriptionsParams,
     type ObjectListMessagesParams as ObjectListMessagesParams,
     type ObjectListSchedulesParams as ObjectListSchedulesParams,
+    type ObjectListSubscriptionsParams as ObjectListSubscriptionsParams,
     type ObjectSetParams as ObjectSetParams,
+    type ObjectSetChannelDataParams as ObjectSetChannelDataParams,
+    type ObjectSetPreferencesParams as ObjectSetPreferencesParams,
   };
 
   export {
@@ -316,4 +597,4 @@ export declare namespace Objects {
   };
 }
 
-export { type MessagesEntriesCursor, type SchedulesEntriesCursor };
+export { type MessagesEntriesCursor, type SchedulesEntriesCursor, type SubscriptionsEntriesCursor };
