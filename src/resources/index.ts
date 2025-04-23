@@ -33,7 +33,6 @@ export {
   Objects,
   type InlineObjectRequest,
   type Object,
-  type ObjectDeleteResponse,
   type ObjectAddSubscriptionsResponse,
   type ObjectDeleteSubscriptionsResponse,
   type ObjectListPreferencesResponse,
@@ -41,12 +40,8 @@ export {
   type ObjectListParams,
   type ObjectAddSubscriptionsParams,
   type ObjectDeleteSubscriptionsParams,
-  type ObjectListMessagesParams,
-  type ObjectListSchedulesParams,
   type ObjectListSubscriptionsParams,
-  type ObjectSetParams,
   type ObjectSetChannelDataParams,
-  type ObjectSetPreferencesParams,
   type ObjectsEntriesCursor,
 } from './objects/objects';
 export { Providers } from './providers/providers';
@@ -75,9 +70,7 @@ export {
   type InlineTenantRequest,
   type Tenant,
   type TenantRequest,
-  type TenantDeleteResponse,
   type TenantListParams,
-  type TenantSetParams,
   type TenantsEntriesCursor,
 } from './tenants/tenants';
 export {
@@ -90,13 +83,11 @@ export {
   type UserUnsetChannelDataResponse,
   type UserUpdateParams,
   type UserListParams,
-  type UserGetPreferencesParams,
   type UserListMessagesParams,
   type UserListSchedulesParams,
   type UserListSubscriptionsParams,
   type UserMergeParams,
   type UserSetChannelDataParams,
-  type UserSetPreferencesParams,
   type UsersEntriesCursor,
 } from './users/users';
 export {

@@ -1,9 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as SharedAPI from '../shared';
-import * as MessagesAPI from '../messages/messages';
-import { MessagesEntriesCursor } from '../messages/messages';
 import * as BulkAPI from './bulk';
 import { Bulk, BulkAddSubscriptionsParams, BulkDeleteParams, BulkSetParams } from './bulk';
 import * as ChannelDataAPI from '../recipients/channel-data';
@@ -11,8 +8,6 @@ import * as PreferencesAPI from '../recipients/preferences';
 import * as RecipientsAPI from '../recipients/recipients';
 import * as SubscriptionsAPI from '../recipients/subscriptions';
 import { SubscriptionsEntriesCursor } from '../recipients/subscriptions';
-import * as SchedulesAPI from '../schedules/schedules';
-import { SchedulesEntriesCursor } from '../schedules/schedules';
 import { APIPromise } from '../../core/api-promise';
 import { EntriesCursor, type EntriesCursorParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -34,14 +29,6 @@ export class Objects extends APIResource {
       query,
       ...options,
     });
-  }
-
-  /**
-   * Permanently removes an object from the specified collection. This operation
-   * cannot be undone.
-   */
-  delete(collection: string, objectID: string, options?: RequestOptions): APIPromise<string> {
-    return this._client.delete(path`/v1/objects/${collection}/${objectID}`, options);
   }
 
   /**
@@ -76,14 +63,6 @@ export class Objects extends APIResource {
   }
 
   /**
-   * Retrieves a specific object by its ID from the specified collection. Returns the
-   * object with all its properties.
-   */
-  get(collection: string, objectID: string, options?: RequestOptions): APIPromise<Object> {
-    return this._client.get(path`/v1/objects/${collection}/${objectID}`, options);
-  }
-
-  /**
    * Returns the channel data for the specified object and channel.
    */
   getChannelData(
@@ -96,39 +75,6 @@ export class Objects extends APIResource {
   }
 
   /**
-   * Returns the preference set for the specified object.
-   */
-  getPreferences(
-    collection: string,
-    objectID: string,
-    preferenceSetID: string,
-    options?: RequestOptions,
-  ): APIPromise<PreferencesAPI.PreferenceSet> {
-    return this._client.get(
-      path`/v1/objects/${collection}/${objectID}/preferences/${preferenceSetID}`,
-      options,
-    );
-  }
-
-  /**
-   * Returns a paginated list of messages for a specific object in the given
-   * collection. Allows filtering by message status and provides various sorting
-   * options.
-   */
-  listMessages(
-    collection: string,
-    objectID: string,
-    query: ObjectListMessagesParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<MessagesEntriesCursor, MessagesAPI.Message> {
-    return this._client.getAPIList(
-      path`/v1/objects/${collection}/${objectID}/messages`,
-      EntriesCursor<MessagesAPI.Message>,
-      { query, ...options },
-    );
-  }
-
-  /**
    * Returns a paginated list of preference sets for the specified object.
    */
   listPreferences(
@@ -137,22 +83,6 @@ export class Objects extends APIResource {
     options?: RequestOptions,
   ): APIPromise<ObjectListPreferencesResponse> {
     return this._client.get(path`/v1/objects/${collection}/${objectID}/preferences`, options);
-  }
-
-  /**
-   * Returns a paginated list of schedules for an object.
-   */
-  listSchedules(
-    collection: string,
-    objectID: string,
-    query: ObjectListSchedulesParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<SchedulesEntriesCursor, SchedulesAPI.Schedule> {
-    return this._client.getAPIList(
-      path`/v1/objects/${collection}/${objectID}/schedules`,
-      EntriesCursor<SchedulesAPI.Schedule>,
-      { query, ...options },
-    );
   }
 
   /**
@@ -174,20 +104,6 @@ export class Objects extends APIResource {
   }
 
   /**
-   * Creates a new object or updates an existing one in the specified collection.
-   * This operation is used to identify objects with their properties, as well as
-   * optional preferences and channel data.
-   */
-  set(
-    collection: string,
-    objectID: string,
-    body: ObjectSetParams,
-    options?: RequestOptions,
-  ): APIPromise<Object> {
-    return this._client.put(path`/v1/objects/${collection}/${objectID}`, { body, ...options });
-  }
-
-  /**
    * Sets the channel data for the specified object and channel.
    */
   setChannelData(
@@ -198,22 +114,6 @@ export class Objects extends APIResource {
     options?: RequestOptions,
   ): APIPromise<ChannelDataAPI.ChannelData> {
     return this._client.put(path`/v1/objects/${collection}/${objectID}/channel_data/${channelID}`, {
-      body,
-      ...options,
-    });
-  }
-
-  /**
-   * Updates the preference set for the specified object.
-   */
-  setPreferences(
-    collection: string,
-    objectID: string,
-    preferenceSetID: string,
-    body: ObjectSetPreferencesParams,
-    options?: RequestOptions,
-  ): APIPromise<PreferencesAPI.PreferenceSet> {
-    return this._client.put(path`/v1/objects/${collection}/${objectID}/preferences/${preferenceSetID}`, {
       body,
       ...options,
     });
@@ -302,11 +202,6 @@ export interface Object {
 }
 
 /**
- * A `204 No Content` response.
- */
-export type ObjectDeleteResponse = string;
-
-/**
  * A response containing a list of subscriptions.
  */
 export type ObjectAddSubscriptionsResponse = Array<SubscriptionsAPI.Subscription>;
@@ -352,102 +247,6 @@ export interface ObjectDeleteSubscriptionsParams {
   recipients: Array<RecipientsAPI.RecipientReference>;
 }
 
-export interface ObjectListMessagesParams extends EntriesCursorParams {
-  /**
-   * Limits the results to items with the corresponding channel ID.
-   */
-  channel_id?: string;
-
-  /**
-   * Limits the results to messages with the given engagement status.
-   */
-  engagement_status?: Array<'seen' | 'read' | 'interacted' | 'link_clicked' | 'archived'>;
-
-  inserted_at?: ObjectListMessagesParams.InsertedAt;
-
-  /**
-   * Limits the results to only the message IDs given (max 50). Note: when using this
-   * option, the results will be subject to any other filters applied to the query.
-   */
-  message_ids?: Array<string>;
-
-  /**
-   * Limits the results to messages triggered by the given workflow key.
-   */
-  source?: string;
-
-  /**
-   * Limits the results to messages with the given delivery status.
-   */
-  status?: Array<
-    'queued' | 'sent' | 'delivered' | 'delivery_attempted' | 'undelivered' | 'not_sent' | 'bounced'
-  >;
-
-  /**
-   * Limits the results to items with the corresponding tenant.
-   */
-  tenant?: string;
-
-  /**
-   * Limits the results to only messages that were generated with the given data. See
-   * [trigger data filtering](/api-reference/overview/trigger-data-filtering) for
-   * more information.
-   */
-  trigger_data?: string;
-
-  /**
-   * Limits the results to messages related to any of the provided categories.
-   */
-  workflow_categories?: Array<string>;
-
-  /**
-   * Limits the results to messages for a specific recipient's workflow run.
-   */
-  workflow_recipient_run_id?: string;
-
-  /**
-   * Limits the results to messages associated with the top-level workflow run ID
-   * returned by the workflow trigger request.
-   */
-  workflow_run_id?: string;
-}
-
-export namespace ObjectListMessagesParams {
-  export interface InsertedAt {
-    /**
-     * Limits the results to messages inserted after the given date.
-     */
-    gt?: string;
-
-    /**
-     * Limits the results to messages inserted after or on the given date.
-     */
-    gte?: string;
-
-    /**
-     * Limits the results to messages inserted before the given date.
-     */
-    lt?: string;
-
-    /**
-     * Limits the results to messages inserted before or on the given date.
-     */
-    lte?: string;
-  }
-}
-
-export interface ObjectListSchedulesParams extends EntriesCursorParams {
-  /**
-   * Filter schedules by tenant id.
-   */
-  tenant?: string;
-
-  /**
-   * Filter schedules by workflow id.
-   */
-  workflow?: string;
-}
-
 export interface ObjectListSubscriptionsParams extends EntriesCursorParams {
   /**
    * Additional fields to include in the response.
@@ -470,34 +269,6 @@ export interface ObjectListSubscriptionsParams extends EntriesCursorParams {
   recipients?: Array<RecipientsAPI.RecipientReference>;
 }
 
-export interface ObjectSetParams {
-  /**
-   * A request to set channel data for a type of channel inline.
-   */
-  channel_data?: ChannelDataAPI.InlineChannelDataRequest;
-
-  /**
-   * The locale of the object. Used for
-   * [message localization](/concepts/translations).
-   */
-  locale?: string | null;
-
-  /**
-   * Inline set preferences for a recipient, where the key is the preference set name
-   */
-  preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
-
-  /**
-   * The timezone of the object. Must be a valid
-   * [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
-   * Used for
-   * [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
-   */
-  timezone?: string | null;
-
-  [k: string]: unknown;
-}
-
 export interface ObjectSetChannelDataParams {
   /**
    * Channel data for a given channel type.
@@ -510,72 +281,12 @@ export interface ObjectSetChannelDataParams {
     | ChannelDataAPI.DiscordChannelData;
 }
 
-export interface ObjectSetPreferencesParams {
-  /**
-   * An object where the key is the category and the values are the preference
-   * settings for that category.
-   */
-  categories?: Record<
-    string,
-    boolean | ObjectSetPreferencesParams.PreferenceSetWorkflowCategorySettingObject
-  > | null;
-
-  /**
-   * Channel type preferences.
-   */
-  channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
-
-  /**
-   * An object where the key is the workflow key and the values are the preference
-   * settings for that workflow.
-   */
-  workflows?: Record<
-    string,
-    boolean | ObjectSetPreferencesParams.PreferenceSetWorkflowCategorySettingObject
-  > | null;
-}
-
-export namespace ObjectSetPreferencesParams {
-  /**
-   * The settings object for a workflow or category, where you can specify channel
-   * types or conditions.
-   */
-  export interface PreferenceSetWorkflowCategorySettingObject {
-    /**
-     * Channel type preferences.
-     */
-    channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
-
-    /**
-     * A list of conditions to apply to a channel type.
-     */
-    conditions?: Array<SharedAPI.Condition> | null;
-  }
-
-  /**
-   * The settings object for a workflow or category, where you can specify channel
-   * types or conditions.
-   */
-  export interface PreferenceSetWorkflowCategorySettingObject {
-    /**
-     * Channel type preferences.
-     */
-    channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
-
-    /**
-     * A list of conditions to apply to a channel type.
-     */
-    conditions?: Array<SharedAPI.Condition> | null;
-  }
-}
-
 Objects.Bulk = Bulk;
 
 export declare namespace Objects {
   export {
     type InlineObjectRequest as InlineObjectRequest,
     type Object as Object,
-    type ObjectDeleteResponse as ObjectDeleteResponse,
     type ObjectAddSubscriptionsResponse as ObjectAddSubscriptionsResponse,
     type ObjectDeleteSubscriptionsResponse as ObjectDeleteSubscriptionsResponse,
     type ObjectListPreferencesResponse as ObjectListPreferencesResponse,
@@ -584,12 +295,8 @@ export declare namespace Objects {
     type ObjectListParams as ObjectListParams,
     type ObjectAddSubscriptionsParams as ObjectAddSubscriptionsParams,
     type ObjectDeleteSubscriptionsParams as ObjectDeleteSubscriptionsParams,
-    type ObjectListMessagesParams as ObjectListMessagesParams,
-    type ObjectListSchedulesParams as ObjectListSchedulesParams,
     type ObjectListSubscriptionsParams as ObjectListSubscriptionsParams,
-    type ObjectSetParams as ObjectSetParams,
     type ObjectSetChannelDataParams as ObjectSetChannelDataParams,
-    type ObjectSetPreferencesParams as ObjectSetPreferencesParams,
   };
 
   export {
@@ -600,4 +307,4 @@ export declare namespace Objects {
   };
 }
 
-export { type MessagesEntriesCursor, type SchedulesEntriesCursor, type SubscriptionsEntriesCursor };
+export { type SubscriptionsEntriesCursor };

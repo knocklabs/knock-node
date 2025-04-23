@@ -6,8 +6,6 @@ export {
   type InlineTenantRequest,
   type Tenant,
   type TenantRequest,
-  type TenantDeleteResponse,
   type TenantListParams,
-  type TenantSetParams,
   type TenantsEntriesCursor,
 } from './tenants';
