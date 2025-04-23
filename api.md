@@ -132,7 +132,7 @@ Methods:
 - <code title="get /v1/objects/{collection}/{id}/schedules">client.objects.<a href="./src/resources/objects/objects.ts">listSchedules</a>(collection, id, { ...params }) -> SchedulesEntriesCursor</code>
 - <code title="get /v1/objects/{collection}/{object_id}/subscriptions">client.objects.<a href="./src/resources/objects/objects.ts">listSubscriptions</a>(collection, objectID, { ...params }) -> SubscriptionsEntriesCursor</code>
 - <code title="put /v1/objects/{collection}/{id}">client.objects.<a href="./src/resources/objects/objects.ts">set</a>(collection, id, { ...params }) -> Object</code>
-- <code title="put /v1/objects/{collection}/{object_id}/channel_data/{channel_id}">client.objects.<a href="./src/resources/objects/objects.ts">setChannelData</a>(collection, channelID, { ...params }) -> ChannelData</code>
+- <code title="put /v1/objects/{collection}/{object_id}/channel_data/{channel_id}">client.objects.<a href="./src/resources/objects/objects.ts">setChannelData</a>(collection, objectID, channelID, { ...params }) -> ChannelData</code>
 - <code title="put /v1/objects/{collection}/{object_id}/preferences/{id}">client.objects.<a href="./src/resources/objects/objects.ts">setPreferences</a>(collection, objectID, id, { ...params }) -> PreferenceSet</code>
 - <code title="delete /v1/objects/{collection}/{object_id}/channel_data/{channel_id}">client.objects.<a href="./src/resources/objects/objects.ts">unsetChannelData</a>(collection, objectID, channelID) -> string</code>
 

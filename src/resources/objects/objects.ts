@@ -184,12 +184,12 @@ export class Objects extends APIResource {
    */
   setChannelData(
     collection: string,
+    objectID: string,
     channelID: string,
-    params: ObjectSetChannelDataParams,
+    body: ObjectSetChannelDataParams,
     options?: RequestOptions,
   ): APIPromise<ChannelDataAPI.ChannelData> {
-    const { object_id, ...body } = params;
-    return this._client.put(path`/v1/objects/${collection}/${object_id}/channel_data/${channelID}`, {
+    return this._client.put(path`/v1/objects/${collection}/${objectID}/channel_data/${channelID}`, {
       body,
       ...options,
     });
@@ -492,12 +492,7 @@ export interface ObjectSetParams {
 
 export interface ObjectSetChannelDataParams {
   /**
-   * Path param: Unique identifier for the object.
-   */
-  object_id: string;
-
-  /**
-   * Body param: Channel data for a given channel type.
+   * Channel data for a given channel type.
    */
   data:
     | ChannelDataAPI.PushChannelData

@@ -253,8 +253,9 @@ describe('resource objects', () => {
   test.skip('setChannelData: only required params', async () => {
     const responsePromise = client.objects.setChannelData(
       'collection',
+      'object_id',
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      { object_id: 'object_id', data: { __typename: 'PushChannelData', tokens: ['push_token_1'] } },
+      { data: { __typename: 'PushChannelData', tokens: ['push_token_1'] } },
     );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -269,8 +270,9 @@ describe('resource objects', () => {
   test.skip('setChannelData: required and optional params', async () => {
     const response = await client.objects.setChannelData(
       'collection',
+      'object_id',
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      { object_id: 'object_id', data: { __typename: 'PushChannelData', tokens: ['push_token_1'] } },
+      { data: { __typename: 'PushChannelData', tokens: ['push_token_1'] } },
     );
   });
 
