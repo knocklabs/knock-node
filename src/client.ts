@@ -76,15 +76,11 @@ import {
 import {
   InlineObjectRequest,
   Object,
-  ObjectAddSubscriptionsParams,
-  ObjectAddSubscriptionsResponse,
-  ObjectDeleteSubscriptionsParams,
-  ObjectDeleteSubscriptionsResponse,
+  ObjectDeleteResponse,
+  ObjectListMessagesParams,
   ObjectListParams,
-  ObjectListPreferencesResponse,
-  ObjectListSubscriptionsParams,
-  ObjectSetChannelDataParams,
-  ObjectUnsetChannelDataResponse,
+  ObjectListSchedulesParams,
+  ObjectSetParams,
   Objects,
   ObjectsEntriesCursor,
 } from './resources/objects/objects';
@@ -111,8 +107,10 @@ import {
 import {
   InlineTenantRequest,
   Tenant,
+  TenantDeleteResponse,
   TenantListParams,
   TenantRequest,
+  TenantSetParams,
   Tenants,
   TenantsEntriesCursor,
 } from './resources/tenants/tenants';
@@ -121,6 +119,7 @@ import {
   InlineIdentifyUserRequest,
   User,
   UserDeleteResponse,
+  UserGetPreferencesParams,
   UserListMessagesParams,
   UserListParams,
   UserListPreferencesResponse,
@@ -128,6 +127,7 @@ import {
   UserListSubscriptionsParams,
   UserMergeParams,
   UserSetChannelDataParams,
+  UserSetPreferencesParams,
   UserUnsetChannelDataResponse,
   UserUpdateParams,
   Users,
@@ -857,27 +857,25 @@ export declare namespace Knock {
     type UsersEntriesCursor as UsersEntriesCursor,
     type UserUpdateParams as UserUpdateParams,
     type UserListParams as UserListParams,
+    type UserGetPreferencesParams as UserGetPreferencesParams,
     type UserListMessagesParams as UserListMessagesParams,
     type UserListSchedulesParams as UserListSchedulesParams,
     type UserListSubscriptionsParams as UserListSubscriptionsParams,
     type UserMergeParams as UserMergeParams,
     type UserSetChannelDataParams as UserSetChannelDataParams,
+    type UserSetPreferencesParams as UserSetPreferencesParams,
   };
 
   export {
     Objects as Objects,
     type InlineObjectRequest as InlineObjectRequest,
     type Object as Object,
-    type ObjectAddSubscriptionsResponse as ObjectAddSubscriptionsResponse,
-    type ObjectDeleteSubscriptionsResponse as ObjectDeleteSubscriptionsResponse,
-    type ObjectListPreferencesResponse as ObjectListPreferencesResponse,
-    type ObjectUnsetChannelDataResponse as ObjectUnsetChannelDataResponse,
+    type ObjectDeleteResponse as ObjectDeleteResponse,
     type ObjectsEntriesCursor as ObjectsEntriesCursor,
     type ObjectListParams as ObjectListParams,
-    type ObjectAddSubscriptionsParams as ObjectAddSubscriptionsParams,
-    type ObjectDeleteSubscriptionsParams as ObjectDeleteSubscriptionsParams,
-    type ObjectListSubscriptionsParams as ObjectListSubscriptionsParams,
-    type ObjectSetChannelDataParams as ObjectSetChannelDataParams,
+    type ObjectListMessagesParams as ObjectListMessagesParams,
+    type ObjectListSchedulesParams as ObjectListSchedulesParams,
+    type ObjectSetParams as ObjectSetParams,
   };
 
   export {
@@ -885,8 +883,10 @@ export declare namespace Knock {
     type InlineTenantRequest as InlineTenantRequest,
     type Tenant as Tenant,
     type TenantRequest as TenantRequest,
+    type TenantDeleteResponse as TenantDeleteResponse,
     type TenantsEntriesCursor as TenantsEntriesCursor,
     type TenantListParams as TenantListParams,
+    type TenantSetParams as TenantSetParams,
   };
 
   export { BulkOperations as BulkOperations, type BulkOperation as BulkOperation };

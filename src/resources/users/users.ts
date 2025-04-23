@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as SharedAPI from '../shared';
 import * as MessagesAPI from '../messages/messages';
 import { MessagesEntriesCursor } from '../messages/messages';
 import * as ChannelDataAPI from '../recipients/channel-data';
@@ -12,7 +13,13 @@ import { SchedulesEntriesCursor } from '../schedules/schedules';
 import * as BulkAPI from './bulk';
 import { Bulk, BulkDeleteParams, BulkIdentifyParams, BulkSetPreferencesParams } from './bulk';
 import * as FeedsAPI from './feeds';
-import { Feeds } from './feeds';
+import {
+  FeedGetSettingsResponse,
+  FeedListItemsParams,
+  FeedListItemsResponse,
+  FeedListItemsResponsesEntriesCursor,
+  Feeds,
+} from './feeds';
 import * as GuidesAPI from './guides';
 import {
   GuideGetChannelParams,
@@ -78,6 +85,19 @@ export class Users extends APIResource {
     options?: RequestOptions,
   ): APIPromise<ChannelDataAPI.ChannelData> {
     return this._client.get(path`/v1/users/${userID}/channel_data/${channelID}`, options);
+  }
+
+  /**
+   * Retrieves a specific preference set for a user identified by the preference set
+   * ID.
+   */
+  getPreferences(
+    userID: string,
+    id: string,
+    query: UserGetPreferencesParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<PreferencesAPI.PreferenceSet> {
+    return this._client.get(path`/v1/users/${userID}/preferences/${id}`, { query, ...options });
   }
 
   /**
@@ -152,6 +172,19 @@ export class Users extends APIResource {
     options?: RequestOptions,
   ): APIPromise<ChannelDataAPI.ChannelData> {
     return this._client.put(path`/v1/users/${userID}/channel_data/${channelID}`, { body, ...options });
+  }
+
+  /**
+   * Updates a complete preference set for a user. This is a destructive operation
+   * that will replace the existing preference set for the user.
+   */
+  setPreferences(
+    userID: string,
+    id: string,
+    body: UserSetPreferencesParams,
+    options?: RequestOptions,
+  ): APIPromise<PreferencesAPI.PreferenceSet> {
+    return this._client.put(path`/v1/users/${userID}/preferences/${id}`, { body, ...options });
   }
 
   /**
@@ -385,6 +418,13 @@ export interface UserListParams extends EntriesCursorParams {
   include?: Array<'preferences'>;
 }
 
+export interface UserGetPreferencesParams {
+  /**
+   * The unique identifier for the tenant.
+   */
+  tenant?: string;
+}
+
 export interface UserListMessagesParams extends EntriesCursorParams {
   /**
    * Limits the results to items with the corresponding channel ID.
@@ -512,6 +552,65 @@ export interface UserSetChannelDataParams {
     | ChannelDataAPI.DiscordChannelData;
 }
 
+export interface UserSetPreferencesParams {
+  /**
+   * An object where the key is the category and the values are the preference
+   * settings for that category.
+   */
+  categories?: Record<
+    string,
+    boolean | UserSetPreferencesParams.PreferenceSetWorkflowCategorySettingObject
+  > | null;
+
+  /**
+   * Channel type preferences.
+   */
+  channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
+
+  /**
+   * An object where the key is the workflow key and the values are the preference
+   * settings for that workflow.
+   */
+  workflows?: Record<
+    string,
+    boolean | UserSetPreferencesParams.PreferenceSetWorkflowCategorySettingObject
+  > | null;
+}
+
+export namespace UserSetPreferencesParams {
+  /**
+   * The settings object for a workflow or category, where you can specify channel
+   * types or conditions.
+   */
+  export interface PreferenceSetWorkflowCategorySettingObject {
+    /**
+     * Channel type preferences.
+     */
+    channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
+
+    /**
+     * A list of conditions to apply to a channel type.
+     */
+    conditions?: Array<SharedAPI.Condition> | null;
+  }
+
+  /**
+   * The settings object for a workflow or category, where you can specify channel
+   * types or conditions.
+   */
+  export interface PreferenceSetWorkflowCategorySettingObject {
+    /**
+     * Channel type preferences.
+     */
+    channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
+
+    /**
+     * A list of conditions to apply to a channel type.
+     */
+    conditions?: Array<SharedAPI.Condition> | null;
+  }
+}
+
 Users.Feeds = Feeds;
 Users.Guides = Guides;
 Users.Bulk = Bulk;
@@ -527,14 +626,22 @@ export declare namespace Users {
     type UsersEntriesCursor as UsersEntriesCursor,
     type UserUpdateParams as UserUpdateParams,
     type UserListParams as UserListParams,
+    type UserGetPreferencesParams as UserGetPreferencesParams,
     type UserListMessagesParams as UserListMessagesParams,
     type UserListSchedulesParams as UserListSchedulesParams,
     type UserListSubscriptionsParams as UserListSubscriptionsParams,
     type UserMergeParams as UserMergeParams,
     type UserSetChannelDataParams as UserSetChannelDataParams,
+    type UserSetPreferencesParams as UserSetPreferencesParams,
   };
 
-  export { Feeds as Feeds };
+  export {
+    Feeds as Feeds,
+    type FeedGetSettingsResponse as FeedGetSettingsResponse,
+    type FeedListItemsResponse as FeedListItemsResponse,
+    type FeedListItemsResponsesEntriesCursor as FeedListItemsResponsesEntriesCursor,
+    type FeedListItemsParams as FeedListItemsParams,
+  };
 
   export {
     Guides as Guides,
