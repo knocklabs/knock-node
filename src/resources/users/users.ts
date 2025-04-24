@@ -240,7 +240,7 @@ export interface IdentifyUserRequest {
   phone_number?: string | null;
 
   /**
-   * Inline set preferences for a recipient, where the key is the preference set name
+   * Inline set preferences for a recipient.
    */
   preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
 
@@ -278,7 +278,7 @@ export interface InlineIdentifyUserRequest {
   created_at?: string | null;
 
   /**
-   * Inline set preferences for a recipient, where the key is the preference set name
+   * Inline set preferences for a recipient.
    */
   preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
 
@@ -396,7 +396,7 @@ export interface UserUpdateParams {
   phone_number?: string | null;
 
   /**
-   * Inline set preferences for a recipient, where the key is the preference set name
+   * Inline set preferences for a recipient.
    */
   preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
 

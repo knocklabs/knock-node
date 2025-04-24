@@ -7,75 +7,9 @@ import * as SharedAPI from '../shared';
 export class Preferences extends APIResource {}
 
 /**
- * Inline set preferences for a recipient, where the key is the preference set name
+ * Inline set preferences for a recipient.
  */
-export type InlinePreferenceSetRequest = Array<InlinePreferenceSetRequest.InlinePreferenceSetRequestItem>;
-
-export namespace InlinePreferenceSetRequest {
-  export interface InlinePreferenceSetRequestItem {
-    /**
-     * Unique identifier for the preference set.
-     */
-    id: string;
-
-    /**
-     * An object where the key is the category and the values are the preference
-     * settings for that category.
-     */
-    categories?: Record<
-      string,
-      boolean | InlinePreferenceSetRequestItem.PreferenceSetWorkflowCategorySettingObject
-    > | null;
-
-    /**
-     * Channel type preferences.
-     */
-    channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
-
-    /**
-     * An object where the key is the workflow key and the values are the preference
-     * settings for that workflow.
-     */
-    workflows?: Record<
-      string,
-      boolean | InlinePreferenceSetRequestItem.PreferenceSetWorkflowCategorySettingObject
-    > | null;
-  }
-
-  export namespace InlinePreferenceSetRequestItem {
-    /**
-     * The settings object for a workflow or category, where you can specify channel
-     * types or conditions.
-     */
-    export interface PreferenceSetWorkflowCategorySettingObject {
-      /**
-       * Channel type preferences.
-       */
-      channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
-
-      /**
-       * A list of conditions to apply to a channel type.
-       */
-      conditions?: Array<SharedAPI.Condition> | null;
-    }
-
-    /**
-     * The settings object for a workflow or category, where you can specify channel
-     * types or conditions.
-     */
-    export interface PreferenceSetWorkflowCategorySettingObject {
-      /**
-       * Channel type preferences.
-       */
-      channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
-
-      /**
-       * A list of conditions to apply to a channel type.
-       */
-      conditions?: Array<SharedAPI.Condition> | null;
-    }
-  }
-}
+export type InlinePreferenceSetRequest = Record<string, PreferenceSetRequest>;
 
 /**
  * A preference set represents a specific set of notification preferences for a
@@ -160,32 +94,32 @@ export interface PreferenceSetChannelTypeSetting {
  */
 export interface PreferenceSetChannelTypes {
   /**
-   * Either a boolean or a setting for the given channel type.
+   * Whether the channel type is enabled for the preference set.
    */
   chat?: boolean | PreferenceSetChannelTypeSetting;
 
   /**
-   * Either a boolean or a setting for the given channel type.
+   * Whether the channel type is enabled for the preference set.
    */
   email?: boolean | PreferenceSetChannelTypeSetting;
 
   /**
-   * Either a boolean or a setting for the given channel type.
+   * Whether the channel type is enabled for the preference set.
    */
   http?: boolean | PreferenceSetChannelTypeSetting;
 
   /**
-   * Either a boolean or a setting for the given channel type.
+   * Whether the channel type is enabled for the preference set.
    */
   in_app_feed?: boolean | PreferenceSetChannelTypeSetting;
 
   /**
-   * Either a boolean or a setting for the given channel type.
+   * Whether the channel type is enabled for the preference set.
    */
   push?: boolean | PreferenceSetChannelTypeSetting;
 
   /**
-   * Either a boolean or a setting for the given channel type.
+   * Whether the channel type is enabled for the preference set.
    */
   sms?: boolean | PreferenceSetChannelTypeSetting;
 }

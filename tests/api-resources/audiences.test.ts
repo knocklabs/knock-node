@@ -27,17 +27,14 @@ describe('resource audiences', () => {
         {
           user: {
             id: 'dr_sattler',
-            channel_data: [
-              {
-                channel_id: '97c5837d-c65c-4d54-aa39-080eeb81c69d',
+            channel_data: {
+              '97c5837d-c65c-4d54-aa39-080eeb81c69d': {
                 data: { tokens: ['push_token_xxx'], type: 'push_fcm', __typename: 'PushChannelData' },
-                provider: 'push_fcm',
               },
-            ],
+            },
             created_at: '2019-12-27T18:11:19.117Z',
-            preferences: [
-              {
-                id: 'default',
+            preferences: {
+              default: {
                 categories: {
                   transactional: {
                     channel_types: {
@@ -65,7 +62,7 @@ describe('resource audiences', () => {
                   'dinosaurs-loose': {
                     channel_types: {
                       chat: true,
-                      email: true,
+                      email: false,
                       http: true,
                       in_app_feed: true,
                       push: true,
@@ -75,9 +72,10 @@ describe('resource audiences', () => {
                       { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
                     ],
                   },
+                  'welcome-sequence': true,
                 },
               },
-            ],
+            },
           },
           tenant: 'ingen_isla_nublar',
         },
@@ -118,17 +116,14 @@ describe('resource audiences', () => {
         {
           user: {
             id: 'dr_sattler',
-            channel_data: [
-              {
-                channel_id: '97c5837d-c65c-4d54-aa39-080eeb81c69d',
+            channel_data: {
+              '97c5837d-c65c-4d54-aa39-080eeb81c69d': {
                 data: { tokens: ['push_token_xxx'], type: 'push_fcm', __typename: 'PushChannelData' },
-                provider: 'push_fcm',
               },
-            ],
+            },
             created_at: '2019-12-27T18:11:19.117Z',
-            preferences: [
-              {
-                id: 'default',
+            preferences: {
+              default: {
                 categories: {
                   transactional: {
                     channel_types: {
@@ -156,7 +151,7 @@ describe('resource audiences', () => {
                   'dinosaurs-loose': {
                     channel_types: {
                       chat: true,
-                      email: true,
+                      email: false,
                       http: true,
                       in_app_feed: true,
                       push: true,
@@ -166,9 +161,10 @@ describe('resource audiences', () => {
                       { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
                     ],
                   },
+                  'welcome-sequence': true,
                 },
               },
-            ],
+            },
           },
           tenant: 'ingen_isla_nublar',
         },

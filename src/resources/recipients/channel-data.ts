@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as ChannelDataAPI from './channel-data';
 
 export class ChannelData extends APIResource {}
 
@@ -107,34 +106,7 @@ export namespace DiscordChannelData {
 /**
  * A request to set channel data for a type of channel inline.
  */
-export type InlineChannelDataRequest = Array<InlineChannelDataRequest.InlineChannelDataRequestItem>;
-
-export namespace InlineChannelDataRequest {
-  /**
-   * A request to set channel data for a type of channel inline.
-   */
-  export interface InlineChannelDataRequestItem {
-    /**
-     * The ID of the channel to associate data with.
-     */
-    channel_id: string;
-
-    /**
-     * Channel data for a given channel type.
-     */
-    data:
-      | ChannelDataAPI.PushChannelData
-      | ChannelDataAPI.OneSignalChannelData
-      | ChannelDataAPI.SlackChannelData
-      | ChannelDataAPI.MsTeamsChannelData
-      | ChannelDataAPI.DiscordChannelData;
-
-    /**
-     * The provider identifier (must match the data.type value)
-     */
-    provider: string;
-  }
-}
+export type InlineChannelDataRequest = Record<string, ChannelDataRequest>;
 
 /**
  * Microsoft Teams channel connection.
