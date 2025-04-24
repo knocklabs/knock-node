@@ -160,32 +160,32 @@ export interface PreferenceSetChannelTypeSetting {
  */
 export interface PreferenceSetChannelTypes {
   /**
-   * Whether the channel type is enabled for the preference set.
+   * Either a boolean or a setting for the given channel type.
    */
   chat?: boolean | PreferenceSetChannelTypeSetting;
 
   /**
-   * Whether the channel type is enabled for the preference set.
+   * Either a boolean or a setting for the given channel type.
    */
   email?: boolean | PreferenceSetChannelTypeSetting;
 
   /**
-   * Whether the channel type is enabled for the preference set.
+   * Either a boolean or a setting for the given channel type.
    */
   http?: boolean | PreferenceSetChannelTypeSetting;
 
   /**
-   * Whether the channel type is enabled for the preference set.
+   * Either a boolean or a setting for the given channel type.
    */
   in_app_feed?: boolean | PreferenceSetChannelTypeSetting;
 
   /**
-   * Whether the channel type is enabled for the preference set.
+   * Either a boolean or a setting for the given channel type.
    */
   push?: boolean | PreferenceSetChannelTypeSetting;
 
   /**
-   * Whether the channel type is enabled for the preference set.
+   * Either a boolean or a setting for the given channel type.
    */
   sms?: boolean | PreferenceSetChannelTypeSetting;
 }
