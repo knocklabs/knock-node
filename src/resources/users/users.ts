@@ -242,7 +242,7 @@ export interface IdentifyUserRequest {
   /**
    * A list of objects that specify the preferences for the user.
    */
-  preferences?: Array<PreferencesAPI.InlinePreferenceSetRequest>;
+  preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
 
   /**
    * The timezone of the user. Must be a valid
@@ -398,7 +398,7 @@ export interface UserUpdateParams {
   /**
    * A list of objects that specify the preferences for the user.
    */
-  preferences?: Array<PreferencesAPI.InlinePreferenceSetRequest>;
+  preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
 
   /**
    * The timezone of the user. Must be a valid

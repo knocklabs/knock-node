@@ -9,7 +9,7 @@ export class Preferences extends APIResource {}
 /**
  * A list of objects that specify the preferences for the user.
  */
-export type InlinePreferenceSetRequest = Array<InlinePreferenceSetRequest>;
+export type InlinePreferenceSetRequest = unknown;
 
 /**
  * A preference set represents a specific set of notification preferences for a

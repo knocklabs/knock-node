@@ -51,7 +51,7 @@ describe('resource bulk', () => {
             },
           ],
           created_at: '2019-12-27T18:11:19.117Z',
-          preferences: [],
+          preferences: {},
         },
       ],
     });
