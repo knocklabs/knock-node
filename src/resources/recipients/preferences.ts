@@ -7,7 +7,7 @@ import * as SharedAPI from '../shared';
 export class Preferences extends APIResource {}
 
 /**
- * Inline set preferences for a recipient.
+ * Inline set preferences for a recipient, where the key is the preference set id.
  */
 export type InlinePreferenceSetRequest = Record<string, PreferenceSetRequest>;
 
@@ -20,11 +20,6 @@ export interface PreferenceSet {
    * Unique identifier for the preference set.
    */
   id: string;
-
-  /**
-   * The typename of the schema.
-   */
-  __typename: string;
 
   /**
    * An object where the key is the category and the values are the preference

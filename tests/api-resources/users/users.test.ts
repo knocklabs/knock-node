@@ -223,7 +223,7 @@ describe('resource users', () => {
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('setChannelData: only required params', async () => {
     const responsePromise = client.users.setChannelData('user_id', '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      data: { tokens: ['push_token_1'], type: 'push_fcm' },
+      data: { tokens: ['push_token_1'] },
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -237,7 +237,7 @@ describe('resource users', () => {
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('setChannelData: required and optional params', async () => {
     const response = await client.users.setChannelData('user_id', '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      data: { tokens: ['push_token_1'], type: 'push_fcm', __typename: 'PushChannelData' },
+      data: { tokens: ['push_token_1'] },
     });
   });
 

@@ -21,7 +21,7 @@ export interface ChannelData {
   /**
    * The type of provider.
    */
-  provider:
+  provider?:
     | 'push_fcm'
     | 'push_apns'
     | 'push_expo'
@@ -30,11 +30,6 @@ export interface ChannelData {
     | 'chat_ms_teams'
     | 'chat_discord'
     | 'http_knock_webhook';
-
-  /**
-   * The typename of the schema.
-   */
-  __typename?: string;
 }
 
 /**
@@ -57,16 +52,6 @@ export interface DiscordChannelData {
   connections: Array<
     DiscordChannelData.DiscordChannelConnection | DiscordChannelData.DiscordIncomingWebhookConnection
   >;
-
-  /**
-   * The type of provider.
-   */
-  type: 'chat_discord';
-
-  /**
-   * The typename of the schema.
-   */
-  __typename?: 'DiscordChannelData';
 }
 
 export namespace DiscordChannelData {
@@ -118,16 +103,6 @@ export interface MsTeamsChannelData {
   connections: Array<
     MsTeamsChannelData.MsTeamsTokenConnection | MsTeamsChannelData.MsTeamsIncomingWebhookConnection
   >;
-
-  /**
-   * The type of provider.
-   */
-  type: 'chat_ms_teams';
-
-  /**
-   * The typename of the schema.
-   */
-  __typename?: 'MsTeamsChannelData';
 
   /**
    * Microsoft Teams tenant ID.
@@ -192,16 +167,6 @@ export interface OneSignalChannelData {
    * A list of OneSignal player IDs.
    */
   player_ids: Array<string>;
-
-  /**
-   * The type of provider.
-   */
-  type: 'push_one_signal';
-
-  /**
-   * The typename of the schema.
-   */
-  __typename?: 'OneSignalChannelData';
 }
 
 /**
@@ -212,16 +177,6 @@ export interface PushChannelData {
    * A list of push channel tokens.
    */
   tokens: Array<string>;
-
-  /**
-   * The type of provider.
-   */
-  type: 'push_fcm' | 'push_apns' | 'push_expo';
-
-  /**
-   * The typename of the schema.
-   */
-  __typename?: 'PushChannelData';
 }
 
 /**
@@ -234,19 +189,9 @@ export interface SlackChannelData {
   connections: Array<SlackChannelData.SlackTokenConnection | SlackChannelData.SlackIncomingWebhookConnection>;
 
   /**
-   * The type of provider.
-   */
-  type: 'chat_slack';
-
-  /**
    * A Slack connection token.
    */
   token?: SlackChannelData.Token | null;
-
-  /**
-   * The typename of the schema.
-   */
-  __typename?: 'SlackChannelData';
 }
 
 export namespace SlackChannelData {
