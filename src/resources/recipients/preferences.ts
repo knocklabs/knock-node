@@ -12,12 +12,9 @@ export class Preferences extends APIResource {}
 export type InlinePreferenceSetRequest = Array<InlinePreferenceSetRequest.InlinePreferenceSetRequestItem>;
 
 export namespace InlinePreferenceSetRequest {
-  /**
-   * Inline set preferences for a recipient, where the key is the preference set name
-   */
   export interface InlinePreferenceSetRequestItem {
     /**
-     * The ID of the preference set
+     * Unique identifier for the preference set.
      */
     id: string;
 
