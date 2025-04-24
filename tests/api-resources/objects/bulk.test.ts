@@ -73,7 +73,7 @@ describe('resource bulk', () => {
                         sms: true,
                       },
                       conditions: [
-                        { argument: 'some_property', operator: 'equal_to', variable: 'recipient.property' },
+                        { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
                       ],
                     },
                   },
@@ -96,7 +96,7 @@ describe('resource bulk', () => {
                         sms: true,
                       },
                       conditions: [
-                        { argument: 'some_property', operator: 'equal_to', variable: 'recipient.property' },
+                        { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
                       ],
                     },
                   },
@@ -153,7 +153,7 @@ describe('resource bulk', () => {
                     sms: true,
                   },
                   conditions: [
-                    { argument: 'some_property', operator: 'equal_to', variable: 'recipient.property' },
+                    { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
                   ],
                 },
               },
@@ -176,7 +176,7 @@ describe('resource bulk', () => {
                     sms: true,
                   },
                   conditions: [
-                    { argument: 'some_property', operator: 'equal_to', variable: 'recipient.property' },
+                    { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
                   ],
                 },
               },

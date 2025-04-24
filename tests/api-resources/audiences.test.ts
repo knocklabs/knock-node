@@ -10,7 +10,7 @@ const client = new Knock({
 describe('resource audiences', () => {
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('addMembers: only required params', async () => {
-    const responsePromise = client.audiences.addMembers('key', { members: [{ user: { id: 'user_1' } }] });
+    const responsePromise = client.audiences.addMembers('key', { members: [{ user: { id: 'dr_sattler' } }] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -26,7 +26,7 @@ describe('resource audiences', () => {
       members: [
         {
           user: {
-            id: 'user_1',
+            id: 'dr_sattler',
             channel_data: [
               {
                 channel_id: '97c5837d-c65c-4d54-aa39-080eeb81c69d',
@@ -49,7 +49,7 @@ describe('resource audiences', () => {
                       sms: true,
                     },
                     conditions: [
-                      { argument: 'some_property', operator: 'equal_to', variable: 'recipient.property' },
+                      { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
                     ],
                   },
                 },
@@ -72,14 +72,14 @@ describe('resource audiences', () => {
                       sms: true,
                     },
                     conditions: [
-                      { argument: 'some_property', operator: 'equal_to', variable: 'recipient.property' },
+                      { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
                     ],
                   },
                 },
               },
             ],
           },
-          tenant: null,
+          tenant: 'ingen_isla_nublar',
         },
       ],
     });
@@ -99,7 +99,9 @@ describe('resource audiences', () => {
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('removeMembers: only required params', async () => {
-    const responsePromise = client.audiences.removeMembers('key', { members: [{ user: { id: 'user_1' } }] });
+    const responsePromise = client.audiences.removeMembers('key', {
+      members: [{ user: { id: 'dr_sattler' } }],
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -115,7 +117,7 @@ describe('resource audiences', () => {
       members: [
         {
           user: {
-            id: 'user_1',
+            id: 'dr_sattler',
             channel_data: [
               {
                 channel_id: '97c5837d-c65c-4d54-aa39-080eeb81c69d',
@@ -138,7 +140,7 @@ describe('resource audiences', () => {
                       sms: true,
                     },
                     conditions: [
-                      { argument: 'some_property', operator: 'equal_to', variable: 'recipient.property' },
+                      { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
                     ],
                   },
                 },
@@ -161,14 +163,14 @@ describe('resource audiences', () => {
                       sms: true,
                     },
                     conditions: [
-                      { argument: 'some_property', operator: 'equal_to', variable: 'recipient.property' },
+                      { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
                     ],
                   },
                 },
               },
             ],
           },
-          tenant: null,
+          tenant: 'ingen_isla_nublar',
         },
       ],
     });

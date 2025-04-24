@@ -37,9 +37,9 @@ describe('resource guides', () => {
   test.skip('markMessageAsArchived: only required params', async () => {
     const responsePromise = client.users.guides.markMessageAsArchived('user_id', 'message_id', {
       channel_id: '123e4567-e89b-12d3-a456-426614174000',
-      guide_id: '323e4567-e89b-12d3-a456-426614174000',
-      guide_key: 'guide_12345',
-      guide_step_ref: 'step_12345',
+      guide_id: '7e9dc78c-b3b1-4127-a54e-71f1899b831a',
+      guide_key: 'tour_notification',
+      guide_step_ref: 'lab_tours',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -54,14 +54,14 @@ describe('resource guides', () => {
   test.skip('markMessageAsArchived: required and optional params', async () => {
     const response = await client.users.guides.markMessageAsArchived('user_id', 'message_id', {
       channel_id: '123e4567-e89b-12d3-a456-426614174000',
-      guide_id: '323e4567-e89b-12d3-a456-426614174000',
-      guide_key: 'guide_12345',
-      guide_step_ref: 'step_12345',
+      guide_id: '7e9dc78c-b3b1-4127-a54e-71f1899b831a',
+      guide_key: 'tour_notification',
+      guide_step_ref: 'lab_tours',
       content: { body: 'bar', title: 'bar' },
-      data: { product_id: 'bar' },
-      is_final: true,
-      metadata: { source: 'bar' },
-      tenant: 'tenant_12345',
+      data: { next_time: 'bar', spots_left: 'bar', tour_id: 'bar' },
+      is_final: false,
+      metadata: { cta: 'bar', theme: 'bar', type: 'bar' },
+      tenant: 'ingen_isla_nublar',
     });
   });
 
@@ -69,9 +69,9 @@ describe('resource guides', () => {
   test.skip('markMessageAsInteracted: only required params', async () => {
     const responsePromise = client.users.guides.markMessageAsInteracted('user_id', 'message_id', {
       channel_id: '123e4567-e89b-12d3-a456-426614174000',
-      guide_id: '323e4567-e89b-12d3-a456-426614174000',
-      guide_key: 'guide_12345',
-      guide_step_ref: 'step_12345',
+      guide_id: '7e9dc78c-b3b1-4127-a54e-71f1899b831a',
+      guide_key: 'tour_notification',
+      guide_step_ref: 'lab_tours',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -86,14 +86,14 @@ describe('resource guides', () => {
   test.skip('markMessageAsInteracted: required and optional params', async () => {
     const response = await client.users.guides.markMessageAsInteracted('user_id', 'message_id', {
       channel_id: '123e4567-e89b-12d3-a456-426614174000',
-      guide_id: '323e4567-e89b-12d3-a456-426614174000',
-      guide_key: 'guide_12345',
-      guide_step_ref: 'step_12345',
+      guide_id: '7e9dc78c-b3b1-4127-a54e-71f1899b831a',
+      guide_key: 'tour_notification',
+      guide_step_ref: 'lab_tours',
       content: { body: 'bar', title: 'bar' },
-      data: { product_id: 'bar' },
-      is_final: true,
-      metadata: { source: 'bar' },
-      tenant: 'tenant_12345',
+      data: { next_time: 'bar', spots_left: 'bar', tour_id: 'bar' },
+      is_final: false,
+      metadata: { cta: 'bar', theme: 'bar', type: 'bar' },
+      tenant: 'ingen_isla_nublar',
     });
   });
 
@@ -101,9 +101,9 @@ describe('resource guides', () => {
   test.skip('markMessageAsSeen: only required params', async () => {
     const responsePromise = client.users.guides.markMessageAsSeen('user_id', 'message_id', {
       channel_id: '123e4567-e89b-12d3-a456-426614174000',
-      guide_id: '323e4567-e89b-12d3-a456-426614174000',
-      guide_key: 'guide_12345',
-      guide_step_ref: 'step_12345',
+      guide_id: '7e9dc78c-b3b1-4127-a54e-71f1899b831a',
+      guide_key: 'tour_notification',
+      guide_step_ref: 'lab_tours',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -118,14 +118,14 @@ describe('resource guides', () => {
   test.skip('markMessageAsSeen: required and optional params', async () => {
     const response = await client.users.guides.markMessageAsSeen('user_id', 'message_id', {
       channel_id: '123e4567-e89b-12d3-a456-426614174000',
-      guide_id: '323e4567-e89b-12d3-a456-426614174000',
-      guide_key: 'guide_12345',
-      guide_step_ref: 'step_12345',
+      guide_id: '7e9dc78c-b3b1-4127-a54e-71f1899b831a',
+      guide_key: 'tour_notification',
+      guide_step_ref: 'lab_tours',
       content: { body: 'bar', title: 'bar' },
-      data: { product_id: 'bar' },
-      is_final: true,
-      metadata: { source: 'bar' },
-      tenant: 'tenant_12345',
+      data: { next_time: 'bar', spots_left: 'bar', tour_id: 'bar' },
+      is_final: false,
+      metadata: { cta: 'bar', theme: 'bar', type: 'bar' },
+      tenant: 'ingen_isla_nublar',
     });
   });
 });

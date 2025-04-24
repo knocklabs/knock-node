@@ -65,7 +65,7 @@ describe('resource bulk', () => {
                     sms: true,
                   },
                   conditions: [
-                    { argument: 'some_property', operator: 'equal_to', variable: 'recipient.property' },
+                    { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
                   ],
                 },
               },
@@ -88,7 +88,7 @@ describe('resource bulk', () => {
                     sms: true,
                   },
                   conditions: [
-                    { argument: 'some_property', operator: 'equal_to', variable: 'recipient.property' },
+                    { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
                   ],
                 },
               },
@@ -122,14 +122,18 @@ describe('resource bulk', () => {
           marketing: false,
           transactional: {
             channel_types: { chat: true, email: false, http: true, in_app_feed: true, push: true, sms: true },
-            conditions: [{ argument: 'some_property', operator: 'equal_to', variable: 'recipient.property' }],
+            conditions: [
+              { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
+            ],
           },
         },
         channel_types: { chat: true, email: true, http: true, in_app_feed: true, push: true, sms: true },
         workflows: {
           'dinosaurs-loose': {
             channel_types: { chat: true, email: false, http: true, in_app_feed: true, push: true, sms: true },
-            conditions: [{ argument: 'some_property', operator: 'equal_to', variable: 'recipient.property' }],
+            conditions: [
+              { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
+            ],
           },
         },
       },

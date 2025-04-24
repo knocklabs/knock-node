@@ -30,7 +30,9 @@ describe('resource workflows', () => {
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('trigger: only required params', async () => {
-    const responsePromise = client.workflows.trigger('key', { recipients: ['jhammond'] });
+    const responsePromise = client.workflows.trigger('key', {
+      recipients: ['dr_grant', 'dr_sattler', 'dr_malcolm'],
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -43,17 +45,18 @@ describe('resource workflows', () => {
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('trigger: required and optional params', async () => {
     const response = await client.workflows.trigger('key', {
-      recipients: ['jhammond'],
-      actor: 'string',
-      cancellation_key: null,
+      recipients: ['dr_grant', 'dr_sattler', 'dr_malcolm'],
+      actor: 'mr_dna',
+      cancellation_key: 'isla_nublar_incident_1993',
       data: {
-        dinosaur_names: 'bar',
-        is_alert: 'bar',
-        park_id: 'bar',
+        affected_areas: 'bar',
+        attraction_id: 'bar',
+        evacuation_protocol: 'bar',
+        message: 'bar',
         severity: 'bar',
-        welcome_message: 'bar',
+        system_status: 'bar',
       },
-      tenant: 'acme_corp',
+      tenant: 'ingen_isla_nublar',
     });
   });
 });

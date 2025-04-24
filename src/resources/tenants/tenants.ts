@@ -75,9 +75,56 @@ export interface Tenant {
   /**
    * The settings for the tenant. Includes branding and preference set.
    */
-  settings?: unknown | null;
+  settings?: Tenant.Settings | null;
 
   [k: string]: unknown;
+}
+
+export namespace Tenant {
+  /**
+   * The settings for the tenant. Includes branding and preference set.
+   */
+  export interface Settings {
+    /**
+     * The branding for the tenant.
+     */
+    branding?: Settings.Branding | null;
+
+    /**
+     * A preference set represents a specific set of notification preferences for a
+     * recipient. A recipient can have multiple preference sets.
+     */
+    preference_set?: PreferencesAPI.PreferenceSet | null;
+  }
+
+  export namespace Settings {
+    /**
+     * The branding for the tenant.
+     */
+    export interface Branding {
+      /**
+       * The icon URL for the tenant. Must point to a valid image with an image MIME
+       * type.
+       */
+      icon_url?: string | null;
+
+      /**
+       * The logo URL for the tenant. Must point to a valid image with an image MIME
+       * type.
+       */
+      logo_url?: string | null;
+
+      /**
+       * The primary color for the tenant, provided as a hex value.
+       */
+      primary_color?: string | null;
+
+      /**
+       * The primary color contrast for the tenant, provided as a hex value.
+       */
+      primary_color_contrast?: string | null;
+    }
+  }
 }
 
 /**
