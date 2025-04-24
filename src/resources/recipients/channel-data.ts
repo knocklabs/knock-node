@@ -10,11 +10,6 @@ export class ChannelData extends APIResource {}
  */
 export interface ChannelData {
   /**
-   * The typename of the schema.
-   */
-  __typename: string;
-
-  /**
    * The unique identifier for the channel.
    */
   channel_id: string;
@@ -23,6 +18,24 @@ export interface ChannelData {
    * Channel data for a given channel type.
    */
   data: PushChannelData | SlackChannelData | MsTeamsChannelData | DiscordChannelData | OneSignalChannelData;
+
+  /**
+   * The type of provider.
+   */
+  provider:
+    | 'push_fcm'
+    | 'push_apns'
+    | 'push_expo'
+    | 'push_one_signal'
+    | 'chat_slack'
+    | 'chat_ms_teams'
+    | 'chat_discord'
+    | 'http_knock_webhook';
+
+  /**
+   * The typename of the schema.
+   */
+  __typename?: string;
 }
 
 /**
@@ -40,11 +53,6 @@ export interface ChannelDataRequest {
  */
 export interface DiscordChannelData {
   /**
-   * The typename of the schema.
-   */
-  __typename: 'DiscordChannelData';
-
-  /**
    * List of Discord channel connections.
    */
   connections: Array<
@@ -52,9 +60,14 @@ export interface DiscordChannelData {
   >;
 
   /**
-   * The channel type identifier
+   * The type of provider.
    */
   type: 'chat_discord';
+
+  /**
+   * The typename of the schema.
+   */
+  __typename?: 'DiscordChannelData';
 }
 
 export namespace DiscordChannelData {
@@ -128,11 +141,6 @@ export namespace InlineChannelDataRequest {
  */
 export interface MsTeamsChannelData {
   /**
-   * The typename of the schema.
-   */
-  __typename: 'MsTeamsChannelData';
-
-  /**
    * List of Microsoft Teams connections.
    */
   connections: Array<
@@ -140,9 +148,14 @@ export interface MsTeamsChannelData {
   >;
 
   /**
-   * The channel type identifier
+   * The type of provider.
    */
   type: 'chat_ms_teams';
+
+  /**
+   * The typename of the schema.
+   */
+  __typename?: 'MsTeamsChannelData';
 
   /**
    * Microsoft Teams tenant ID.
@@ -204,19 +217,19 @@ export namespace MsTeamsChannelData {
  */
 export interface OneSignalChannelData {
   /**
-   * The typename of the schema.
-   */
-  __typename: 'OneSignalChannelData';
-
-  /**
    * A list of OneSignal player IDs.
    */
   player_ids: Array<string>;
 
   /**
-   * The channel type identifier
+   * The type of provider.
    */
   type: 'push_one_signal';
+
+  /**
+   * The typename of the schema.
+   */
+  __typename?: 'OneSignalChannelData';
 }
 
 /**
@@ -224,19 +237,19 @@ export interface OneSignalChannelData {
  */
 export interface PushChannelData {
   /**
-   * The typename of the schema.
-   */
-  __typename: 'PushChannelData';
-
-  /**
    * A list of push channel tokens.
    */
   tokens: Array<string>;
 
   /**
-   * The push provider type
+   * The type of provider.
    */
   type: 'push_fcm' | 'push_apns' | 'push_expo';
+
+  /**
+   * The typename of the schema.
+   */
+  __typename?: 'PushChannelData';
 }
 
 /**
@@ -244,17 +257,12 @@ export interface PushChannelData {
  */
 export interface SlackChannelData {
   /**
-   * The typename of the schema.
-   */
-  __typename: 'SlackChannelData';
-
-  /**
    * List of Slack channel connections.
    */
   connections: Array<SlackChannelData.SlackTokenConnection | SlackChannelData.SlackIncomingWebhookConnection>;
 
   /**
-   * The channel type identifier
+   * The type of provider.
    */
   type: 'chat_slack';
 
@@ -262,6 +270,11 @@ export interface SlackChannelData {
    * A Slack connection token.
    */
   token?: SlackChannelData.Token | null;
+
+  /**
+   * The typename of the schema.
+   */
+  __typename?: 'SlackChannelData';
 }
 
 export namespace SlackChannelData {

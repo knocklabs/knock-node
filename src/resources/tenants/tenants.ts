@@ -38,8 +38,8 @@ export class Tenants extends APIResource {
   }
 
   /**
-   * Set or update a tenant's properties and settings. This operation allows you to
-   * update tenant preferences, channel data, and branding settings.
+   * Sets a tenant within an environment, performing an upsert operation. Any
+   * existing properties will be merged with the incoming properties.
    */
   set(id: string, body: TenantSetParams, options?: RequestOptions): APIPromise<Tenant> {
     return this._client.put(path`/v1/tenants/${id}`, { body, ...options });
@@ -66,6 +66,16 @@ export interface Tenant {
    * The typename of the schema.
    */
   __typename: string;
+
+  /**
+   * An optional name for the tenant.
+   */
+  name?: string | null;
+
+  /**
+   * The settings for the tenant. Includes branding and preference set.
+   */
+  settings?: unknown | null;
 
   [k: string]: unknown;
 }
@@ -120,22 +130,24 @@ export namespace TenantRequest {
      */
     export interface Branding {
       /**
-       * The icon URL for the tenant.
+       * The icon URL for the tenant. Must point to a valid image with an image MIME
+       * type.
        */
       icon_url?: string | null;
 
       /**
-       * The logo URL for the tenant.
+       * The logo URL for the tenant. Must point to a valid image with an image MIME
+       * type.
        */
       logo_url?: string | null;
 
       /**
-       * The primary color for the tenant.
+       * The primary color for the tenant, provided as a hex value.
        */
       primary_color?: string | null;
 
       /**
-       * The primary color contrast for the tenant.
+       * The primary color contrast for the tenant, provided as a hex value.
        */
       primary_color_contrast?: string | null;
     }
@@ -200,22 +212,24 @@ export namespace TenantSetParams {
      */
     export interface Branding {
       /**
-       * The icon URL for the tenant.
+       * The icon URL for the tenant. Must point to a valid image with an image MIME
+       * type.
        */
       icon_url?: string | null;
 
       /**
-       * The logo URL for the tenant.
+       * The logo URL for the tenant. Must point to a valid image with an image MIME
+       * type.
        */
       logo_url?: string | null;
 
       /**
-       * The primary color for the tenant.
+       * The primary color for the tenant, provided as a hex value.
        */
       primary_color?: string | null;
 
       /**
-       * The primary color contrast for the tenant.
+       * The primary color contrast for the tenant, provided as a hex value.
        */
       primary_color_contrast?: string | null;
     }

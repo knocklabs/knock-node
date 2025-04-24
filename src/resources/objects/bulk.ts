@@ -14,14 +14,10 @@ export class Bulk extends APIResource {
    */
   delete(
     collection: string,
-    params: BulkDeleteParams,
+    body: BulkDeleteParams,
     options?: RequestOptions,
   ): APIPromise<BulkOperationsAPI.BulkOperation> {
-    const { object_ids } = params;
-    return this._client.post(path`/v1/objects/${collection}/bulk/delete`, {
-      query: { object_ids },
-      ...options,
-    });
+    return this._client.post(path`/v1/objects/${collection}/bulk/delete`, { body, ...options });
   }
 
   /**
@@ -40,7 +36,7 @@ export class Bulk extends APIResource {
   }
 
   /**
-   * Bulk sets objects in the specified collection.
+   * Bulk sets up to 1,000 objects at a time in the specified collection.
    */
   set(
     collection: string,
@@ -53,7 +49,7 @@ export class Bulk extends APIResource {
 
 export interface BulkDeleteParams {
   /**
-   * A list of object IDs.
+   * List of object IDs to delete.
    */
   object_ids: Array<string>;
 }
@@ -68,17 +64,13 @@ export interface BulkAddSubscriptionsParams {
 export namespace BulkAddSubscriptionsParams {
   export interface Subscription {
     /**
-     * Unique identifier for the subscription.
-     */
-    id: string;
-
-    /**
-     * The recipients of the subscription.
+     * The recipients of the subscription. You can subscribe up to 100 recipients to an
+     * object at a time.
      */
     recipients: Array<RecipientsAPI.RecipientRequest>;
 
     /**
-     * The custom properties associated with the recipients of the subscription.
+     * The custom properties associated with the subscription relationship.
      */
     properties?: Record<string, unknown> | null;
   }

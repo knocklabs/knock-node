@@ -24,7 +24,7 @@ export interface Subscription {
   inserted_at: string;
 
   /**
-   * A custom object entity which belongs to a collection.
+   * A custom [Object](/concepts/objects) entity which belongs to a collection.
    */
   object: ObjectsAPI.Object;
 
@@ -39,7 +39,7 @@ export interface Subscription {
   updated_at: string;
 
   /**
-   * The custom properties associated with the recipients of the subscription.
+   * The custom properties associated with the subscription relationship.
    */
   properties?: Record<string, unknown> | null;
 }

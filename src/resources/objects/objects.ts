@@ -96,7 +96,7 @@ export class Objects extends APIResource {
   }
 
   /**
-   * Returns the preference set for the specified object.
+   * Returns the preference set for the specified object and preference set `id`.
    */
   getPreferences(
     collection: string,
@@ -180,7 +180,9 @@ export class Objects extends APIResource {
   }
 
   /**
-   * Sets the channel data for the specified object and channel.
+   * Sets the channel data for the specified object and channel. If no object exists
+   * in the current environment for the given `collection` and `object_id`, Knock
+   * will create the object as part of this request.
    */
   setChannelData(
     collection: string,
@@ -196,7 +198,12 @@ export class Objects extends APIResource {
   }
 
   /**
-   * Updates the preference set for the specified object.
+   * Sets preferences within the given preference set. This is a destructive
+   * operation and will replace any existing preferences with the preferences given.
+   * If no object exists in the current environment for the given `:collection` and
+   * `:object_id`, Knock will create the object as part of this request. The
+   * preference set `:id` can be either `default` or a `tenant.id`. Learn more about
+   * [per-tenant preferences](/preferences/tenant-preferences).
    */
   setPreferences(
     collection: string,
@@ -230,7 +237,7 @@ export class Objects extends APIResource {
 export type ObjectsEntriesCursor = EntriesCursor<Object>;
 
 /**
- * A custom object entity which belongs to a collection.
+ * A custom [Object](/concepts/objects) entity which belongs to a collection.
  */
 export interface InlineObjectRequest {
   /**
@@ -262,7 +269,7 @@ export interface InlineObjectRequest {
 }
 
 /**
- * A custom object entity which belongs to a collection.
+ * A custom [Object](/concepts/objects) entity which belongs to a collection.
  */
 export interface Object {
   /**
@@ -327,19 +334,21 @@ export interface ObjectListParams extends EntriesCursorParams {
 
 export interface ObjectAddSubscriptionsParams {
   /**
-   * The recipients of the subscription.
+   * The recipients of the subscription. You can subscribe up to 100 recipients to an
+   * object at a time.
    */
   recipients: Array<RecipientsAPI.RecipientRequest>;
 
   /**
-   * The custom properties associated with the recipients of the subscription.
+   * The custom properties associated with the subscription relationship.
    */
   properties?: Record<string, unknown> | null;
 }
 
 export interface ObjectDeleteSubscriptionsParams {
   /**
-   * The recipients of the subscription.
+   * The recipients of the subscription. You can subscribe up to 100 recipients to an
+   * object at a time.
    */
   recipients: Array<RecipientsAPI.RecipientReference>;
 }
@@ -447,19 +456,38 @@ export interface ObjectListSubscriptionsParams extends EntriesCursorParams {
   include?: Array<'preferences'>;
 
   /**
-   * Mode of the request.
+   * Mode of the request. `recipient` to list the objects that the provided object is
+   * subscribed to, `object` to list the recipients that subscribe to the provided
+   * object.
    */
   mode?: 'recipient' | 'object';
 
   /**
    * Objects to filter by (only used if mode is `recipient`).
    */
-  objects?: Array<RecipientsAPI.RecipientReference>;
+  objects?: Array<ObjectListSubscriptionsParams.Object>;
 
   /**
    * Recipients to filter by (only used if mode is `object`).
    */
   recipients?: Array<RecipientsAPI.RecipientReference>;
+}
+
+export namespace ObjectListSubscriptionsParams {
+  /**
+   * A reference to a recipient object.
+   */
+  export interface Object {
+    /**
+     * An identifier for the recipient object.
+     */
+    id?: string;
+
+    /**
+     * The collection the recipient object belongs to.
+     */
+    collection?: string;
+  }
 }
 
 export interface ObjectSetParams {

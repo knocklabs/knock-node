@@ -10,7 +10,9 @@ const client = new Knock({
 describe('resource bulk', () => {
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('delete: only required params', async () => {
-    const responsePromise = client.objects.bulk.delete('collection', { object_ids: ['string'] });
+    const responsePromise = client.objects.bulk.delete('collection', {
+      object_ids: ['obj_123', 'obj_456', 'obj_789'],
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,13 +24,15 @@ describe('resource bulk', () => {
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('delete: required and optional params', async () => {
-    const response = await client.objects.bulk.delete('collection', { object_ids: ['string'] });
+    const response = await client.objects.bulk.delete('collection', {
+      object_ids: ['obj_123', 'obj_456', 'obj_789'],
+    });
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('addSubscriptions: only required params', async () => {
     const responsePromise = client.objects.bulk.addSubscriptions('projects', {
-      subscriptions: [{ id: 'project-1', recipients: [{ id: 'user_1' }] }],
+      subscriptions: [{ recipients: [{ id: 'user_1' }] }],
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -44,14 +48,13 @@ describe('resource bulk', () => {
     const response = await client.objects.bulk.addSubscriptions('projects', {
       subscriptions: [
         {
-          id: 'project-1',
           recipients: [
             {
               id: 'user_1',
               channel_data: [
                 {
                   channel_id: '97c5837d-c65c-4d54-aa39-080eeb81c69d',
-                  data: { __typename: 'PushChannelData', tokens: ['push_token_xxx'], type: 'push_fcm' },
+                  data: { tokens: ['push_token_xxx'], type: 'push_fcm', __typename: 'PushChannelData' },
                   provider: 'push_fcm',
                 },
               ],
@@ -131,7 +134,7 @@ describe('resource bulk', () => {
           channel_data: [
             {
               channel_id: '97c5837d-c65c-4d54-aa39-080eeb81c69d',
-              data: { __typename: 'PushChannelData', tokens: ['push_token_xxx'], type: 'push_fcm' },
+              data: { tokens: ['push_token_xxx'], type: 'push_fcm', __typename: 'PushChannelData' },
               provider: 'push_fcm',
             },
           ],

@@ -16,8 +16,7 @@ export class Bulk extends APIResource {
   }
 
   /**
-   * Set or update multiple tenants in a single operation. This operation allows you
-   * to create or update multiple tenants with their properties and settings.
+   * Set or update up to 1,000 tenants in a single operation.
    */
   set(body: BulkSetParams, options?: RequestOptions): APIPromise<BulkOperationsAPI.BulkOperation> {
     return this._client.post('/v1/tenants/bulk/set', { body, ...options });
