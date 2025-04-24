@@ -261,9 +261,9 @@ export interface InlineObjectRequest {
   created_at?: string | null;
 
   /**
-   * An optional set of [preferences](/concepts/preferences) for the object.
+   * Inline set preferences for a recipient, where the key is the preference set name
    */
-  preferences?: Array<PreferencesAPI.InlinePreferenceSetRequest> | null;
+  preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
 
   [k: string]: unknown;
 }

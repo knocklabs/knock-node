@@ -6,67 +6,74 @@ import * as SharedAPI from '../shared';
 
 export class Preferences extends APIResource {}
 
-export interface InlinePreferenceSetRequest {
-  /**
-   * Unique identifier for the preference set.
-   */
-  id: string;
-
-  /**
-   * An object where the key is the category and the values are the preference
-   * settings for that category.
-   */
-  categories?: Record<
-    string,
-    boolean | InlinePreferenceSetRequest.PreferenceSetWorkflowCategorySettingObject
-  > | null;
-
-  /**
-   * Channel type preferences.
-   */
-  channel_types?: PreferenceSetChannelTypes | null;
-
-  /**
-   * An object where the key is the workflow key and the values are the preference
-   * settings for that workflow.
-   */
-  workflows?: Record<
-    string,
-    boolean | InlinePreferenceSetRequest.PreferenceSetWorkflowCategorySettingObject
-  > | null;
-}
+/**
+ * Inline set preferences for a recipient, where the key is the preference set name
+ */
+export type InlinePreferenceSetRequest = Array<InlinePreferenceSetRequest.InlinePreferenceSetRequestItem>;
 
 export namespace InlinePreferenceSetRequest {
-  /**
-   * The settings object for a workflow or category, where you can specify channel
-   * types or conditions.
-   */
-  export interface PreferenceSetWorkflowCategorySettingObject {
+  export interface InlinePreferenceSetRequestItem {
+    /**
+     * Unique identifier for the preference set.
+     */
+    id: string;
+
+    /**
+     * An object where the key is the category and the values are the preference
+     * settings for that category.
+     */
+    categories?: Record<
+      string,
+      boolean | InlinePreferenceSetRequestItem.PreferenceSetWorkflowCategorySettingObject
+    > | null;
+
     /**
      * Channel type preferences.
      */
     channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
 
     /**
-     * A list of conditions to apply to a channel type.
+     * An object where the key is the workflow key and the values are the preference
+     * settings for that workflow.
      */
-    conditions?: Array<SharedAPI.Condition> | null;
+    workflows?: Record<
+      string,
+      boolean | InlinePreferenceSetRequestItem.PreferenceSetWorkflowCategorySettingObject
+    > | null;
   }
 
-  /**
-   * The settings object for a workflow or category, where you can specify channel
-   * types or conditions.
-   */
-  export interface PreferenceSetWorkflowCategorySettingObject {
+  export namespace InlinePreferenceSetRequestItem {
     /**
-     * Channel type preferences.
+     * The settings object for a workflow or category, where you can specify channel
+     * types or conditions.
      */
-    channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
+    export interface PreferenceSetWorkflowCategorySettingObject {
+      /**
+       * Channel type preferences.
+       */
+      channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
+
+      /**
+       * A list of conditions to apply to a channel type.
+       */
+      conditions?: Array<SharedAPI.Condition> | null;
+    }
 
     /**
-     * A list of conditions to apply to a channel type.
+     * The settings object for a workflow or category, where you can specify channel
+     * types or conditions.
      */
-    conditions?: Array<SharedAPI.Condition> | null;
+    export interface PreferenceSetWorkflowCategorySettingObject {
+      /**
+       * Channel type preferences.
+       */
+      channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
+
+      /**
+       * A list of conditions to apply to a channel type.
+       */
+      conditions?: Array<SharedAPI.Condition> | null;
+    }
   }
 }
 
