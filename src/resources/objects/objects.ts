@@ -261,7 +261,7 @@ export interface InlineObjectRequest {
   created_at?: string | null;
 
   /**
-   * A list of objects that specify the preferences for the user.
+   * Inline set preferences for a recipient, where the key is the preference set name
    */
   preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
 
@@ -503,9 +503,9 @@ export interface ObjectSetParams {
   locale?: string | null;
 
   /**
-   * A list of objects that specify the preferences for the user.
+   * Inline set preferences for a recipient, where the key is the preference set name
    */
-  preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
+  preferences?: PreferencesAPI.InlinePreferenceSetRequest;
 
   /**
    * The timezone of the object. Must be a valid

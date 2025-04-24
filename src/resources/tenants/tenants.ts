@@ -143,7 +143,7 @@ export interface TenantRequest {
   channel_data?: ChannelDataAPI.InlineChannelDataRequest | null;
 
   /**
-   * A list of objects that specify the preferences for the user.
+   * Inline set preferences for a recipient, where the key is the preference set name
    */
   preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
 
@@ -225,7 +225,7 @@ export interface TenantSetParams {
   channel_data?: ChannelDataAPI.InlineChannelDataRequest | null;
 
   /**
-   * A list of objects that specify the preferences for the user.
+   * Inline set preferences for a recipient, where the key is the preference set name
    */
   preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
 
