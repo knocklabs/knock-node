@@ -505,7 +505,7 @@ export interface ObjectSetParams {
   /**
    * Inline set preferences for a recipient, where the key is the preference set name
    */
-  preferences?: PreferencesAPI.InlinePreferenceSetRequest;
+  preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
 
   /**
    * The timezone of the object. Must be a valid
