@@ -35,49 +35,51 @@ describe('resource audiences', () => {
               },
             ],
             created_at: '2019-12-27T18:11:19.117Z',
-            preferences: [
-              {
-                id: 'default',
-                categories: {
-                  transactional: {
-                    channel_types: {
-                      chat: true,
-                      email: false,
-                      http: true,
-                      in_app_feed: true,
-                      push: true,
-                      sms: true,
-                    },
-                    conditions: [
-                      { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
-                    ],
+            preferences: {
+              id: 'id',
+              categories: {
+                marketing: {
+                  channel_types: {
+                    chat: true,
+                    email: false,
+                    http: true,
+                    in_app_feed: true,
+                    push: true,
+                    sms: true,
                   },
+                  conditions: [
+                    { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
+                  ],
                 },
-                channel_types: {
-                  chat: true,
-                  email: true,
-                  http: true,
-                  in_app_feed: true,
-                  push: true,
-                  sms: true,
-                },
-                workflows: {
-                  'dinosaurs-loose': {
-                    channel_types: {
-                      chat: true,
-                      email: true,
-                      http: true,
-                      in_app_feed: true,
-                      push: true,
-                      sms: true,
-                    },
-                    conditions: [
-                      { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
-                    ],
-                  },
+                transactional: true,
+              },
+              channel_types: {
+                chat: true,
+                email: true,
+                http: true,
+                in_app_feed: true,
+                push: true,
+                sms: {
+                  conditions: [{ argument: 'US', operator: 'equal_to', variable: 'recipient.country_code' }],
                 },
               },
-            ],
+              workflows: {
+                'dinosaurs-loose': {
+                  channel_types: {
+                    chat: true,
+                    email: false,
+                    http: true,
+                    in_app_feed: true,
+                    push: true,
+                    sms: true,
+                  },
+                  conditions: [
+                    { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
+                  ],
+                },
+                'welcome-sequence': true,
+              },
+            },
           },
           tenant: 'ingen_isla_nublar',
         },
@@ -126,49 +128,51 @@ describe('resource audiences', () => {
               },
             ],
             created_at: '2019-12-27T18:11:19.117Z',
-            preferences: [
-              {
-                id: 'default',
-                categories: {
-                  transactional: {
-                    channel_types: {
-                      chat: true,
-                      email: false,
-                      http: true,
-                      in_app_feed: true,
-                      push: true,
-                      sms: true,
-                    },
-                    conditions: [
-                      { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
-                    ],
+            preferences: {
+              id: 'id',
+              categories: {
+                marketing: {
+                  channel_types: {
+                    chat: true,
+                    email: false,
+                    http: true,
+                    in_app_feed: true,
+                    push: true,
+                    sms: true,
                   },
+                  conditions: [
+                    { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
+                  ],
                 },
-                channel_types: {
-                  chat: true,
-                  email: true,
-                  http: true,
-                  in_app_feed: true,
-                  push: true,
-                  sms: true,
-                },
-                workflows: {
-                  'dinosaurs-loose': {
-                    channel_types: {
-                      chat: true,
-                      email: true,
-                      http: true,
-                      in_app_feed: true,
-                      push: true,
-                      sms: true,
-                    },
-                    conditions: [
-                      { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
-                    ],
-                  },
+                transactional: true,
+              },
+              channel_types: {
+                chat: true,
+                email: true,
+                http: true,
+                in_app_feed: true,
+                push: true,
+                sms: {
+                  conditions: [{ argument: 'US', operator: 'equal_to', variable: 'recipient.country_code' }],
                 },
               },
-            ],
+              workflows: {
+                'dinosaurs-loose': {
+                  channel_types: {
+                    chat: true,
+                    email: false,
+                    http: true,
+                    in_app_feed: true,
+                    push: true,
+                    sms: true,
+                  },
+                  conditions: [
+                    { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
+                  ],
+                },
+                'welcome-sequence': true,
+              },
+            },
           },
           tenant: 'ingen_isla_nublar',
         },
