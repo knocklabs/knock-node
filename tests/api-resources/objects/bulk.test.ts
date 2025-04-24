@@ -59,49 +59,7 @@ describe('resource bulk', () => {
                 },
               ],
               created_at: '2019-12-27T18:11:19.117Z',
-              preferences: [
-                {
-                  id: 'default',
-                  categories: {
-                    transactional: {
-                      channel_types: {
-                        chat: true,
-                        email: false,
-                        http: true,
-                        in_app_feed: true,
-                        push: true,
-                        sms: true,
-                      },
-                      conditions: [
-                        { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
-                      ],
-                    },
-                  },
-                  channel_types: {
-                    chat: true,
-                    email: true,
-                    http: true,
-                    in_app_feed: true,
-                    push: true,
-                    sms: true,
-                  },
-                  workflows: {
-                    'dinosaurs-loose': {
-                      channel_types: {
-                        chat: true,
-                        email: true,
-                        http: true,
-                        in_app_feed: true,
-                        push: true,
-                        sms: true,
-                      },
-                      conditions: [
-                        { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
-                      ],
-                    },
-                  },
-                },
-              ],
+              preferences: [],
             },
           ],
           properties: { foo: 'bar' },
@@ -139,49 +97,7 @@ describe('resource bulk', () => {
             },
           ],
           created_at: '2019-12-27T18:11:19.117Z',
-          preferences: [
-            {
-              id: 'default',
-              categories: {
-                transactional: {
-                  channel_types: {
-                    chat: true,
-                    email: false,
-                    http: true,
-                    in_app_feed: true,
-                    push: true,
-                    sms: true,
-                  },
-                  conditions: [
-                    { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
-                  ],
-                },
-              },
-              channel_types: {
-                chat: true,
-                email: true,
-                http: true,
-                in_app_feed: true,
-                push: true,
-                sms: true,
-              },
-              workflows: {
-                'dinosaurs-loose': {
-                  channel_types: {
-                    chat: true,
-                    email: true,
-                    http: true,
-                    in_app_feed: true,
-                    push: true,
-                    sms: true,
-                  },
-                  conditions: [
-                    { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
-                  ],
-                },
-              },
-            },
-          ],
+          preferences: [],
         },
       ],
     });

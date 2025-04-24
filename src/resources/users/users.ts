@@ -240,9 +240,9 @@ export interface IdentifyUserRequest {
   phone_number?: string | null;
 
   /**
-   * Inline set preferences for a recipient, where the key is the preference set name
+   * A list of objects that specify the preferences for the user.
    */
-  preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
+  preferences?: Array<PreferencesAPI.InlinePreferenceSetRequest>;
 
   /**
    * The timezone of the user. Must be a valid
@@ -278,7 +278,7 @@ export interface InlineIdentifyUserRequest {
   created_at?: string | null;
 
   /**
-   * Inline set preferences for a recipient, where the key is the preference set name
+   * A list of objects that specify the preferences for the user.
    */
   preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
 
@@ -396,9 +396,9 @@ export interface UserUpdateParams {
   phone_number?: string | null;
 
   /**
-   * Inline set preferences for a recipient, where the key is the preference set name
+   * A list of objects that specify the preferences for the user.
    */
-  preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
+  preferences?: Array<PreferencesAPI.InlinePreferenceSetRequest>;
 
   /**
    * The timezone of the user. Must be a valid
