@@ -9,6 +9,11 @@ export class ChannelData extends APIResource {}
  */
 export interface ChannelData {
   /**
+   * The typename of the schema.
+   */
+  __typename: string;
+
+  /**
    * The unique identifier for the channel.
    */
   channel_id: string;

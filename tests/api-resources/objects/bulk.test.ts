@@ -11,7 +11,7 @@ describe('resource bulk', () => {
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('delete: only required params', async () => {
     const responsePromise = client.objects.bulk.delete('collection', {
-      object_ids: ['obj_123', 'obj_456', 'obj_789'],
+      body: { object_ids: ['obj_123', 'obj_456', 'obj_789'] },
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -25,7 +25,7 @@ describe('resource bulk', () => {
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('delete: required and optional params', async () => {
     const response = await client.objects.bulk.delete('collection', {
-      object_ids: ['obj_123', 'obj_456', 'obj_789'],
+      body: { object_ids: ['obj_123', 'obj_456', 'obj_789'] },
     });
   });
 
