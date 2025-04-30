@@ -1,196 +1,408 @@
-# Knock Node.js library
+# Knock TypeScript API Library
 
-Knock API access for applications written in server-side Javascript. This package is compatible with the [Vercel Edge runtime](https://vercel.com/docs/functions/runtimes/edge-runtime) and with [Cloudflare Workers](https://developers.cloudflare.com/workers/).
+[![NPM version](https://img.shields.io/npm/v/@knocklabs/node.svg)](https://npmjs.org/package/@knocklabs/node) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@knocklabs/node)
 
-## Documentation
+This library provides convenient access to the Knock REST API from server-side TypeScript or JavaScript.
 
-See the [documentation](https://docs.knock.app) for Node.js usage examples.
+The REST API documentation can be found on [docs.knock.app](https://docs.knock.app). The full API of this library can be found in [api.md](api.md).
+
+It is generated with [Stainless](https://www.stainless.com/).
 
 ## Installation
 
-```bash
-npm install @knocklabs/node
+```sh
+npm install git+ssh://git@github.com:stainless-sdks/knock-typescript.git
 ```
 
-## Configuration
-
-To use the library you must provide a secret API key, provided in the Knock dashboard.
-
-If you are using [enhanced security mode](https://docs.knock.app/client-integration/authenticating-users) you will also need to provide your signing key.
-
-You can set both as environment variables:
-
-```bash
-KNOCK_API_KEY="sk_12345"
-KNOCK_SIGNING_KEY="S25vY2sga25vY2sh..."
-```
-
-You can also pass the Knock API key in the constructor. The signing key is passed separately to the `signUserToken` method (see below):
-
-```javascript
-import { Knock } from "@knocklabs/node";
-
-const knockClient = new Knock("sk_12345");
-```
+> [!NOTE]
+> Once this package is [published to npm](https://app.stainless.com/docs/guides/publish), this will become: `npm install @knocklabs/node`
 
 ## Usage
 
-### Sending notifications (triggering workflows)
+The full API of this library can be found in [api.md](api.md).
 
-```javascript
-import { Knock } from "@knocklabs/node";
-const knockClient = new Knock("sk_12345");
+<!-- prettier-ignore -->
+```js
+import Knock from '@knocklabs/node';
 
-// The key of the workflow (from Knock dashboard)
-await knockClient.workflows.trigger("dinosaurs-loose", {
-  // user id of who performed the action
-  actor: "dnedry",
-  // list of user ids for who should receive the notification
-  recipients: ["jhammond", "agrant", "imalcolm", "esattler"],
-  // data payload to send through
-  data: {
-    type: "trex",
-    priority: 1,
+const client = new Knock({
+  bearerToken: process.env['KNOCK_API_KEY'], // This is the default and can be omitted
+});
+
+async function main() {
+  const response = await client.workflows.trigger('dinosaurs-loose', {
+    recipients: ['dnedry'],
+    data: { dinosaur: 'triceratops' },
+  });
+
+  console.log(response.workflow_run_id);
+}
+
+main();
+```
+
+### Request & Response types
+
+This library includes TypeScript definitions for all request params and response fields. You may import and use them like so:
+
+<!-- prettier-ignore -->
+```ts
+import Knock from '@knocklabs/node';
+
+const client = new Knock({
+  bearerToken: process.env['KNOCK_API_KEY'], // This is the default and can be omitted
+});
+
+async function main() {
+  const user: Knock.User = await client.users.get('dnedry');
+}
+
+main();
+```
+
+Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
+
+## Handling errors
+
+When the library is unable to connect to the API,
+or if the API returns a non-success status code (i.e., 4xx or 5xx response),
+a subclass of `APIError` will be thrown:
+
+<!-- prettier-ignore -->
+```ts
+async function main() {
+  const user = await client.users.get('dnedry').catch(async (err) => {
+    if (err instanceof Knock.APIError) {
+      console.log(err.status); // 400
+      console.log(err.name); // BadRequestError
+      console.log(err.headers); // {server: 'nginx', ...}
+    } else {
+      throw err;
+    }
+  });
+}
+
+main();
+```
+
+Error codes are as followed:
+
+| Status Code | Error Type                 |
+| ----------- | -------------------------- |
+| 400         | `BadRequestError`          |
+| 401         | `AuthenticationError`      |
+| 403         | `PermissionDeniedError`    |
+| 404         | `NotFoundError`            |
+| 422         | `UnprocessableEntityError` |
+| 429         | `RateLimitError`           |
+| >=500       | `InternalServerError`      |
+| N/A         | `APIConnectionError`       |
+
+### Retries
+
+Certain errors will be automatically retried 2 times by default, with a short exponential backoff.
+Connection errors (for example, due to a network connectivity problem), 408 Request Timeout, 409 Conflict,
+429 Rate Limit, and >=500 Internal errors will all be retried by default.
+
+You can use the `maxRetries` option to configure or disable this:
+
+<!-- prettier-ignore -->
+```js
+// Configure the default for all requests:
+const client = new Knock({
+  maxRetries: 0, // default is 2
+});
+
+// Or, configure per-request:
+await client.users.get('dnedry', {
+  maxRetries: 5,
+});
+```
+
+### Timeouts
+
+Requests time out after 1 minute by default. You can configure this with a `timeout` option:
+
+<!-- prettier-ignore -->
+```ts
+// Configure the default for all requests:
+const client = new Knock({
+  timeout: 20 * 1000, // 20 seconds (default is 1 minute)
+});
+
+// Override per-request:
+await client.users.get('dnedry', {
+  timeout: 5 * 1000,
+});
+```
+
+On timeout, an `APIConnectionTimeoutError` is thrown.
+
+Note that requests which time out will be [retried twice by default](#retries).
+
+## Auto-pagination
+
+List methods in the Knock API are paginated.
+You can use the `for await … of` syntax to iterate through items across all pages:
+
+```ts
+async function fetchAllUsers(params) {
+  const allUsers = [];
+  // Automatically fetches more pages as needed.
+  for await (const user of client.users.list()) {
+    allUsers.push(user);
+  }
+  return allUsers;
+}
+```
+
+Alternatively, you can request a single page at a time:
+
+```ts
+let page = await client.users.list();
+for (const user of page.entries) {
+  console.log(user);
+}
+
+// Convenience methods are provided for manually paginating:
+while (page.hasNextPage()) {
+  page = await page.getNextPage();
+  // ...
+}
+```
+
+## Advanced Usage
+
+### Accessing raw Response data (e.g., headers)
+
+The "raw" `Response` returned by `fetch()` can be accessed through the `.asResponse()` method on the `APIPromise` type that all methods return.
+This method returns as soon as the headers for a successful response are received and does not consume the response body, so you are free to write custom parsing or streaming logic.
+
+You can also use the `.withResponse()` method to get the raw `Response` along with the parsed data.
+Unlike `.asResponse()` this method consumes the body, returning once it is parsed.
+
+<!-- prettier-ignore -->
+```ts
+const client = new Knock();
+
+const response = await client.users.get('dnedry').asResponse();
+console.log(response.headers.get('X-My-Header'));
+console.log(response.statusText); // access the underlying Response object
+
+const { data: user, response: raw } = await client.users.get('dnedry').withResponse();
+console.log(raw.headers.get('X-My-Header'));
+console.log(user.id);
+```
+
+### Logging
+
+> [!IMPORTANT]
+> All log messages are intended for debugging only. The format and content of log messages
+> may change between releases.
+
+#### Log levels
+
+The log level can be configured in two ways:
+
+1. Via the `KNOCK_LOG` environment variable
+2. Using the `logLevel` client option (overrides the environment variable if set)
+
+```ts
+import Knock from '@knocklabs/node';
+
+const client = new Knock({
+  logLevel: 'debug', // Show all log messages
+});
+```
+
+Available log levels, from most to least verbose:
+
+- `'debug'` - Show debug messages, info, warnings, and errors
+- `'info'` - Show info messages, warnings, and errors
+- `'warn'` - Show warnings and errors (default)
+- `'error'` - Show only errors
+- `'off'` - Disable all logging
+
+At the `'debug'` level, all HTTP requests and responses are logged, including headers and bodies.
+Some authentication-related headers are redacted, but sensitive data in request and response bodies
+may still be visible.
+
+#### Custom logger
+
+By default, this library logs to `globalThis.console`. You can also provide a custom logger.
+Most logging libraries are supported, including [pino](https://www.npmjs.com/package/pino), [winston](https://www.npmjs.com/package/winston), [bunyan](https://www.npmjs.com/package/bunyan), [consola](https://www.npmjs.com/package/consola), [signale](https://www.npmjs.com/package/signale), and [@std/log](https://jsr.io/@std/log). If your logger doesn't work, please open an issue.
+
+When providing a custom logger, the `logLevel` option still controls which messages are emitted, messages
+below the configured level will not be sent to your logger.
+
+```ts
+import Knock from '@knocklabs/node';
+import pino from 'pino';
+
+const logger = pino();
+
+const client = new Knock({
+  logger: logger.child({ name: 'Knock' }),
+  logLevel: 'debug', // Send all messages to pino, allowing it to filter
+});
+```
+
+### Making custom/undocumented requests
+
+This library is typed for convenient access to the documented API. If you need to access undocumented
+endpoints, params, or response properties, the library can still be used.
+
+#### Undocumented endpoints
+
+To make requests to undocumented endpoints, you can use `client.get`, `client.post`, and other HTTP verbs.
+Options on the client, such as retries, will be respected when making these requests.
+
+```ts
+await client.post('/some/path', {
+  body: { some_prop: 'foo' },
+  query: { some_query_arg: 'bar' },
+});
+```
+
+#### Undocumented request params
+
+To make requests using undocumented parameters, you may use `// @ts-expect-error` on the undocumented
+parameter. This library doesn't validate at runtime that the request matches the type, so any extra values you
+send will be sent as-is.
+
+```ts
+client.foo.create({
+  foo: 'my_param',
+  bar: 12,
+  // @ts-expect-error baz is not yet public
+  baz: 'undocumented option',
+});
+```
+
+For requests with the `GET` verb, any extra params will be in the query, all other requests will send the
+extra param in the body.
+
+If you want to explicitly send an extra argument, you can do so with the `query`, `body`, and `headers` request
+options.
+
+#### Undocumented response properties
+
+To access undocumented response properties, you may access the response object with `// @ts-expect-error` on
+the response object, or cast the response object to the requisite type. Like the request params, we do not
+validate or strip extra properties from the response from the API.
+
+### Customizing the fetch client
+
+By default, this library expects a global `fetch` function is defined.
+
+If you want to use a different `fetch` function, you can either polyfill the global:
+
+```ts
+import fetch from 'my-fetch';
+
+globalThis.fetch = fetch;
+```
+
+Or pass it to the client:
+
+```ts
+import Knock from '@knocklabs/node';
+import fetch from 'my-fetch';
+
+const client = new Knock({ fetch });
+```
+
+### Fetch options
+
+If you want to set custom `fetch` options without overriding the `fetch` function, you can provide a `fetchOptions` object when instantiating the client or making a request. (Request-specific options override client options.)
+
+```ts
+import Knock from '@knocklabs/node';
+
+const client = new Knock({
+  fetchOptions: {
+    // `RequestInit` options
   },
-  // an optional identifier for the tenant that the notifications belong to
-  tenant: "jurassic-park",
-  // an optional key to provide to cancel a workflow
-  cancellationKey: triggerAlert.id,
 });
 ```
 
-### Canceling workflows
+#### Configuring proxies
 
-```javascript
-import { Knock } from "@knocklabs/node";
-const knockClient = new Knock("sk_12345");
+To modify proxy behavior, you can provide custom `fetchOptions` that add runtime-specific proxy
+options to requests:
 
-await knockClient.workflows.cancel("dinosaurs-loose", triggerAlert.id, {
-  // optionally you can specify recipients here
-  recipients: ["jhammond"],
-});
-```
+<img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/node.svg" align="top" width="18" height="21"> **Node** <sup>[[docs](https://github.com/nodejs/undici/blob/main/docs/docs/api/ProxyAgent.md#example---proxyagent-with-fetch)]</sup>
 
-### Identifying users
+```ts
+import Knock from '@knocklabs/node';
+import * as undici from 'undici';
 
-```javascript
-import { Knock } from "@knocklabs/node";
-const knockClient = new Knock("sk_12345");
-
-await knockClient.users.identify("jhammond", {
-  name: "John Hammond",
-  email: "jhammond@ingen.net",
-});
-```
-
-### Retrieving users
-
-```javascript
-import { Knock } from "@knocklabs/node";
-const knockClient = new Knock("sk_12345");
-
-await knockClient.users.get("jhammond");
-```
-
-### Deleting users
-
-```javascript
-import { Knock } from "@knocklabs/node";
-const knockClient = new Knock("sk_12345");
-
-await knockClient.users.delete("jhammond");
-```
-
-### Preferences
-
-```javascript
-import { Knock } from "@knocklabs/node";
-const knockClient = new Knock("sk_12345");
-
-// Set an entire preference set
-await knockClient.users.setPreferences("jhammond", {
-  channel_types: { email: true, sms: false },
-  workflows: {
-    "dinosaurs-loose": {
-      channel_types: { email: false, in_app_feed: true },
-    },
+const proxyAgent = new undici.ProxyAgent('http://localhost:8888');
+const client = new Knock({
+  fetchOptions: {
+    dispatcher: proxyAgent,
   },
 });
-
-// Retrieve a whole preference set
-const preferences = await knockClient.users.getPreferences("jhammond");
 ```
 
-### Getting and setting channel data
+<img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/bun.svg" align="top" width="18" height="21"> **Bun** <sup>[[docs](https://bun.sh/guides/http/proxy)]</sup>
 
-```javascript
-import { Knock } from "@knocklabs/node";
-const knockClient = new Knock("sk_12345");
+```ts
+import Knock from '@knocklabs/node';
 
-// Setting channel data for an APNS
-await knockClient.users.setChannelData("jhammond", KNOCK_APNS_CHANNEL_ID, {
-  tokens: [apnsToken],
+const client = new Knock({
+  fetchOptions: {
+    proxy: 'http://localhost:8888',
+  },
 });
-
-// Getting channel data for the APNS channel
-await knockClient.users.getChannelData("jhammond", KNOCK_APNS_CHANNEL_ID);
 ```
 
-### Slack
+<img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/deno.svg" align="top" width="18" height="21"> **Deno** <sup>[[docs](https://docs.deno.com/api/deno/~/Deno.createHttpClient)]</sup>
 
-```javascript
-import { Knock } from "@knocklabs/node";
-const knockClient = new Knock("sk_12345");
+```ts
+import Knock from 'npm:@knocklabs/node';
 
-const tenantId = "tenant-123";
-const knockSlackChannelId = "7c1e0042-5ef2-411a-a43b-e541acb139ed";
-// An optional object containing the query options passed to Slack:
-// https://api.slack.com/methods/conversations.list#arg_cursor
-const queryOptions = {
-  cursor: null,
-  limit: 200,
-  exclude_archived: true,
-  team_id: null,
-  types: "public_channel",
-};
-
-// Retrieve a list of Slack channels
-const channelsInput = {
-  tenant: tenantId,
-  knockChannelId: knockSlackChannelId,
-  queryOptions,
-};
-await knockClient.slack.getChannels(channelsInput);
-
-// Check Slack connection
-const authInput = { tenant: tenantId, knockChannelId: knockSlackChannelId };
-await knockClient.slack.authCheck(authInput);
-
-// Revoke access token
-const revokeInput = { tenant: tenantId, knockChannelId: knockSlackChannelId };
-await knockClient.slack.revokeAccessToken(revokeInput);
-```
-
-### Signing JWTs
-
-When using [enhanced security mode](https://docs.knock.app/client-integration/authenticating-users) (recommended in production), you will need to sign JWTs server-side to authenticate your users.
-
-You will need to generate an environment specific signing key in the Knock dashboard under "API Keys", and then enable enhanced security mode for your environment.
-
-```javascript
-import { Knock } from "@knocklabs/node";
-
-// When signing user tokens, you do not need to instantiate a Knock client.
-
-// jhammond is the user id for which to sign this token
-const token = await Knock.signUserToken("jhammond", {
-  // The signing key from the Knock Dashboard in base-64 or PEM-encoded format.
-  // If not provided, the key will be read from the KNOCK_SIGNING_KEY environment variable.
-  signingKey: "S25vY2sga25vY2sh...",
-  // Optional: How long the token should be valid for, in seconds (default 1 hour)
-  // For long-lived connections, you will need to refresh the token before it expires.
-  expiresInSeconds: 60 * 60,
+const httpClient = Deno.createHttpClient({ proxy: { url: 'http://localhost:8888' } });
+const client = new Knock({
+  fetchOptions: {
+    client: httpClient,
+  },
 });
-
-// This token can now be safely passed to your client e.g. in a cookie or API response.
 ```
+
+## Frequently Asked Questions
+
+## Semantic versioning
+
+This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:
+
+1. Changes that only affect static types, without breaking runtime behavior.
+2. Changes to library internals which are technically public but not intended or documented for external use. _(Please open a GitHub issue to let us know if you are relying on such internals.)_
+3. Changes that we do not expect to impact the vast majority of users in practice.
+
+We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
+
+We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/knock-typescript/issues) with questions, bugs, or suggestions.
+
+## Requirements
+
+TypeScript >= 4.9 is supported.
+
+The following runtimes are supported:
+
+- Web browsers (Up-to-date Chrome, Firefox, Safari, Edge, and more)
+- Node.js 18 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
+- Deno v1.28.0 or higher.
+- Bun 1.0 or later.
+- Cloudflare Workers.
+- Vercel Edge Runtime.
+- Jest 28 or greater with the `"node"` environment (`"jsdom"` is not supported at this time).
+- Nitro v2.6 or greater.
+
+Note that React Native is not supported at this time.
+
+If you are interested in other runtime environments, please open or upvote an issue on GitHub.
+
+## Contributing
+
+See [the contributing documentation](./CONTRIBUTING.md).
