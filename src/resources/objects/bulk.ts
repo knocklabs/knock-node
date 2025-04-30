@@ -14,11 +14,10 @@ export class Bulk extends APIResource {
    */
   delete(
     collection: string,
-    params: BulkDeleteParams,
+    body: BulkDeleteParams,
     options?: RequestOptions,
   ): APIPromise<BulkOperationsAPI.BulkOperation> {
-    const { body } = params;
-    return this._client.post(path`/v1/objects/${collection}/bulk/delete`, { body: body, ...options });
+    return this._client.post(path`/v1/objects/${collection}/bulk/delete`, { body, ...options });
   }
 
   /**
@@ -49,7 +48,10 @@ export class Bulk extends APIResource {
 }
 
 export interface BulkDeleteParams {
-  body: unknown;
+  /**
+   * List of object IDs to delete.
+   */
+  object_ids: Array<string>;
 }
 
 export interface BulkAddSubscriptionsParams {
