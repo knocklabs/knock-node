@@ -26,7 +26,7 @@ The full API of this library can be found in [api.md](api.md).
 import Knock from '@knocklabs/node';
 
 const client = new Knock({
-  bearerToken: process.env['KNOCK_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env['KNOCK_API_KEY'], // This is the default and can be omitted
 });
 
 async function main() {
@@ -50,7 +50,7 @@ This library includes TypeScript definitions for all request params and response
 import Knock from '@knocklabs/node';
 
 const client = new Knock({
-  bearerToken: process.env['KNOCK_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env['KNOCK_API_KEY'], // This is the default and can be omitted
 });
 
 async function main() {
