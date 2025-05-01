@@ -1,36 +1,13 @@
-import {
-  CommonMetadata,
-  PaginatedEntriesResponse,
-} from "../../common/interfaces";
-import { Knock } from "../../knock";
-import { Tenant, ListTenantsOptions, SetTenantProperties } from "./interfaces";
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export class Tenants {
-  constructor(readonly knock: Knock) {}
-
-  async list(
-    filteringOptions: ListTenantsOptions = {},
-  ): Promise<PaginatedEntriesResponse<Tenant>> {
-    const { data } = await this.knock.get("/v1/tenants", filteringOptions);
-
-    return data;
-  }
-
-  async get<T = CommonMetadata>(id: string): Promise<Tenant<T>> {
-    const { data } = await this.knock.get(`/v1/tenants/${id}`);
-    return data;
-  }
-
-  async set<T = CommonMetadata>(
-    id: string,
-    tenantData: SetTenantProperties,
-  ): Promise<Tenant<T>> {
-    const { data } = await this.knock.put(`/v1/tenants/${id}`, tenantData);
-    return data;
-  }
-
-  async delete(id: string): Promise<null> {
-    const { data } = await this.knock.delete(`/v1/tenants/${id}`);
-    return data;
-  }
-}
+export { Bulk, type BulkDeleteParams, type BulkSetParams } from './bulk';
+export {
+  Tenants,
+  type InlineTenantRequest,
+  type Tenant,
+  type TenantRequest,
+  type TenantDeleteResponse,
+  type TenantListParams,
+  type TenantSetParams,
+  type TenantsEntriesCursor,
+} from './tenants';

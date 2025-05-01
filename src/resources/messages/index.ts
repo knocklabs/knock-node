@@ -1,133 +1,39 @@
-import {
-  PaginatedItemsResponse,
-  PaginationOptions,
-} from "../../common/interfaces";
-import {
-  Message,
-  MessageContent,
-  MessageEvent,
-  ListMessageActivitiesOptions,
-  ListMessagesOptions,
-  MessageEngagementStatus,
-} from "./interfaces";
-import { Activity } from "../activities/interfaces";
-import { Knock } from "../../knock";
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export class Messages {
-  constructor(readonly knock: Knock) {}
-
-  async list(
-    filteringOptions: ListMessagesOptions = {},
-  ): Promise<PaginatedItemsResponse<Message>> {
-    const { data } = await this.knock.get("/v1/messages", filteringOptions);
-
-    return data;
-  }
-
-  async get(messageId: string): Promise<Message> {
-    if (!messageId) {
-      throw new Error(`Incomplete arguments. You must provide a 'messageId'`);
-    }
-
-    const { data } = await this.knock.get(`/v1/messages/${messageId}`);
-    return data;
-  }
-
-  async getContent(messageId: string): Promise<MessageContent> {
-    if (!messageId) {
-      throw new Error(`Incomplete arguments. You must provide a 'messageId'`);
-    }
-
-    const { data } = await this.knock.get(`/v1/messages/${messageId}/content`);
-    return data;
-  }
-
-  async getEvents(
-    messageId: string,
-    paginationOptions: PaginationOptions = {},
-  ): Promise<PaginatedItemsResponse<MessageEvent>> {
-    if (!messageId) {
-      throw new Error(`Incomplete arguments. You must provide a 'messageId'`);
-    }
-
-    const { data } = await this.knock.get(
-      `/v1/messages/${messageId}/events`,
-      paginationOptions,
-    );
-
-    return data;
-  }
-
-  async getActivities(
-    messageId: string,
-    filteringOptions: ListMessageActivitiesOptions = {},
-  ): Promise<PaginatedItemsResponse<Activity>> {
-    if (!messageId) {
-      throw new Error(`Incomplete arguments. You must provide a 'messageId'`);
-    }
-
-    const { data } = await this.knock.get(
-      `/v1/messages/${messageId}/activities`,
-      filteringOptions,
-    );
-
-    return data;
-  }
-
-  async setStatus(
-    messageId: string,
-    status: Exclude<MessageEngagementStatus, "link_clicked">,
-    metadata?: Record<string, any>,
-  ): Promise<Message> {
-    if (!messageId) {
-      throw new Error(`Incomplete arguments. You must provide a 'messageId'`);
-    }
-
-    if (status !== "interacted" && metadata) {
-      throw new Error(`Metadata is only supported for 'interacted' status.`);
-    }
-
-    const { data } = await this.knock.put(
-      `/v1/messages/${messageId}/${status}`,
-      { metadata },
-    );
-
-    return data;
-  }
-
-  async deleteStatus(
-    messageId: string,
-    status: Exclude<MessageEngagementStatus, "link_clicked">,
-  ): Promise<Message> {
-    if (!messageId) {
-      throw new Error(`Incomplete arguments. You must provide a 'messageId'`);
-    }
-
-    const { data } = await this.knock.delete(
-      `/v1/messages/${messageId}/${status}`,
-    );
-
-    return data;
-  }
-
-  async batchSetStatus(
-    messageIds: string[],
-    status:
-      | Exclude<MessageEngagementStatus, "link_clicked">
-      | "unseen"
-      | "unread"
-      | "unarchived",
-    metadata?: Record<string, any>,
-  ): Promise<Message[]> {
-    if (status !== "interacted" && metadata) {
-      throw new Error(`Metadata is only supported for 'interacted' status.`);
-    }
-
-    const { data } = await this.knock.post(`/v1/messages/batch/${status}`, {
-      message_ids: messageIds,
-      metadata,
-    });
-
-    return data;
-  }
-}
+export { Activities, type ActivityListParams } from './activities';
+export {
+  Batch,
+  type BatchArchiveResponse,
+  type BatchGetContentResponse,
+  type BatchMarkAsInteractedResponse,
+  type BatchMarkAsReadResponse,
+  type BatchMarkAsSeenResponse,
+  type BatchMarkAsUnreadResponse,
+  type BatchMarkAsUnseenResponse,
+  type BatchUnarchiveResponse,
+  type BatchArchiveParams,
+  type BatchGetContentParams,
+  type BatchMarkAsInteractedParams,
+  type BatchMarkAsReadParams,
+  type BatchMarkAsSeenParams,
+  type BatchMarkAsUnreadParams,
+  type BatchMarkAsUnseenParams,
+  type BatchUnarchiveParams,
+} from './batch';
+export {
+  Messages,
+  type Activity,
+  type Message,
+  type MessageDeliveryLog,
+  type MessageEvent,
+  type MessageGetContentResponse,
+  type MessageListParams,
+  type MessageListActivitiesParams,
+  type MessageListDeliveryLogsParams,
+  type MessageListEventsParams,
+  type MessageMarkAsInteractedParams,
+  type MessagesEntriesCursor,
+  type ActivitiesItemsCursor,
+  type MessageDeliveryLogsEntriesCursor,
+  type MessageEventsEntriesCursor,
+} from './messages';
