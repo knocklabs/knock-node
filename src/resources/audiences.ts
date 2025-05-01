@@ -103,18 +103,21 @@ export namespace AudienceAddMembersParams {
    * An audience member.
    */
   export interface Member {
-    /**
-     * A set of parameters to inline-identify a user with. Inline identifying the user
-     * will ensure that the user is available before the request is executed in Knock.
-     * It will perform an upsert for the user you're supplying, replacing any
-     * properties specified.
-     */
-    user: UsersAPI.InlineIdentifyUserRequest;
+    user: Member.User;
 
     /**
      * The unique identifier for the tenant.
      */
     tenant?: string | null;
+  }
+
+  export namespace Member {
+    export interface User {
+      /**
+       * The ID for the user that you set when identifying them in Knock.
+       */
+      id?: string;
+    }
   }
 }
 
@@ -130,18 +133,21 @@ export namespace AudienceRemoveMembersParams {
    * An audience member.
    */
   export interface Member {
-    /**
-     * A set of parameters to inline-identify a user with. Inline identifying the user
-     * will ensure that the user is available before the request is executed in Knock.
-     * It will perform an upsert for the user you're supplying, replacing any
-     * properties specified.
-     */
-    user: UsersAPI.InlineIdentifyUserRequest;
+    user: Member.User;
 
     /**
      * The unique identifier for the tenant.
      */
     tenant?: string | null;
+  }
+
+  export namespace Member {
+    export interface User {
+      /**
+       * The ID for the user that you set when identifying them in Knock.
+       */
+      id?: string;
+    }
   }
 }
 
