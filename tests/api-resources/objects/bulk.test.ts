@@ -55,6 +55,8 @@ describe('resource bulk', () => {
                 '97c5837d-c65c-4d54-aa39-080eeb81c69d': { data: { tokens: ['push_token_xxx'] } },
               },
               created_at: '2019-12-27T18:11:19.117Z',
+              email: 'email',
+              name: 'name',
               preferences: {
                 default: {
                   categories: {
@@ -98,6 +100,7 @@ describe('resource bulk', () => {
                   },
                 },
               },
+              timezone: 'timezone',
             },
           ],
           properties: { foo: 'bar' },

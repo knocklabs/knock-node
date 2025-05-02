@@ -103,6 +103,9 @@ export namespace AudienceAddMembersParams {
    * An audience member.
    */
   export interface Member {
+    /**
+     * An object containing the user's ID.
+     */
     user: Member.User;
 
     /**
@@ -112,6 +115,9 @@ export namespace AudienceAddMembersParams {
   }
 
   export namespace Member {
+    /**
+     * An object containing the user's ID.
+     */
     export interface User {
       /**
        * The ID for the user that you set when identifying them in Knock.
@@ -133,6 +139,9 @@ export namespace AudienceRemoveMembersParams {
    * An audience member.
    */
   export interface Member {
+    /**
+     * An object containing the user's ID.
+     */
     user: Member.User;
 
     /**
@@ -142,6 +151,9 @@ export namespace AudienceRemoveMembersParams {
   }
 
   export namespace Member {
+    /**
+     * An object containing the user's ID.
+     */
     export interface User {
       /**
        * The ID for the user that you set when identifying them in Knock.
