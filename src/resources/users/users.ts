@@ -234,7 +234,7 @@ export interface IdentifyUserRequest {
   name?: string | null;
 
   /**
-   * The [E.164](https://www.twilio.com/docs/glossary/what-e164) phone number of the
+   * The [E.164](https://www.twilio.com/docs/glossary/what-e164) phone number of the
    * user (required for SMS channels).
    */
   phone_number?: string | null;
@@ -245,10 +245,10 @@ export interface IdentifyUserRequest {
   preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
 
   /**
-   * The timezone of the user. Must be a valid
-   * [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
-   * Used for
-   * [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
+   * The timezone of the user. Must be a
+   * valid [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+   * Used
+   * for [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
    */
   timezone?: string | null;
 
@@ -278,9 +278,27 @@ export interface InlineIdentifyUserRequest {
   created_at?: string | null;
 
   /**
+   * The primary email address for the user.
+   */
+  email?: string | null;
+
+  /**
+   * Display name of the user.
+   */
+  name?: string | null;
+
+  /**
    * Inline set preferences for a recipient, where the key is the preference set id.
    */
   preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
+
+  /**
+   * The timezone of the user. Must be a
+   * valid [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+   * Used
+   * for [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
+   */
+  timezone?: string | null;
 
   [k: string]: unknown;
 }
@@ -327,16 +345,16 @@ export interface User {
   name?: string | null;
 
   /**
-   * The [E.164](https://www.twilio.com/docs/glossary/what-e164) phone number of the
+   * The [E.164](https://www.twilio.com/docs/glossary/what-e164) phone number of the
    * user (required for SMS channels).
    */
   phone_number?: string | null;
 
   /**
-   * The timezone of the user. Must be a valid
-   * [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
-   * Used for
-   * [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
+   * The timezone of the user. Must be a
+   * valid [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+   * Used
+   * for [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
    */
   timezone?: string | null;
 
@@ -390,7 +408,7 @@ export interface UserUpdateParams {
   name?: string | null;
 
   /**
-   * The [E.164](https://www.twilio.com/docs/glossary/what-e164) phone number of the
+   * The [E.164](https://www.twilio.com/docs/glossary/what-e164) phone number of the
    * user (required for SMS channels).
    */
   phone_number?: string | null;
@@ -401,10 +419,10 @@ export interface UserUpdateParams {
   preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
 
   /**
-   * The timezone of the user. Must be a valid
-   * [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
-   * Used for
-   * [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
+   * The timezone of the user. Must be a
+   * valid [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+   * Used
+   * for [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
    */
   timezone?: string | null;
 
