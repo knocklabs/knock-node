@@ -12,6 +12,27 @@ export class Bulk extends APIResource {
    * specified by the `channel_id` parameter. The action to perform is specified by
    * the `action` parameter, where the action is a status change action (e.g.
    * `archive`, `unarchive`).
+   *
+   * @example
+   * ```ts
+   * const bulkOperation =
+   *   await client.channels.bulk.updateMessageStatus(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     'seen',
+   *     {
+   *       archived: 'include',
+   *       delivery_status: 'delivered',
+   *       engagement_status: 'seen',
+   *       has_tenant: true,
+   *       newer_than: '2024-01-01T00:00:00Z',
+   *       older_than: '2024-01-01T00:00:00Z',
+   *       recipient_ids: ['recipient1', 'recipient2'],
+   *       tenants: ['tenant1', 'tenant2'],
+   *       trigger_data: '{"key":"value"}',
+   *       workflows: ['workflow1', 'workflow2'],
+   *     },
+   *   );
+   * ```
    */
   updateMessageStatus(
     channelID: string,

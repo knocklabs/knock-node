@@ -11,6 +11,13 @@ export class Bulk extends APIResource {
   /**
    * Deletes multiple users in a single operation. Accepts up to 100 user IDs to
    * delete and returns a bulk operation that can be queried for progress.
+   *
+   * @example
+   * ```ts
+   * const bulkOperation = await client.users.bulk.delete({
+   *   user_ids: ['user_1', 'user_2'],
+   * });
+   * ```
    */
   delete(body: BulkDeleteParams, options?: RequestOptions): APIPromise<BulkOperationsAPI.BulkOperation> {
     return this._client.post('/v1/users/bulk/delete', { body, ...options });
@@ -20,6 +27,20 @@ export class Bulk extends APIResource {
    * Identifies multiple users in a single operation. Allows creating or updating up
    * to 100 users in a single batch with various properties, preferences, and channel
    * data.
+   *
+   * @example
+   * ```ts
+   * const bulkOperation = await client.users.bulk.identify({
+   *   users: [
+   *     {
+   *       email: 'jane@ingen.net',
+   *       id: 'user_1',
+   *       name: 'Jane Doe',
+   *       timezone: 'America/New_York',
+   *     },
+   *   ],
+   * });
+   * ```
    */
   identify(body: BulkIdentifyParams, options?: RequestOptions): APIPromise<BulkOperationsAPI.BulkOperation> {
     return this._client.post('/v1/users/bulk/identify', { body, ...options });
@@ -29,6 +50,26 @@ export class Bulk extends APIResource {
    * Sets preferences for multiple users in a single operation. Supports either
    * setting the same preferences for multiple users or specific preferences for each
    * user.
+   *
+   * @example
+   * ```ts
+   * const bulkOperation =
+   *   await client.users.bulk.setPreferences({
+   *     preferences: {
+   *       categories: {
+   *         marketing: false,
+   *         transactional: { channel_types: { email: false } },
+   *       },
+   *       channel_types: { email: true },
+   *       workflows: {
+   *         'dinosaurs-loose': {
+   *           channel_types: { email: false },
+   *         },
+   *       },
+   *     },
+   *     user_ids: ['user_1', 'user_2'],
+   *   });
+   * ```
    */
   setPreferences(
     body: BulkSetPreferencesParams,

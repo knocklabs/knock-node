@@ -11,6 +11,14 @@ import { path } from '../../internal/utils/path';
 export class Bulk extends APIResource {
   /**
    * Bulk deletes objects from the specified collection.
+   *
+   * @example
+   * ```ts
+   * const bulkOperation = await client.objects.bulk.delete(
+   *   'collection',
+   *   { object_ids: ['obj_123', 'obj_456', 'obj_789'] },
+   * );
+   * ```
    */
   delete(
     collection: string,
@@ -26,6 +34,20 @@ export class Bulk extends APIResource {
    * also handles
    * [inline identifications](/managing-recipients/identifying-recipients#inline-identifying-recipients)
    * for the `recipient` field.
+   *
+   * @example
+   * ```ts
+   * const bulkOperation =
+   *   await client.objects.bulk.addSubscriptions('projects', {
+   *     subscriptions: [
+   *       {
+   *         id: 'project-1',
+   *         properties: null,
+   *         recipients: [{ id: 'user_1' }],
+   *       },
+   *     ],
+   *   });
+   * ```
    */
   addSubscriptions(
     collection: string,
@@ -37,6 +59,33 @@ export class Bulk extends APIResource {
 
   /**
    * Bulk sets up to 1,000 objects at a time in the specified collection.
+   *
+   * @example
+   * ```ts
+   * const bulkOperation = await client.objects.bulk.set(
+   *   'collection',
+   *   {
+   *     objects: [
+   *       {
+   *         collection: 'projects',
+   *         id: 'project_1',
+   *         name: {
+   *           '0': 'M',
+   *           '1': 'y',
+   *           '2': ' ',
+   *           '3': 'p',
+   *           '4': 'r',
+   *           '5': 'o',
+   *           '6': 'j',
+   *           '7': 'e',
+   *           '8': 'c',
+   *           '9': 't',
+   *         },
+   *       },
+   *     ],
+   *   },
+   * );
+   * ```
    */
   set(
     collection: string,

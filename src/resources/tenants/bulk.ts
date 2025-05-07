@@ -9,6 +9,13 @@ import { RequestOptions } from '../../internal/request-options';
 export class Bulk extends APIResource {
   /**
    * Delete multiple tenants in a single operation. This operation cannot be undone.
+   *
+   * @example
+   * ```ts
+   * const bulkOperation = await client.tenants.bulk.delete({
+   *   tenant_ids: ['string'],
+   * });
+   * ```
    */
   delete(params: BulkDeleteParams, options?: RequestOptions): APIPromise<BulkOperationsAPI.BulkOperation> {
     const { tenant_ids } = params;
@@ -17,6 +24,13 @@ export class Bulk extends APIResource {
 
   /**
    * Set or update up to 1,000 tenants in a single operation.
+   *
+   * @example
+   * ```ts
+   * const bulkOperation = await client.tenants.bulk.set({
+   *   tenants: ['[object Object]'],
+   * });
+   * ```
    */
   set(body: BulkSetParams, options?: RequestOptions): APIPromise<BulkOperationsAPI.BulkOperation> {
     return this._client.post('/v1/tenants/bulk/set', { body, ...options });

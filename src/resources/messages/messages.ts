@@ -41,6 +41,14 @@ export class Messages extends APIResource {
 
   /**
    * Returns a paginated list of messages for the current environment.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const message of client.messages.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query: MessageListParams | null | undefined = {},
@@ -52,6 +60,13 @@ export class Messages extends APIResource {
   /**
    * Archives a message for the user. Archived messages are hidden from the default
    * message list in the feed but can still be accessed and unarchived later.
+   *
+   * @example
+   * ```ts
+   * const message = await client.messages.archive(
+   *   '1jNaXzB2RZX3LY8wVQnfCKyPnv7',
+   * );
+   * ```
    */
   archive(messageID: string, options?: RequestOptions): APIPromise<Message> {
     return this._client.put(path`/v1/messages/${messageID}/archived`, options);
@@ -59,6 +74,13 @@ export class Messages extends APIResource {
 
   /**
    * Retrieves a specific message by its ID.
+   *
+   * @example
+   * ```ts
+   * const message = await client.messages.get(
+   *   '1jNaXzB2RZX3LY8wVQnfCKyPnv7',
+   * );
+   * ```
    */
   get(messageID: string, options?: RequestOptions): APIPromise<Message> {
     return this._client.get(path`/v1/messages/${messageID}`, options);
@@ -67,6 +89,13 @@ export class Messages extends APIResource {
   /**
    * Returns the fully rendered contents of a message, where the response depends on
    * which channel the message was sent through.
+   *
+   * @example
+   * ```ts
+   * const response = await client.messages.getContent(
+   *   'message_id',
+   * );
+   * ```
    */
   getContent(messageID: string, options?: RequestOptions): APIPromise<MessageGetContentResponse> {
     return this._client.get(path`/v1/messages/${messageID}/content`, options);
@@ -74,6 +103,16 @@ export class Messages extends APIResource {
 
   /**
    * Returns a paginated list of activities for the specified message.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const activity of client.messages.listActivities(
+   *   'message_id',
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   listActivities(
     messageID: string,
@@ -88,6 +127,16 @@ export class Messages extends APIResource {
 
   /**
    * Returns a paginated list of delivery logs for the specified message.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const messageDeliveryLog of client.messages.listDeliveryLogs(
+   *   'message_id',
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   listDeliveryLogs(
     messageID: string,
@@ -103,6 +152,16 @@ export class Messages extends APIResource {
 
   /**
    * Returns a paginated list of events for the specified message.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const messageEvent of client.messages.listEvents(
+   *   'message_id',
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   listEvents(
     messageID: string,
@@ -121,6 +180,13 @@ export class Messages extends APIResource {
    * Cannot include more than 5 key-value pairs, must not contain nested data. Read
    * more about message engagement statuses
    * [here](/send-notifications/message-statuses#engagement-status).
+   *
+   * @example
+   * ```ts
+   * const message = await client.messages.markAsInteracted(
+   *   '1jNaXzB2RZX3LY8wVQnfCKyPnv7',
+   * );
+   * ```
    */
   markAsInteracted(
     messageID: string,
@@ -134,6 +200,13 @@ export class Messages extends APIResource {
    * Marks a message as `read`. This indicates that the user has read the message
    * content. Read more about message engagement statuses
    * [here](/send-notifications/message-statuses#engagement-status).
+   *
+   * @example
+   * ```ts
+   * const message = await client.messages.markAsRead(
+   *   '1jNaXzB2RZX3LY8wVQnfCKyPnv7',
+   * );
+   * ```
    */
   markAsRead(messageID: string, options?: RequestOptions): APIPromise<Message> {
     return this._client.put(path`/v1/messages/${messageID}/read`, options);
@@ -143,6 +216,13 @@ export class Messages extends APIResource {
    * Marks a message as `seen`. This indicates that the user has viewed the message
    * in their feed or inbox. Read more about message engagement statuses
    * [here](/send-notifications/message-statuses#engagement-status).
+   *
+   * @example
+   * ```ts
+   * const message = await client.messages.markAsSeen(
+   *   '1jNaXzB2RZX3LY8wVQnfCKyPnv7',
+   * );
+   * ```
    */
   markAsSeen(messageID: string, options?: RequestOptions): APIPromise<Message> {
     return this._client.put(path`/v1/messages/${messageID}/seen`, options);
@@ -152,6 +232,13 @@ export class Messages extends APIResource {
    * Marks a message as `unread`. This reverses the `read` state. Read more about
    * message engagement statuses
    * [here](/send-notifications/message-statuses#engagement-status).
+   *
+   * @example
+   * ```ts
+   * const message = await client.messages.markAsUnread(
+   *   '1jNaXzB2RZX3LY8wVQnfCKyPnv7',
+   * );
+   * ```
    */
   markAsUnread(messageID: string, options?: RequestOptions): APIPromise<Message> {
     return this._client.delete(path`/v1/messages/${messageID}/read`, options);
@@ -161,6 +248,13 @@ export class Messages extends APIResource {
    * Marks a message as `unseen`. This reverses the `seen` state. Read more about
    * message engagement statuses
    * [here](/send-notifications/message-statuses#engagement-status).
+   *
+   * @example
+   * ```ts
+   * const message = await client.messages.markAsUnseen(
+   *   '1jNaXzB2RZX3LY8wVQnfCKyPnv7',
+   * );
+   * ```
    */
   markAsUnseen(messageID: string, options?: RequestOptions): APIPromise<Message> {
     return this._client.delete(path`/v1/messages/${messageID}/seen`, options);
@@ -169,6 +263,13 @@ export class Messages extends APIResource {
   /**
    * Removes a message from the archived state, making it visible in the default
    * message list in the feed again.
+   *
+   * @example
+   * ```ts
+   * const message = await client.messages.unarchive(
+   *   '1jNaXzB2RZX3LY8wVQnfCKyPnv7',
+   * );
+   * ```
    */
   unarchive(messageID: string, options?: RequestOptions): APIPromise<Message> {
     return this._client.delete(path`/v1/messages/${messageID}/archived`, options);

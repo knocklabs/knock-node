@@ -10,6 +10,16 @@ import { path } from '../../internal/utils/path';
 export class Activities extends APIResource {
   /**
    * Returns a paginated list of activities for the specified message.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const activity of client.messages.activities.list(
+   *   'message_id',
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     messageID: string,
