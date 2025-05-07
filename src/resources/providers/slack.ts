@@ -9,6 +9,14 @@ import { path } from '../../internal/utils/path';
 export class Slack extends APIResource {
   /**
    * Check if a Slack channel is authenticated.
+   *
+   * @example
+   * ```ts
+   * const response = await client.providers.slack.checkAuth(
+   *   'channel_id',
+   *   { access_token_object: 'access_token_object' },
+   * );
+   * ```
    */
   checkAuth(
     channelID: string,
@@ -20,6 +28,17 @@ export class Slack extends APIResource {
 
   /**
    * List Slack channels for a Slack workspace.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const slackListChannelsResponse of client.providers.slack.listChannels(
+   *   'channel_id',
+   *   { access_token_object: 'access_token_object' },
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   listChannels(
     channelID: string,
@@ -35,6 +54,14 @@ export class Slack extends APIResource {
 
   /**
    * Revoke access for a Slack channel.
+   *
+   * @example
+   * ```ts
+   * const response = await client.providers.slack.revokeAccess(
+   *   'channel_id',
+   *   { access_token_object: 'access_token_object' },
+   * );
+   * ```
    */
   revokeAccess(
     channelID: string,

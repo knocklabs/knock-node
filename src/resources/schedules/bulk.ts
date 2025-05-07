@@ -13,6 +13,36 @@ export class Bulk extends APIResource {
    * Bulk creates up to 1,000 schedules at a time. This endpoint also handles
    * [inline identifications](/managing-recipients/identifying-recipients#inline-identifying-recipients)
    * for the `actor`, `recipient`, and `tenant` fields.
+   *
+   * @example
+   * ```ts
+   * const bulkOperation = await client.schedules.bulk.create({
+   *   schedules: [
+   *     {
+   *       data: { ... },
+   *       ending_at: null,
+   *       recipient: 'dnedry',
+   *       repeats: [
+   *         { ... },
+   *       ],
+   *       scheduled_at: null,
+   *       tenant: 'acme_corp',
+   *       workflow: 'comment-created',
+   *     },
+   *     {
+   *       data: { ... },
+   *       ending_at: null,
+   *       recipient: 'esattler',
+   *       repeats: [
+   *         { ... },
+   *       ],
+   *       scheduled_at: null,
+   *       tenant: 'acme_corp',
+   *       workflow: 'comment-created',
+   *     },
+   *   ],
+   * });
+   * ```
    */
   create(body: BulkCreateParams, options?: RequestOptions): APIPromise<BulkOperationsAPI.BulkOperation> {
     return this._client.post('/v1/schedules/bulk/create', { body, ...options });

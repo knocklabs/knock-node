@@ -8,6 +8,13 @@ import { path } from '../internal/utils/path';
 export class BulkOperations extends APIResource {
   /**
    * Retrieves a bulk operation (if it exists) and displays the current state of it.
+   *
+   * @example
+   * ```ts
+   * const bulkOperation = await client.bulkOperations.get(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   get(id: string, options?: RequestOptions): APIPromise<BulkOperation> {
     return this._client.get(path`/v1/bulk_operations/${id}`, options);

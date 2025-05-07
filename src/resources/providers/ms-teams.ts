@@ -10,6 +10,14 @@ export class MsTeams extends APIResource {
   /**
    * Check if a connection to Microsoft Teams has been authorized for a given
    * Microsoft Teams tenant object.
+   *
+   * @example
+   * ```ts
+   * const response = await client.providers.msTeams.checkAuth(
+   *   'channel_id',
+   *   { ms_teams_tenant_object: 'ms_teams_tenant_object' },
+   * );
+   * ```
    */
   checkAuth(
     channelID: string,
@@ -22,6 +30,18 @@ export class MsTeams extends APIResource {
   /**
    * List the Microsoft Teams channels within a team. By default, archived and
    * private channels are excluded from the results.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.providers.msTeams.listChannels(
+   *     'channel_id',
+   *     {
+   *       ms_teams_tenant_object: 'ms_teams_tenant_object',
+   *       team_id: 'team_id',
+   *     },
+   *   );
+   * ```
    */
   listChannels(
     channelID: string,
@@ -34,6 +54,17 @@ export class MsTeams extends APIResource {
   /**
    * Get a list of teams belonging to the Microsoft Entra tenant. By default,
    * archived and private channels are excluded from the results.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const msTeamListTeamsResponse of client.providers.msTeams.listTeams(
+   *   'channel_id',
+   *   { ms_teams_tenant_object: 'ms_teams_tenant_object' },
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   listTeams(
     channelID: string,
@@ -49,6 +80,15 @@ export class MsTeams extends APIResource {
 
   /**
    * Remove a Microsoft Entra tenant ID from a Microsoft Teams tenant object.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.providers.msTeams.revokeAccess(
+   *     'channel_id',
+   *     { ms_teams_tenant_object: 'ms_teams_tenant_object' },
+   *   );
+   * ```
    */
   revokeAccess(
     channelID: string,

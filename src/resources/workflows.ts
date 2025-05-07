@@ -12,6 +12,14 @@ export class Workflows extends APIResource {
    * When invoked for a workflow using a specific workflow key and cancellation key,
    * will cancel any queued workflow runs associated with that key/cancellation key
    * pair. Can optionally be provided one or more recipients to scope the request to.
+   *
+   * @example
+   * ```ts
+   * const response = await client.workflows.cancel('key', {
+   *   cancellation_key: 'cancel-workflow-123',
+   *   recipients: ['jhammond'],
+   * });
+   * ```
    */
   cancel(key: string, body: WorkflowCancelParams, options?: RequestOptions): APIPromise<string> {
     return this._client.post(path`/v1/workflows/${key}/cancel`, { body, ...options });
@@ -23,6 +31,28 @@ export class Workflows extends APIResource {
    * workflow runs are executed asynchronously. This endpoint also handles
    * [inline identifications](/managing-recipients/identifying-recipients#inline-identifying-recipients)
    * for the `actor`, `recipient`, and `tenant` fields.
+   *
+   * @example
+   * ```ts
+   * const response = await client.workflows.trigger('key', {
+   *   recipients: ['dr_grant', 'dr_sattler', 'dr_malcolm'],
+   *   actor: 'mr_dna',
+   *   cancellation_key: 'isla_nublar_incident_1993',
+   *   data: {
+   *     affected_areas: [
+   *       'visitor_center',
+   *       'raptor_pen',
+   *       'trex_paddock',
+   *     ],
+   *     attraction_id: 'paddock_rex_01',
+   *     evacuation_protocol: 'active',
+   *     message: 'Life finds a way',
+   *     severity: 'critical',
+   *     system_status: 'fences_failing',
+   *   },
+   *   tenant: 'ingen_isla_nublar',
+   * });
+   * ```
    */
   trigger(
     key: string,
