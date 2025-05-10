@@ -18,6 +18,35 @@ export class Schedules extends APIResource {
    * handles
    * [inline identifications](/managing-recipients/identifying-recipients#inline-identifying-recipients)
    * for the `actor`, `recipient`, and `tenant` fields.
+   *
+   * @example
+   * ```ts
+   * const schedules = await client.schedules.create({
+   *   recipients: ['user_123'],
+   *   repeats: [
+   *     {
+   *       __typename: 'ScheduleRepeat',
+   *       day_of_month: null,
+   *       days: [
+   *         'mon',
+   *         'tue',
+   *         'wed',
+   *         'thu',
+   *         'fri',
+   *         'sat',
+   *         'sun',
+   *       ],
+   *       frequency: 'daily',
+   *       hours: null,
+   *       interval: 1,
+   *       minutes: null,
+   *     },
+   *   ],
+   *   workflow: 'comment-created',
+   *   data: { key: 'value' },
+   *   tenant: 'acme_corp',
+   * });
+   * ```
    */
   create(body: ScheduleCreateParams, options?: RequestOptions): APIPromise<ScheduleCreateResponse> {
     return this._client.post('/v1/schedules', { body, ...options });
@@ -29,6 +58,34 @@ export class Schedules extends APIResource {
    * This endpoint also handles
    * [inline identifications](/managing-recipients/identifying-recipients#inline-identifying-recipients)
    * for the `actor`, `recipient`, and `tenant` fields.
+   *
+   * @example
+   * ```ts
+   * const schedules = await client.schedules.update({
+   *   schedule_ids: ['123e4567-e89b-12d3-a456-426614174000'],
+   *   data: { key: 'value' },
+   *   repeats: [
+   *     {
+   *       __typename: 'ScheduleRepeat',
+   *       day_of_month: null,
+   *       days: [
+   *         'mon',
+   *         'tue',
+   *         'wed',
+   *         'thu',
+   *         'fri',
+   *         'sat',
+   *         'sun',
+   *       ],
+   *       frequency: 'daily',
+   *       hours: null,
+   *       interval: 1,
+   *       minutes: null,
+   *     },
+   *   ],
+   *   tenant: 'acme_corp',
+   * });
+   * ```
    */
   update(body: ScheduleUpdateParams, options?: RequestOptions): APIPromise<ScheduleUpdateResponse> {
     return this._client.put('/v1/schedules', { body, ...options });
@@ -37,6 +94,16 @@ export class Schedules extends APIResource {
   /**
    * Returns a paginated list of schedules for the current environment, filtered by
    * workflow and optionally by recipients and tenant.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const schedule of client.schedules.list({
+   *   workflow: 'workflow',
+   * })) {
+   *   // ...
+   * }
+   * ```
    */
   list(query: ScheduleListParams, options?: RequestOptions): PagePromise<SchedulesEntriesCursor, Schedule> {
     return this._client.getAPIList('/v1/schedules', EntriesCursor<Schedule>, { query, ...options });
@@ -45,6 +112,13 @@ export class Schedules extends APIResource {
   /**
    * Permanently deletes one or more schedules identified by the provided schedule
    * IDs. This operation cannot be undone.
+   *
+   * @example
+   * ```ts
+   * const schedules = await client.schedules.delete({
+   *   schedule_ids: ['123e4567-e89b-12d3-a456-426614174000'],
+   * });
+   * ```
    */
   delete(body: ScheduleDeleteParams, options?: RequestOptions): APIPromise<ScheduleDeleteResponse> {
     return this._client.delete('/v1/schedules', { body, ...options });

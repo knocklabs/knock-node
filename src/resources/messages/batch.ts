@@ -9,6 +9,16 @@ export class Batch extends APIResource {
   /**
    * Marks the given messages as archived. Archived messages are hidden from the
    * default message list in the feed but can still be accessed and unarchived later.
+   *
+   * @example
+   * ```ts
+   * const messages = await client.messages.batch.archive({
+   *   message_ids: [
+   *     '2w3YUpTTOxuDvZFji8OMsKrG176',
+   *     '2w3YVRbPXMIh8Zq6oBFcVDA5xes',
+   *   ],
+   * });
+   * ```
    */
   archive(body: BatchArchiveParams, options?: RequestOptions): APIPromise<BatchArchiveResponse> {
     return this._client.post('/v1/messages/batch/archived', { body, ...options });
@@ -16,6 +26,13 @@ export class Batch extends APIResource {
 
   /**
    * Get the contents of multiple messages in a single request.
+   *
+   * @example
+   * ```ts
+   * const response = await client.messages.batch.getContent({
+   *   message_ids: ['string'],
+   * });
+   * ```
    */
   getContent(query: BatchGetContentParams, options?: RequestOptions): APIPromise<BatchGetContentResponse> {
     return this._client.get('/v1/messages/batch/content', { query, ...options });
@@ -27,6 +44,15 @@ export class Batch extends APIResource {
    * interaction. Cannot include more than 5 key-value pairs, must not contain nested
    * data. Read more about message engagement statuses
    * [here](/send-notifications/message-statuses#engagement-status).
+   *
+   * @example
+   * ```ts
+   * const messages =
+   *   await client.messages.batch.markAsInteracted({
+   *     message_ids: ['1jNaXzB2RZX3LY8wVQnfCKyPnv7'],
+   *     metadata: { key: 'value' },
+   *   });
+   * ```
    */
   markAsInteracted(
     body: BatchMarkAsInteractedParams,
@@ -38,6 +64,16 @@ export class Batch extends APIResource {
   /**
    * Marks the given messages as `read`. Read more about message engagement statuses
    * [here](/send-notifications/message-statuses#engagement-status).
+   *
+   * @example
+   * ```ts
+   * const messages = await client.messages.batch.markAsRead({
+   *   message_ids: [
+   *     '2w3YUpTTOxuDvZFji8OMsKrG176',
+   *     '2w3YVRbPXMIh8Zq6oBFcVDA5xes',
+   *   ],
+   * });
+   * ```
    */
   markAsRead(body: BatchMarkAsReadParams, options?: RequestOptions): APIPromise<BatchMarkAsReadResponse> {
     return this._client.post('/v1/messages/batch/read', { body, ...options });
@@ -47,6 +83,16 @@ export class Batch extends APIResource {
    * Marks the given messages as `seen`. This indicates that the user has viewed the
    * message in their feed or inbox. Read more about message engagement statuses
    * [here](/send-notifications/message-statuses#engagement-status).
+   *
+   * @example
+   * ```ts
+   * const messages = await client.messages.batch.markAsSeen({
+   *   message_ids: [
+   *     '2w3YUpTTOxuDvZFji8OMsKrG176',
+   *     '2w3YVRbPXMIh8Zq6oBFcVDA5xes',
+   *   ],
+   * });
+   * ```
    */
   markAsSeen(body: BatchMarkAsSeenParams, options?: RequestOptions): APIPromise<BatchMarkAsSeenResponse> {
     return this._client.post('/v1/messages/batch/seen', { body, ...options });
@@ -56,6 +102,16 @@ export class Batch extends APIResource {
    * Marks the given messages as `unread`. This reverses the `read` state. Read more
    * about message engagement statuses
    * [here](/send-notifications/message-statuses#engagement-status).
+   *
+   * @example
+   * ```ts
+   * const messages = await client.messages.batch.markAsUnread({
+   *   message_ids: [
+   *     '2w3YUpTTOxuDvZFji8OMsKrG176',
+   *     '2w3YVRbPXMIh8Zq6oBFcVDA5xes',
+   *   ],
+   * });
+   * ```
    */
   markAsUnread(
     body: BatchMarkAsUnreadParams,
@@ -68,6 +124,16 @@ export class Batch extends APIResource {
    * Marks the given messages as `unseen`. This reverses the `seen` state. Read more
    * about message engagement statuses
    * [here](/send-notifications/message-statuses#engagement-status).
+   *
+   * @example
+   * ```ts
+   * const messages = await client.messages.batch.markAsUnseen({
+   *   message_ids: [
+   *     '2w3YUpTTOxuDvZFji8OMsKrG176',
+   *     '2w3YVRbPXMIh8Zq6oBFcVDA5xes',
+   *   ],
+   * });
+   * ```
    */
   markAsUnseen(
     body: BatchMarkAsUnseenParams,
@@ -80,6 +146,16 @@ export class Batch extends APIResource {
    * Marks the given messages as unarchived. This reverses the `archived` state.
    * Archived messages are hidden from the default message list in the feed but can
    * still be accessed and unarchived later.
+   *
+   * @example
+   * ```ts
+   * const messages = await client.messages.batch.unarchive({
+   *   message_ids: [
+   *     '2w3YUpTTOxuDvZFji8OMsKrG176',
+   *     '2w3YVRbPXMIh8Zq6oBFcVDA5xes',
+   *   ],
+   * });
+   * ```
    */
   unarchive(body: BatchUnarchiveParams, options?: RequestOptions): APIPromise<BatchUnarchiveResponse> {
     return this._client.post('/v1/messages/batch/unarchived', { body, ...options });

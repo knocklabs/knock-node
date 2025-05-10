@@ -15,6 +15,14 @@ export class Tenants extends APIResource {
 
   /**
    * List tenants for the current environment.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const tenant of client.tenants.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query: TenantListParams | null | undefined = {},
@@ -25,6 +33,11 @@ export class Tenants extends APIResource {
 
   /**
    * Delete a tenant and all associated data. This operation cannot be undone.
+   *
+   * @example
+   * ```ts
+   * const tenant = await client.tenants.delete('id');
+   * ```
    */
   delete(id: string, options?: RequestOptions): APIPromise<string> {
     return this._client.delete(path`/v1/tenants/${id}`, options);
@@ -32,6 +45,11 @@ export class Tenants extends APIResource {
 
   /**
    * Get a tenant by ID.
+   *
+   * @example
+   * ```ts
+   * const tenant = await client.tenants.get('id');
+   * ```
    */
   get(id: string, options?: RequestOptions): APIPromise<Tenant> {
     return this._client.get(path`/v1/tenants/${id}`, options);
@@ -40,6 +58,21 @@ export class Tenants extends APIResource {
   /**
    * Sets a tenant within an environment, performing an upsert operation. Any
    * existing properties will be merged with the incoming properties.
+   *
+   * @example
+   * ```ts
+   * const tenant = await client.tenants.set('id', {
+   *   settings: {
+   *     branding: {
+   *       icon_url:
+   *         'https://example.com/trex_silhouette_icon.png',
+   *       logo_url: 'https://example.com/amber_fossil_logo.png',
+   *       primary_color: '#DF1A22',
+   *       primary_color_contrast: '#FFDE00',
+   *     },
+   *   },
+   * });
+   * ```
    */
   set(id: string, body: TenantSetParams, options?: RequestOptions): APIPromise<Tenant> {
     return this._client.put(path`/v1/tenants/${id}`, { body, ...options });

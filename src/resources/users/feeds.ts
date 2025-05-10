@@ -11,6 +11,14 @@ import { path } from '../../internal/utils/path';
 export class Feeds extends APIResource {
   /**
    * Returns the feed settings for a user.
+   *
+   * @example
+   * ```ts
+   * const response = await client.users.feeds.getSettings(
+   *   'user_id',
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   getSettings(userID: string, id: string, options?: RequestOptions): APIPromise<FeedGetSettingsResponse> {
     return this._client.get(path`/v1/users/${userID}/feeds/${id}/settings`, options);
@@ -19,6 +27,17 @@ export class Feeds extends APIResource {
   /**
    * Returns a paginated list of feed items for a user, including metadata about the
    * feed.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const feedListItemsResponse of client.users.feeds.listItems(
+   *   'user_id',
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   listItems(
     userID: string,

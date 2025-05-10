@@ -8,6 +8,14 @@ import { path } from '../../internal/utils/path';
 export class Guides extends APIResource {
   /**
    * Returns a list of eligible in-app guides for a specific user and channel.
+   *
+   * @example
+   * ```ts
+   * const response = await client.users.guides.getChannel(
+   *   'user_id',
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   getChannel(
     userID: string,
@@ -21,6 +29,21 @@ export class Guides extends APIResource {
   /**
    * Records that a guide has been archived by a user, triggering any associated
    * archived events.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.users.guides.markMessageAsArchived(
+   *     'user_id',
+   *     'message_id',
+   *     {
+   *       channel_id: '123e4567-e89b-12d3-a456-426614174000',
+   *       guide_id: '7e9dc78c-b3b1-4127-a54e-71f1899b831a',
+   *       guide_key: 'tour_notification',
+   *       guide_step_ref: 'lab_tours',
+   *     },
+   *   );
+   * ```
    */
   markMessageAsArchived(
     userID: string,
@@ -37,6 +60,21 @@ export class Guides extends APIResource {
   /**
    * Records that a user has interacted with a guide, triggering any associated
    * interacted events.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.users.guides.markMessageAsInteracted(
+   *     'user_id',
+   *     'message_id',
+   *     {
+   *       channel_id: '123e4567-e89b-12d3-a456-426614174000',
+   *       guide_id: '7e9dc78c-b3b1-4127-a54e-71f1899b831a',
+   *       guide_key: 'tour_notification',
+   *       guide_step_ref: 'lab_tours',
+   *     },
+   *   );
+   * ```
    */
   markMessageAsInteracted(
     userID: string,
@@ -53,6 +91,36 @@ export class Guides extends APIResource {
   /**
    * Records that a guide has been seen by a user, triggering any associated seen
    * events.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.users.guides.markMessageAsSeen(
+   *     'user_id',
+   *     'message_id',
+   *     {
+   *       channel_id: '123e4567-e89b-12d3-a456-426614174000',
+   *       guide_id: '7e9dc78c-b3b1-4127-a54e-71f1899b831a',
+   *       guide_key: 'tour_notification',
+   *       guide_step_ref: 'lab_tours',
+   *       content: {
+   *         body: "Limited spots available for today's behind-the-scenes DNA extraction demonstration.",
+   *         title: 'DNA Lab Tour Available',
+   *       },
+   *       data: {
+   *         next_time: '14:30',
+   *         spots_left: 8,
+   *         tour_id: 'dna_lab_tour',
+   *       },
+   *       metadata: {
+   *         cta: 'Reserve Spot',
+   *         theme: 'amber',
+   *         type: 'banner',
+   *       },
+   *       tenant: 'ingen_isla_nublar',
+   *     },
+   *   );
+   * ```
    */
   markMessageAsSeen(
     userID: string,

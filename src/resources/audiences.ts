@@ -10,6 +10,18 @@ import { path } from '../internal/utils/path';
 export class Audiences extends APIResource {
   /**
    * Adds one or more members to the specified audience.
+   *
+   * @example
+   * ```ts
+   * const response = await client.audiences.addMembers('key', {
+   *   members: [
+   *     {
+   *       tenant: 'ingen_isla_nublar',
+   *       user: { id: 'dr_sattler' },
+   *     },
+   *   ],
+   * });
+   * ```
    */
   addMembers(key: string, body: AudienceAddMembersParams, options?: RequestOptions): APIPromise<string> {
     return this._client.post(path`/v1/audiences/${key}/members`, { body, ...options });
@@ -17,6 +29,11 @@ export class Audiences extends APIResource {
 
   /**
    * Returns a paginated list of members for the specified audience.
+   *
+   * @example
+   * ```ts
+   * const response = await client.audiences.listMembers('key');
+   * ```
    */
   listMembers(key: string, options?: RequestOptions): APIPromise<AudienceListMembersResponse> {
     return this._client.get(path`/v1/audiences/${key}/members`, options);
@@ -24,6 +41,14 @@ export class Audiences extends APIResource {
 
   /**
    * Removes one or more members from the specified audience.
+   *
+   * @example
+   * ```ts
+   * const response = await client.audiences.removeMembers(
+   *   'key',
+   *   { members: [{ user: {} }] },
+   * );
+   * ```
    */
   removeMembers(
     key: string,
@@ -103,6 +128,9 @@ export namespace AudienceAddMembersParams {
    * An audience member.
    */
   export interface Member {
+    /**
+     * An object containing the user's ID.
+     */
     user: Member.User;
 
     /**
@@ -112,6 +140,9 @@ export namespace AudienceAddMembersParams {
   }
 
   export namespace Member {
+    /**
+     * An object containing the user's ID.
+     */
     export interface User {
       /**
        * The ID for the user that you set when identifying them in Knock.
@@ -133,6 +164,9 @@ export namespace AudienceRemoveMembersParams {
    * An audience member.
    */
   export interface Member {
+    /**
+     * An object containing the user's ID.
+     */
     user: Member.User;
 
     /**
@@ -142,6 +176,9 @@ export namespace AudienceRemoveMembersParams {
   }
 
   export namespace Member {
+    /**
+     * An object containing the user's ID.
+     */
     export interface User {
       /**
        * The ID for the user that you set when identifying them in Knock.

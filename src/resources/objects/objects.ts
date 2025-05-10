@@ -24,6 +24,16 @@ export class Objects extends APIResource {
   /**
    * Returns a paginated list of objects from the specified collection. Optionally
    * includes preference data for the objects.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const object of client.objects.list(
+   *   'collection',
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     collection: string,
@@ -39,6 +49,14 @@ export class Objects extends APIResource {
   /**
    * Permanently removes an object from the specified collection. This operation
    * cannot be undone.
+   *
+   * @example
+   * ```ts
+   * const object = await client.objects.delete(
+   *   'collection',
+   *   'id',
+   * );
+   * ```
    */
   delete(collection: string, id: string, options?: RequestOptions): APIPromise<string> {
     return this._client.delete(path`/v1/objects/${collection}/${id}`, options);
@@ -49,6 +67,18 @@ export class Objects extends APIResource {
    * updated. This endpoint also handles
    * [inline identifications](/managing-recipients/identifying-recipients#inline-identifying-recipients)
    * for the `recipient`.
+   *
+   * @example
+   * ```ts
+   * const subscriptions = await client.objects.addSubscriptions(
+   *   'collection',
+   *   'object_id',
+   *   {
+   *     recipients: ['user_1', 'user_2'],
+   *     properties: { key: 'value' },
+   *   },
+   * );
+   * ```
    */
   addSubscriptions(
     collection: string,
@@ -62,6 +92,16 @@ export class Objects extends APIResource {
   /**
    * Delete subscriptions for the specified recipients from an object. Returns the
    * list of deleted subscriptions.
+   *
+   * @example
+   * ```ts
+   * const subscriptions =
+   *   await client.objects.deleteSubscriptions(
+   *     'collection',
+   *     'object_id',
+   *     { recipients: ['user_123'] },
+   *   );
+   * ```
    */
   deleteSubscriptions(
     collection: string,
@@ -78,6 +118,11 @@ export class Objects extends APIResource {
   /**
    * Retrieves a specific object by its ID from the specified collection. Returns the
    * object with all its properties.
+   *
+   * @example
+   * ```ts
+   * const object = await client.objects.get('collection', 'id');
+   * ```
    */
   get(collection: string, id: string, options?: RequestOptions): APIPromise<Object> {
     return this._client.get(path`/v1/objects/${collection}/${id}`, options);
@@ -85,6 +130,15 @@ export class Objects extends APIResource {
 
   /**
    * Returns the channel data for the specified object and channel.
+   *
+   * @example
+   * ```ts
+   * const channelData = await client.objects.getChannelData(
+   *   'collection',
+   *   'object_id',
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   getChannelData(
     collection: string,
@@ -97,6 +151,15 @@ export class Objects extends APIResource {
 
   /**
    * Returns the preference set for the specified object and preference set `id`.
+   *
+   * @example
+   * ```ts
+   * const preferenceSet = await client.objects.getPreferences(
+   *   'collection',
+   *   'object_id',
+   *   'default',
+   * );
+   * ```
    */
   getPreferences(
     collection: string,
@@ -111,6 +174,17 @@ export class Objects extends APIResource {
    * Returns a paginated list of messages for a specific object in the given
    * collection. Allows filtering by message status and provides various sorting
    * options.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const message of client.objects.listMessages(
+   *   'projects',
+   *   'project-123',
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   listMessages(
     collection: string,
@@ -127,6 +201,14 @@ export class Objects extends APIResource {
 
   /**
    * Returns a paginated list of preference sets for the specified object.
+   *
+   * @example
+   * ```ts
+   * const preferenceSets = await client.objects.listPreferences(
+   *   'collection',
+   *   'object_id',
+   * );
+   * ```
    */
   listPreferences(
     collection: string,
@@ -138,6 +220,17 @@ export class Objects extends APIResource {
 
   /**
    * Returns a paginated list of schedules for an object.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const schedule of client.objects.listSchedules(
+   *   'collection',
+   *   'id',
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   listSchedules(
     collection: string,
@@ -156,6 +249,17 @@ export class Objects extends APIResource {
    * List subscriptions for an object. Either list the recipients that subscribe to
    * the provided object, or list the objects that the provided object is subscribed
    * to. Determined by the `mode` query parameter.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const subscription of client.objects.listSubscriptions(
+   *   'collection',
+   *   'object_id',
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   listSubscriptions(
     collection: string,
@@ -174,6 +278,33 @@ export class Objects extends APIResource {
    * Creates a new object or updates an existing one in the specified collection.
    * This operation is used to identify objects with their properties, as well as
    * optional preferences and channel data.
+   *
+   * @example
+   * ```ts
+   * const object = await client.objects.set(
+   *   'collection',
+   *   'id',
+   *   {
+   *     channel_data: {
+   *       '97c5837d-c65c-4d54-aa39-080eeb81c69d': {
+   *         data: { tokens: ['push_token_123'] },
+   *       },
+   *     },
+   *     locale: 'en-US',
+   *     preferences: {
+   *       default: {
+   *         channel_types: { email: true },
+   *         workflows: {
+   *           'dinosaurs-loose': {
+   *             channel_types: { email: true },
+   *           },
+   *         },
+   *       },
+   *     },
+   *     timezone: 'America/New_York',
+   *   },
+   * );
+   * ```
    */
   set(collection: string, id: string, body: ObjectSetParams, options?: RequestOptions): APIPromise<Object> {
     return this._client.put(path`/v1/objects/${collection}/${id}`, { body, ...options });
@@ -183,6 +314,16 @@ export class Objects extends APIResource {
    * Sets the channel data for the specified object and channel. If no object exists
    * in the current environment for the given `collection` and `object_id`, Knock
    * will create the object as part of this request.
+   *
+   * @example
+   * ```ts
+   * const channelData = await client.objects.setChannelData(
+   *   'collection',
+   *   'object_id',
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   { data: { tokens: ['push_token_1'] } },
+   * );
+   * ```
    */
   setChannelData(
     collection: string,
@@ -204,6 +345,27 @@ export class Objects extends APIResource {
    * `:object_id`, Knock will create the object as part of this request. The
    * preference set `:id` can be either `default` or a `tenant.id`. Learn more about
    * [per-tenant preferences](/preferences/tenant-preferences).
+   *
+   * @example
+   * ```ts
+   * const preferenceSet = await client.objects.setPreferences(
+   *   'collection',
+   *   'object_id',
+   *   'default',
+   *   {
+   *     categories: {
+   *       marketing: false,
+   *       transactional: { channel_types: { email: false } },
+   *     },
+   *     channel_types: { email: true },
+   *     workflows: {
+   *       'dinosaurs-loose': {
+   *         channel_types: { email: false },
+   *       },
+   *     },
+   *   },
+   * );
+   * ```
    */
   setPreferences(
     collection: string,
@@ -220,6 +382,15 @@ export class Objects extends APIResource {
 
   /**
    * Unsets the channel data for the specified object and channel.
+   *
+   * @example
+   * ```ts
+   * const response = await client.objects.unsetChannelData(
+   *   'collection',
+   *   'object_id',
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   unsetChannelData(
     collection: string,
@@ -508,10 +679,10 @@ export interface ObjectSetParams {
   preferences?: PreferencesAPI.InlinePreferenceSetRequest;
 
   /**
-   * The timezone of the object. Must be a valid
-   * [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
-   * Used for
-   * [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
+   * The timezone of the object. Must be a
+   * valid [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+   * Used
+   * for [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
    */
   timezone?: string | null;
 

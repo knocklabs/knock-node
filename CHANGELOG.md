@@ -1,5 +1,29 @@
 # Changelog
 
+## 1.1.0 (2025-05-10)
+
+Full Changelog: [v1.0.0...v1.1.0](https://github.com/knocklabs/knock-node/compare/v1.0.0...v1.1.0)
+
+### Features
+
+* **api:** api update ([df8e460](https://github.com/knocklabs/knock-node/commit/df8e460995bf852f40e333ceb993be46d32673c2))
+* **client:** add withOptions helper ([e272a58](https://github.com/knocklabs/knock-node/commit/e272a58d3257d647395279e6e034898c9276d2af))
+
+
+### Bug Fixes
+
+* **client:** always overwrite when merging headers ([a2bfbc1](https://github.com/knocklabs/knock-node/commit/a2bfbc12e8e9910ab37c2bd34655d72cf27deae9))
+
+
+### Chores
+
+* **client:** drop support for EOL node versions ([3ed1d02](https://github.com/knocklabs/knock-node/commit/3ed1d02a87a993aa7af03491cea108981da11a71))
+
+
+### Documentation
+
+* add examples to tsdocs ([dd95831](https://github.com/knocklabs/knock-node/commit/dd95831208d5c08d01ac19a2500e7ae2fa216105))
+
 ## 1.0.0 (2025-05-01)
 
 Full Changelog: [v0.6.19...v1.0.0](https://github.com/knocklabs/knock-node/compare/v0.6.19...v1.0.0)

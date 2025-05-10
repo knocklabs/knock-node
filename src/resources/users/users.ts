@@ -46,6 +46,30 @@ export class Users extends APIResource {
    * Create or update a user with the provided identification data. When you identify
    * an existing user, the system merges the properties you specific with what is
    * currently set on the user, updating only the fields included in your requests.
+   *
+   * @example
+   * ```ts
+   * const user = await client.users.update('user_id', {
+   *   channel_data: {
+   *     '97c5837d-c65c-4d54-aa39-080eeb81c69d': {
+   *       data: { tokens: ['push_token_123'] },
+   *     },
+   *   },
+   *   email: 'ian.malcolm@chaos.theory',
+   *   name: 'Dr. Ian Malcolm',
+   *   preferences: {
+   *     default: {
+   *       channel_types: { email: true },
+   *       workflows: {
+   *         'dinosaurs-loose': {
+   *           channel_types: { email: true },
+   *         },
+   *       },
+   *     },
+   *   },
+   *   timezone: 'America/New_York',
+   * });
+   * ```
    */
   update(userID: string, body: UserUpdateParams, options?: RequestOptions): APIPromise<User> {
     return this._client.put(path`/v1/users/${userID}`, { body, ...options });
@@ -54,6 +78,14 @@ export class Users extends APIResource {
   /**
    * Retrieve a paginated list of users in the environment. Defaults to 50 users per
    * page.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const user of client.users.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query: UserListParams | null | undefined = {},
@@ -64,6 +96,11 @@ export class Users extends APIResource {
 
   /**
    * Permanently delete a user and all associated data.
+   *
+   * @example
+   * ```ts
+   * const user = await client.users.delete('user_id');
+   * ```
    */
   delete(userID: string, options?: RequestOptions): APIPromise<string> {
     return this._client.delete(path`/v1/users/${userID}`, options);
@@ -71,6 +108,11 @@ export class Users extends APIResource {
 
   /**
    * Retrieve a specific user by their ID.
+   *
+   * @example
+   * ```ts
+   * const user = await client.users.get('user_id');
+   * ```
    */
   get(userID: string, options?: RequestOptions): APIPromise<User> {
     return this._client.get(path`/v1/users/${userID}`, options);
@@ -78,6 +120,14 @@ export class Users extends APIResource {
 
   /**
    * Retrieves the channel data for a specific user and channel ID.
+   *
+   * @example
+   * ```ts
+   * const channelData = await client.users.getChannelData(
+   *   'user_id',
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   getChannelData(
     userID: string,
@@ -90,6 +140,14 @@ export class Users extends APIResource {
   /**
    * Retrieves a specific preference set for a user identified by the preference set
    * ID.
+   *
+   * @example
+   * ```ts
+   * const preferenceSet = await client.users.getPreferences(
+   *   'user_id',
+   *   'default',
+   * );
+   * ```
    */
   getPreferences(
     userID: string,
@@ -104,6 +162,16 @@ export class Users extends APIResource {
    * Returns a paginated list of messages for a specific user. Allows filtering by
    * message status and provides various sorting options. Messages outside the
    * account's retention window will not be included in the results.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const message of client.users.listMessages(
+   *   'user-123',
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   listMessages(
     userID: string,
@@ -118,6 +186,13 @@ export class Users extends APIResource {
 
   /**
    * Retrieves a list of all preference sets for a specific user.
+   *
+   * @example
+   * ```ts
+   * const preferenceSets = await client.users.listPreferences(
+   *   'user_id',
+   * );
+   * ```
    */
   listPreferences(userID: string, options?: RequestOptions): APIPromise<UserListPreferencesResponse> {
     return this._client.get(path`/v1/users/${userID}/preferences`, options);
@@ -125,6 +200,16 @@ export class Users extends APIResource {
 
   /**
    * Returns a paginated list of schedules for a specific user, in descending order.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const schedule of client.users.listSchedules(
+   *   'user_id',
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   listSchedules(
     userID: string,
@@ -141,6 +226,16 @@ export class Users extends APIResource {
   /**
    * Retrieves a paginated list of subscriptions for a specific user, in descending
    * order.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const subscription of client.users.listSubscriptions(
+   *   'user_id',
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   listSubscriptions(
     userID: string,
@@ -157,6 +252,13 @@ export class Users extends APIResource {
   /**
    * Merge two users together, where the user specified with the `from_user_id` param
    * will be merged into the user specified by `user_id`.
+   *
+   * @example
+   * ```ts
+   * const user = await client.users.merge('user_id', {
+   *   from_user_id: 'user_1',
+   * });
+   * ```
    */
   merge(userID: string, body: UserMergeParams, options?: RequestOptions): APIPromise<User> {
     return this._client.post(path`/v1/users/${userID}/merge`, { body, ...options });
@@ -164,6 +266,15 @@ export class Users extends APIResource {
 
   /**
    * Updates or creates channel data for a specific user and channel ID.
+   *
+   * @example
+   * ```ts
+   * const channelData = await client.users.setChannelData(
+   *   'user_id',
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   { data: { tokens: ['push_token_1'] } },
+   * );
+   * ```
    */
   setChannelData(
     userID: string,
@@ -177,6 +288,26 @@ export class Users extends APIResource {
   /**
    * Updates a complete preference set for a user. This is a destructive operation
    * that will replace the existing preference set for the user.
+   *
+   * @example
+   * ```ts
+   * const preferenceSet = await client.users.setPreferences(
+   *   'user_id',
+   *   'default',
+   *   {
+   *     categories: {
+   *       marketing: false,
+   *       transactional: { channel_types: { email: false } },
+   *     },
+   *     channel_types: { email: true },
+   *     workflows: {
+   *       'dinosaurs-loose': {
+   *         channel_types: { email: false },
+   *       },
+   *     },
+   *   },
+   * );
+   * ```
    */
   setPreferences(
     userID: string,
@@ -189,6 +320,14 @@ export class Users extends APIResource {
 
   /**
    * Deletes channel data for a specific user and channel ID.
+   *
+   * @example
+   * ```ts
+   * const response = await client.users.unsetChannelData(
+   *   'user_id',
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   unsetChannelData(userID: string, channelID: string, options?: RequestOptions): APIPromise<string> {
     return this._client.delete(path`/v1/users/${userID}/channel_data/${channelID}`, options);
@@ -234,7 +373,7 @@ export interface IdentifyUserRequest {
   name?: string | null;
 
   /**
-   * The [E.164](https://www.twilio.com/docs/glossary/what-e164) phone number of the
+   * The [E.164](https://www.twilio.com/docs/glossary/what-e164) phone number of the
    * user (required for SMS channels).
    */
   phone_number?: string | null;
@@ -245,10 +384,10 @@ export interface IdentifyUserRequest {
   preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
 
   /**
-   * The timezone of the user. Must be a valid
-   * [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
-   * Used for
-   * [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
+   * The timezone of the user. Must be a
+   * valid [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+   * Used
+   * for [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
    */
   timezone?: string | null;
 
@@ -278,9 +417,27 @@ export interface InlineIdentifyUserRequest {
   created_at?: string | null;
 
   /**
+   * The primary email address for the user.
+   */
+  email?: string | null;
+
+  /**
+   * Display name of the user.
+   */
+  name?: string | null;
+
+  /**
    * Inline set preferences for a recipient, where the key is the preference set id.
    */
   preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
+
+  /**
+   * The timezone of the user. Must be a
+   * valid [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+   * Used
+   * for [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
+   */
+  timezone?: string | null;
 
   [k: string]: unknown;
 }
@@ -327,16 +484,16 @@ export interface User {
   name?: string | null;
 
   /**
-   * The [E.164](https://www.twilio.com/docs/glossary/what-e164) phone number of the
+   * The [E.164](https://www.twilio.com/docs/glossary/what-e164) phone number of the
    * user (required for SMS channels).
    */
   phone_number?: string | null;
 
   /**
-   * The timezone of the user. Must be a valid
-   * [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
-   * Used for
-   * [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
+   * The timezone of the user. Must be a
+   * valid [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+   * Used
+   * for [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
    */
   timezone?: string | null;
 
@@ -390,7 +547,7 @@ export interface UserUpdateParams {
   name?: string | null;
 
   /**
-   * The [E.164](https://www.twilio.com/docs/glossary/what-e164) phone number of the
+   * The [E.164](https://www.twilio.com/docs/glossary/what-e164) phone number of the
    * user (required for SMS channels).
    */
   phone_number?: string | null;
@@ -401,10 +558,10 @@ export interface UserUpdateParams {
   preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
 
   /**
-   * The timezone of the user. Must be a valid
-   * [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
-   * Used for
-   * [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
+   * The timezone of the user. Must be a
+   * valid [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+   * Used
+   * for [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
    */
   timezone?: string | null;
 
