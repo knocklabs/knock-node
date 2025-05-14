@@ -227,12 +227,6 @@ Methods:
 - <code title="post /v1/messages/batch/unseen">client.messages.batch.<a href="./src/resources/messages/batch.ts">markAsUnseen</a>({ ...params }) -> BatchMarkAsUnseenResponse</code>
 - <code title="post /v1/messages/batch/unarchived">client.messages.batch.<a href="./src/resources/messages/batch.ts">unarchive</a>({ ...params }) -> BatchUnarchiveResponse</code>
 
-## Activities
-
-Methods:
-
-- <code title="get /v1/messages/{message_id}/activities">client.messages.activities.<a href="./src/resources/messages/activities.ts">list</a>(messageID, { ...params }) -> ActivitiesItemsCursor</code>
-
 # Providers
 
 ## Slack
