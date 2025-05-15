@@ -52,7 +52,7 @@ export class Users extends APIResource {
    * const user = await client.users.update('user_id', {
    *   channel_data: {
    *     '97c5837d-c65c-4d54-aa39-080eeb81c69d': {
-   *       data: { tokens: ['push_token_123'] },
+   *       tokens: ['push_token_123'],
    *     },
    *   },
    *   email: 'ian.malcolm@chaos.theory',
@@ -407,6 +407,11 @@ export interface InlineIdentifyUserRequest {
   id: string;
 
   /**
+   * URL to the user's avatar image.
+   */
+  avatar?: string | null;
+
+  /**
    * A request to set channel data for a type of channel inline.
    */
   channel_data?: ChannelDataAPI.InlineChannelDataRequest | null;
@@ -422,9 +427,20 @@ export interface InlineIdentifyUserRequest {
   email?: string | null;
 
   /**
+   * The locale of the user. Used for [message localization](/concepts/translations).
+   */
+  locale?: string | null;
+
+  /**
    * Display name of the user.
    */
   name?: string | null;
+
+  /**
+   * The [E.164](https://www.twilio.com/docs/glossary/what-e164) phone number of the
+   * user (required for SMS channels).
+   */
+  phone_number?: string | null;
 
   /**
    * Inline set preferences for a recipient, where the key is the preference set id.
