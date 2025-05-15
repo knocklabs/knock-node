@@ -251,8 +251,7 @@ export type ScheduleDeleteResponse = Array<Schedule>;
 
 export interface ScheduleCreateParams {
   /**
-   * The recipients to trigger the workflow for. Can inline identify users, objects,
-   * or use a list of user IDs. Limited to 1,000 recipients.
+   * The recipients to set the schedule for. Limited to 100 recipients per request.
    */
   recipients: Array<RecipientsAPI.RecipientRequest>;
 

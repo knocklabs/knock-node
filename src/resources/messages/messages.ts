@@ -1,8 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as ActivitiesAPI from './activities';
-import { Activities, ActivityListParams } from './activities';
 import * as BatchAPI from './batch';
 import {
   Batch,
@@ -37,7 +35,6 @@ import { path } from '../../internal/utils/path';
 
 export class Messages extends APIResource {
   batch: BatchAPI.Batch = new BatchAPI.Batch(this._client);
-  activities: ActivitiesAPI.Activities = new ActivitiesAPI.Activities(this._client);
 
   /**
    * Returns a paginated list of messages for the current environment.
@@ -1011,7 +1008,6 @@ export interface MessageMarkAsInteractedParams {
 }
 
 Messages.Batch = Batch;
-Messages.Activities = Activities;
 
 export declare namespace Messages {
   export {
@@ -1050,6 +1046,4 @@ export declare namespace Messages {
     type BatchMarkAsUnseenParams as BatchMarkAsUnseenParams,
     type BatchUnarchiveParams as BatchUnarchiveParams,
   };
-
-  export { Activities as Activities, type ActivityListParams as ActivityListParams };
 }

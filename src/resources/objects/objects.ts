@@ -287,7 +287,7 @@ export class Objects extends APIResource {
    *   {
    *     channel_data: {
    *       '97c5837d-c65c-4d54-aa39-080eeb81c69d': {
-   *         data: { tokens: ['push_token_123'] },
+   *         tokens: ['push_token_123'],
    *       },
    *     },
    *     locale: 'en-US',
@@ -468,7 +468,10 @@ export interface Object {
    */
   created_at?: string | null;
 
-  [k: string]: unknown;
+  /**
+   * The custom properties associated with the object.
+   */
+  properties?: Record<string, unknown>;
 }
 
 /**

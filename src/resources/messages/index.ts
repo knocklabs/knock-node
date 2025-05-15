@@ -1,6 +1,5 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { Activities, type ActivityListParams } from './activities';
 export {
   Batch,
   type BatchArchiveResponse,
