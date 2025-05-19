@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.2.0 (2025-05-15)
+
+Full Changelog: [v1.1.0...v1.2.0](https://github.com/knocklabs/knock-node/compare/v1.1.0...v1.2.0)
+
+### Features
+
+* **api:** api update ([6df1491](https://github.com/knocklabs/knock-node/commit/6df1491cf9105dc63fe74f5cb8b15f69e27c19c5))
+* **api:** removes duplicate activities section ([1302808](https://github.com/knocklabs/knock-node/commit/130280874e2f34d80957861e69d085e3beb27976))
+
+
+### Chores
+
+* **package:** remove engines ([6fa64d3](https://github.com/knocklabs/knock-node/commit/6fa64d3fb23cea2855d227c742032ed5dcaf3efd))
+
 ## 1.1.0 (2025-05-10)
 
 Full Changelog: [v1.0.0...v1.1.0](https://github.com/knocklabs/knock-node/compare/v1.0.0...v1.1.0)
