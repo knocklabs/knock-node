@@ -536,7 +536,9 @@ export interface ObjectListMessagesParams extends EntriesCursorParams {
   /**
    * Limits the results to messages with the given engagement status.
    */
-  engagement_status?: Array<'seen' | 'read' | 'interacted' | 'link_clicked' | 'archived'>;
+  engagement_status?: Array<
+    'seen' | 'unseen' | 'read' | 'unread' | 'archived' | 'unarchived' | 'link_clicked' | 'interacted'
+  >;
 
   inserted_at?: ObjectListMessagesParams.InsertedAt;
 
