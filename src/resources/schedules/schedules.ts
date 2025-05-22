@@ -172,7 +172,10 @@ export interface Schedule {
   actor?: RecipientsAPI.Recipient | null;
 
   /**
-   * An optional map of data to pass into the workflow execution.
+   * An optional map of data to pass into the workflow execution. There is a 1024
+   * byte limit on the size of any single string value (with the exception of
+   * [email attachments](/integrations/email/attachments)), and a 10MB limit on the
+   * size of the full `data` payload.
    */
   data?: Record<string, unknown> | null;
 
@@ -266,7 +269,10 @@ export interface ScheduleCreateParams {
   workflow: string;
 
   /**
-   * An optional map of data to pass into the workflow execution.
+   * An optional map of data to pass into the workflow execution. There is a 1024
+   * byte limit on the size of any single string value (with the exception of
+   * [email attachments](/integrations/email/attachments)), and a 10MB limit on the
+   * size of the full `data` payload.
    */
   data?: Record<string, unknown> | null;
 
@@ -299,7 +305,10 @@ export interface ScheduleUpdateParams {
   actor?: RecipientsAPI.RecipientReference | null;
 
   /**
-   * An optional map of data to pass into the workflow execution.
+   * An optional map of data to pass into the workflow execution. There is a 1024
+   * byte limit on the size of any single string value (with the exception of
+   * [email attachments](/integrations/email/attachments)), and a 10MB limit on the
+   * size of the full `data` payload.
    */
   data?: Record<string, unknown> | null;
 

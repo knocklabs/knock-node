@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.4.0 (2025-05-22)
+
+Full Changelog: [v1.3.0...v1.4.0](https://github.com/knocklabs/knock-node/compare/v1.3.0...v1.4.0)
+
+### Features
+
+* **api:** api update ([2f9bc06](https://github.com/knocklabs/knock-node/commit/2f9bc06683ff51f56c39412b3bc80919a948ef20))
+
+
+### Chores
+
+* **docs:** grammar improvements ([56eb6f8](https://github.com/knocklabs/knock-node/commit/56eb6f8176eb356762bcf5587f09f8532d522916))
+
 ## 1.3.0 (2025-05-20)
 
 Full Changelog: [v1.2.0...v1.3.0](https://github.com/knocklabs/knock-node/compare/v1.2.0...v1.3.0)
