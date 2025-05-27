@@ -3,7 +3,7 @@
 import { APIResource } from '../../core/resource';
 import * as SharedAPI from '../shared';
 import * as MessagesAPI from '../messages/messages';
-import { MessagesEntriesCursor } from '../messages/messages';
+import { MessagesItemsCursor } from '../messages/messages';
 import * as ChannelDataAPI from '../recipients/channel-data';
 import * as PreferencesAPI from '../recipients/preferences';
 import * as SubscriptionsAPI from '../recipients/subscriptions';
@@ -33,7 +33,13 @@ import {
   Guides,
 } from './guides';
 import { APIPromise } from '../../core/api-promise';
-import { EntriesCursor, type EntriesCursorParams, PagePromise } from '../../core/pagination';
+import {
+  EntriesCursor,
+  type EntriesCursorParams,
+  ItemsCursor,
+  type ItemsCursorParams,
+  PagePromise,
+} from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -177,8 +183,8 @@ export class Users extends APIResource {
     userID: string,
     query: UserListMessagesParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<MessagesEntriesCursor, MessagesAPI.Message> {
-    return this._client.getAPIList(path`/v1/users/${userID}/messages`, EntriesCursor<MessagesAPI.Message>, {
+  ): PagePromise<MessagesItemsCursor, MessagesAPI.Message> {
+    return this._client.getAPIList(path`/v1/users/${userID}/messages`, ItemsCursor<MessagesAPI.Message>, {
       query,
       ...options,
     });
@@ -598,7 +604,7 @@ export interface UserGetPreferencesParams {
   tenant?: string;
 }
 
-export interface UserListMessagesParams extends EntriesCursorParams {
+export interface UserListMessagesParams extends ItemsCursorParams {
   /**
    * Limits the results to items with the corresponding channel ID.
    */
@@ -838,4 +844,4 @@ export declare namespace Users {
   };
 }
 
-export { type MessagesEntriesCursor, type SchedulesEntriesCursor, type SubscriptionsEntriesCursor };
+export { type MessagesItemsCursor, type SchedulesEntriesCursor, type SubscriptionsEntriesCursor };
