@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.5.0 (2025-05-31)
+
+Full Changelog: [v1.4.1...v1.5.0](https://github.com/knocklabs/knock-node/compare/v1.4.1...v1.5.0)
+
+### Features
+
+* **api:** api update ([433ddfd](https://github.com/knocklabs/knock-node/commit/433ddfdb6175b075fcdeb078c5e01bb1c973340d))
+
+
+### Chores
+
+* **deps:** bump eslint-plugin-prettier ([696950a](https://github.com/knocklabs/knock-node/commit/696950aee5d13ffca157b2aa32815c826d943e47))
+* **internal:** update jest config ([70e7efc](https://github.com/knocklabs/knock-node/commit/70e7efce685e76413eea43a23b4e185a75098a04))
+
 ## 1.4.1 (2025-05-29)
 
 Full Changelog: [v1.4.0...v1.4.1](https://github.com/knocklabs/knock-node/compare/v1.4.0...v1.4.1)
