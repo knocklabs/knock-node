@@ -23,6 +23,8 @@ export class Schedules extends APIResource {
    * ```ts
    * const schedules = await client.schedules.create({
    *   recipients: ['user_123'],
+   *   workflow: 'comment-created',
+   *   data: { key: 'value' },
    *   repeats: [
    *     {
    *       __typename: 'ScheduleRepeat',
@@ -42,8 +44,6 @@ export class Schedules extends APIResource {
    *       minutes: null,
    *     },
    *   ],
-   *   workflow: 'comment-created',
-   *   data: { key: 'value' },
    *   tenant: 'acme_corp',
    * });
    * ```
@@ -259,14 +259,16 @@ export interface ScheduleCreateParams {
   recipients: Array<RecipientsAPI.RecipientRequest>;
 
   /**
-   * The repeat rule for the schedule.
-   */
-  repeats: Array<ScheduleRepeatRule>;
-
-  /**
    * The key of the workflow.
    */
   workflow: string;
+
+  /**
+   * Specifies a recipient in a request. This can either be a user identifier
+   * (string), an inline user request (object), or an inline object request, which is
+   * determined by the presence of a `collection` property.
+   */
+  actor?: RecipientsAPI.RecipientRequest | null;
 
   /**
    * An optional map of data to pass into the workflow execution. There is a 1024
@@ -280,6 +282,11 @@ export interface ScheduleCreateParams {
    * The ending date and time for the schedule.
    */
   ending_at?: string | null;
+
+  /**
+   * The repeat rule for the schedule.
+   */
+  repeats?: Array<ScheduleRepeatRule>;
 
   /**
    * The starting date and time for the schedule.

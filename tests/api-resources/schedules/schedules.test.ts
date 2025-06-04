@@ -12,7 +12,6 @@ describe('resource schedules', () => {
   test.skip('create: only required params', async () => {
     const responsePromise = client.schedules.create({
       recipients: ['user_123'],
-      repeats: [{ __typename: 'ScheduleRepeat', frequency: 'daily' }],
       workflow: 'comment-created',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -28,6 +27,56 @@ describe('resource schedules', () => {
   test.skip('create: required and optional params', async () => {
     const response = await client.schedules.create({
       recipients: ['user_123'],
+      workflow: 'comment-created',
+      actor: {
+        id: 'user_1',
+        avatar: 'avatar',
+        channel_data: { '97c5837d-c65c-4d54-aa39-080eeb81c69d': { tokens: ['push_token_xxx'] } },
+        created_at: '2019-12-27T18:11:19.117Z',
+        email: 'email',
+        locale: 'locale',
+        name: 'name',
+        phone_number: 'phone_number',
+        preferences: {
+          default: {
+            categories: {
+              transactional: {
+                channel_types: {
+                  chat: true,
+                  email: false,
+                  http: true,
+                  in_app_feed: true,
+                  push: true,
+                  sms: true,
+                },
+                conditions: [
+                  { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
+                ],
+              },
+            },
+            channel_types: { chat: true, email: true, http: true, in_app_feed: true, push: true, sms: true },
+            workflows: {
+              'dinosaurs-loose': {
+                channel_types: {
+                  chat: true,
+                  email: false,
+                  http: true,
+                  in_app_feed: true,
+                  push: true,
+                  sms: true,
+                },
+                conditions: [
+                  { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
+                ],
+              },
+              'welcome-sequence': true,
+            },
+          },
+        },
+        timezone: 'timezone',
+      },
+      data: { key: 'bar' },
+      ending_at: null,
       repeats: [
         {
           __typename: 'ScheduleRepeat',
@@ -39,9 +88,6 @@ describe('resource schedules', () => {
           minutes: null,
         },
       ],
-      workflow: 'comment-created',
-      data: { key: 'bar' },
-      ending_at: null,
       scheduled_at: null,
       tenant: 'acme_corp',
     });
