@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.6.0 (2025-06-04)
+
+Full Changelog: [v1.5.0...v1.6.0](https://github.com/knocklabs/knock-node/compare/v1.5.0...v1.6.0)
+
+### Features
+
+* **api:** api update ([815d827](https://github.com/knocklabs/knock-node/commit/815d8276d76e3c91bf1ecc21909cdbf84e3ba71f))
+
+
+### Chores
+
+* adjust eslint.config.mjs ignore pattern ([eca74d1](https://github.com/knocklabs/knock-node/commit/eca74d1e3849c4c21ea142aa4627e72e3667d0d4))
+* **docs:** use top-level-await in example snippets ([3723e9d](https://github.com/knocklabs/knock-node/commit/3723e9d73ce3e5786b0323297fcd489080923045))
+* **internal:** fix readablestream types in node 20 ([0ba897c](https://github.com/knocklabs/knock-node/commit/0ba897c8ce8d58fd18fd622711ba92cf08f44b6b))
+
 ## 1.5.0 (2025-05-31)
 
 Full Changelog: [v1.4.1...v1.5.0](https://github.com/knocklabs/knock-node/compare/v1.4.1...v1.5.0)
