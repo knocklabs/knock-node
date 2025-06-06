@@ -202,14 +202,14 @@ export interface Schedule {
  */
 export interface ScheduleRepeatRule {
   /**
-   * The typename of the schema.
-   */
-  __typename: string;
-
-  /**
    * The frequency of the schedule.
    */
   frequency: 'daily' | 'weekly' | 'monthly' | 'hourly';
+
+  /**
+   * The typename of the schema.
+   */
+  __typename?: string;
 
   /**
    * The day of the month to repeat the schedule.
@@ -347,9 +347,9 @@ export interface ScheduleListParams extends EntriesCursorParams {
   workflow: string;
 
   /**
-   * Filter by recipient IDs.
+   * Filter by recipient references.
    */
-  recipients?: Array<string>;
+  recipients?: Array<RecipientsAPI.RecipientReference>;
 
   /**
    * Filter by tenant ID.

@@ -87,8 +87,8 @@ describe('resource bulk', () => {
           recipient: 'dnedry',
           repeats: [
             {
-              __typename: 'ScheduleRepeat',
               frequency: 'daily',
+              __typename: 'ScheduleRepeat',
               day_of_month: null,
               days: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
               hours: null,
@@ -160,8 +160,8 @@ describe('resource bulk', () => {
           recipient: 'esattler',
           repeats: [
             {
-              __typename: 'ScheduleRepeat',
               frequency: 'daily',
+              __typename: 'ScheduleRepeat',
               day_of_month: null,
               days: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
               hours: null,
