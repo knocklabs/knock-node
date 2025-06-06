@@ -79,8 +79,8 @@ describe('resource schedules', () => {
       ending_at: null,
       repeats: [
         {
-          __typename: 'ScheduleRepeat',
           frequency: 'daily',
+          __typename: 'ScheduleRepeat',
           day_of_month: null,
           days: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
           hours: null,
@@ -116,8 +116,8 @@ describe('resource schedules', () => {
       ending_at: null,
       repeats: [
         {
-          __typename: 'ScheduleRepeat',
           frequency: 'daily',
+          __typename: 'ScheduleRepeat',
           day_of_month: null,
           days: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
           hours: null,
@@ -149,7 +149,7 @@ describe('resource schedules', () => {
       after: 'after',
       before: 'before',
       page_size: 0,
-      recipients: ['string'],
+      recipients: ['user_123'],
       tenant: 'tenant',
     });
   });
