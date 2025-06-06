@@ -2,7 +2,8 @@
 
 import { APIResource } from '../../core/resource';
 import * as BulkOperationsAPI from '../bulk-operations';
-import * as ObjectsAPI from './objects';
+import * as ChannelDataAPI from '../recipients/channel-data';
+import * as PreferencesAPI from '../recipients/preferences';
 import * as RecipientsAPI from '../recipients/recipients';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
@@ -67,7 +68,6 @@ export class Bulk extends APIResource {
    *   {
    *     objects: [
    *       {
-   *         collection: 'projects',
    *         id: 'project_1',
    *         name: {
    *           '0': 'M',
@@ -129,7 +129,36 @@ export interface BulkSetParams {
   /**
    * A list of objects.
    */
-  objects: Array<ObjectsAPI.InlineObjectRequest>;
+  objects: Array<BulkSetParams.Object>;
+}
+
+export namespace BulkSetParams {
+  /**
+   * A custom [Object](/concepts/objects) entity which belongs to a collection.
+   */
+  export interface Object {
+    /**
+     * Unique identifier for the object.
+     */
+    id: string;
+
+    /**
+     * A request to set channel data for a type of channel inline.
+     */
+    channel_data?: ChannelDataAPI.InlineChannelDataRequest | null;
+
+    /**
+     * Timestamp when the resource was created.
+     */
+    created_at?: string | null;
+
+    /**
+     * Inline set preferences for a recipient, where the key is the preference set id.
+     */
+    preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
+
+    [k: string]: unknown;
+  }
 }
 
 export declare namespace Bulk {

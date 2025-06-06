@@ -258,11 +258,6 @@ export interface TenantSetParams {
   channel_data?: ChannelDataAPI.InlineChannelDataRequest | null;
 
   /**
-   * Inline set preferences for a recipient, where the key is the preference set id.
-   */
-  preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
-
-  /**
    * The settings for the tenant. Includes branding and preference set.
    */
   settings?: TenantSetParams.Settings;

@@ -1,5 +1,87 @@
 # Changelog
 
+## 1.7.0 (2025-06-06)
+
+Full Changelog: [v1.6.0...v1.7.0](https://github.com/knocklabs/knock-node/compare/v1.6.0...v1.7.0)
+
+### Features
+
+* **api:** api update ([66e8b25](https://github.com/knocklabs/knock-node/commit/66e8b25c66685eb4e854511802b411e961067a9a))
+
+## 1.6.0 (2025-06-04)
+
+Full Changelog: [v1.5.0...v1.6.0](https://github.com/knocklabs/knock-node/compare/v1.5.0...v1.6.0)
+
+### Features
+
+* **api:** api update ([815d827](https://github.com/knocklabs/knock-node/commit/815d8276d76e3c91bf1ecc21909cdbf84e3ba71f))
+
+
+### Chores
+
+* adjust eslint.config.mjs ignore pattern ([eca74d1](https://github.com/knocklabs/knock-node/commit/eca74d1e3849c4c21ea142aa4627e72e3667d0d4))
+* **docs:** use top-level-await in example snippets ([3723e9d](https://github.com/knocklabs/knock-node/commit/3723e9d73ce3e5786b0323297fcd489080923045))
+* **internal:** fix readablestream types in node 20 ([0ba897c](https://github.com/knocklabs/knock-node/commit/0ba897c8ce8d58fd18fd622711ba92cf08f44b6b))
+
+## 1.5.0 (2025-05-31)
+
+Full Changelog: [v1.4.1...v1.5.0](https://github.com/knocklabs/knock-node/compare/v1.4.1...v1.5.0)
+
+### Features
+
+* **api:** api update ([433ddfd](https://github.com/knocklabs/knock-node/commit/433ddfdb6175b075fcdeb078c5e01bb1c973340d))
+
+
+### Chores
+
+* **deps:** bump eslint-plugin-prettier ([696950a](https://github.com/knocklabs/knock-node/commit/696950aee5d13ffca157b2aa32815c826d943e47))
+* **internal:** update jest config ([70e7efc](https://github.com/knocklabs/knock-node/commit/70e7efce685e76413eea43a23b4e185a75098a04))
+
+## 1.4.1 (2025-05-29)
+
+Full Changelog: [v1.4.0...v1.4.1](https://github.com/knocklabs/knock-node/compare/v1.4.0...v1.4.1)
+
+### Bug Fixes
+
+* compat with more runtimes ([6a152ad](https://github.com/knocklabs/knock-node/commit/6a152added13cdae70de76cafc088267d07b40b4))
+
+## 1.4.0 (2025-05-28)
+
+Full Changelog: [v1.3.0...v1.4.0](https://github.com/knocklabs/knock-node/compare/v1.3.0...v1.4.0)
+
+### Features
+
+* **api:** api update ([7761590](https://github.com/knocklabs/knock-node/commit/77615902c630f51fbd7ce37fa05ed19f168b24b2))
+* **api:** api update ([2f9bc06](https://github.com/knocklabs/knock-node/commit/2f9bc06683ff51f56c39412b3bc80919a948ef20))
+
+
+### Chores
+
+* **docs:** grammar improvements ([56eb6f8](https://github.com/knocklabs/knock-node/commit/56eb6f8176eb356762bcf5587f09f8532d522916))
+* improve publish-npm script --latest tag logic ([c5604a8](https://github.com/knocklabs/knock-node/commit/c5604a89bd05fd6d417405390c0ed6068fb1524f))
+
+## 1.3.0 (2025-05-20)
+
+Full Changelog: [v1.2.0...v1.3.0](https://github.com/knocklabs/knock-node/compare/v1.2.0...v1.3.0)
+
+### Features
+
+* **api:** api update ([4e9dc75](https://github.com/knocklabs/knock-node/commit/4e9dc752e7eb25150fe817fca80936f8cb7df4f9))
+
+## 1.2.0 (2025-05-15)
+
+Full Changelog: [v1.1.0...v1.2.0](https://github.com/knocklabs/knock-node/compare/v1.1.0...v1.2.0)
+
+### Features
+
+* **api:** api update ([6df1491](https://github.com/knocklabs/knock-node/commit/6df1491cf9105dc63fe74f5cb8b15f69e27c19c5))
+* **api:** removes duplicate activities section ([1302808](https://github.com/knocklabs/knock-node/commit/130280874e2f34d80957861e69d085e3beb27976))
+
+
+### Chores
+
+* **package:** remove engines ([6fa64d3](https://github.com/knocklabs/knock-node/commit/6fa64d3fb23cea2855d227c742032ed5dcaf3efd))
+
 ## 1.1.0 (2025-05-10)
 
 Full Changelog: [v1.0.0...v1.1.0](https://github.com/knocklabs/knock-node/compare/v1.0.0...v1.1.0)

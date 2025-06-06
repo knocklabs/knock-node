@@ -26,16 +26,12 @@ const client = new Knock({
   apiKey: process.env['KNOCK_API_KEY'], // This is the default and can be omitted
 });
 
-async function main() {
-  const response = await client.workflows.trigger('dinosaurs-loose', {
-    recipients: ['dnedry'],
-    data: { dinosaur: 'triceratops' },
-  });
+const response = await client.workflows.trigger('dinosaurs-loose', {
+  recipients: ['dnedry'],
+  data: { dinosaur: 'triceratops' },
+});
 
-  console.log(response.workflow_run_id);
-}
-
-main();
+console.log(response.workflow_run_id);
 ```
 
 ### Request & Response types
@@ -50,11 +46,7 @@ const client = new Knock({
   apiKey: process.env['KNOCK_API_KEY'], // This is the default and can be omitted
 });
 
-async function main() {
-  const user: Knock.User = await client.users.get('dnedry');
-}
-
-main();
+const user: Knock.User = await client.users.get('dnedry');
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -67,19 +59,15 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-async function main() {
-  const user = await client.users.get('dnedry').catch(async (err) => {
-    if (err instanceof Knock.APIError) {
-      console.log(err.status); // 400
-      console.log(err.name); // BadRequestError
-      console.log(err.headers); // {server: 'nginx', ...}
-    } else {
-      throw err;
-    }
-  });
-}
-
-main();
+const user = await client.users.get('dnedry').catch(async (err) => {
+  if (err instanceof Knock.APIError) {
+    console.log(err.status); // 400
+    console.log(err.name); // BadRequestError
+    console.log(err.headers); // {server: 'nginx', ...}
+  } else {
+    throw err;
+  }
+});
 ```
 
 Error codes are as follows:

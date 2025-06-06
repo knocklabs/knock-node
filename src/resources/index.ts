@@ -24,10 +24,10 @@ export {
   type MessageListDeliveryLogsParams,
   type MessageListEventsParams,
   type MessageMarkAsInteractedParams,
-  type MessagesEntriesCursor,
+  type MessagesItemsCursor,
   type ActivitiesItemsCursor,
-  type MessageDeliveryLogsEntriesCursor,
-  type MessageEventsEntriesCursor,
+  type MessageDeliveryLogsItemsCursor,
+  type MessageEventsItemsCursor,
 } from './messages/messages';
 export {
   Objects,

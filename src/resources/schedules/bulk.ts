@@ -74,7 +74,10 @@ export namespace BulkCreateParams {
     actor?: RecipientsAPI.RecipientRequest | null;
 
     /**
-     * An optional map of data to pass into the workflow execution.
+     * An optional map of data to pass into the workflow execution. There is a 1024
+     * byte limit on the size of any single string value (with the exception of
+     * [email attachments](/integrations/email/attachments)), and a 10MB limit on the
+     * size of the full `data` payload.
      */
     data?: Record<string, unknown> | null;
 

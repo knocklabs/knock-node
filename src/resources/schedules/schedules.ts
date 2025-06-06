@@ -23,6 +23,8 @@ export class Schedules extends APIResource {
    * ```ts
    * const schedules = await client.schedules.create({
    *   recipients: ['user_123'],
+   *   workflow: 'comment-created',
+   *   data: { key: 'value' },
    *   repeats: [
    *     {
    *       __typename: 'ScheduleRepeat',
@@ -42,8 +44,6 @@ export class Schedules extends APIResource {
    *       minutes: null,
    *     },
    *   ],
-   *   workflow: 'comment-created',
-   *   data: { key: 'value' },
    *   tenant: 'acme_corp',
    * });
    * ```
@@ -172,7 +172,10 @@ export interface Schedule {
   actor?: RecipientsAPI.Recipient | null;
 
   /**
-   * An optional map of data to pass into the workflow execution.
+   * An optional map of data to pass into the workflow execution. There is a 1024
+   * byte limit on the size of any single string value (with the exception of
+   * [email attachments](/integrations/email/attachments)), and a 10MB limit on the
+   * size of the full `data` payload.
    */
   data?: Record<string, unknown> | null;
 
@@ -199,14 +202,14 @@ export interface Schedule {
  */
 export interface ScheduleRepeatRule {
   /**
-   * The typename of the schema.
-   */
-  __typename: string;
-
-  /**
    * The frequency of the schedule.
    */
   frequency: 'daily' | 'weekly' | 'monthly' | 'hourly';
+
+  /**
+   * The typename of the schema.
+   */
+  __typename?: string;
 
   /**
    * The day of the month to repeat the schedule.
@@ -251,15 +254,9 @@ export type ScheduleDeleteResponse = Array<Schedule>;
 
 export interface ScheduleCreateParams {
   /**
-   * The recipients to trigger the workflow for. Can inline identify users, objects,
-   * or use a list of user IDs. Limited to 1,000 recipients.
+   * The recipients to set the schedule for. Limited to 100 recipients per request.
    */
   recipients: Array<RecipientsAPI.RecipientRequest>;
-
-  /**
-   * The repeat rule for the schedule.
-   */
-  repeats: Array<ScheduleRepeatRule>;
 
   /**
    * The key of the workflow.
@@ -267,7 +264,17 @@ export interface ScheduleCreateParams {
   workflow: string;
 
   /**
-   * An optional map of data to pass into the workflow execution.
+   * Specifies a recipient in a request. This can either be a user identifier
+   * (string), an inline user request (object), or an inline object request, which is
+   * determined by the presence of a `collection` property.
+   */
+  actor?: RecipientsAPI.RecipientRequest | null;
+
+  /**
+   * An optional map of data to pass into the workflow execution. There is a 1024
+   * byte limit on the size of any single string value (with the exception of
+   * [email attachments](/integrations/email/attachments)), and a 10MB limit on the
+   * size of the full `data` payload.
    */
   data?: Record<string, unknown> | null;
 
@@ -275,6 +282,11 @@ export interface ScheduleCreateParams {
    * The ending date and time for the schedule.
    */
   ending_at?: string | null;
+
+  /**
+   * The repeat rule for the schedule.
+   */
+  repeats?: Array<ScheduleRepeatRule>;
 
   /**
    * The starting date and time for the schedule.
@@ -300,7 +312,10 @@ export interface ScheduleUpdateParams {
   actor?: RecipientsAPI.RecipientReference | null;
 
   /**
-   * An optional map of data to pass into the workflow execution.
+   * An optional map of data to pass into the workflow execution. There is a 1024
+   * byte limit on the size of any single string value (with the exception of
+   * [email attachments](/integrations/email/attachments)), and a 10MB limit on the
+   * size of the full `data` payload.
    */
   data?: Record<string, unknown> | null;
 
@@ -332,9 +347,9 @@ export interface ScheduleListParams extends EntriesCursorParams {
   workflow: string;
 
   /**
-   * Filter by recipient IDs.
+   * Filter by recipient references.
    */
-  recipients?: Array<string>;
+  recipients?: Array<RecipientsAPI.RecipientReference>;
 
   /**
    * Filter by tenant ID.

@@ -197,7 +197,7 @@ describe('resource users', () => {
     await expect(
       client.users.listSubscriptions(
         'user_id',
-        { after: 'after', before: 'before', include: ['preferences'], objects: ['string'], page_size: 0 },
+        { after: 'after', before: 'before', include: ['preferences'], objects: ['user_123'], page_size: 0 },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Knock.NotFoundError);
