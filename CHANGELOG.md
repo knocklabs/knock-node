@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.7.1 (2025-06-06)
+
+Full Changelog: [v1.7.0...v1.7.1](https://github.com/knocklabs/knock-node/compare/v1.7.0...v1.7.1)
+
+### Chores
+
+* avoid type error in certain environments ([b7301d0](https://github.com/knocklabs/knock-node/commit/b7301d0028108ebe3a31f7ea4d7e36ac6ebbab40))
+
 ## 1.7.0 (2025-06-06)
 
 Full Changelog: [v1.6.0...v1.7.0](https://github.com/knocklabs/knock-node/compare/v1.6.0...v1.7.0)
