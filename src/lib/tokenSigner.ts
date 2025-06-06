@@ -2,7 +2,7 @@
  * Token signing functionality for Knock authentication
  */
 
-import * as crypto from 'crypto';
+import type { JWTPayload, JWTHeaderParameters } from 'jose';
 import type { TokenEntity, TokenGrant, TokenGrantOptions } from './userTokens';
 
 // Default hostname for Knock API
@@ -65,38 +65,12 @@ function prepareTokenEntityUri(entity: TokenEntity): string {
 }
 
 /**
- * Create and sign a JWT using Node.js crypto
+ * Create and sign a JWT using jose
  */
-function createJWT(header: object, payload: object, privateKey: string): string {
-  // Base64Url encode the header
-  const headerBase64 = Buffer.from(JSON.stringify(header))
-    .toString('base64')
-    .replace(/=/g, '')
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_');
-
-  // Base64Url encode the payload
-  const payloadBase64 = Buffer.from(JSON.stringify(payload))
-    .toString('base64')
-    .replace(/=/g, '')
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_');
-
-  // Create the content to sign
-  const signatureContent = `${headerBase64}.${payloadBase64}`;
-
-  // Sign the content
-  const signer = crypto.createSign('RSA-SHA256');
-  signer.update(signatureContent);
-
-  const signature = signer
-    .sign(privateKey, 'base64')
-    .replace(/=/g, '')
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_');
-
-  // Combine to create the JWT
-  return `${signatureContent}.${signature}`;
+async function createJWT(header: object, payload: JWTPayload, privateKey: string): Promise<string> {
+  const { SignJWT, importPKCS8 } = await import('jose');
+  const key = await importPKCS8(privateKey, 'RS256');
+  return await new SignJWT(payload).setProtectedHeader(header as JWTHeaderParameters).sign(key);
 }
 
 /**
@@ -165,6 +139,6 @@ export async function signUserToken(userId: string, options?: SignUserTokenOptio
     exp: currentTime + expireInSeconds,
   };
 
-  // Create and sign the JWT
+  // Create and sign the JWT using jose
   return createJWT(header, payload, signingKey);
 }
