@@ -3342,7 +3342,7 @@ type-fest@^0.21.3:
 
 typescript-eslint@8.31.1:
   version "8.31.1"
-  resolved "https://registry.npmjs.org/typescript-eslint/-/typescript-eslint-8.31.1.tgz#b77ab1e48ced2daab9225ff94bab54391a4af69b"
+  resolved "https://registry.yarnpkg.com/typescript-eslint/-/typescript-eslint-8.31.1.tgz#b77ab1e48ced2daab9225ff94bab54391a4af69b"
   integrity sha512-j6DsEotD/fH39qKzXTQRwYYWlt7D+0HmfpOK+DVhwJOFLcdmn92hq3mBb7HlKJHbjjI/gTOqEcc9d6JfpFf/VA==
   dependencies:
     "@typescript-eslint/eslint-plugin" "8.31.1"
