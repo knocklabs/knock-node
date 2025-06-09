@@ -126,7 +126,9 @@ export function buildUserTokenGrant(entity: TokenEntity, grants: TokenGrantOptio
  */
 export async function signUserToken(userId: string, options?: SignUserTokenOptions): Promise<string> {
   const signingKey = prepareSigningKey(options?.signingKey);
+  // JWT NumericDates specified in seconds
   const currentTime = Math.floor(Date.now() / 1000);
+  // Default to 1 hour from now
   const expireInSeconds = options?.expiresInSeconds ?? 60 * 60;
 
   const header: JWTHeaderParameters = {
