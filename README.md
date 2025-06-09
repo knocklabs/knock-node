@@ -277,17 +277,17 @@ const token = await Knock.signUserToken('user-1');
 You can provide specific grants to control access to different resources:
 
 ```ts
-import Knock, { Grants } from '@knocklabs/node';
+import { signUserToken, buildUserTokenGrant, Grants } from '@knocklabs/node';
 
-const token = await Knock.signUserToken('user-1', {
+const token = await signUserToken('user-1', {
   // Token valid for 12 hours (43200 seconds)
   expiresInSeconds: 43200,
   // Grants for tenant and object access
   grants: [
     // Grant access to a tenant
-    Knock.buildUserTokenGrant({ type: 'tenant', id: 'tenant-id' }, [Grants.SlackChannelsRead]),
+    buildUserTokenGrant({ type: 'tenant', id: 'tenant-id' }, [Grants.SlackChannelsRead]),
     // Grant access to specific objects
-    Knock.buildUserTokenGrant({ type: 'object', id: 'object-id', collection: 'videos' }, [
+    buildUserTokenGrant({ type: 'object', id: 'object-id', collection: 'videos' }, [
       Grants.ChannelDataRead,
       Grants.ChannelDataWrite,
     ]),
