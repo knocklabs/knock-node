@@ -67,10 +67,18 @@ function prepareTokenEntityUri(entity: TokenEntity): string {
 /**
  * Create and sign a JWT using jose
  */
-async function createJWT(header: object, payload: JWTPayload, privateKey: string): Promise<string> {
+async function createJWT(
+  header: JWTHeaderParameters,
+  payload: JWTPayload,
+  privateKey: string,
+): Promise<string> {
   const { SignJWT, importPKCS8 } = await import('jose');
   const key = await importPKCS8(privateKey, 'RS256');
-  return await new SignJWT(payload).setProtectedHeader(header as JWTHeaderParameters).sign(key);
+
+  const jwt = new SignJWT(payload);
+  jwt.setProtectedHeader(header);
+
+  return jwt.sign(key);
 }
 
 /**
@@ -118,27 +126,20 @@ export function buildUserTokenGrant(entity: TokenEntity, grants: TokenGrantOptio
  */
 export async function signUserToken(userId: string, options?: SignUserTokenOptions): Promise<string> {
   const signingKey = prepareSigningKey(options?.signingKey);
-
-  // JWT NumericDates specified in seconds
   const currentTime = Math.floor(Date.now() / 1000);
-
-  // Default to 1 hour from now
   const expireInSeconds = options?.expiresInSeconds ?? 60 * 60;
 
-  // Create JWT header
-  const header = {
+  const header: JWTHeaderParameters = {
     alg: 'RS256',
     typ: 'JWT',
   };
 
-  // Create JWT payload
-  const payload = {
+  const payload: JWTPayload = {
     sub: userId,
     grants: maybePrepareUserTokenGrants(options?.grants),
     iat: currentTime,
     exp: currentTime + expireInSeconds,
   };
 
-  // Create and sign the JWT using jose
   return createJWT(header, payload, signingKey);
 }
