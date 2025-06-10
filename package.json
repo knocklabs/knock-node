@@ -1,6 +1,6 @@
 {
   "name": "@knocklabs/node",
-  "version": "1.1.0",
+  "version": "1.7.0",
   "description": "The official TypeScript library for the Knock API",
   "author": "Knock <support@knock.app>",
   "types": "dist/index.d.ts",
@@ -40,7 +40,7 @@
     "@typescript-eslint/eslint-plugin": "8.31.1",
     "@typescript-eslint/parser": "8.31.1",
     "eslint": "^9.20.1",
-    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-prettier": "^5.4.1",
     "eslint-plugin-unused-imports": "^4.1.4",
     "iconv-lite": "^0.6.3",
     "jest": "^29.4.0",
@@ -53,9 +53,6 @@
     "tsconfig-paths": "^4.0.0",
     "typescript": "5.8.3",
     "typescript-eslint": "8.31.1"
-  },
-  "resolutions": {
-    "synckit": "0.8.8"
   },
   "imports": {
     "@knocklabs/node": ".",
@@ -76,8 +73,5 @@
       "import": "./dist/*.mjs",
       "require": "./dist/*.js"
     }
-  },
-  "engines": {
-    "node": ">= 20"
   }
 }

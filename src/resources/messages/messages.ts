@@ -1,8 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as ActivitiesAPI from './activities';
-import { Activities, ActivityListParams } from './activities';
 import * as BatchAPI from './batch';
 import {
   Batch,
@@ -25,19 +23,12 @@ import {
 } from './batch';
 import * as RecipientsAPI from '../recipients/recipients';
 import { APIPromise } from '../../core/api-promise';
-import {
-  EntriesCursor,
-  type EntriesCursorParams,
-  ItemsCursor,
-  type ItemsCursorParams,
-  PagePromise,
-} from '../../core/pagination';
+import { ItemsCursor, type ItemsCursorParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
 export class Messages extends APIResource {
   batch: BatchAPI.Batch = new BatchAPI.Batch(this._client);
-  activities: ActivitiesAPI.Activities = new ActivitiesAPI.Activities(this._client);
 
   /**
    * Returns a paginated list of messages for the current environment.
@@ -53,8 +44,8 @@ export class Messages extends APIResource {
   list(
     query: MessageListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<MessagesEntriesCursor, Message> {
-    return this._client.getAPIList('/v1/messages', EntriesCursor<Message>, { query, ...options });
+  ): PagePromise<MessagesItemsCursor, Message> {
+    return this._client.getAPIList('/v1/messages', ItemsCursor<Message>, { query, ...options });
   }
 
   /**
@@ -142,10 +133,10 @@ export class Messages extends APIResource {
     messageID: string,
     query: MessageListDeliveryLogsParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<MessageDeliveryLogsEntriesCursor, MessageDeliveryLog> {
+  ): PagePromise<MessageDeliveryLogsItemsCursor, MessageDeliveryLog> {
     return this._client.getAPIList(
       path`/v1/messages/${messageID}/delivery_logs`,
-      EntriesCursor<MessageDeliveryLog>,
+      ItemsCursor<MessageDeliveryLog>,
       { query, ...options },
     );
   }
@@ -167,8 +158,8 @@ export class Messages extends APIResource {
     messageID: string,
     query: MessageListEventsParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<MessageEventsEntriesCursor, MessageEvent> {
-    return this._client.getAPIList(path`/v1/messages/${messageID}/events`, EntriesCursor<MessageEvent>, {
+  ): PagePromise<MessageEventsItemsCursor, MessageEvent> {
+    return this._client.getAPIList(path`/v1/messages/${messageID}/events`, ItemsCursor<MessageEvent>, {
       query,
       ...options,
     });
@@ -276,13 +267,13 @@ export class Messages extends APIResource {
   }
 }
 
-export type MessagesEntriesCursor = EntriesCursor<Message>;
+export type MessagesItemsCursor = ItemsCursor<Message>;
 
 export type ActivitiesItemsCursor = ItemsCursor<Activity>;
 
-export type MessageDeliveryLogsEntriesCursor = EntriesCursor<MessageDeliveryLog>;
+export type MessageDeliveryLogsItemsCursor = ItemsCursor<MessageDeliveryLog>;
 
-export type MessageEventsEntriesCursor = EntriesCursor<MessageEvent>;
+export type MessageEventsItemsCursor = ItemsCursor<MessageEvent>;
 
 /**
  * An activity associated with a workflow trigger request. Messages produced after
@@ -908,7 +899,7 @@ export namespace MessageGetContentResponse {
   }
 }
 
-export interface MessageListParams extends EntriesCursorParams {
+export interface MessageListParams extends ItemsCursorParams {
   /**
    * Limits the results to items with the corresponding channel ID.
    */
@@ -917,7 +908,9 @@ export interface MessageListParams extends EntriesCursorParams {
   /**
    * Limits the results to messages with the given engagement status.
    */
-  engagement_status?: Array<'seen' | 'read' | 'interacted' | 'link_clicked' | 'archived'>;
+  engagement_status?: Array<
+    'seen' | 'unseen' | 'read' | 'unread' | 'archived' | 'unarchived' | 'link_clicked' | 'interacted'
+  >;
 
   inserted_at?: MessageListParams.InsertedAt;
 
@@ -999,9 +992,9 @@ export interface MessageListActivitiesParams extends ItemsCursorParams {
   trigger_data?: string;
 }
 
-export interface MessageListDeliveryLogsParams extends EntriesCursorParams {}
+export interface MessageListDeliveryLogsParams extends ItemsCursorParams {}
 
-export interface MessageListEventsParams extends EntriesCursorParams {}
+export interface MessageListEventsParams extends ItemsCursorParams {}
 
 export interface MessageMarkAsInteractedParams {
   /**
@@ -1011,7 +1004,6 @@ export interface MessageMarkAsInteractedParams {
 }
 
 Messages.Batch = Batch;
-Messages.Activities = Activities;
 
 export declare namespace Messages {
   export {
@@ -1020,10 +1012,10 @@ export declare namespace Messages {
     type MessageDeliveryLog as MessageDeliveryLog,
     type MessageEvent as MessageEvent,
     type MessageGetContentResponse as MessageGetContentResponse,
-    type MessagesEntriesCursor as MessagesEntriesCursor,
+    type MessagesItemsCursor as MessagesItemsCursor,
     type ActivitiesItemsCursor as ActivitiesItemsCursor,
-    type MessageDeliveryLogsEntriesCursor as MessageDeliveryLogsEntriesCursor,
-    type MessageEventsEntriesCursor as MessageEventsEntriesCursor,
+    type MessageDeliveryLogsItemsCursor as MessageDeliveryLogsItemsCursor,
+    type MessageEventsItemsCursor as MessageEventsItemsCursor,
     type MessageListParams as MessageListParams,
     type MessageListActivitiesParams as MessageListActivitiesParams,
     type MessageListDeliveryLogsParams as MessageListDeliveryLogsParams,
@@ -1050,6 +1042,4 @@ export declare namespace Messages {
     type BatchMarkAsUnseenParams as BatchMarkAsUnseenParams,
     type BatchUnarchiveParams as BatchUnarchiveParams,
   };
-
-  export { Activities as Activities, type ActivityListParams as ActivityListParams };
 }

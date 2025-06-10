@@ -3,7 +3,7 @@
 import { APIResource } from '../../core/resource';
 import * as SharedAPI from '../shared';
 import * as MessagesAPI from '../messages/messages';
-import { MessagesEntriesCursor } from '../messages/messages';
+import { MessagesItemsCursor } from '../messages/messages';
 import * as BulkAPI from './bulk';
 import { Bulk, BulkAddSubscriptionsParams, BulkDeleteParams, BulkSetParams } from './bulk';
 import * as ChannelDataAPI from '../recipients/channel-data';
@@ -14,7 +14,13 @@ import { SubscriptionsEntriesCursor } from '../recipients/subscriptions';
 import * as SchedulesAPI from '../schedules/schedules';
 import { SchedulesEntriesCursor } from '../schedules/schedules';
 import { APIPromise } from '../../core/api-promise';
-import { EntriesCursor, type EntriesCursorParams, PagePromise } from '../../core/pagination';
+import {
+  EntriesCursor,
+  type EntriesCursorParams,
+  ItemsCursor,
+  type ItemsCursorParams,
+  PagePromise,
+} from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -191,10 +197,10 @@ export class Objects extends APIResource {
     id: string,
     query: ObjectListMessagesParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<MessagesEntriesCursor, MessagesAPI.Message> {
+  ): PagePromise<MessagesItemsCursor, MessagesAPI.Message> {
     return this._client.getAPIList(
       path`/v1/objects/${collection}/${id}/messages`,
-      EntriesCursor<MessagesAPI.Message>,
+      ItemsCursor<MessagesAPI.Message>,
       { query, ...options },
     );
   }
@@ -287,7 +293,7 @@ export class Objects extends APIResource {
    *   {
    *     channel_data: {
    *       '97c5837d-c65c-4d54-aa39-080eeb81c69d': {
-   *         data: { tokens: ['push_token_123'] },
+   *         tokens: ['push_token_123'],
    *       },
    *     },
    *     locale: 'en-US',
@@ -468,7 +474,10 @@ export interface Object {
    */
   created_at?: string | null;
 
-  [k: string]: unknown;
+  /**
+   * The custom properties associated with the object.
+   */
+  properties?: Record<string, unknown>;
 }
 
 /**
@@ -524,7 +533,7 @@ export interface ObjectDeleteSubscriptionsParams {
   recipients: Array<RecipientsAPI.RecipientReference>;
 }
 
-export interface ObjectListMessagesParams extends EntriesCursorParams {
+export interface ObjectListMessagesParams extends ItemsCursorParams {
   /**
    * Limits the results to items with the corresponding channel ID.
    */
@@ -533,7 +542,9 @@ export interface ObjectListMessagesParams extends EntriesCursorParams {
   /**
    * Limits the results to messages with the given engagement status.
    */
-  engagement_status?: Array<'seen' | 'read' | 'interacted' | 'link_clicked' | 'archived'>;
+  engagement_status?: Array<
+    'seen' | 'unseen' | 'read' | 'unread' | 'archived' | 'unarchived' | 'link_clicked' | 'interacted'
+  >;
 
   inserted_at?: ObjectListMessagesParams.InsertedAt;
 
@@ -791,4 +802,4 @@ export declare namespace Objects {
   };
 }
 
-export { type MessagesEntriesCursor, type SchedulesEntriesCursor, type SubscriptionsEntriesCursor };
+export { type MessagesItemsCursor, type SchedulesEntriesCursor, type SubscriptionsEntriesCursor };

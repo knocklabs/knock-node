@@ -3,9 +3,10 @@
 import { APIResource } from '../../core/resource';
 import * as SharedAPI from '../shared';
 import * as MessagesAPI from '../messages/messages';
-import { MessagesEntriesCursor } from '../messages/messages';
+import { MessagesItemsCursor } from '../messages/messages';
 import * as ChannelDataAPI from '../recipients/channel-data';
 import * as PreferencesAPI from '../recipients/preferences';
+import * as RecipientsAPI from '../recipients/recipients';
 import * as SubscriptionsAPI from '../recipients/subscriptions';
 import { SubscriptionsEntriesCursor } from '../recipients/subscriptions';
 import * as SchedulesAPI from '../schedules/schedules';
@@ -33,7 +34,13 @@ import {
   Guides,
 } from './guides';
 import { APIPromise } from '../../core/api-promise';
-import { EntriesCursor, type EntriesCursorParams, PagePromise } from '../../core/pagination';
+import {
+  EntriesCursor,
+  type EntriesCursorParams,
+  ItemsCursor,
+  type ItemsCursorParams,
+  PagePromise,
+} from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -52,7 +59,7 @@ export class Users extends APIResource {
    * const user = await client.users.update('user_id', {
    *   channel_data: {
    *     '97c5837d-c65c-4d54-aa39-080eeb81c69d': {
-   *       data: { tokens: ['push_token_123'] },
+   *       tokens: ['push_token_123'],
    *     },
    *   },
    *   email: 'ian.malcolm@chaos.theory',
@@ -177,8 +184,8 @@ export class Users extends APIResource {
     userID: string,
     query: UserListMessagesParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<MessagesEntriesCursor, MessagesAPI.Message> {
-    return this._client.getAPIList(path`/v1/users/${userID}/messages`, EntriesCursor<MessagesAPI.Message>, {
+  ): PagePromise<MessagesItemsCursor, MessagesAPI.Message> {
+    return this._client.getAPIList(path`/v1/users/${userID}/messages`, ItemsCursor<MessagesAPI.Message>, {
       query,
       ...options,
     });
@@ -265,7 +272,9 @@ export class Users extends APIResource {
   }
 
   /**
-   * Updates or creates channel data for a specific user and channel ID.
+   * Updates or creates channel data for a specific user and channel ID. If no user
+   * exists in the current environment for the given `user_id`, Knock will create the
+   * user entry as part of this request.
    *
    * @example
    * ```ts
@@ -407,6 +416,11 @@ export interface InlineIdentifyUserRequest {
   id: string;
 
   /**
+   * URL to the user's avatar image.
+   */
+  avatar?: string | null;
+
+  /**
    * A request to set channel data for a type of channel inline.
    */
   channel_data?: ChannelDataAPI.InlineChannelDataRequest | null;
@@ -422,9 +436,20 @@ export interface InlineIdentifyUserRequest {
   email?: string | null;
 
   /**
+   * The locale of the user. Used for [message localization](/concepts/translations).
+   */
+  locale?: string | null;
+
+  /**
    * Display name of the user.
    */
   name?: string | null;
+
+  /**
+   * The [E.164](https://www.twilio.com/docs/glossary/what-e164) phone number of the
+   * user (required for SMS channels).
+   */
+  phone_number?: string | null;
 
   /**
    * Inline set preferences for a recipient, where the key is the preference set id.
@@ -582,7 +607,7 @@ export interface UserGetPreferencesParams {
   tenant?: string;
 }
 
-export interface UserListMessagesParams extends EntriesCursorParams {
+export interface UserListMessagesParams extends ItemsCursorParams {
   /**
    * Limits the results to items with the corresponding channel ID.
    */
@@ -591,7 +616,9 @@ export interface UserListMessagesParams extends EntriesCursorParams {
   /**
    * Limits the results to messages with the given engagement status.
    */
-  engagement_status?: Array<'seen' | 'read' | 'interacted' | 'link_clicked' | 'archived'>;
+  engagement_status?: Array<
+    'seen' | 'unseen' | 'read' | 'unread' | 'archived' | 'unarchived' | 'link_clicked' | 'interacted'
+  >;
 
   inserted_at?: UserListMessagesParams.InsertedAt;
 
@@ -685,9 +712,9 @@ export interface UserListSubscriptionsParams extends EntriesCursorParams {
   include?: Array<'preferences'>;
 
   /**
-   * Only returns subscriptions for the specified object GIDs.
+   * Only returns subscriptions for the specified object references.
    */
-  objects?: Array<string>;
+  objects?: Array<RecipientsAPI.RecipientReference>;
 }
 
 export interface UserMergeParams {
@@ -820,4 +847,4 @@ export declare namespace Users {
   };
 }
 
-export { type MessagesEntriesCursor, type SchedulesEntriesCursor, type SubscriptionsEntriesCursor };
+export { type MessagesItemsCursor, type SchedulesEntriesCursor, type SubscriptionsEntriesCursor };
