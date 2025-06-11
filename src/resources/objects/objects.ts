@@ -439,6 +439,8 @@ export interface InlineObjectRequest {
 
   /**
    * Inline set preferences for a recipient, where the key is the preference set id.
+   * Preferences that are set inline will be merged into any existing preferences
+   * rather than replacing them.
    */
   preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
 
@@ -686,6 +688,8 @@ export interface ObjectSetParams {
 
   /**
    * Inline set preferences for a recipient, where the key is the preference set id.
+   * Preferences that are set inline will be merged into any existing preferences
+   * rather than replacing them.
    */
   preferences?: PreferencesAPI.InlinePreferenceSetRequest;
 
