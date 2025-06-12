@@ -237,6 +237,54 @@ const client = new Knock({
 This library is typed for convenient access to the documented API. If you need to access undocumented
 endpoints, params, or response properties, the library can still be used.
 
+### JWT Token Signing
+
+The SDK provides functionality to sign authentication tokens for client-side requests, such as for in-app feeds. This feature requires the `jose` package as an optional peer dependency.
+
+#### Installation
+
+If you plan to use JWT token signing, you'll need to install `jose`:
+
+```sh
+npm install jose
+# or
+yarn add jose
+```
+
+#### Basic Usage
+
+```ts
+import Knock from '@knocklabs/node';
+
+// Generate a JWT token for a user
+const token = await Knock.signUserToken('user-1');
+```
+
+#### Advanced Usage with Grants
+
+You can provide specific grants to control access to different resources:
+
+```ts
+import { signUserToken, buildUserTokenGrant, Grants } from '@knocklabs/node';
+
+const token = await signUserToken('user-1', {
+  // Token valid for 12 hours (43200 seconds)
+  expiresInSeconds: 43200,
+  // Grants for tenant and object access
+  grants: [
+    // Grant access to a tenant
+    buildUserTokenGrant({ type: 'tenant', id: 'tenant-id' }, [Grants.SlackChannelsRead]),
+    // Grant access to specific objects
+    buildUserTokenGrant({ type: 'object', id: 'object-id', collection: 'videos' }, [
+      Grants.ChannelDataRead,
+      Grants.ChannelDataWrite,
+    ]),
+  ],
+});
+```
+
+For more examples and detailed documentation about token signing, see the [token signing examples](./examples/token-signing.ts) and visit [Knock's Authentication Documentation](https://docs.knock.app/in-app-ui/security-and-authentication#authentication-with-enhanced-security-enabled).
+
 #### Undocumented endpoints
 
 To make requests to undocumented endpoints, you can use `client.get`, `client.post`, and other HTTP verbs.

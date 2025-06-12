@@ -2,7 +2,7 @@
  * Token signing functionality for Knock authentication
  */
 
-import * as crypto from 'crypto';
+import type { JWTPayload, JWTHeaderParameters } from 'jose';
 import type { TokenEntity, TokenGrant, TokenGrantOptions } from './userTokens';
 
 // Default hostname for Knock API
@@ -65,38 +65,20 @@ function prepareTokenEntityUri(entity: TokenEntity): string {
 }
 
 /**
- * Create and sign a JWT using Node.js crypto
+ * Create and sign a JWT using jose
  */
-function createJWT(header: object, payload: object, privateKey: string): string {
-  // Base64Url encode the header
-  const headerBase64 = Buffer.from(JSON.stringify(header))
-    .toString('base64')
-    .replace(/=/g, '')
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_');
+async function createJWT(
+  header: JWTHeaderParameters,
+  payload: JWTPayload,
+  privateKey: string,
+): Promise<string> {
+  const { SignJWT, importPKCS8 } = await import('jose');
+  const key = await importPKCS8(privateKey, 'RS256');
 
-  // Base64Url encode the payload
-  const payloadBase64 = Buffer.from(JSON.stringify(payload))
-    .toString('base64')
-    .replace(/=/g, '')
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_');
+  const jwt = new SignJWT(payload);
+  jwt.setProtectedHeader(header);
 
-  // Create the content to sign
-  const signatureContent = `${headerBase64}.${payloadBase64}`;
-
-  // Sign the content
-  const signer = crypto.createSign('RSA-SHA256');
-  signer.update(signatureContent);
-
-  const signature = signer
-    .sign(privateKey, 'base64')
-    .replace(/=/g, '')
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_');
-
-  // Combine to create the JWT
-  return `${signatureContent}.${signature}`;
+  return jwt.sign(key);
 }
 
 /**
@@ -144,27 +126,22 @@ export function buildUserTokenGrant(entity: TokenEntity, grants: TokenGrantOptio
  */
 export async function signUserToken(userId: string, options?: SignUserTokenOptions): Promise<string> {
   const signingKey = prepareSigningKey(options?.signingKey);
-
   // JWT NumericDates specified in seconds
   const currentTime = Math.floor(Date.now() / 1000);
-
   // Default to 1 hour from now
   const expireInSeconds = options?.expiresInSeconds ?? 60 * 60;
 
-  // Create JWT header
-  const header = {
+  const header: JWTHeaderParameters = {
     alg: 'RS256',
     typ: 'JWT',
   };
 
-  // Create JWT payload
-  const payload = {
+  const payload: JWTPayload = {
     sub: userId,
     grants: maybePrepareUserTokenGrants(options?.grants),
     iat: currentTime,
     exp: currentTime + expireInSeconds,
   };
 
-  // Create and sign the JWT
   return createJWT(header, payload, signingKey);
 }

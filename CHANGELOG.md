@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.8.0 (2025-06-12)
+
+Full Changelog: [v1.7.0...v1.8.0](https://github.com/knocklabs/knock-node/compare/v1.7.0...v1.8.0)
+
+### Features
+
+* **api:** api update ([f48813c](https://github.com/knocklabs/knock-node/commit/f48813ce61f984e01549870970dc681b946ddd59))
+* **api:** api update ([e83278e](https://github.com/knocklabs/knock-node/commit/e83278eec9c6216d8c3dccd293c067959bf6bf9d))
+
+
+### Bug Fixes
+
+* **kno-8729:** use jose instead of crypto so token signing works with vercel edge runtime ([#101](https://github.com/knocklabs/knock-node/issues/101)) ([698ffcc](https://github.com/knocklabs/knock-node/commit/698ffcc70f2ea352f0ef3aaf0b3f8abe6922e4bc))
+
+
+### Chores
+
+* avoid type error in certain environments ([e6c0c70](https://github.com/knocklabs/knock-node/commit/e6c0c7080a86996246bab9de762305e247ef74bd))
+
 ## 1.7.0 (2025-06-06)
 
 Full Changelog: [v1.6.0...v1.7.0](https://github.com/knocklabs/knock-node/compare/v1.6.0...v1.7.0)
