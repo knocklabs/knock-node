@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.9.0 (2025-06-14)
+
+Full Changelog: [v1.8.0...v1.9.0](https://github.com/knocklabs/knock-node/compare/v1.8.0...v1.9.0)
+
+### Features
+
+* **api:** api update ([25f4db0](https://github.com/knocklabs/knock-node/commit/25f4db034504609b4207883856e3249e1c628e2b))
+
+
+### Bug Fixes
+
+* publish script — handle NPM errors correctly ([989cb57](https://github.com/knocklabs/knock-node/commit/989cb57f585f7984cb6cdead765c4e1c5da4a94e))
+
+
+### Chores
+
+* **internal:** add pure annotations, make base APIResource abstract ([eb478b7](https://github.com/knocklabs/knock-node/commit/eb478b799a1ecd96bae6ed839a6eeec93d33fb5f))
+
 ## 1.8.0 (2025-06-12)
 
 Full Changelog: [v1.7.0...v1.8.0](https://github.com/knocklabs/knock-node/compare/v1.7.0...v1.8.0)
