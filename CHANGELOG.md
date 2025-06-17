@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.10.0 (2025-06-17)
+
+Full Changelog: [v1.9.0...v1.10.0](https://github.com/knocklabs/knock-node/compare/v1.9.0...v1.10.0)
+
+### Features
+
+* **client:** add support for endpoint-specific base URLs ([42eb7ac](https://github.com/knocklabs/knock-node/commit/42eb7ac920ef5a9a417dfd244868ce622d38305a))
+
+
+### Chores
+
+* **ci:** enable for pull requests ([427b10d](https://github.com/knocklabs/knock-node/commit/427b10df21ade119adc06c0ccd829587ab215ca0))
+* **client:** refactor imports ([9a339e7](https://github.com/knocklabs/knock-node/commit/9a339e70b524b141a2ce3ef6bbd10bdd3ae92efd))
+
 ## 1.9.0 (2025-06-14)
 
 Full Changelog: [v1.8.0...v1.9.0](https://github.com/knocklabs/knock-node/compare/v1.8.0...v1.9.0)
