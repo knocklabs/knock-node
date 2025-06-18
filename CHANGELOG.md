@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.10.1 (2025-06-18)
+
+Full Changelog: [v1.10.0...v1.10.1](https://github.com/knocklabs/knock-node/compare/v1.10.0...v1.10.1)
+
+### Chores
+
+* **readme:** update badges ([a4c5e03](https://github.com/knocklabs/knock-node/commit/a4c5e03d3eb8f10c021c89487db0432cb68e7a0d))
+
 ## 1.10.0 (2025-06-17)
 
 Full Changelog: [v1.9.0...v1.10.0](https://github.com/knocklabs/knock-node/compare/v1.9.0...v1.10.0)
