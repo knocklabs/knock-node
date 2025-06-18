@@ -1,6 +1,6 @@
 # Knock TypeScript API Library
 
-[![NPM version](https://img.shields.io/npm/v/@knocklabs/node.svg)](https://npmjs.org/package/@knocklabs/node) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@knocklabs/node)
+[![NPM version](<https://img.shields.io/npm/v/@knocklabs/node.svg?label=npm%20(stable)>)](https://npmjs.org/package/@knocklabs/node) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@knocklabs/node)
 
 This library provides convenient access to the Knock REST API from server-side TypeScript or JavaScript.
 
