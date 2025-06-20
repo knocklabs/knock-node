@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.10.2 (2025-06-19)
+
+Full Changelog: [v1.10.1...v1.10.2](https://github.com/knocklabs/knock-node/compare/v1.10.1...v1.10.2)
+
+### Chores
+
+* **readme:** use better example snippet for undocumented params ([5b521fb](https://github.com/knocklabs/knock-node/commit/5b521fbfa92dcccd78811f33c6f7e962dd86639f))
+
 ## 1.10.1 (2025-06-18)
 
 Full Changelog: [v1.10.0...v1.10.1](https://github.com/knocklabs/knock-node/compare/v1.10.0...v1.10.1)
