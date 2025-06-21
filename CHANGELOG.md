@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.10.3 (2025-06-21)
+
+Full Changelog: [v1.10.2...v1.10.3](https://github.com/knocklabs/knock-node/compare/v1.10.2...v1.10.3)
+
+### Bug Fixes
+
+* **client:** explicitly copy fetch in withOptions ([64b02a4](https://github.com/knocklabs/knock-node/commit/64b02a41d3110a7e336cba8ca38fd6af33785ed3))
+
 ## 1.10.2 (2025-06-19)
 
 Full Changelog: [v1.10.1...v1.10.2](https://github.com/knocklabs/knock-node/compare/v1.10.1...v1.10.2)
