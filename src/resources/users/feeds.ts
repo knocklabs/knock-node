@@ -111,7 +111,7 @@ export interface FeedListItemsResponse {
   /**
    * Additional data associated with the feed item.
    */
-  data: Record<string, unknown> | null;
+  data: { [key: string]: unknown } | null;
 
   /**
    * Timestamp when the resource was created.

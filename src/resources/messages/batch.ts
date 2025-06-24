@@ -301,7 +301,7 @@ export namespace BatchGetContentResponse {
       /**
        * Additional data payload for the push notification.
        */
-      data?: Record<string, unknown> | null;
+      data?: { [key: string]: unknown } | null;
     }
 
     /**
@@ -316,7 +316,7 @@ export namespace BatchGetContentResponse {
       /**
        * The channel data connection from the recipient to the underlying provider.
        */
-      connection: Record<string, unknown>;
+      connection: { [key: string]: unknown };
 
       /**
        * The template structure for the chat message.
@@ -326,7 +326,7 @@ export namespace BatchGetContentResponse {
       /**
        * Additional metadata associated with the chat message.
        */
-      metadata?: Record<string, unknown> | null;
+      metadata?: { [key: string]: unknown } | null;
     }
 
     export namespace MessageChatContent {
@@ -342,7 +342,7 @@ export namespace BatchGetContentResponse {
         /**
          * The JSON content of the message.
          */
-        json_content?: Record<string, unknown> | null;
+        json_content?: { [key: string]: unknown } | null;
 
         /**
          * The summary of the chat message.
@@ -515,7 +515,7 @@ export interface BatchMarkAsInteractedParams {
   /**
    * Metadata about the interaction.
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 }
 
 export interface BatchMarkAsReadParams {

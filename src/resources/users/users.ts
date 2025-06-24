@@ -747,10 +747,9 @@ export interface UserSetPreferencesParams {
    * An object where the key is the category and the values are the preference
    * settings for that category.
    */
-  categories?: Record<
-    string,
-    boolean | UserSetPreferencesParams.PreferenceSetWorkflowCategorySettingObject
-  > | null;
+  categories?: {
+    [key: string]: boolean | UserSetPreferencesParams.PreferenceSetWorkflowCategorySettingObject;
+  } | null;
 
   /**
    * Channel type preferences.
@@ -761,10 +760,9 @@ export interface UserSetPreferencesParams {
    * An object where the key is the workflow key and the values are the preference
    * settings for that workflow.
    */
-  workflows?: Record<
-    string,
-    boolean | UserSetPreferencesParams.PreferenceSetWorkflowCategorySettingObject
-  > | null;
+  workflows?: {
+    [key: string]: boolean | UserSetPreferencesParams.PreferenceSetWorkflowCategorySettingObject;
+  } | null;
 }
 
 export namespace UserSetPreferencesParams {
