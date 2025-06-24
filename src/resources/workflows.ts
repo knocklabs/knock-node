@@ -125,7 +125,7 @@ export interface WorkflowTriggerParams {
    * [email attachments](/integrations/email/attachments)), and a 10MB limit on the
    * size of the full `data` payload.
    */
-  data?: Record<string, unknown> | null;
+  data?: { [key: string]: unknown } | null;
 
   /**
    * An request to set a tenant inline.

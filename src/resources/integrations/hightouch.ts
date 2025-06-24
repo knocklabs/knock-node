@@ -25,7 +25,7 @@ export interface HightouchEmbeddedDestinationResponse {
   /**
    * The result of the RPC call.
    */
-  result?: Record<string, unknown>;
+  result?: { [key: string]: unknown };
 }
 
 export interface HightouchEmbeddedDestinationParams {
@@ -47,7 +47,7 @@ export interface HightouchEmbeddedDestinationParams {
   /**
    * The parameters for the method.
    */
-  params?: Record<string, unknown>;
+  params?: { [key: string]: unknown };
 }
 
 export declare namespace Hightouch {

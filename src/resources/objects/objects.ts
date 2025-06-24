@@ -479,7 +479,7 @@ export interface Object {
   /**
    * The custom properties associated with the object.
    */
-  properties?: Record<string, unknown>;
+  properties?: { [key: string]: unknown };
 }
 
 /**
@@ -524,7 +524,7 @@ export interface ObjectAddSubscriptionsParams {
   /**
    * The custom properties associated with the subscription relationship.
    */
-  properties?: Record<string, unknown> | null;
+  properties?: { [key: string]: unknown } | null;
 }
 
 export interface ObjectDeleteSubscriptionsParams {
@@ -721,10 +721,9 @@ export interface ObjectSetPreferencesParams {
    * An object where the key is the category and the values are the preference
    * settings for that category.
    */
-  categories?: Record<
-    string,
-    boolean | ObjectSetPreferencesParams.PreferenceSetWorkflowCategorySettingObject
-  > | null;
+  categories?: {
+    [key: string]: boolean | ObjectSetPreferencesParams.PreferenceSetWorkflowCategorySettingObject;
+  } | null;
 
   /**
    * Channel type preferences.
@@ -735,10 +734,9 @@ export interface ObjectSetPreferencesParams {
    * An object where the key is the workflow key and the values are the preference
    * settings for that workflow.
    */
-  workflows?: Record<
-    string,
-    boolean | ObjectSetPreferencesParams.PreferenceSetWorkflowCategorySettingObject
-  > | null;
+  workflows?: {
+    [key: string]: boolean | ObjectSetPreferencesParams.PreferenceSetWorkflowCategorySettingObject;
+  } | null;
 }
 
 export namespace ObjectSetPreferencesParams {

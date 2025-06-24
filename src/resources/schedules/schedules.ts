@@ -177,7 +177,7 @@ export interface Schedule {
    * [email attachments](/integrations/email/attachments)), and a 10MB limit on the
    * size of the full `data` payload.
    */
-  data?: Record<string, unknown> | null;
+  data?: { [key: string]: unknown } | null;
 
   /**
    * The last occurrence of the schedule.
@@ -276,7 +276,7 @@ export interface ScheduleCreateParams {
    * [email attachments](/integrations/email/attachments)), and a 10MB limit on the
    * size of the full `data` payload.
    */
-  data?: Record<string, unknown> | null;
+  data?: { [key: string]: unknown } | null;
 
   /**
    * The ending date and time for the schedule.
@@ -317,7 +317,7 @@ export interface ScheduleUpdateParams {
    * [email attachments](/integrations/email/attachments)), and a 10MB limit on the
    * size of the full `data` payload.
    */
-  data?: Record<string, unknown> | null;
+  data?: { [key: string]: unknown } | null;
 
   /**
    * The ending date and time for the schedule.

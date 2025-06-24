@@ -300,7 +300,7 @@ export interface Activity {
   /**
    * The workflow trigger `data` payload associated with the activity.
    */
-  data?: Record<string, unknown> | null;
+  data?: { [key: string]: unknown } | null;
 
   /**
    * Timestamp when the activity was created.
@@ -362,7 +362,7 @@ export interface Message {
    * after a [batch step](/designing-workflows/batch-function), includes the payload
    * `data` from the most-recent trigger request (the final `activity` in the batch).
    */
-  data?: Record<string, unknown> | null;
+  data?: { [key: string]: unknown } | null;
 
   /**
    * A list of engagement statuses.
@@ -387,7 +387,7 @@ export interface Message {
   /**
    * The metadata associated with the message.
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 
   /**
    * Timestamp when the message was read.
@@ -510,12 +510,12 @@ export namespace MessageDeliveryLog {
     /**
      * The body content that was sent with the request.
      */
-    body?: string | Record<string, unknown>;
+    body?: string | { [key: string]: unknown };
 
     /**
      * The headers that were sent with the request.
      */
-    headers?: Record<string, unknown> | null;
+    headers?: { [key: string]: unknown } | null;
 
     /**
      * The host to which the request was sent.
@@ -545,12 +545,12 @@ export namespace MessageDeliveryLog {
     /**
      * The body content that was received with the response.
      */
-    body?: string | Record<string, unknown>;
+    body?: string | { [key: string]: unknown };
 
     /**
      * The headers that were received with the response.
      */
-    headers?: Record<string, unknown> | null;
+    headers?: { [key: string]: unknown } | null;
 
     /**
      * The HTTP status code of the response.
@@ -608,7 +608,7 @@ export interface MessageEvent {
   /**
    * The data associated with the message event. Only present for some event types.
    */
-  data?: Record<string, unknown> | null;
+  data?: { [key: string]: unknown } | null;
 }
 
 /**
@@ -739,7 +739,7 @@ export namespace MessageGetContentResponse {
     /**
      * Additional data payload for the push notification.
      */
-    data?: Record<string, unknown> | null;
+    data?: { [key: string]: unknown } | null;
   }
 
   /**
@@ -754,7 +754,7 @@ export namespace MessageGetContentResponse {
     /**
      * The channel data connection from the recipient to the underlying provider.
      */
-    connection: Record<string, unknown>;
+    connection: { [key: string]: unknown };
 
     /**
      * The template structure for the chat message.
@@ -764,7 +764,7 @@ export namespace MessageGetContentResponse {
     /**
      * Additional metadata associated with the chat message.
      */
-    metadata?: Record<string, unknown> | null;
+    metadata?: { [key: string]: unknown } | null;
   }
 
   export namespace MessageChatContent {
@@ -780,7 +780,7 @@ export namespace MessageGetContentResponse {
       /**
        * The JSON content of the message.
        */
-      json_content?: Record<string, unknown> | null;
+      json_content?: { [key: string]: unknown } | null;
 
       /**
        * The summary of the chat message.
@@ -1000,7 +1000,7 @@ export interface MessageMarkAsInteractedParams {
   /**
    * Metadata about the interaction.
    */
-  metadata?: Record<string, unknown>;
+  metadata?: { [key: string]: unknown };
 }
 
 Messages.Batch = Batch;
