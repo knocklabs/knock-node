@@ -713,7 +713,7 @@ export namespace MessageGetContentResponse {
   }
 
   /**
-   * The content of a push notification.
+   * Push channel data.
    */
   export interface MessagePushContent {
     /**

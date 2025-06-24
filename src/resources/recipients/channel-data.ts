@@ -106,7 +106,7 @@ export type InlineChannelDataRequest = {
 };
 
 /**
- * Microsoft Teams channel connection.
+ * Microsoft Teams channel data.
  */
 export interface MsTeamsChannelData {
   /**
@@ -182,7 +182,7 @@ export interface OneSignalChannelData {
 }
 
 /**
- * The content of a push notification.
+ * Push channel data.
  */
 export interface PushChannelData {
   /**
@@ -192,7 +192,7 @@ export interface PushChannelData {
 }
 
 /**
- * Slack channel data
+ * Slack channel data.
  */
 export interface SlackChannelData {
   /**
