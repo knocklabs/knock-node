@@ -458,6 +458,11 @@ export namespace Message {
      * The ID of the version of the workflow that triggered the message.
      */
     version_id: string;
+
+    /**
+     * The step reference for the step in the workflow that generated the message
+     */
+    step_ref?: string | null;
   }
 }
 
