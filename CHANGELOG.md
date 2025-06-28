@@ -1,5 +1,30 @@
 # Changelog
 
+## 1.11.0 (2025-06-28)
+
+Full Changelog: [v1.10.3...v1.11.0](https://github.com/knocklabs/knock-node/compare/v1.10.3...v1.11.0)
+
+### Features
+
+* **api:** api update ([c713cd6](https://github.com/knocklabs/knock-node/commit/c713cd61a345818a81c51bd3467c566306c4d39a))
+* **api:** api update ([cc912aa](https://github.com/knocklabs/knock-node/commit/cc912aa8707cebfd79d0301b471c1f38bce27d63))
+
+
+### Bug Fixes
+
+* **ci:** release-doctor — report correct token name ([90c9bdd](https://github.com/knocklabs/knock-node/commit/90c9bdd59997ee1fd2fcd4e81f6869687e256dca))
+* **client:** get fetchOptions type more reliably ([556dcce](https://github.com/knocklabs/knock-node/commit/556dcce102e461b5578627b9d007b3a6d90c92e3))
+
+
+### Chores
+
+* **ci:** only run for pushes and fork pull requests ([4a906c7](https://github.com/knocklabs/knock-node/commit/4a906c7eef1f1eb31ea94d28107e9ae58a1417b2))
+
+
+### Refactors
+
+* **types:** replace Record with mapped types ([8377542](https://github.com/knocklabs/knock-node/commit/83775423c67655fe2c5e5c1b7449b355d1cf6d22))
+
 ## 1.10.3 (2025-06-21)
 
 Full Changelog: [v1.10.2...v1.10.3](https://github.com/knocklabs/knock-node/compare/v1.10.2...v1.10.3)
