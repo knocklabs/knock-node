@@ -11,7 +11,7 @@ export class Preferences extends APIResource {}
  * Preferences that are set inline will be merged into any existing preferences
  * rather than replacing them.
  */
-export type InlinePreferenceSetRequest = Record<string, PreferenceSetRequest>;
+export type InlinePreferenceSetRequest = { [key: string]: PreferenceSetRequest };
 
 /**
  * A preference set represents a specific set of notification preferences for a
@@ -27,7 +27,7 @@ export interface PreferenceSet {
    * An object where the key is the category and the values are the preference
    * settings for that category.
    */
-  categories?: Record<string, boolean | PreferenceSet.PreferenceSetWorkflowCategorySettingObject> | null;
+  categories?: { [key: string]: boolean | PreferenceSet.PreferenceSetWorkflowCategorySettingObject } | null;
 
   /**
    * Channel type preferences.
@@ -38,7 +38,7 @@ export interface PreferenceSet {
    * An object where the key is the workflow key and the values are the preference
    * settings for that workflow.
    */
-  workflows?: Record<string, boolean | PreferenceSet.PreferenceSetWorkflowCategorySettingObject> | null;
+  workflows?: { [key: string]: boolean | PreferenceSet.PreferenceSetWorkflowCategorySettingObject } | null;
 }
 
 export namespace PreferenceSet {
@@ -129,10 +129,9 @@ export interface PreferenceSetRequest {
    * An object where the key is the category and the values are the preference
    * settings for that category.
    */
-  categories?: Record<
-    string,
-    boolean | PreferenceSetRequest.PreferenceSetWorkflowCategorySettingObject
-  > | null;
+  categories?: {
+    [key: string]: boolean | PreferenceSetRequest.PreferenceSetWorkflowCategorySettingObject;
+  } | null;
 
   /**
    * Channel type preferences.
@@ -143,10 +142,9 @@ export interface PreferenceSetRequest {
    * An object where the key is the workflow key and the values are the preference
    * settings for that workflow.
    */
-  workflows?: Record<
-    string,
-    boolean | PreferenceSetRequest.PreferenceSetWorkflowCategorySettingObject
-  > | null;
+  workflows?: {
+    [key: string]: boolean | PreferenceSetRequest.PreferenceSetWorkflowCategorySettingObject;
+  } | null;
 }
 
 export namespace PreferenceSetRequest {

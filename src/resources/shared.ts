@@ -52,7 +52,7 @@ export interface PageInfo {
   __typename: string;
 
   /**
-   * The number of items per page.
+   * The number of items per page (defaults to 50).
    */
   page_size: number;
 

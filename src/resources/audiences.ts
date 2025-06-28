@@ -81,7 +81,7 @@ export interface AudienceMember {
   user: UsersAPI.User;
 
   /**
-   * The ID for the user that you set when identifying them in Knock.
+   * The unique identifier of the user.
    */
   user_id: string;
 
@@ -145,7 +145,7 @@ export namespace AudienceAddMembersParams {
      */
     export interface User {
       /**
-       * The ID for the user that you set when identifying them in Knock.
+       * The unique identifier of the user.
        */
       id?: string;
     }
@@ -181,7 +181,7 @@ export namespace AudienceRemoveMembersParams {
      */
     export interface User {
       /**
-       * The ID for the user that you set when identifying them in Knock.
+       * The unique identifier of the user.
        */
       id?: string;
     }

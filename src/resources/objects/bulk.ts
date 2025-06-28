@@ -121,7 +121,7 @@ export namespace BulkAddSubscriptionsParams {
     /**
      * The custom properties associated with the subscription relationship.
      */
-    properties?: Record<string, unknown> | null;
+    properties?: { [key: string]: unknown } | null;
   }
 }
 

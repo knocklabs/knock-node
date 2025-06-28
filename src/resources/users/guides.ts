@@ -165,7 +165,7 @@ export namespace GuideGetChannelResponse {
     /**
      * The metadata of the guide.
      */
-    metadata?: Record<string, unknown>;
+    metadata?: { [key: string]: unknown };
 
     /**
      * The title of the guide.
@@ -255,12 +255,12 @@ export interface GuideMarkMessageAsArchivedParams {
   /**
    * The content of the guide.
    */
-  content?: Record<string, unknown>;
+  content?: { [key: string]: unknown };
 
   /**
    * The data of the guide.
    */
-  data?: Record<string, unknown>;
+  data?: { [key: string]: unknown };
 
   /**
    * Whether the guide is final.
@@ -270,7 +270,7 @@ export interface GuideMarkMessageAsArchivedParams {
   /**
    * The metadata of the guide.
    */
-  metadata?: Record<string, unknown>;
+  metadata?: { [key: string]: unknown };
 
   /**
    * The tenant ID of the guide.
@@ -302,12 +302,12 @@ export interface GuideMarkMessageAsInteractedParams {
   /**
    * The content of the guide.
    */
-  content?: Record<string, unknown>;
+  content?: { [key: string]: unknown };
 
   /**
    * The data of the guide.
    */
-  data?: Record<string, unknown>;
+  data?: { [key: string]: unknown };
 
   /**
    * Whether the guide is final.
@@ -317,7 +317,7 @@ export interface GuideMarkMessageAsInteractedParams {
   /**
    * The metadata of the guide.
    */
-  metadata?: Record<string, unknown>;
+  metadata?: { [key: string]: unknown };
 
   /**
    * The tenant ID of the guide.
@@ -349,12 +349,12 @@ export interface GuideMarkMessageAsSeenParams {
   /**
    * The content of the guide.
    */
-  content?: Record<string, unknown>;
+  content?: { [key: string]: unknown };
 
   /**
    * The data of the guide.
    */
-  data?: Record<string, unknown>;
+  data?: { [key: string]: unknown };
 
   /**
    * Whether the guide is final.
@@ -364,7 +364,7 @@ export interface GuideMarkMessageAsSeenParams {
   /**
    * The metadata of the guide.
    */
-  metadata?: Record<string, unknown>;
+  metadata?: { [key: string]: unknown };
 
   /**
    * The tenant ID of the guide.
