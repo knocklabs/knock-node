@@ -25,8 +25,20 @@ export class Feeds extends APIResource {
   }
 
   /**
-   * Returns a paginated list of feed items for a user, including metadata about the
-   * feed.
+   * Returns a paginated list of feed items for a user in reverse chronological
+   * order, including metadata about the feed. If the user has not yet been
+   * identified within Knock, an empty feed will be returned.
+   *
+   * You can customize the response using
+   * [response filters](/integrations/in-app/knock#customizing-api-response-content)
+   * to exclude or only include specific properties on your resources.
+   *
+   * **Notes:**
+   *
+   * - When making this call from a client-side environment, use your publishable key
+   *   along with a user token.
+   * - This endpoint’s rate limit is always scoped per-user and per-environment. This
+   *   is true even for requests made without a signed user token.
    *
    * @example
    * ```ts
@@ -111,7 +123,7 @@ export interface FeedListItemsResponse {
   /**
    * Additional data associated with the feed item.
    */
-  data: Record<string, unknown> | null;
+  data: { [key: string]: unknown } | null;
 
   /**
    * Timestamp when the resource was created.
@@ -280,7 +292,7 @@ export interface FeedListItemsParams extends EntriesCursorParams {
   has_tenant?: boolean;
 
   /**
-   * The source of the feed items.
+   * The workflow key associated with the message in the feed.
    */
   source?: string;
 

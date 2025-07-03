@@ -96,13 +96,17 @@ export namespace DiscordChannelData {
 /**
  * A request to set channel data for a type of channel inline.
  */
-export type InlineChannelDataRequest = Record<
-  string,
-  PushChannelData | OneSignalChannelData | SlackChannelData | MsTeamsChannelData | DiscordChannelData
->;
+export type InlineChannelDataRequest = {
+  [key: string]:
+    | PushChannelData
+    | OneSignalChannelData
+    | SlackChannelData
+    | MsTeamsChannelData
+    | DiscordChannelData;
+};
 
 /**
- * Microsoft Teams channel connection.
+ * Microsoft Teams channel data.
  */
 export interface MsTeamsChannelData {
   /**
@@ -178,7 +182,7 @@ export interface OneSignalChannelData {
 }
 
 /**
- * The content of a push notification.
+ * Push channel data.
  */
 export interface PushChannelData {
   /**
@@ -188,7 +192,7 @@ export interface PushChannelData {
 }
 
 /**
- * Slack channel data
+ * Slack channel data.
  */
 export interface SlackChannelData {
   /**
