@@ -166,9 +166,9 @@ export class Users extends APIResource {
   }
 
   /**
-   * Returns a paginated list of messages for a specific user. Allows filtering by
-   * message status and provides various sorting options. Messages outside the
-   * account's retention window will not be included in the results.
+   * Returns a paginated list of messages for a specific user. Messages are sorted
+   * with the most recent ones appearing first. Messages outside the account's
+   * retention window will not be included in the results.
    *
    * @example
    * ```ts
@@ -352,7 +352,7 @@ export type UsersEntriesCursor = EntriesCursor<User>;
  */
 export interface IdentifyUserRequest {
   /**
-   * URL to the user's avatar image.
+   * A URL for the avatar of the user.
    */
   avatar?: string | null;
 
@@ -413,12 +413,12 @@ export interface IdentifyUserRequest {
  */
 export interface InlineIdentifyUserRequest {
   /**
-   * The ID for the user that you set when identifying them in Knock.
+   * The unique identifier of the user.
    */
   id: string;
 
   /**
-   * URL to the user's avatar image.
+   * A URL for the avatar of the user.
    */
   avatar?: string | null;
 
@@ -478,7 +478,7 @@ export interface InlineIdentifyUserRequest {
  */
 export interface User {
   /**
-   * The ID for the user that you set when identifying them in Knock.
+   * The unique identifier of the user.
    */
   id: string;
 
@@ -493,7 +493,7 @@ export interface User {
   updated_at: string;
 
   /**
-   * URL to the user's avatar image.
+   * A URL for the avatar of the user.
    */
   avatar?: string | null;
 
@@ -546,7 +546,7 @@ export type UserUnsetChannelDataResponse = string;
 
 export interface UserUpdateParams {
   /**
-   * URL to the user's avatar image.
+   * A URL for the avatar of the user.
    */
   avatar?: string | null;
 
@@ -747,10 +747,9 @@ export interface UserSetPreferencesParams {
    * An object where the key is the category and the values are the preference
    * settings for that category.
    */
-  categories?: Record<
-    string,
-    boolean | UserSetPreferencesParams.PreferenceSetWorkflowCategorySettingObject
-  > | null;
+  categories?: {
+    [key: string]: boolean | UserSetPreferencesParams.PreferenceSetWorkflowCategorySettingObject;
+  } | null;
 
   /**
    * Channel type preferences.
@@ -761,10 +760,9 @@ export interface UserSetPreferencesParams {
    * An object where the key is the workflow key and the values are the preference
    * settings for that workflow.
    */
-  workflows?: Record<
-    string,
-    boolean | UserSetPreferencesParams.PreferenceSetWorkflowCategorySettingObject
-  > | null;
+  workflows?: {
+    [key: string]: boolean | UserSetPreferencesParams.PreferenceSetWorkflowCategorySettingObject;
+  } | null;
 }
 
 export namespace UserSetPreferencesParams {

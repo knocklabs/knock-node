@@ -172,12 +172,12 @@ export interface Schedule {
   actor?: RecipientsAPI.Recipient | null;
 
   /**
-   * An optional map of data to pass into the workflow execution. There is a 1024
-   * byte limit on the size of any single string value (with the exception of
-   * [email attachments](/integrations/email/attachments)), and a 10MB limit on the
-   * size of the full `data` payload.
+   * An optional map of data to pass into the workflow execution. There is a 10MB
+   * limit on the size of the full `data` payload. Any individual string value
+   * greater than 1024 bytes in length will be
+   * [truncated](/developer-tools/api-logs#log-truncation) in your logs.
    */
-  data?: Record<string, unknown> | null;
+  data?: { [key: string]: unknown } | null;
 
   /**
    * The last occurrence of the schedule.
@@ -271,12 +271,12 @@ export interface ScheduleCreateParams {
   actor?: RecipientsAPI.RecipientRequest | null;
 
   /**
-   * An optional map of data to pass into the workflow execution. There is a 1024
-   * byte limit on the size of any single string value (with the exception of
-   * [email attachments](/integrations/email/attachments)), and a 10MB limit on the
-   * size of the full `data` payload.
+   * An optional map of data to pass into the workflow execution. There is a 10MB
+   * limit on the size of the full `data` payload. Any individual string value
+   * greater than 1024 bytes in length will be
+   * [truncated](/developer-tools/api-logs#log-truncation) in your logs.
    */
-  data?: Record<string, unknown> | null;
+  data?: { [key: string]: unknown } | null;
 
   /**
    * The ending date and time for the schedule.
@@ -312,12 +312,12 @@ export interface ScheduleUpdateParams {
   actor?: RecipientsAPI.RecipientReference | null;
 
   /**
-   * An optional map of data to pass into the workflow execution. There is a 1024
-   * byte limit on the size of any single string value (with the exception of
-   * [email attachments](/integrations/email/attachments)), and a 10MB limit on the
-   * size of the full `data` payload.
+   * An optional map of data to pass into the workflow execution. There is a 10MB
+   * limit on the size of the full `data` payload. Any individual string value
+   * greater than 1024 bytes in length will be
+   * [truncated](/developer-tools/api-logs#log-truncation) in your logs.
    */
-  data?: Record<string, unknown> | null;
+  data?: { [key: string]: unknown } | null;
 
   /**
    * The ending date and time for the schedule.

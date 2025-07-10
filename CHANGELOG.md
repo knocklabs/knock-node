@@ -1,5 +1,35 @@
 # Changelog
 
+## 1.11.0 (2025-07-10)
+
+Full Changelog: [v1.10.3...v1.11.0](https://github.com/knocklabs/knock-node/compare/v1.10.3...v1.11.0)
+
+### Features
+
+* **api:** api update ([647d271](https://github.com/knocklabs/knock-node/commit/647d2714cda96e42ac0a7816b3da0130a83978db))
+* **api:** api update ([7a4ae6b](https://github.com/knocklabs/knock-node/commit/7a4ae6b5a7ed2317ffabb62d0ea762f292ee83a4))
+* **api:** api update ([c713cd6](https://github.com/knocklabs/knock-node/commit/c713cd61a345818a81c51bd3467c566306c4d39a))
+* **api:** api update ([cc912aa](https://github.com/knocklabs/knock-node/commit/cc912aa8707cebfd79d0301b471c1f38bce27d63))
+
+
+### Bug Fixes
+
+* **ci:** release-doctor — report correct token name ([90c9bdd](https://github.com/knocklabs/knock-node/commit/90c9bdd59997ee1fd2fcd4e81f6869687e256dca))
+* **client:** get fetchOptions type more reliably ([556dcce](https://github.com/knocklabs/knock-node/commit/556dcce102e461b5578627b9d007b3a6d90c92e3))
+
+
+### Chores
+
+* add docs to RequestOptions type ([4fc8c09](https://github.com/knocklabs/knock-node/commit/4fc8c09b1814c7889f4948bec2bd87d5805d24e4))
+* **ci:** only run for pushes and fork pull requests ([4a906c7](https://github.com/knocklabs/knock-node/commit/4a906c7eef1f1eb31ea94d28107e9ae58a1417b2))
+* **client:** improve path param validation ([f9dc449](https://github.com/knocklabs/knock-node/commit/f9dc44909dfaf17278992d446caa389f10748f06))
+* make some internal functions async ([fde6b31](https://github.com/knocklabs/knock-node/commit/fde6b318974a544bfc349597ec8afdda10a5c950))
+
+
+### Refactors
+
+* **types:** replace Record with mapped types ([8377542](https://github.com/knocklabs/knock-node/commit/83775423c67655fe2c5e5c1b7449b355d1cf6d22))
+
 ## 1.10.3 (2025-06-21)
 
 Full Changelog: [v1.10.2...v1.10.3](https://github.com/knocklabs/knock-node/compare/v1.10.2...v1.10.3)
