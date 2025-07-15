@@ -1,6 +1,6 @@
 {
   "name": "@knocklabs/node",
-  "version": "1.11.0",
+  "version": "1.11.1",
   "description": "The official TypeScript library for the Knock API",
   "author": "Knock <support@knock.app>",
   "types": "dist/index.d.ts",
@@ -23,13 +23,8 @@
     "lint": "./scripts/lint",
     "fix": "./scripts/format"
   },
-  "peerDependencies": {
+  "dependencies": {
     "jose": "^6.0.11"
-  },
-  "peerDependenciesMeta": {
-    "jose": {
-      "optional": true
-    }
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.17.0",
