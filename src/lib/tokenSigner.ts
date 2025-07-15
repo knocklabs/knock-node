@@ -2,7 +2,7 @@
  * Token signing functionality for Knock authentication
  */
 
-import type { JWTPayload, JWTHeaderParameters } from 'jose';
+import { SignJWT, importPKCS8, type JWTPayload, type JWTHeaderParameters } from 'jose';
 import type { TokenEntity, TokenGrant, TokenGrantOptions } from './userTokens';
 
 // Default hostname for Knock API
@@ -72,7 +72,6 @@ async function createJWT(
   payload: JWTPayload,
   privateKey: string,
 ): Promise<string> {
-  const { SignJWT, importPKCS8 } = await import('jose');
   const key = await importPKCS8(privateKey, 'RS256');
 
   const jwt = new SignJWT(payload);
