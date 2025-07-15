@@ -2,7 +2,7 @@
  * Token signing functionality for Knock authentication
  */
 
-import { type JWTPayload, type JWTHeaderParameters } from 'jose';
+import type { JWTPayload, JWTHeaderParameters } from 'jose';
 import type { TokenEntity, TokenGrant, TokenGrantOptions } from './userTokens';
 
 // Default hostname for Knock API
