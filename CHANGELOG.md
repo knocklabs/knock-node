@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.11.1 (2025-07-15)
+
+Full Changelog: [v1.11.0...v1.11.1](https://github.com/knocklabs/knock-node/compare/v1.11.0...v1.11.1)
+
+### Bug Fixes
+
+* add `jose` as dependency, export `signUserToken` from package root ([#109](https://github.com/knocklabs/knock-node/issues/109)) ([061cd3f](https://github.com/knocklabs/knock-node/commit/061cd3f07afc2221f239a83f096feefd5be22754))
+
 ## 1.11.0 (2025-07-10)
 
 Full Changelog: [v1.10.3...v1.11.0](https://github.com/knocklabs/knock-node/compare/v1.10.3...v1.11.0)
