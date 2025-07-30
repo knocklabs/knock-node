@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.11.2 (2025-07-30)
+
+Full Changelog: [v1.11.1...v1.11.2](https://github.com/knocklabs/knock-node/compare/v1.11.1...v1.11.2)
+
+### Chores
+
+* **internal:** remove redundant imports config ([886ee19](https://github.com/knocklabs/knock-node/commit/886ee1958eb0c168147f93ae660a4b78380a9099))
+
 ## 1.11.1 (2025-07-15)
 
 Full Changelog: [v1.11.0...v1.11.1](https://github.com/knocklabs/knock-node/compare/v1.11.0...v1.11.1)
