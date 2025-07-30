@@ -1,6 +1,6 @@
 {
   "name": "@knocklabs/node",
-  "version": "1.11.1",
+  "version": "1.11.2",
   "description": "The official TypeScript library for the Knock API",
   "author": "Knock <support@knock.app>",
   "types": "dist/index.d.ts",
@@ -48,10 +48,6 @@
     "tsconfig-paths": "^4.0.0",
     "typescript": "5.8.3",
     "typescript-eslint": "8.31.1"
-  },
-  "imports": {
-    "@knocklabs/node": ".",
-    "@knocklabs/node/*": "./src/*"
   },
   "exports": {
     ".": {
