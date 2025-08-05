@@ -1,0 +1,16 @@
+name: New Issue Comment
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  notify-slack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send issue comment to Slack workflow
+        uses: slackapi/slack-github-action@v2.1.1
+        with:
+          payload-delimiter: "."
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-type: webhook-trigger
