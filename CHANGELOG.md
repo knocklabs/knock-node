@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.11.3 (2025-08-07)
+
+Full Changelog: [v1.11.2...v1.11.3](https://github.com/knocklabs/knock-node/compare/v1.11.2...v1.11.3)
+
+### Chores
+
+* **internal:** move publish config ([76695ff](https://github.com/knocklabs/knock-node/commit/76695ffe2e870f0eb1c49bb6ee92b22d95cfb67f))
+
 ## 1.11.2 (2025-07-30)
 
 Full Changelog: [v1.11.1...v1.11.2](https://github.com/knocklabs/knock-node/compare/v1.11.1...v1.11.2)
