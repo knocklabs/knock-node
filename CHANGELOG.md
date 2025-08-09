@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.11.4 (2025-08-09)
+
+Full Changelog: [v1.11.3...v1.11.4](https://github.com/knocklabs/knock-node/compare/v1.11.3...v1.11.4)
+
+### Chores
+
+* update @stainless-api/prism-cli to v5.15.0 ([84cb94c](https://github.com/knocklabs/knock-node/commit/84cb94c8f0480fea39e58019e7ce958c98d71e99))
+
 ## 1.11.3 (2025-08-07)
 
 Full Changelog: [v1.11.2...v1.11.3](https://github.com/knocklabs/knock-node/compare/v1.11.2...v1.11.3)
