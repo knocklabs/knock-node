@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.11.5 (2025-08-11)
+
+Full Changelog: [v1.11.4...v1.11.5](https://github.com/knocklabs/knock-node/compare/v1.11.4...v1.11.5)
+
+### Chores
+
+* **internal:** update comment in script ([abf094c](https://github.com/knocklabs/knock-node/commit/abf094c3da35438c2b45e1abf36b72e305f0d977))
+
 ## 1.11.4 (2025-08-09)
 
 Full Changelog: [v1.11.3...v1.11.4](https://github.com/knocklabs/knock-node/compare/v1.11.3...v1.11.4)
