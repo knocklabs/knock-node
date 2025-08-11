@@ -329,7 +329,7 @@ export class Knock {
   }
 
   protected stringifyQuery(query: Record<string, unknown>): string {
-    return qs.stringify(query, { arrayFormat: 'brackets' });
+    return qs.stringify(query, { arrayFormat: 'indices' });
   }
 
   private getUserAgent(): string {
