@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.11.6 (2025-08-11)
+
+Full Changelog: [v1.11.5...v1.11.6](https://github.com/knocklabs/knock-node/compare/v1.11.5...v1.11.6)
+
+### Bug Fixes
+
+* properly serialize arrays of objects in query params ([#117](https://github.com/knocklabs/knock-node/issues/117)) ([c7b5aff](https://github.com/knocklabs/knock-node/commit/c7b5affbd242d0460059c7b3f802b496148fbd06))
+
 ## 1.11.5 (2025-08-11)
 
 Full Changelog: [v1.11.4...v1.11.5](https://github.com/knocklabs/knock-node/compare/v1.11.4...v1.11.5)
