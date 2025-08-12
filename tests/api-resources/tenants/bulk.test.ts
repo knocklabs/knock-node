@@ -8,7 +8,7 @@ const client = new Knock({
 });
 
 describe('resource bulk', () => {
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  // Prism doesn't support callbacks yet
   test.skip('delete: only required params', async () => {
     const responsePromise = client.tenants.bulk.delete({ tenant_ids: ['string'] });
     const rawResponse = await responsePromise.asResponse();
@@ -20,12 +20,12 @@ describe('resource bulk', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  // Prism doesn't support callbacks yet
   test.skip('delete: required and optional params', async () => {
     const response = await client.tenants.bulk.delete({ tenant_ids: ['string'] });
   });
 
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  // Prism doesn't support callbacks yet
   test.skip('set: only required params', async () => {
     const responsePromise = client.tenants.bulk.set({ tenants: ['string'] });
     const rawResponse = await responsePromise.asResponse();
@@ -37,7 +37,7 @@ describe('resource bulk', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  // Prism doesn't support callbacks yet
   test.skip('set: required and optional params', async () => {
     const response = await client.tenants.bulk.set({ tenants: ['string'] });
   });

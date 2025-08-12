@@ -8,7 +8,7 @@ const client = new Knock({
 });
 
 describe('resource hightouch', () => {
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  // Prism doesn't support callbacks yet
   test.skip('embeddedDestination: only required params', async () => {
     const responsePromise = client.integrations.hightouch.embeddedDestination({
       id: 'id',
@@ -24,7 +24,7 @@ describe('resource hightouch', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  // Prism doesn't support callbacks yet
   test.skip('embeddedDestination: required and optional params', async () => {
     const response = await client.integrations.hightouch.embeddedDestination({
       id: 'id',

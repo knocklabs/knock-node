@@ -8,7 +8,7 @@ const client = new Knock({
 });
 
 describe('resource bulkOperations', () => {
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  // Prism doesn't support callbacks yet
   test.skip('get', async () => {
     const responsePromise = client.bulkOperations.get('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
