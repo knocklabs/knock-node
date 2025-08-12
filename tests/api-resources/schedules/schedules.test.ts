@@ -8,7 +8,7 @@ const client = new Knock({
 });
 
 describe('resource schedules', () => {
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  // Prism doesn't support callbacks yet
   test.skip('create: only required params', async () => {
     const responsePromise = client.schedules.create({
       recipients: ['user_123'],
@@ -23,7 +23,7 @@ describe('resource schedules', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  // Prism doesn't support callbacks yet
   test.skip('create: required and optional params', async () => {
     const response = await client.schedules.create({
       recipients: ['user_123'],
@@ -93,7 +93,7 @@ describe('resource schedules', () => {
     });
   });
 
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  // Prism doesn't support callbacks yet
   test.skip('update: only required params', async () => {
     const responsePromise = client.schedules.update({
       schedule_ids: ['123e4567-e89b-12d3-a456-426614174000'],
@@ -107,7 +107,7 @@ describe('resource schedules', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  // Prism doesn't support callbacks yet
   test.skip('update: required and optional params', async () => {
     const response = await client.schedules.update({
       schedule_ids: ['123e4567-e89b-12d3-a456-426614174000'],
@@ -130,7 +130,7 @@ describe('resource schedules', () => {
     });
   });
 
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  // Prism doesn't support callbacks yet
   test.skip('list: only required params', async () => {
     const responsePromise = client.schedules.list({ workflow: 'workflow' });
     const rawResponse = await responsePromise.asResponse();
@@ -142,7 +142,7 @@ describe('resource schedules', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  // Prism doesn't support callbacks yet
   test.skip('list: required and optional params', async () => {
     const response = await client.schedules.list({
       workflow: 'workflow',
@@ -154,7 +154,7 @@ describe('resource schedules', () => {
     });
   });
 
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  // Prism doesn't support callbacks yet
   test.skip('delete: only required params', async () => {
     const responsePromise = client.schedules.delete({
       schedule_ids: ['123e4567-e89b-12d3-a456-426614174000'],
@@ -168,7 +168,7 @@ describe('resource schedules', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  // Prism doesn't support callbacks yet
   test.skip('delete: required and optional params', async () => {
     const response = await client.schedules.delete({
       schedule_ids: ['123e4567-e89b-12d3-a456-426614174000'],

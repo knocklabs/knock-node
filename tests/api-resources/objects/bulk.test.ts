@@ -8,7 +8,7 @@ const client = new Knock({
 });
 
 describe('resource bulk', () => {
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  // Prism doesn't support callbacks yet
   test.skip('delete: only required params', async () => {
     const responsePromise = client.objects.bulk.delete('collection', {
       object_ids: ['obj_123', 'obj_456', 'obj_789'],
@@ -22,14 +22,14 @@ describe('resource bulk', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  // Prism doesn't support callbacks yet
   test.skip('delete: required and optional params', async () => {
     const response = await client.objects.bulk.delete('collection', {
       object_ids: ['obj_123', 'obj_456', 'obj_789'],
     });
   });
 
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  // Prism doesn't support callbacks yet
   test.skip('addSubscriptions: only required params', async () => {
     const responsePromise = client.objects.bulk.addSubscriptions('projects', {
       subscriptions: [{ recipients: [{ id: 'user_1' }] }],
@@ -43,7 +43,7 @@ describe('resource bulk', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  // Prism doesn't support callbacks yet
   test.skip('addSubscriptions: required and optional params', async () => {
     const response = await client.objects.bulk.addSubscriptions('projects', {
       subscriptions: [
@@ -110,7 +110,7 @@ describe('resource bulk', () => {
     });
   });
 
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  // Prism doesn't support callbacks yet
   test.skip('set: only required params', async () => {
     const responsePromise = client.objects.bulk.set('collection', { objects: [{ id: 'project_1' }] });
     const rawResponse = await responsePromise.asResponse();
@@ -122,7 +122,7 @@ describe('resource bulk', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  // Prism doesn't support callbacks yet
   test.skip('set: required and optional params', async () => {
     const response = await client.objects.bulk.set('collection', {
       objects: [
