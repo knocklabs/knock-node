@@ -8,7 +8,7 @@ const client = new Knock({
 });
 
 describe('resource workflows', () => {
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  // Prism doesn't support callbacks yet
   test.skip('cancel: only required params', async () => {
     const responsePromise = client.workflows.cancel('key', { cancellation_key: 'cancel-workflow-123' });
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource workflows', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  // Prism doesn't support callbacks yet
   test.skip('cancel: required and optional params', async () => {
     const response = await client.workflows.cancel('key', {
       cancellation_key: 'cancel-workflow-123',
@@ -28,7 +28,7 @@ describe('resource workflows', () => {
     });
   });
 
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  // Prism doesn't support callbacks yet
   test.skip('trigger: only required params', async () => {
     const responsePromise = client.workflows.trigger('key', {
       recipients: ['dr_grant', 'dr_sattler', 'dr_malcolm'],
@@ -42,7 +42,7 @@ describe('resource workflows', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
+  // Prism doesn't support callbacks yet
   test.skip('trigger: required and optional params', async () => {
     const response = await client.workflows.trigger('key', {
       recipients: ['dr_grant', 'dr_sattler', 'dr_malcolm'],

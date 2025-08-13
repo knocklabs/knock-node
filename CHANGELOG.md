@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.11.7 (2025-08-13)
+
+Full Changelog: [v1.11.6...v1.11.7](https://github.com/knocklabs/knock-node/compare/v1.11.6...v1.11.7)
+
+### Chores
+
+* **internal:** codegen related update ([78ca4b3](https://github.com/knocklabs/knock-node/commit/78ca4b338c5856261a031bcac795939232017fe0))
+
 ## 1.11.6 (2025-08-11)
 
 Full Changelog: [v1.11.5...v1.11.6](https://github.com/knocklabs/knock-node/compare/v1.11.5...v1.11.6)
