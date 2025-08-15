@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.11.8 (2025-08-15)
+
+Full Changelog: [v1.11.7...v1.11.8](https://github.com/knocklabs/knock-node/compare/v1.11.7...v1.11.8)
+
+### Chores
+
+* **deps:** update dependency @types/node to v20.17.58 ([bee2dd7](https://github.com/knocklabs/knock-node/commit/bee2dd75100cbe6aaf5c6fdba11659ea8f3ad326))
+
 ## 1.11.7 (2025-08-13)
 
 Full Changelog: [v1.11.6...v1.11.7](https://github.com/knocklabs/knock-node/compare/v1.11.6...v1.11.7)
