@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.12.0 (2025-08-15)
+
+Full Changelog: [v1.11.8...v1.12.0](https://github.com/knocklabs/knock-node/compare/v1.11.8...v1.12.0)
+
+### Features
+
+* **api:** api update ([edbcbeb](https://github.com/knocklabs/knock-node/commit/edbcbeb76e86071a770f40b7cc1dbaf0f4d1e9fc))
+
+
+### Chores
+
+* **internal:** formatting change ([45c032a](https://github.com/knocklabs/knock-node/commit/45c032aacfd31a5f4985dd9fc3d400e063b33791))
+
 ## 1.11.8 (2025-08-15)
 
 Full Changelog: [v1.11.7...v1.11.8](https://github.com/knocklabs/knock-node/compare/v1.11.7...v1.11.8)

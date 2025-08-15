@@ -849,6 +849,7 @@ export class Knock {
   channels: API.Channels = new API.Channels(this);
   audiences: API.Audiences = new API.Audiences(this);
 }
+
 Knock.Shared = Shared;
 Knock.Recipients = Recipients;
 Knock.Users = Users;
@@ -862,6 +863,7 @@ Knock.Workflows = Workflows;
 Knock.Schedules = Schedules;
 Knock.Channels = Channels;
 Knock.Audiences = Audiences;
+
 export declare namespace Knock {
   export type RequestOptions = Opts.RequestOptions;
 

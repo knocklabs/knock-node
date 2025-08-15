@@ -345,11 +345,13 @@ export class Objects extends APIResource {
   }
 
   /**
-   * Sets preferences within the given preference set. This is a destructive
-   * operation and will replace any existing preferences with the preferences given.
-   * If no object exists in the current environment for the given `:collection` and
-   * `:object_id`, Knock will create the object as part of this request. The
-   * preference set `:id` can be either `default` or a `tenant.id`. Learn more about
+   * Sets preferences within the given preference set. By default, this is a
+   * destructive operation and will replace any existing preferences with the
+   * preferences given. Use '\_\_persistence_strategy': 'merge' to merge with
+   * existing preferences instead. If no object exists in the current environment for
+   * the given `:collection` and `:object_id`, Knock will create the object as part
+   * of this request. The preference set `:id` can be either `default` or a
+   * `tenant.id`. Learn more about
    * [per-tenant preferences](/preferences/tenant-preferences).
    *
    * @example
@@ -359,6 +361,7 @@ export class Objects extends APIResource {
    *   'object_id',
    *   'default',
    *   {
+   *     __persistence_strategy__: 'merge',
    *     categories: {
    *       marketing: false,
    *       transactional: { channel_types: { email: false } },
@@ -717,6 +720,12 @@ export interface ObjectSetChannelDataParams {
 }
 
 export interface ObjectSetPreferencesParams {
+  /**
+   * Controls how the preference set is persisted. 'replace' will completely replace
+   * the preference set, 'merge' will merge with existing preferences.
+   */
+  __persistence_strategy__?: 'merge' | 'replace';
+
   /**
    * An object where the key is the category and the values are the preference
    * settings for that category.

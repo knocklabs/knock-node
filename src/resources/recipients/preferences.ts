@@ -126,6 +126,12 @@ export interface PreferenceSetChannelTypes {
  */
 export interface PreferenceSetRequest {
   /**
+   * Controls how the preference set is persisted. 'replace' will completely replace
+   * the preference set, 'merge' will merge with existing preferences.
+   */
+  __persistence_strategy__?: 'merge' | 'replace';
+
+  /**
    * An object where the key is the category and the values are the preference
    * settings for that category.
    */
