@@ -39,6 +39,7 @@ describe('resource schedules', () => {
         phone_number: 'phone_number',
         preferences: {
           default: {
+            __persistence_strategy__: 'merge',
             categories: {
               transactional: {
                 channel_types: {

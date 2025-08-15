@@ -57,6 +57,7 @@ export class Bulk extends APIResource {
    * const bulkOperation =
    *   await client.users.bulk.setPreferences({
    *     preferences: {
+   *       __persistence_strategy__: 'merge',
    *       categories: {
    *         marketing: false,
    *         transactional: { channel_types: { email: false } },
