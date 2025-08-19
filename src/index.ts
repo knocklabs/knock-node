@@ -23,4 +23,16 @@ export {
 } from './core/error';
 
 // Explicitly exported to follow pre-stainless implementation of this package.
-export * from './lib';
+export {
+  buildUserTokenGrant,
+  Grants,
+  maybePrepareUserTokenGrants,
+  ObjectTokenEntity,
+  signUserToken,
+  SignUserTokenOptions,
+  TenantTokenEntity,
+  TokenEntity,
+  TokenGrant,
+  TokenGrantOptions,
+  UserTokenEntity,
+} from './lib';
