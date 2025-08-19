@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.12.1 (2025-08-19)
+
+Full Changelog: [v1.12.0...v1.12.1](https://github.com/knocklabs/knock-node/compare/v1.12.0...v1.12.1)
+
+### Bug Fixes
+
+* **KNO-9510:** fix token signing and grant exports ([#122](https://github.com/knocklabs/knock-node/issues/122)) ([d7b45dd](https://github.com/knocklabs/knock-node/commit/d7b45dd69a4a9e18c0654669e963f71d69b233f4))
+
 ## 1.12.0 (2025-08-15)
 
 Full Changelog: [v1.11.8...v1.12.0](https://github.com/knocklabs/knock-node/compare/v1.11.8...v1.12.0)
