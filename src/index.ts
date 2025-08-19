@@ -23,4 +23,4 @@ export {
 } from './core/error';
 
 // Explicitly exported to follow pre-stainless implementation of this package.
-export { signUserToken } from './lib/tokenSigner';
+export * from './lib';
