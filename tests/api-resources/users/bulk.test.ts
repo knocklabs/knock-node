@@ -52,6 +52,7 @@ describe('resource bulk', () => {
           phone_number: 'phone_number',
           preferences: {
             default: {
+              __persistence_strategy__: 'merge',
               categories: {
                 transactional: {
                   channel_types: {
@@ -118,6 +119,7 @@ describe('resource bulk', () => {
   test.skip('setPreferences: required and optional params', async () => {
     const response = await client.users.bulk.setPreferences({
       preferences: {
+        __persistence_strategy__: 'merge',
         categories: {
           marketing: false,
           transactional: {
