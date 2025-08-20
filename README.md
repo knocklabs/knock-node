@@ -243,35 +243,35 @@ The SDK provides functionality to sign authentication tokens for client-side req
 
 #### Installation
 
-By default, this SDK uses [`jose`](https://github.com/panva/jose) to sign JWTs. The latest version of `jose` only supports ESM, so if your project is built using CJS, and you're not already running [a version of Node.js that supports loading ES modules using `require`](https://nodejs.org/api/modules.html#loading-ecmascript-modules-using-require), you'll need to take the following additional steps to build with a CJS-compatible version of `jose`.
+By default, this SDK uses [`jose`](https://github.com/panva/jose) to sign JWTs. The latest version of `jose` only supports ESM, so if your project is built using CJS, and you're _not_ already running [a version of Node.js that supports loading ES modules using `require`](https://nodejs.org/api/modules.html#loading-ecmascript-modules-using-require), you'll need to take the following additional step to build with a CJS-compatible version of `jose`:
 
-If you're using `npm`, add the `overrides` option to your `package.json` file to install `jose` v5:
-
-```json
-{
-  "dependencies": {
-    "@knocklabs/node": "^1",
-    "jose": "^5.10.0"
-  },
-  "overrides": {
-    "jose": "^5.10.0"
+- If you're using `npm`, add the `overrides` option to your `package.json` file to install `jose` v5:
+  
+  ```json
+  {
+    "dependencies": {
+      "@knocklabs/node": "^1",
+      "jose": "^5.10.0"
+    },
+    "overrides": {
+      "jose": "^5.10.0"
+    }
   }
-}
-```
+  ```
 
-If you're using `yarn`, add the `resolutions` option to your `package.json` file to install `jose` v5:
+- If you're using `yarn`, add the `resolutions` option to your `package.json` file to install `jose` v5:
 
-```json
-{
-  "dependencies": {
-    "@knocklabs/node": "^1",
-    "jose": "^5.10.0"
-  },
-  "resolutions": {
-    "jose": "^5.10.0"
+  ```json
+  {
+    "dependencies": {
+      "@knocklabs/node": "^1",
+      "jose": "^5.10.0"
+    },
+    "resolutions": {
+      "jose": "^5.10.0"
+    }
   }
-}
-```
+  ```
 
 #### Basic Usage
 
