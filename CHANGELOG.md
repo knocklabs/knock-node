@@ -1,5 +1,26 @@
 # Changelog
 
+## 1.13.0 (2025-08-23)
+
+Full Changelog: [v1.12.1...v1.13.0](https://github.com/knocklabs/knock-node/compare/v1.12.1...v1.13.0)
+
+### Features
+
+* **mcp:** add code execution tool ([c8ced1f](https://github.com/knocklabs/knock-node/commit/c8ced1fda57e2d1291fb9ebf5e9d99dae54932ce))
+
+
+### Bug Fixes
+
+* **KNO-9523:** import jose statically ([#124](https://github.com/knocklabs/knock-node/issues/124)) ([5007d42](https://github.com/knocklabs/knock-node/commit/5007d4262aab9a3e8161ccb9367600aef1c2da07))
+
+
+### Chores
+
+* add package to package.json ([6c82f3a](https://github.com/knocklabs/knock-node/commit/6c82f3ac71568c0b507be10243a04fb6fba0d5b0))
+* **client:** qualify global Blob ([4abb378](https://github.com/knocklabs/knock-node/commit/4abb378f49de6e0800eb163f72bdb43790ac684d))
+* **KNO-9521:** add CJS instructions to README ([#126](https://github.com/knocklabs/knock-node/issues/126)) ([a567528](https://github.com/knocklabs/knock-node/commit/a567528e15b88ba13061cd071f5b37d391b369f1))
+* update CI script ([693a157](https://github.com/knocklabs/knock-node/commit/693a157cf0185fd04860076cfa0405d1df0c5fb6))
+
 ## 1.12.1 (2025-08-19)
 
 Full Changelog: [v1.12.0...v1.12.1](https://github.com/knocklabs/knock-node/compare/v1.12.0...v1.12.1)
