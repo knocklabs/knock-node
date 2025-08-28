@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.14.1 (2025-08-28)
+
+Full Changelog: [v1.14.0...v1.14.1](https://github.com/knocklabs/knock-node/compare/v1.14.0...v1.14.1)
+
+### Chores
+
+* **internal:** update global Error reference ([f110897](https://github.com/knocklabs/knock-node/commit/f110897880cf5d82c6ccbe54edfa24707cc59a0b))
+
 ## 1.14.0 (2025-08-27)
 
 Full Changelog: [v1.13.0...v1.14.0](https://github.com/knocklabs/knock-node/compare/v1.13.0...v1.14.0)
