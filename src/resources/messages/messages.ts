@@ -326,48 +326,12 @@ export interface Message {
   /**
    * The unique identifier for the message.
    */
-  id: string;
+  id?: string;
 
   /**
    * The typename of the schema.
    */
-  __typename: string;
-
-  /**
-   * The ID for the channel the message was sent through.
-   */
-  channel_id: string;
-
-  /**
-   * A list of engagement statuses.
-   */
-  engagement_statuses: Array<'seen' | 'read' | 'interacted' | 'link_clicked' | 'archived'>;
-
-  /**
-   * Timestamp when the resource was created.
-   */
-  inserted_at: string;
-
-  /**
-   * A reference to a recipient, either a user identifier (string) or an object
-   * reference (ID, collection).
-   */
-  recipient: RecipientsAPI.RecipientReference;
-
-  /**
-   * The workflow that triggered the message.
-   */
-  source: Message.Source;
-
-  /**
-   * The message delivery status.
-   */
-  status: 'queued' | 'sent' | 'delivered' | 'delivery_attempted' | 'undelivered' | 'not_sent' | 'bounced';
-
-  /**
-   * The timestamp when the resource was last updated.
-   */
-  updated_at: string;
+  __typename?: string;
 
   /**
    * One or more actors that are associated with this message. Note: this is a list
@@ -382,6 +346,11 @@ export interface Message {
   archived_at?: string | null;
 
   /**
+   * The ID for the channel the message was sent through.
+   */
+  channel_id?: string;
+
+  /**
    * Timestamp when the message was clicked.
    */
   clicked_at?: string | null;
@@ -394,6 +363,16 @@ export interface Message {
    * `data` from the most-recent trigger request (the final `activity` in the batch).
    */
   data?: { [key: string]: unknown } | null;
+
+  /**
+   * A list of engagement statuses.
+   */
+  engagement_statuses?: Array<'seen' | 'read' | 'interacted' | 'link_clicked' | 'archived'>;
+
+  /**
+   * Timestamp when the resource was created.
+   */
+  inserted_at?: string;
 
   /**
    * Timestamp when the message was interacted with.
@@ -416,6 +395,12 @@ export interface Message {
   read_at?: string | null;
 
   /**
+   * A reference to a recipient, either a user identifier (string) or an object
+   * reference (ID, collection).
+   */
+  recipient?: RecipientsAPI.RecipientReference;
+
+  /**
    * Timestamp when the message was scheduled to be sent.
    */
   scheduled_at?: string | null;
@@ -426,10 +411,25 @@ export interface Message {
   seen_at?: string | null;
 
   /**
+   * The workflow that triggered the message.
+   */
+  source?: Message.Source;
+
+  /**
+   * The message delivery status.
+   */
+  status?: 'queued' | 'sent' | 'delivered' | 'delivery_attempted' | 'undelivered' | 'not_sent' | 'bounced';
+
+  /**
    * The ID of the `tenant` associated with the message. Only present when a `tenant`
    * is provided on a workflow trigger request.
    */
   tenant?: string | null;
+
+  /**
+   * The timestamp when the resource was last updated.
+   */
+  updated_at?: string;
 
   /**
    * @deprecated The key of the workflow that generated the message.
@@ -460,7 +460,7 @@ export namespace Message {
     version_id: string;
 
     /**
-     * The step reference for the step in the workflow that generated the message.
+     * The step reference for the step in the workflow that generated the message
      */
     step_ref?: string | null;
   }
