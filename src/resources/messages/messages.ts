@@ -460,7 +460,7 @@ export namespace Message {
     version_id: string;
 
     /**
-     * The step reference for the step in the workflow that generated the message
+     * The step reference for the step in the workflow that generated the message.
      */
     step_ref?: string | null;
   }
