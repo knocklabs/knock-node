@@ -21,13 +21,7 @@ export interface ChannelData {
   /**
    * Channel data for a given channel type.
    */
-  data:
-    | PushChannelData
-    | SlackChannelData
-    | MsTeamsChannelData
-    | DiscordChannelData
-    | OneSignalChannelData
-    | ChannelData.AwsSnsPushChannelData;
+  data: PushChannelData | SlackChannelData | MsTeamsChannelData | DiscordChannelData | OneSignalChannelData;
 
   /**
    * The type of provider.
@@ -35,26 +29,12 @@ export interface ChannelData {
   provider?:
     | 'push_fcm'
     | 'push_apns'
-    | 'push_aws_sns'
     | 'push_expo'
     | 'push_one_signal'
     | 'chat_slack'
     | 'chat_ms_teams'
     | 'chat_discord'
     | 'http_knock_webhook';
-}
-
-export namespace ChannelData {
-  /**
-   * AWS SNS push channel data.
-   */
-  export interface AwsSnsPushChannelData {
-    /**
-     * A list of platform endpoint ARNs. See
-     * [Setting up an Amazon SNS platform endpoint for mobile notifications](https://docs.aws.amazon.com/sns/latest/dg/mobile-platform-endpoint.html).
-     */
-    target_arns: Array<string>;
-  }
 }
 
 /**
@@ -64,26 +44,7 @@ export interface ChannelDataRequest {
   /**
    * Channel data for a given channel type.
    */
-  data:
-    | PushChannelData
-    | OneSignalChannelData
-    | ChannelDataRequest.AwsSnsPushChannelData
-    | SlackChannelData
-    | MsTeamsChannelData
-    | DiscordChannelData;
-}
-
-export namespace ChannelDataRequest {
-  /**
-   * AWS SNS push channel data.
-   */
-  export interface AwsSnsPushChannelData {
-    /**
-     * A list of platform endpoint ARNs. See
-     * [Setting up an Amazon SNS platform endpoint for mobile notifications](https://docs.aws.amazon.com/sns/latest/dg/mobile-platform-endpoint.html).
-     */
-    target_arns: Array<string>;
-  }
+  data: PushChannelData | OneSignalChannelData | SlackChannelData | MsTeamsChannelData | DiscordChannelData;
 }
 
 /**
@@ -139,24 +100,10 @@ export type InlineChannelDataRequest = {
   [key: string]:
     | PushChannelData
     | OneSignalChannelData
-    | InlineChannelDataRequest.AwsSnsPushChannelData
     | SlackChannelData
     | MsTeamsChannelData
     | DiscordChannelData;
 };
-
-export namespace InlineChannelDataRequest {
-  /**
-   * AWS SNS push channel data.
-   */
-  export interface AwsSnsPushChannelData {
-    /**
-     * A list of platform endpoint ARNs. See
-     * [Setting up an Amazon SNS platform endpoint for mobile notifications](https://docs.aws.amazon.com/sns/latest/dg/mobile-platform-endpoint.html).
-     */
-    target_arns: Array<string>;
-  }
-}
 
 /**
  * Microsoft Teams channel data.
