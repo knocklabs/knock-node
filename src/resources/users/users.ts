@@ -740,9 +740,23 @@ export interface UserSetChannelDataParams {
   data:
     | ChannelDataAPI.PushChannelData
     | ChannelDataAPI.OneSignalChannelData
+    | UserSetChannelDataParams.AwsSnsPushChannelData
     | ChannelDataAPI.SlackChannelData
     | ChannelDataAPI.MsTeamsChannelData
     | ChannelDataAPI.DiscordChannelData;
+}
+
+export namespace UserSetChannelDataParams {
+  /**
+   * AWS SNS push channel data.
+   */
+  export interface AwsSnsPushChannelData {
+    /**
+     * A list of platform endpoint ARNs. See
+     * [Setting up an Amazon SNS platform endpoint for mobile notifications](https://docs.aws.amazon.com/sns/latest/dg/mobile-platform-endpoint.html).
+     */
+    target_arns: Array<string>;
+  }
 }
 
 export interface UserSetPreferencesParams {

@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.15.0 (2025-09-05)
+
+Full Changelog: [v1.14.1...v1.15.0](https://github.com/knocklabs/knock-node/compare/v1.14.1...v1.15.0)
+
+### Features
+
+* **api:** api update ([a291a6c](https://github.com/knocklabs/knock-node/commit/a291a6cd91b00b90bd6c07ccd22283de267f869b))
+* **api:** api update ([845c62a](https://github.com/knocklabs/knock-node/commit/845c62ac02dedb8e0cfccae924bc9350665506ad))
+* **api:** api update ([4f03bd4](https://github.com/knocklabs/knock-node/commit/4f03bd42c4f2fee45e6c667cab056a2495de0a43))
+* **api:** api update ([5f621ec](https://github.com/knocklabs/knock-node/commit/5f621ec21bbb83e221ea03310c7f913c4adcf34f))
+* **api:** api update ([f1c3e8b](https://github.com/knocklabs/knock-node/commit/f1c3e8b38db5003a52201ef8bda7e872a8b774d7))
+* **api:** api update ([96e40b6](https://github.com/knocklabs/knock-node/commit/96e40b687d616e5728744adf2bd6809e8d1fef7e))
+* **api:** api update ([0389e07](https://github.com/knocklabs/knock-node/commit/0389e07e637c02ad816249abcacdea424dbb9024))
+
+
+### Chores
+
+* ci build action ([060873f](https://github.com/knocklabs/knock-node/commit/060873fdfe67ebe7d3d555e148c554cd7bc18cb1))
+
 ## 1.14.1 (2025-08-28)
 
 Full Changelog: [v1.14.0...v1.14.1](https://github.com/knocklabs/knock-node/compare/v1.14.0...v1.14.1)
