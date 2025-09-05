@@ -714,9 +714,23 @@ export interface ObjectSetChannelDataParams {
   data:
     | ChannelDataAPI.PushChannelData
     | ChannelDataAPI.OneSignalChannelData
+    | ObjectSetChannelDataParams.AwsSnsPushChannelData
     | ChannelDataAPI.SlackChannelData
     | ChannelDataAPI.MsTeamsChannelData
     | ChannelDataAPI.DiscordChannelData;
+}
+
+export namespace ObjectSetChannelDataParams {
+  /**
+   * AWS SNS push channel data.
+   */
+  export interface AwsSnsPushChannelData {
+    /**
+     * A list of platform endpoint ARNs. See
+     * [Setting up an Amazon SNS platform endpoint for mobile notifications](https://docs.aws.amazon.com/sns/latest/dg/mobile-platform-endpoint.html).
+     */
+    target_arns: Array<string>;
+  }
 }
 
 export interface ObjectSetPreferencesParams {
