@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.16.0 (2025-09-10)
+
+Full Changelog: [v1.15.0...v1.16.0](https://github.com/knocklabs/knock-node/compare/v1.15.0...v1.16.0)
+
+### Features
+
+* **api:** api update ([62c7845](https://github.com/knocklabs/knock-node/commit/62c784534fdadba68bca5d42d9708dde8a7dbe67))
+
+
+### Bug Fixes
+
+* coerce nullable values to undefined ([6f07ab2](https://github.com/knocklabs/knock-node/commit/6f07ab22181250955c66e57883bec15ab34913ec))
+
 ## 1.15.0 (2025-09-05)
 
 Full Changelog: [v1.14.1...v1.15.0](https://github.com/knocklabs/knock-node/compare/v1.14.1...v1.15.0)
