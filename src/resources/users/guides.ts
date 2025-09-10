@@ -158,6 +158,11 @@ export namespace GuideGetChannelResponse {
     id?: string;
 
     /**
+     * Whether the guide is active.
+     */
+    active?: boolean;
+
+    /**
      * The content of the guide.
      */
     content?: string;
