@@ -52,16 +52,17 @@ describe('resource bulk', () => {
             {
               id: 'user_1',
               avatar: 'avatar',
-              channel_data: { '97c5837d-c65c-4d54-aa39-080eeb81c69d': { tokens: ['push_token_xxx'] } },
+              channel_data: { '97c5837d-c65c-4d54-aa39-080eeb81c69d': { tokens: ['push_token_123'] } },
               created_at: '2019-12-27T18:11:19.117Z',
-              email: 'email',
+              email: 'jane@ingen.net',
               locale: 'locale',
-              name: 'name',
+              name: 'Jane Doe',
               phone_number: 'phone_number',
               preferences: {
                 default: {
                   __persistence_strategy__: 'merge',
                   categories: {
+                    marketing: false,
                     transactional: {
                       channel_types: {
                         chat: true,
@@ -69,7 +70,11 @@ describe('resource bulk', () => {
                         http: true,
                         in_app_feed: true,
                         push: true,
-                        sms: true,
+                        sms: {
+                          conditions: [
+                            { argument: 'US', operator: 'equal_to', variable: 'recipient.country_code' },
+                          ],
+                        },
                       },
                       conditions: [
                         { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
@@ -82,27 +87,34 @@ describe('resource bulk', () => {
                     http: true,
                     in_app_feed: true,
                     push: true,
-                    sms: true,
+                    sms: {
+                      conditions: [
+                        { argument: 'US', operator: 'equal_to', variable: 'recipient.country_code' },
+                      ],
+                    },
                   },
                   workflows: {
                     'dinosaurs-loose': {
                       channel_types: {
                         chat: true,
-                        email: false,
+                        email: true,
                         http: true,
                         in_app_feed: true,
                         push: true,
-                        sms: true,
+                        sms: {
+                          conditions: [
+                            { argument: 'US', operator: 'equal_to', variable: 'recipient.country_code' },
+                          ],
+                        },
                       },
                       conditions: [
                         { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
                       ],
                     },
-                    'welcome-sequence': true,
                   },
                 },
               },
-              timezone: 'timezone',
+              timezone: 'America/New_York',
             },
           ],
           properties: { foo: 'bar' },
@@ -142,7 +154,11 @@ describe('resource bulk', () => {
                     http: true,
                     in_app_feed: true,
                     push: true,
-                    sms: true,
+                    sms: {
+                      conditions: [
+                        { argument: 'US', operator: 'equal_to', variable: 'recipient.country_code' },
+                      ],
+                    },
                   },
                   conditions: [
                     { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
@@ -155,7 +171,9 @@ describe('resource bulk', () => {
                 http: true,
                 in_app_feed: true,
                 push: true,
-                sms: true,
+                sms: {
+                  conditions: [{ argument: 'US', operator: 'equal_to', variable: 'recipient.country_code' }],
+                },
               },
               workflows: {
                 'dinosaurs-loose': {
@@ -165,13 +183,16 @@ describe('resource bulk', () => {
                     http: true,
                     in_app_feed: true,
                     push: true,
-                    sms: true,
+                    sms: {
+                      conditions: [
+                        { argument: 'US', operator: 'equal_to', variable: 'recipient.country_code' },
+                      ],
+                    },
                   },
                   conditions: [
                     { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
                   ],
                 },
-                'welcome-sequence': true,
               },
             },
           },
