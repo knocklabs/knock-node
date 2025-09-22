@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.17.0 (2025-09-22)
+
+Full Changelog: [v1.16.0...v1.17.0](https://github.com/knocklabs/knock-node/compare/v1.16.0...v1.17.0)
+
+### Features
+
+* **api:** set idempotency key header by default ([f19ec37](https://github.com/knocklabs/knock-node/commit/f19ec372180d04133b2f7657fe38a437519ca4b9))
+
+
+### Chores
+
+* do not install brew dependencies in ./scripts/bootstrap by default ([1795340](https://github.com/knocklabs/knock-node/commit/1795340bdd014b2e2522f308bd640b508c47fb48))
+
 ## 1.16.0 (2025-09-10)
 
 Full Changelog: [v1.15.0...v1.16.0](https://github.com/knocklabs/knock-node/compare/v1.15.0...v1.16.0)
