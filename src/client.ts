@@ -286,6 +286,7 @@ export class Knock {
     this.#encoder = Opts.FallbackEncoder;
 
     this._options = options;
+    this.idempotencyHeader = 'Idempotency-Key';
 
     this.apiKey = apiKey;
   }
