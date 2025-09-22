@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.17.1 (2025-09-22)
+
+Full Changelog: [v1.17.0...v1.17.1](https://github.com/knocklabs/knock-node/compare/v1.17.0...v1.17.1)
+
+### Chores
+
+* improve example values ([e7a8b53](https://github.com/knocklabs/knock-node/commit/e7a8b53211f82d9580504347bcd73d0886863545))
+
 ## 1.17.0 (2025-09-22)
 
 Full Changelog: [v1.16.0...v1.17.0](https://github.com/knocklabs/knock-node/compare/v1.16.0...v1.17.0)
