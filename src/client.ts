@@ -31,18 +31,15 @@ import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
 import {
   AudienceAddMembersParams,
-  AudienceAddMembersResponse,
   AudienceListMembersResponse,
   AudienceMember,
   AudienceRemoveMembersParams,
-  AudienceRemoveMembersResponse,
   Audiences,
 } from './resources/audiences';
 import { BulkOperation, BulkOperations } from './resources/bulk-operations';
 import { Condition, PageInfo, Shared } from './resources/shared';
 import {
   WorkflowCancelParams,
-  WorkflowCancelResponse,
   WorkflowTriggerParams,
   WorkflowTriggerResponse,
   Workflows,
@@ -71,7 +68,6 @@ import {
   Object,
   ObjectAddSubscriptionsParams,
   ObjectAddSubscriptionsResponse,
-  ObjectDeleteResponse,
   ObjectDeleteSubscriptionsParams,
   ObjectDeleteSubscriptionsResponse,
   ObjectListMessagesParams,
@@ -82,7 +78,6 @@ import {
   ObjectSetChannelDataParams,
   ObjectSetParams,
   ObjectSetPreferencesParams,
-  ObjectUnsetChannelDataResponse,
   Objects,
   ObjectsEntriesCursor,
 } from './resources/objects/objects';
@@ -109,7 +104,6 @@ import {
 import {
   InlineTenantRequest,
   Tenant,
-  TenantDeleteResponse,
   TenantListParams,
   TenantRequest,
   TenantSetParams,
@@ -120,7 +114,6 @@ import {
   IdentifyUserRequest,
   InlineIdentifyUserRequest,
   User,
-  UserDeleteResponse,
   UserGetPreferencesParams,
   UserListMessagesParams,
   UserListParams,
@@ -130,7 +123,6 @@ import {
   UserMergeParams,
   UserSetChannelDataParams,
   UserSetPreferencesParams,
-  UserUnsetChannelDataResponse,
   UserUpdateParams,
   Users,
   UsersEntriesCursor,
@@ -903,9 +895,7 @@ export declare namespace Knock {
     type IdentifyUserRequest as IdentifyUserRequest,
     type InlineIdentifyUserRequest as InlineIdentifyUserRequest,
     type User as User,
-    type UserDeleteResponse as UserDeleteResponse,
     type UserListPreferencesResponse as UserListPreferencesResponse,
-    type UserUnsetChannelDataResponse as UserUnsetChannelDataResponse,
     type UsersEntriesCursor as UsersEntriesCursor,
     type UserUpdateParams as UserUpdateParams,
     type UserListParams as UserListParams,
@@ -922,11 +912,9 @@ export declare namespace Knock {
     Objects as Objects,
     type InlineObjectRequest as InlineObjectRequest,
     type Object as Object,
-    type ObjectDeleteResponse as ObjectDeleteResponse,
     type ObjectAddSubscriptionsResponse as ObjectAddSubscriptionsResponse,
     type ObjectDeleteSubscriptionsResponse as ObjectDeleteSubscriptionsResponse,
     type ObjectListPreferencesResponse as ObjectListPreferencesResponse,
-    type ObjectUnsetChannelDataResponse as ObjectUnsetChannelDataResponse,
     type ObjectsEntriesCursor as ObjectsEntriesCursor,
     type ObjectListParams as ObjectListParams,
     type ObjectAddSubscriptionsParams as ObjectAddSubscriptionsParams,
@@ -944,7 +932,6 @@ export declare namespace Knock {
     type InlineTenantRequest as InlineTenantRequest,
     type Tenant as Tenant,
     type TenantRequest as TenantRequest,
-    type TenantDeleteResponse as TenantDeleteResponse,
     type TenantsEntriesCursor as TenantsEntriesCursor,
     type TenantListParams as TenantListParams,
     type TenantSetParams as TenantSetParams,
@@ -976,7 +963,6 @@ export declare namespace Knock {
 
   export {
     Workflows as Workflows,
-    type WorkflowCancelResponse as WorkflowCancelResponse,
     type WorkflowTriggerResponse as WorkflowTriggerResponse,
     type WorkflowCancelParams as WorkflowCancelParams,
     type WorkflowTriggerParams as WorkflowTriggerParams,
@@ -1001,9 +987,7 @@ export declare namespace Knock {
   export {
     Audiences as Audiences,
     type AudienceMember as AudienceMember,
-    type AudienceAddMembersResponse as AudienceAddMembersResponse,
     type AudienceListMembersResponse as AudienceListMembersResponse,
-    type AudienceRemoveMembersResponse as AudienceRemoveMembersResponse,
     type AudienceAddMembersParams as AudienceAddMembersParams,
     type AudienceRemoveMembersParams as AudienceRemoveMembersParams,
   };

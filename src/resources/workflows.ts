@@ -4,6 +4,7 @@ import { APIResource } from '../core/resource';
 import * as RecipientsAPI from './recipients/recipients';
 import * as TenantsAPI from './tenants/tenants';
 import { APIPromise } from '../core/api-promise';
+import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -15,14 +16,18 @@ export class Workflows extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.workflows.cancel('key', {
+   * await client.workflows.cancel('key', {
    *   cancellation_key: 'cancel-workflow-123',
    *   recipients: ['jhammond'],
    * });
    * ```
    */
-  cancel(key: string, body: WorkflowCancelParams, options?: RequestOptions): APIPromise<string> {
-    return this._client.post(path`/v1/workflows/${key}/cancel`, { body, ...options });
+  cancel(key: string, body: WorkflowCancelParams, options?: RequestOptions): APIPromise<void> {
+    return this._client.post(path`/v1/workflows/${key}/cancel`, {
+      body,
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -62,11 +67,6 @@ export class Workflows extends APIResource {
     return this._client.post(path`/v1/workflows/${key}/trigger`, { body, ...options });
   }
 }
-
-/**
- * A `204 No Content` response.
- */
-export type WorkflowCancelResponse = string;
 
 /**
  * The response from triggering a workflow.
@@ -135,7 +135,6 @@ export interface WorkflowTriggerParams {
 
 export declare namespace Workflows {
   export {
-    type WorkflowCancelResponse as WorkflowCancelResponse,
     type WorkflowTriggerResponse as WorkflowTriggerResponse,
     type WorkflowCancelParams as WorkflowCancelParams,
     type WorkflowTriggerParams as WorkflowTriggerParams,
