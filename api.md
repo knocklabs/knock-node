@@ -49,15 +49,13 @@ Types:
 - <code><a href="./src/resources/users/users.ts">IdentifyUserRequest</a></code>
 - <code><a href="./src/resources/users/users.ts">InlineIdentifyUserRequest</a></code>
 - <code><a href="./src/resources/users/users.ts">User</a></code>
-- <code><a href="./src/resources/users/users.ts">UserDeleteResponse</a></code>
 - <code><a href="./src/resources/users/users.ts">UserListPreferencesResponse</a></code>
-- <code><a href="./src/resources/users/users.ts">UserUnsetChannelDataResponse</a></code>
 
 Methods:
 
 - <code title="put /v1/users/{user_id}">client.users.<a href="./src/resources/users/users.ts">update</a>(userID, { ...params }) -> User</code>
 - <code title="get /v1/users">client.users.<a href="./src/resources/users/users.ts">list</a>({ ...params }) -> UsersEntriesCursor</code>
-- <code title="delete /v1/users/{user_id}">client.users.<a href="./src/resources/users/users.ts">delete</a>(userID) -> string</code>
+- <code title="delete /v1/users/{user_id}">client.users.<a href="./src/resources/users/users.ts">delete</a>(userID) -> void</code>
 - <code title="get /v1/users/{user_id}">client.users.<a href="./src/resources/users/users.ts">get</a>(userID) -> User</code>
 - <code title="get /v1/users/{user_id}/channel_data/{channel_id}">client.users.<a href="./src/resources/users/users.ts">getChannelData</a>(userID, channelID) -> ChannelData</code>
 - <code title="get /v1/users/{user_id}/preferences/{id}">client.users.<a href="./src/resources/users/users.ts">getPreferences</a>(userID, id, { ...params }) -> PreferenceSet</code>
@@ -68,7 +66,7 @@ Methods:
 - <code title="post /v1/users/{user_id}/merge">client.users.<a href="./src/resources/users/users.ts">merge</a>(userID, { ...params }) -> User</code>
 - <code title="put /v1/users/{user_id}/channel_data/{channel_id}">client.users.<a href="./src/resources/users/users.ts">setChannelData</a>(userID, channelID, { ...params }) -> ChannelData</code>
 - <code title="put /v1/users/{user_id}/preferences/{id}">client.users.<a href="./src/resources/users/users.ts">setPreferences</a>(userID, id, { ...params }) -> PreferenceSet</code>
-- <code title="delete /v1/users/{user_id}/channel_data/{channel_id}">client.users.<a href="./src/resources/users/users.ts">unsetChannelData</a>(userID, channelID) -> string</code>
+- <code title="delete /v1/users/{user_id}/channel_data/{channel_id}">client.users.<a href="./src/resources/users/users.ts">unsetChannelData</a>(userID, channelID) -> void</code>
 
 ## Feeds
 
@@ -112,16 +110,14 @@ Types:
 
 - <code><a href="./src/resources/objects/objects.ts">InlineObjectRequest</a></code>
 - <code><a href="./src/resources/objects/objects.ts">Object</a></code>
-- <code><a href="./src/resources/objects/objects.ts">ObjectDeleteResponse</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectAddSubscriptionsResponse</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectDeleteSubscriptionsResponse</a></code>
 - <code><a href="./src/resources/objects/objects.ts">ObjectListPreferencesResponse</a></code>
-- <code><a href="./src/resources/objects/objects.ts">ObjectUnsetChannelDataResponse</a></code>
 
 Methods:
 
 - <code title="get /v1/objects/{collection}">client.objects.<a href="./src/resources/objects/objects.ts">list</a>(collection, { ...params }) -> ObjectsEntriesCursor</code>
-- <code title="delete /v1/objects/{collection}/{id}">client.objects.<a href="./src/resources/objects/objects.ts">delete</a>(collection, id) -> string</code>
+- <code title="delete /v1/objects/{collection}/{id}">client.objects.<a href="./src/resources/objects/objects.ts">delete</a>(collection, id) -> void</code>
 - <code title="post /v1/objects/{collection}/{object_id}/subscriptions">client.objects.<a href="./src/resources/objects/objects.ts">addSubscriptions</a>(collection, objectID, { ...params }) -> ObjectAddSubscriptionsResponse</code>
 - <code title="delete /v1/objects/{collection}/{object_id}/subscriptions">client.objects.<a href="./src/resources/objects/objects.ts">deleteSubscriptions</a>(collection, objectID, { ...params }) -> ObjectDeleteSubscriptionsResponse</code>
 - <code title="get /v1/objects/{collection}/{id}">client.objects.<a href="./src/resources/objects/objects.ts">get</a>(collection, id) -> Object</code>
@@ -134,7 +130,7 @@ Methods:
 - <code title="put /v1/objects/{collection}/{id}">client.objects.<a href="./src/resources/objects/objects.ts">set</a>(collection, id, { ...params }) -> Object</code>
 - <code title="put /v1/objects/{collection}/{object_id}/channel_data/{channel_id}">client.objects.<a href="./src/resources/objects/objects.ts">setChannelData</a>(collection, objectID, channelID, { ...params }) -> ChannelData</code>
 - <code title="put /v1/objects/{collection}/{object_id}/preferences/{id}">client.objects.<a href="./src/resources/objects/objects.ts">setPreferences</a>(collection, objectID, id, { ...params }) -> PreferenceSet</code>
-- <code title="delete /v1/objects/{collection}/{object_id}/channel_data/{channel_id}">client.objects.<a href="./src/resources/objects/objects.ts">unsetChannelData</a>(collection, objectID, channelID) -> string</code>
+- <code title="delete /v1/objects/{collection}/{object_id}/channel_data/{channel_id}">client.objects.<a href="./src/resources/objects/objects.ts">unsetChannelData</a>(collection, objectID, channelID) -> void</code>
 
 ## Bulk
 
@@ -151,12 +147,11 @@ Types:
 - <code><a href="./src/resources/tenants/tenants.ts">InlineTenantRequest</a></code>
 - <code><a href="./src/resources/tenants/tenants.ts">Tenant</a></code>
 - <code><a href="./src/resources/tenants/tenants.ts">TenantRequest</a></code>
-- <code><a href="./src/resources/tenants/tenants.ts">TenantDeleteResponse</a></code>
 
 Methods:
 
 - <code title="get /v1/tenants">client.tenants.<a href="./src/resources/tenants/tenants.ts">list</a>({ ...params }) -> TenantsEntriesCursor</code>
-- <code title="delete /v1/tenants/{id}">client.tenants.<a href="./src/resources/tenants/tenants.ts">delete</a>(id) -> string</code>
+- <code title="delete /v1/tenants/{id}">client.tenants.<a href="./src/resources/tenants/tenants.ts">delete</a>(id) -> void</code>
 - <code title="get /v1/tenants/{id}">client.tenants.<a href="./src/resources/tenants/tenants.ts">get</a>(id) -> Tenant</code>
 - <code title="put /v1/tenants/{id}">client.tenants.<a href="./src/resources/tenants/tenants.ts">set</a>(id, { ...params }) -> Tenant</code>
 
@@ -285,12 +280,11 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/workflows.ts">WorkflowCancelResponse</a></code>
 - <code><a href="./src/resources/workflows.ts">WorkflowTriggerResponse</a></code>
 
 Methods:
 
-- <code title="post /v1/workflows/{key}/cancel">client.workflows.<a href="./src/resources/workflows.ts">cancel</a>(key, { ...params }) -> string</code>
+- <code title="post /v1/workflows/{key}/cancel">client.workflows.<a href="./src/resources/workflows.ts">cancel</a>(key, { ...params }) -> void</code>
 - <code title="post /v1/workflows/{key}/trigger">client.workflows.<a href="./src/resources/workflows.ts">trigger</a>(key, { ...params }) -> WorkflowTriggerResponse</code>
 
 # Schedules
@@ -329,12 +323,10 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/audiences.ts">AudienceMember</a></code>
-- <code><a href="./src/resources/audiences.ts">AudienceAddMembersResponse</a></code>
 - <code><a href="./src/resources/audiences.ts">AudienceListMembersResponse</a></code>
-- <code><a href="./src/resources/audiences.ts">AudienceRemoveMembersResponse</a></code>
 
 Methods:
 
-- <code title="post /v1/audiences/{key}/members">client.audiences.<a href="./src/resources/audiences.ts">addMembers</a>(key, { ...params }) -> string</code>
+- <code title="post /v1/audiences/{key}/members">client.audiences.<a href="./src/resources/audiences.ts">addMembers</a>(key, { ...params }) -> void</code>
 - <code title="get /v1/audiences/{key}/members">client.audiences.<a href="./src/resources/audiences.ts">listMembers</a>(key) -> AudienceListMembersResponse</code>
-- <code title="delete /v1/audiences/{key}/members">client.audiences.<a href="./src/resources/audiences.ts">removeMembers</a>(key, { ...params }) -> string</code>
+- <code title="delete /v1/audiences/{key}/members">client.audiences.<a href="./src/resources/audiences.ts">removeMembers</a>(key, { ...params }) -> void</code>
