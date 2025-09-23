@@ -7,6 +7,7 @@ import * as BulkAPI from './bulk';
 import { Bulk, BulkDeleteParams, BulkSetParams } from './bulk';
 import { APIPromise } from '../../core/api-promise';
 import { EntriesCursor, type EntriesCursorParams, PagePromise } from '../../core/pagination';
+import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -36,11 +37,14 @@ export class Tenants extends APIResource {
    *
    * @example
    * ```ts
-   * const tenant = await client.tenants.delete('id');
+   * await client.tenants.delete('id');
    * ```
    */
-  delete(id: string, options?: RequestOptions): APIPromise<string> {
-    return this._client.delete(path`/v1/tenants/${id}`, options);
+  delete(id: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/v1/tenants/${id}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -236,11 +240,6 @@ export namespace TenantRequest {
   }
 }
 
-/**
- * A `204 No Content` response.
- */
-export type TenantDeleteResponse = string;
-
 export interface TenantListParams extends EntriesCursorParams {
   /**
    * Filter tenants by name.
@@ -320,7 +319,6 @@ export declare namespace Tenants {
     type InlineTenantRequest as InlineTenantRequest,
     type Tenant as Tenant,
     type TenantRequest as TenantRequest,
-    type TenantDeleteResponse as TenantDeleteResponse,
     type TenantsEntriesCursor as TenantsEntriesCursor,
     type TenantListParams as TenantListParams,
     type TenantSetParams as TenantSetParams,

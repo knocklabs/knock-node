@@ -4,6 +4,7 @@ import { APIResource } from '../core/resource';
 import * as SharedAPI from './shared';
 import * as UsersAPI from './users/users';
 import { APIPromise } from '../core/api-promise';
+import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -13,7 +14,7 @@ export class Audiences extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.audiences.addMembers('key', {
+   * await client.audiences.addMembers('key', {
    *   members: [
    *     {
    *       tenant: 'ingen_isla_nublar',
@@ -23,8 +24,12 @@ export class Audiences extends APIResource {
    * });
    * ```
    */
-  addMembers(key: string, body: AudienceAddMembersParams, options?: RequestOptions): APIPromise<string> {
-    return this._client.post(path`/v1/audiences/${key}/members`, { body, ...options });
+  addMembers(key: string, body: AudienceAddMembersParams, options?: RequestOptions): APIPromise<void> {
+    return this._client.post(path`/v1/audiences/${key}/members`, {
+      body,
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -44,18 +49,17 @@ export class Audiences extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.audiences.removeMembers(
-   *   'key',
-   *   { members: [{ user: {} }] },
-   * );
+   * await client.audiences.removeMembers('key', {
+   *   members: [{ user: {} }],
+   * });
    * ```
    */
-  removeMembers(
-    key: string,
-    body: AudienceRemoveMembersParams,
-    options?: RequestOptions,
-  ): APIPromise<string> {
-    return this._client.delete(path`/v1/audiences/${key}/members`, { body, ...options });
+  removeMembers(key: string, body: AudienceRemoveMembersParams, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/v1/audiences/${key}/members`, {
+      body,
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
@@ -92,11 +96,6 @@ export interface AudienceMember {
 }
 
 /**
- * A `204 No Content` response.
- */
-export type AudienceAddMembersResponse = string;
-
-/**
  * A paginated list of audience members.
  */
 export interface AudienceListMembersResponse {
@@ -110,11 +109,6 @@ export interface AudienceListMembersResponse {
    */
   page_info: SharedAPI.PageInfo;
 }
-
-/**
- * A `204 No Content` response.
- */
-export type AudienceRemoveMembersResponse = string;
 
 export interface AudienceAddMembersParams {
   /**
@@ -191,9 +185,7 @@ export namespace AudienceRemoveMembersParams {
 export declare namespace Audiences {
   export {
     type AudienceMember as AudienceMember,
-    type AudienceAddMembersResponse as AudienceAddMembersResponse,
     type AudienceListMembersResponse as AudienceListMembersResponse,
-    type AudienceRemoveMembersResponse as AudienceRemoveMembersResponse,
     type AudienceAddMembersParams as AudienceAddMembersParams,
     type AudienceRemoveMembersParams as AudienceRemoveMembersParams,
   };

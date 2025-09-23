@@ -41,6 +41,7 @@ import {
   type ItemsCursorParams,
   PagePromise,
 } from '../../core/pagination';
+import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -106,11 +107,14 @@ export class Users extends APIResource {
    *
    * @example
    * ```ts
-   * const user = await client.users.delete('user_id');
+   * await client.users.delete('user_id');
    * ```
    */
-  delete(userID: string, options?: RequestOptions): APIPromise<string> {
-    return this._client.delete(path`/v1/users/${userID}`, options);
+  delete(userID: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/v1/users/${userID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -335,14 +339,17 @@ export class Users extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.users.unsetChannelData(
+   * await client.users.unsetChannelData(
    *   'user_id',
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    * );
    * ```
    */
-  unsetChannelData(userID: string, channelID: string, options?: RequestOptions): APIPromise<string> {
-    return this._client.delete(path`/v1/users/${userID}/channel_data/${channelID}`, options);
+  unsetChannelData(userID: string, channelID: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/v1/users/${userID}/channel_data/${channelID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
@@ -533,19 +540,9 @@ export interface User {
 }
 
 /**
- * A `204 No Content` response.
- */
-export type UserDeleteResponse = string;
-
-/**
  * A list of preference sets for the user.
  */
 export type UserListPreferencesResponse = Array<PreferencesAPI.PreferenceSet>;
-
-/**
- * A `204 No Content` response.
- */
-export type UserUnsetChannelDataResponse = string;
 
 export interface UserUpdateParams {
   /**
@@ -831,9 +828,7 @@ export declare namespace Users {
     type IdentifyUserRequest as IdentifyUserRequest,
     type InlineIdentifyUserRequest as InlineIdentifyUserRequest,
     type User as User,
-    type UserDeleteResponse as UserDeleteResponse,
     type UserListPreferencesResponse as UserListPreferencesResponse,
-    type UserUnsetChannelDataResponse as UserUnsetChannelDataResponse,
     type UsersEntriesCursor as UsersEntriesCursor,
     type UserUpdateParams as UserUpdateParams,
     type UserListParams as UserListParams,

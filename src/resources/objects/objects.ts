@@ -21,6 +21,7 @@ import {
   type ItemsCursorParams,
   PagePromise,
 } from '../../core/pagination';
+import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -58,14 +59,14 @@ export class Objects extends APIResource {
    *
    * @example
    * ```ts
-   * const object = await client.objects.delete(
-   *   'collection',
-   *   'id',
-   * );
+   * await client.objects.delete('collection', 'id');
    * ```
    */
-  delete(collection: string, id: string, options?: RequestOptions): APIPromise<string> {
-    return this._client.delete(path`/v1/objects/${collection}/${id}`, options);
+  delete(collection: string, id: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/v1/objects/${collection}/${id}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -394,7 +395,7 @@ export class Objects extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.objects.unsetChannelData(
+   * await client.objects.unsetChannelData(
    *   'collection',
    *   'object_id',
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -406,11 +407,11 @@ export class Objects extends APIResource {
     objectID: string,
     channelID: string,
     options?: RequestOptions,
-  ): APIPromise<string> {
-    return this._client.delete(
-      path`/v1/objects/${collection}/${objectID}/channel_data/${channelID}`,
-      options,
-    );
+  ): APIPromise<void> {
+    return this._client.delete(path`/v1/objects/${collection}/${objectID}/channel_data/${channelID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
@@ -486,11 +487,6 @@ export interface Object {
 }
 
 /**
- * A `204 No Content` response.
- */
-export type ObjectDeleteResponse = string;
-
-/**
  * A response containing a list of subscriptions.
  */
 export type ObjectAddSubscriptionsResponse = Array<SubscriptionsAPI.Subscription>;
@@ -504,11 +500,6 @@ export type ObjectDeleteSubscriptionsResponse = Array<SubscriptionsAPI.Subscript
  * A list of preference sets for the object
  */
 export type ObjectListPreferencesResponse = Array<PreferencesAPI.PreferenceSet>;
-
-/**
- * A `204 No Content` response.
- */
-export type ObjectUnsetChannelDataResponse = string;
 
 export interface ObjectListParams extends EntriesCursorParams {
   /**
@@ -802,11 +793,9 @@ export declare namespace Objects {
   export {
     type InlineObjectRequest as InlineObjectRequest,
     type Object as Object,
-    type ObjectDeleteResponse as ObjectDeleteResponse,
     type ObjectAddSubscriptionsResponse as ObjectAddSubscriptionsResponse,
     type ObjectDeleteSubscriptionsResponse as ObjectDeleteSubscriptionsResponse,
     type ObjectListPreferencesResponse as ObjectListPreferencesResponse,
-    type ObjectUnsetChannelDataResponse as ObjectUnsetChannelDataResponse,
     type ObjectsEntriesCursor as ObjectsEntriesCursor,
     type ObjectListParams as ObjectListParams,
     type ObjectAddSubscriptionsParams as ObjectAddSubscriptionsParams,

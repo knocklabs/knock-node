@@ -3,9 +3,7 @@
 export {
   Audiences,
   type AudienceMember,
-  type AudienceAddMembersResponse,
   type AudienceListMembersResponse,
-  type AudienceRemoveMembersResponse,
   type AudienceAddMembersParams,
   type AudienceRemoveMembersParams,
 } from './audiences';
@@ -33,11 +31,9 @@ export {
   Objects,
   type InlineObjectRequest,
   type Object,
-  type ObjectDeleteResponse,
   type ObjectAddSubscriptionsResponse,
   type ObjectDeleteSubscriptionsResponse,
   type ObjectListPreferencesResponse,
-  type ObjectUnsetChannelDataResponse,
   type ObjectListParams,
   type ObjectAddSubscriptionsParams,
   type ObjectDeleteSubscriptionsParams,
@@ -75,7 +71,6 @@ export {
   type InlineTenantRequest,
   type Tenant,
   type TenantRequest,
-  type TenantDeleteResponse,
   type TenantListParams,
   type TenantSetParams,
   type TenantsEntriesCursor,
@@ -85,9 +80,7 @@ export {
   type IdentifyUserRequest,
   type InlineIdentifyUserRequest,
   type User,
-  type UserDeleteResponse,
   type UserListPreferencesResponse,
-  type UserUnsetChannelDataResponse,
   type UserUpdateParams,
   type UserListParams,
   type UserGetPreferencesParams,
@@ -101,7 +94,6 @@ export {
 } from './users/users';
 export {
   Workflows,
-  type WorkflowCancelResponse,
   type WorkflowTriggerResponse,
   type WorkflowCancelParams,
   type WorkflowTriggerParams,
