@@ -246,7 +246,7 @@ The SDK provides functionality to sign authentication tokens for client-side req
 By default, this SDK uses [`jose`](https://github.com/panva/jose) to sign JWTs. The latest version of `jose` only supports ESM, so if your project is built using CJS, and you're _not_ already running [a version of Node.js that supports loading ES modules using `require`](https://nodejs.org/api/modules.html#loading-ecmascript-modules-using-require), you'll need to take the following additional step to build with a CJS-compatible version of `jose`:
 
 - If you're using `npm`, add the `overrides` option to your `package.json` file to install `jose` v5:
-  
+
   ```json
   {
     "dependencies": {
@@ -276,10 +276,10 @@ By default, this SDK uses [`jose`](https://github.com/panva/jose) to sign JWTs. 
 #### Basic Usage
 
 ```ts
-import Knock from '@knocklabs/node';
+import { signUserToken } from '@knocklabs/node';
 
 // Generate a JWT token for a user
-const token = await Knock.signUserToken('user-1');
+const token = await signUserToken('user-1');
 ```
 
 #### Advanced Usage with Grants

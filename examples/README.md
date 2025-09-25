@@ -9,10 +9,10 @@ The Knock Node.js SDK provides functionality to sign authentication tokens for c
 ### Basic Usage
 
 ```typescript
-import Knock from '@knocklabs/node';
+import { signUserToken } from '@knocklabs/node';
 
 // Generate a JWT token for user-1
-const token = await Knock.signUserToken('user-1');
+const token = await signUserToken('user-1');
 
 console.log('Token:', token);
 ```
@@ -22,18 +22,17 @@ console.log('Token:', token);
 You can provide specific grants to control access to different resources:
 
 ```typescript
-import Knock, { Grants } from '@knocklabs/node';
+import { signUserToken, buildUserTokenGrant, Grants } from '@knocklabs/node';
 
-const token = await Knock.signUserToken('user-1', {
+const token = await signUserToken('user-1', {
   // Token valid for 12 hours (43200 seconds)
   expiresInSeconds: 43200,
   // Grants for tenant and object access
   grants: [
     // Grant access to a tenant
-    Knock.buildUserTokenGrant({ type: 'tenant', id: 'tenant-id' }, [Grants.SlackChannelsRead]),
-
+    buildUserTokenGrant({ type: 'tenant', id: 'tenant-id' }, [Grants.SlackChannelsRead]),
     // Grant access to specific objects
-    Knock.buildUserTokenGrant({ type: 'object', id: 'object-id', collection: 'videos' }, [
+    buildUserTokenGrant({ type: 'object', id: 'object-id', collection: 'videos' }, [
       Grants.ChannelDataRead,
       Grants.ChannelDataWrite,
     ]),
