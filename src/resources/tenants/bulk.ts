@@ -8,7 +8,8 @@ import { RequestOptions } from '../../internal/request-options';
 
 export class Bulk extends APIResource {
   /**
-   * Delete multiple tenants in a single operation. This operation cannot be undone.
+   * Delete up to 100 tenants at a time in a single operation. This operation cannot
+   * be undone.
    *
    * @example
    * ```ts
@@ -23,7 +24,7 @@ export class Bulk extends APIResource {
   }
 
   /**
-   * Set or update up to 1,000 tenants in a single operation.
+   * Set or update up to 100 tenants in a single operation.
    *
    * @example
    * ```ts
