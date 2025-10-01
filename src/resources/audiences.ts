@@ -112,7 +112,7 @@ export interface AudienceListMembersResponse {
 
 export interface AudienceAddMembersParams {
   /**
-   * A list of audience members to add.
+   * A list of audience members to add. Limited to 1,000 members per request.
    */
   members: Array<AudienceAddMembersParams.Member>;
 }
