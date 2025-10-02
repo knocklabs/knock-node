@@ -1,5 +1,33 @@
 # Changelog
 
+## 1.19.0 (2025-10-01)
+
+Full Changelog: [v1.18.0...v1.19.0](https://github.com/knocklabs/knock-node/compare/v1.18.0...v1.19.0)
+
+### Features
+
+* **api:** api update ([77638d5](https://github.com/knocklabs/knock-node/commit/77638d578e7d53320b6e769d5529220bb3032f42))
+* **api:** api update ([80cd964](https://github.com/knocklabs/knock-node/commit/80cd9646d8bcfaebd9c18fb6c308f4693366d7f0))
+
+
+### Bug Fixes
+
+* **KNO-9860:** fix user token signing examples in README ([#136](https://github.com/knocklabs/knock-node/issues/136)) ([e647568](https://github.com/knocklabs/knock-node/commit/e64756843ea9ac4957e3d9a562f8edcf0af57a53))
+
+
+### Performance Improvements
+
+* faster formatting ([93c8fe7](https://github.com/knocklabs/knock-node/commit/93c8fe7d6ec9be9f1cd70029181f4d3e58e37193))
+
+
+### Chores
+
+* **internal:** codegen related update ([eee4c5f](https://github.com/knocklabs/knock-node/commit/eee4c5f2399cc92ed164e3e39d04de15225d4699))
+* **internal:** fix incremental formatting in some cases ([d1e199e](https://github.com/knocklabs/knock-node/commit/d1e199e9cc4e51b35adde1a4b4015e70c7044dd6))
+* **internal:** ignore .eslintcache ([8d12e3e](https://github.com/knocklabs/knock-node/commit/8d12e3e558cfba633c8009800c30f92678c77acb))
+* **internal:** remove .eslintcache ([fce85c8](https://github.com/knocklabs/knock-node/commit/fce85c8d4514d331a46d1ae8b03fcdec24b176cc))
+* **internal:** remove deprecated `compilerOptions.baseUrl` from tsconfig.json ([cf940cd](https://github.com/knocklabs/knock-node/commit/cf940cdc4441f19b125780dc361a0d3ad868204a))
+
 ## 1.18.0 (2025-09-23)
 
 Full Changelog: [v1.17.1...v1.18.0](https://github.com/knocklabs/knock-node/compare/v1.17.1...v1.18.0)
