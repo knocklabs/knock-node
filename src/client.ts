@@ -37,7 +37,6 @@ import {
   Audiences,
 } from './resources/audiences';
 import { BulkOperation, BulkOperations } from './resources/bulk-operations';
-import { Condition, PageInfo, Shared } from './resources/shared';
 import {
   WorkflowCancelParams,
   WorkflowTriggerParams,
@@ -828,7 +827,6 @@ export class Knock {
 
   static toFile = Uploads.toFile;
 
-  shared: API.Shared = new API.Shared(this);
   recipients: API.Recipients = new API.Recipients(this);
   users: API.Users = new API.Users(this);
   objects: API.Objects = new API.Objects(this);
@@ -843,7 +841,6 @@ export class Knock {
   audiences: API.Audiences = new API.Audiences(this);
 }
 
-Knock.Shared = Shared;
 Knock.Recipients = Recipients;
 Knock.Users = Users;
 Knock.Objects = Objects;
@@ -880,8 +877,6 @@ export declare namespace Knock {
     type MsTeamsPaginationParams as MsTeamsPaginationParams,
     type MsTeamsPaginationResponse as MsTeamsPaginationResponse,
   };
-
-  export { Shared as Shared, type Condition as Condition, type PageInfo as PageInfo };
 
   export {
     Recipients as Recipients,
@@ -991,4 +986,7 @@ export declare namespace Knock {
     type AudienceAddMembersParams as AudienceAddMembersParams,
     type AudienceRemoveMembersParams as AudienceRemoveMembersParams,
   };
+
+  export type Condition = API.Condition;
+  export type PageInfo = API.PageInfo;
 }

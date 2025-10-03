@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as SharedAPI from '../shared';
+import * as Shared from '../shared';
 import * as MessagesAPI from '../messages/messages';
 import { MessagesItemsCursor } from '../messages/messages';
 import * as BulkAPI from './bulk';
@@ -767,7 +767,7 @@ export namespace ObjectSetPreferencesParams {
     /**
      * A list of conditions to apply to a channel type.
      */
-    conditions?: Array<SharedAPI.Condition> | null;
+    conditions?: Array<Shared.Condition> | null;
   }
 
   /**
@@ -783,7 +783,7 @@ export namespace ObjectSetPreferencesParams {
     /**
      * A list of conditions to apply to a channel type.
      */
-    conditions?: Array<SharedAPI.Condition> | null;
+    conditions?: Array<Shared.Condition> | null;
   }
 }
 
