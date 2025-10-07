@@ -355,7 +355,7 @@ export interface Message {
   recipient: RecipientsAPI.RecipientReference;
 
   /**
-   * The workflow that triggered the message.
+   * The workflow or guide that triggered the message.
    */
   source: Message.Source;
 
@@ -439,7 +439,7 @@ export interface Message {
 
 export namespace Message {
   /**
-   * The workflow that triggered the message.
+   * The workflow or guide that triggered the message.
    */
   export interface Source {
     __typename: string;
@@ -450,12 +450,12 @@ export namespace Message {
     categories: Array<string>;
 
     /**
-     * The key of the workflow that triggered the message.
+     * The key of the workflow or guide that triggered the message.
      */
     key: string;
 
     /**
-     * The ID of the version of the workflow that triggered the message.
+     * The ID of the version of the workflow or guide that triggered the message.
      */
     version_id: string;
 
@@ -463,6 +463,11 @@ export namespace Message {
      * The step reference for the step in the workflow that generated the message.
      */
     step_ref?: string | null;
+
+    /**
+     * Whether this message was generated from a workflow, broadcast, or guide.
+     */
+    type?: 'broadcast' | 'workflow' | 'guide';
   }
 }
 
