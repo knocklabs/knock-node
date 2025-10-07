@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as PreferencesAPI from './preferences';
-import * as SharedAPI from '../shared';
+import * as Shared from '../shared';
 
 export class Preferences extends APIResource {}
 
@@ -55,7 +55,7 @@ export namespace PreferenceSet {
     /**
      * A list of conditions to apply to a channel type.
      */
-    conditions?: Array<SharedAPI.Condition> | null;
+    conditions?: Array<Shared.Condition> | null;
   }
 
   /**
@@ -71,7 +71,7 @@ export namespace PreferenceSet {
     /**
      * A list of conditions to apply to a channel type.
      */
-    conditions?: Array<SharedAPI.Condition> | null;
+    conditions?: Array<Shared.Condition> | null;
   }
 }
 
@@ -83,7 +83,7 @@ export interface PreferenceSetChannelTypeSetting {
   /**
    * A list of conditions to apply to a channel type.
    */
-  conditions: Array<SharedAPI.Condition>;
+  conditions: Array<Shared.Condition>;
 }
 
 /**
@@ -167,7 +167,7 @@ export namespace PreferenceSetRequest {
     /**
      * A list of conditions to apply to a channel type.
      */
-    conditions?: Array<SharedAPI.Condition> | null;
+    conditions?: Array<Shared.Condition> | null;
   }
 
   /**
@@ -183,7 +183,7 @@ export namespace PreferenceSetRequest {
     /**
      * A list of conditions to apply to a channel type.
      */
-    conditions?: Array<SharedAPI.Condition> | null;
+    conditions?: Array<Shared.Condition> | null;
   }
 }
 

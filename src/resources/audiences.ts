@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as SharedAPI from './shared';
+import * as Shared from './shared';
 import * as UsersAPI from './users/users';
 import { APIPromise } from '../core/api-promise';
 import { buildHeaders } from '../internal/headers';
@@ -107,7 +107,7 @@ export interface AudienceListMembersResponse {
   /**
    * Pagination information for a list of resources.
    */
-  page_info: SharedAPI.PageInfo;
+  page_info: Shared.PageInfo;
 }
 
 export interface AudienceAddMembersParams {

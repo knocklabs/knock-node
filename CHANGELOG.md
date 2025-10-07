@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.20.0 (2025-10-07)
+
+Full Changelog: [v1.19.0...v1.20.0](https://github.com/knocklabs/knock-node/compare/v1.19.0...v1.20.0)
+
+### Features
+
+* **api:** api update ([5332cee](https://github.com/knocklabs/knock-node/commit/5332ceef91ceb3134407d4ff2a9a42e7cfd9a97b))
+* **api:** manual updates ([3fff2b6](https://github.com/knocklabs/knock-node/commit/3fff2b6e43fc1db2725de7fe6f6da7985193f44b))
+
+
+### Chores
+
+* **internal:** use npm pack for build uploads ([f900cd4](https://github.com/knocklabs/knock-node/commit/f900cd44f714dd6cdaf589931681965e9e8144ca))
+* **jsdoc:** fix [@link](https://github.com/link) annotations to refer only to parts of the package‘s public interface ([35695a0](https://github.com/knocklabs/knock-node/commit/35695a0973d1d7db3c674591805b53114d985c32))
+
 ## 1.19.0 (2025-10-01)
 
 Full Changelog: [v1.18.0...v1.19.0](https://github.com/knocklabs/knock-node/compare/v1.18.0...v1.19.0)
