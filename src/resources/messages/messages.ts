@@ -334,7 +334,7 @@ export interface Message {
   __typename: string;
 
   /**
-   * The ID for the channel the message was sent through.
+   * @deprecated Deprecated, use channel.id instead.
    */
   channel_id: string;
 
@@ -380,6 +380,11 @@ export interface Message {
    * Timestamp when the message was archived.
    */
   archived_at?: string | null;
+
+  /**
+   * A configured channel, which is a way to route messages to a provider.
+   */
+  channel?: Message.Channel;
 
   /**
    * Timestamp when the message was clicked.
@@ -468,6 +473,46 @@ export namespace Message {
      * Whether this message was generated from a workflow, broadcast, or guide.
      */
     type?: 'broadcast' | 'workflow' | 'guide';
+  }
+
+  /**
+   * A configured channel, which is a way to route messages to a provider.
+   */
+  export interface Channel {
+    /**
+     * The unique identifier for the channel.
+     */
+    id: string;
+
+    /**
+     * The timestamp of when the channel was created.
+     */
+    created_at: string;
+
+    /**
+     * The ID of the provider that this channel uses to deliver messages.
+     */
+    provider: string;
+
+    /**
+     * The type of channel, determining what kind of messages it can send.
+     */
+    type: 'email' | 'in_app' | 'in_app_feed' | 'in_app_guide' | 'sms' | 'push' | 'chat' | 'http';
+
+    /**
+     * The timestamp of when the channel was last updated.
+     */
+    updated_at: string;
+
+    /**
+     * Unique identifier for the channel within a project (immutable once created).
+     */
+    key?: string | null;
+
+    /**
+     * The human-readable name of the channel.
+     */
+    name?: string | null;
   }
 }
 
