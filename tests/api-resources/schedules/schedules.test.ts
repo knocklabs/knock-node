@@ -70,6 +70,7 @@ describe('resource schedules', () => {
                 conditions: [{ argument: 'US', operator: 'equal_to', variable: 'recipient.country_code' }],
               },
             },
+            commercial_subscribed: true,
             workflows: {
               'dinosaurs-loose': {
                 channel_types: {

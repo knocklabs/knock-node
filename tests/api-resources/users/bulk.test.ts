@@ -83,6 +83,7 @@ describe('resource bulk', () => {
                   conditions: [{ argument: 'US', operator: 'equal_to', variable: 'recipient.country_code' }],
                 },
               },
+              commercial_subscribed: true,
               workflows: {
                 'dinosaurs-loose': {
                   channel_types: {
@@ -156,6 +157,7 @@ describe('resource bulk', () => {
           push: true,
           sms: { conditions: [{ argument: 'US', operator: 'equal_to', variable: 'recipient.country_code' }] },
         },
+        commercial_subscribed: true,
         workflows: {
           'dinosaurs-loose': {
             channel_types: {

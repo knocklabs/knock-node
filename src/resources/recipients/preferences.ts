@@ -145,6 +145,12 @@ export interface PreferenceSetRequest {
   channel_types?: PreferenceSetChannelTypes | null;
 
   /**
+   * Whether the recipient is subscribed to commercial communications. When false,
+   * the recipient will not receive commercial workflow notifications.
+   */
+  commercial_subscribed?: boolean | null;
+
+  /**
    * An object where the key is the workflow key and the values are the preference
    * settings for that workflow.
    */
