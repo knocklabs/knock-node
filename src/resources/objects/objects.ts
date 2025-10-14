@@ -368,6 +368,7 @@ export class Objects extends APIResource {
    *       transactional: { channel_types: { email: false } },
    *     },
    *     channel_types: { email: true },
+   *     commercial_subscribed: true,
    *     workflows: {
    *       'dinosaurs-loose': {
    *         channel_types: { email: false },
@@ -743,6 +744,12 @@ export interface ObjectSetPreferencesParams {
    * Channel type preferences.
    */
   channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
+
+  /**
+   * Whether the recipient is subscribed to commercial communications. When false,
+   * the recipient will not receive commercial workflow notifications.
+   */
+  commercial_subscribed?: boolean | null;
 
   /**
    * An object where the key is the workflow key and the values are the preference

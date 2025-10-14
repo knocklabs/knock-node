@@ -63,6 +63,7 @@ export class Bulk extends APIResource {
    *         transactional: { channel_types: { email: false } },
    *       },
    *       channel_types: { email: true },
+   *       commercial_subscribed: true,
    *       workflows: {
    *         'dinosaurs-loose': {
    *           channel_types: { email: false },

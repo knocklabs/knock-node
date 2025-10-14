@@ -72,6 +72,7 @@ describe('resource bulk', () => {
                     ],
                   },
                 },
+                commercial_subscribed: true,
                 workflows: {
                   'dinosaurs-loose': {
                     channel_types: {
@@ -158,6 +159,7 @@ describe('resource bulk', () => {
                     ],
                   },
                 },
+                commercial_subscribed: true,
                 workflows: {
                   'dinosaurs-loose': {
                     channel_types: {
