@@ -704,9 +704,9 @@ export interface ObjectSetChannelDataParams {
    * Channel data for a given channel type.
    */
   data:
-    | ChannelDataAPI.PushChannelData
-    | ChannelDataAPI.OneSignalChannelData
-    | ObjectSetChannelDataParams.AwsSnsPushChannelData
+    | ObjectSetChannelDataParams.PushChannelDataTokensOnly
+    | ObjectSetChannelDataParams.AwssnsPushChannelDataTargetArNsOnly
+    | ObjectSetChannelDataParams.OneSignalChannelDataPlayerIDsOnly
     | ChannelDataAPI.SlackChannelData
     | ChannelDataAPI.MsTeamsChannelData
     | ChannelDataAPI.DiscordChannelData;
@@ -714,14 +714,34 @@ export interface ObjectSetChannelDataParams {
 
 export namespace ObjectSetChannelDataParams {
   /**
+   * Push channel data.
+   */
+  export interface PushChannelDataTokensOnly {
+    /**
+     * A list of push channel tokens.
+     */
+    tokens: Array<string>;
+  }
+
+  /**
    * AWS SNS push channel data.
    */
-  export interface AwsSnsPushChannelData {
+  export interface AwssnsPushChannelDataTargetArNsOnly {
     /**
      * A list of platform endpoint ARNs. See
      * [Setting up an Amazon SNS platform endpoint for mobile notifications](https://docs.aws.amazon.com/sns/latest/dg/mobile-platform-endpoint.html).
      */
     target_arns: Array<string>;
+  }
+
+  /**
+   * OneSignal channel data.
+   */
+  export interface OneSignalChannelDataPlayerIDsOnly {
+    /**
+     * A list of OneSignal player IDs.
+     */
+    player_ids: Array<string>;
   }
 }
 

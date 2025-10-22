@@ -38,8 +38,6 @@ Types:
 - <code><a href="./src/resources/recipients/channel-data.ts">DiscordChannelData</a></code>
 - <code><a href="./src/resources/recipients/channel-data.ts">InlineChannelDataRequest</a></code>
 - <code><a href="./src/resources/recipients/channel-data.ts">MsTeamsChannelData</a></code>
-- <code><a href="./src/resources/recipients/channel-data.ts">OneSignalChannelData</a></code>
-- <code><a href="./src/resources/recipients/channel-data.ts">PushChannelData</a></code>
 - <code><a href="./src/resources/recipients/channel-data.ts">SlackChannelData</a></code>
 
 # Users

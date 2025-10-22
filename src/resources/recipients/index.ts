@@ -6,8 +6,6 @@ export {
   type DiscordChannelData,
   type InlineChannelDataRequest,
   type MsTeamsChannelData,
-  type OneSignalChannelData,
-  type PushChannelData,
   type SlackChannelData,
 } from './channel-data';
 export {
