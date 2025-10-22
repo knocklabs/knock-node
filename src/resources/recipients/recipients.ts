@@ -9,8 +9,6 @@ import {
   DiscordChannelData,
   InlineChannelDataRequest,
   MsTeamsChannelData,
-  OneSignalChannelData,
-  PushChannelData,
   SlackChannelData,
 } from './channel-data';
 import * as PreferencesAPI from './preferences';
@@ -94,8 +92,6 @@ export declare namespace Recipients {
     type DiscordChannelData as DiscordChannelData,
     type InlineChannelDataRequest as InlineChannelDataRequest,
     type MsTeamsChannelData as MsTeamsChannelData,
-    type OneSignalChannelData as OneSignalChannelData,
-    type PushChannelData as PushChannelData,
     type SlackChannelData as SlackChannelData,
   };
 }
