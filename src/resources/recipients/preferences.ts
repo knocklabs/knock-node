@@ -35,6 +35,17 @@ export interface PreferenceSet {
   channel_types?: PreferenceSetChannelTypes | null;
 
   /**
+   * Channel preferences.
+   */
+  channels?: { [key: string]: boolean | PreferenceSet.PreferenceSetChannelSetting } | null;
+
+  /**
+   * Whether the recipient is subscribed to commercial communications. When false,
+   * the recipient will not receive commercial workflow notifications.
+   */
+  commercial_subscribed?: boolean | null;
+
+  /**
    * An object where the key is the workflow key and the values are the preference
    * settings for that workflow.
    */
@@ -53,9 +64,40 @@ export namespace PreferenceSet {
     channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
 
     /**
+     * Channel preferences.
+     */
+    channels?: {
+      [key: string]: boolean | PreferenceSetWorkflowCategorySettingObject.PreferenceSetChannelSetting;
+    } | null;
+
+    /**
      * A list of conditions to apply to a channel type.
      */
     conditions?: Array<Shared.Condition> | null;
+  }
+
+  export namespace PreferenceSetWorkflowCategorySettingObject {
+    /**
+     * A set of settings for a specific channel. Currently, this can only be a list of
+     * conditions to apply.
+     */
+    export interface PreferenceSetChannelSetting {
+      /**
+       * A list of conditions to apply to a specific channel.
+       */
+      conditions: Array<Shared.Condition>;
+    }
+  }
+
+  /**
+   * A set of settings for a specific channel. Currently, this can only be a list of
+   * conditions to apply.
+   */
+  export interface PreferenceSetChannelSetting {
+    /**
+     * A list of conditions to apply to a specific channel.
+     */
+    conditions: Array<Shared.Condition>;
   }
 
   /**
@@ -69,9 +111,29 @@ export namespace PreferenceSet {
     channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
 
     /**
+     * Channel preferences.
+     */
+    channels?: {
+      [key: string]: boolean | PreferenceSetWorkflowCategorySettingObject.PreferenceSetChannelSetting;
+    } | null;
+
+    /**
      * A list of conditions to apply to a channel type.
      */
     conditions?: Array<Shared.Condition> | null;
+  }
+
+  export namespace PreferenceSetWorkflowCategorySettingObject {
+    /**
+     * A set of settings for a specific channel. Currently, this can only be a list of
+     * conditions to apply.
+     */
+    export interface PreferenceSetChannelSetting {
+      /**
+       * A list of conditions to apply to a specific channel.
+       */
+      conditions: Array<Shared.Condition>;
+    }
   }
 }
 
@@ -145,6 +207,11 @@ export interface PreferenceSetRequest {
   channel_types?: PreferenceSetChannelTypes | null;
 
   /**
+   * Channel preferences.
+   */
+  channels?: { [key: string]: boolean | PreferenceSetRequest.PreferenceSetChannelSetting } | null;
+
+  /**
    * Whether the recipient is subscribed to commercial communications. When false,
    * the recipient will not receive commercial workflow notifications.
    */
@@ -171,9 +238,40 @@ export namespace PreferenceSetRequest {
     channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
 
     /**
+     * Channel preferences.
+     */
+    channels?: {
+      [key: string]: boolean | PreferenceSetWorkflowCategorySettingObject.PreferenceSetChannelSetting;
+    } | null;
+
+    /**
      * A list of conditions to apply to a channel type.
      */
     conditions?: Array<Shared.Condition> | null;
+  }
+
+  export namespace PreferenceSetWorkflowCategorySettingObject {
+    /**
+     * A set of settings for a specific channel. Currently, this can only be a list of
+     * conditions to apply.
+     */
+    export interface PreferenceSetChannelSetting {
+      /**
+       * A list of conditions to apply to a specific channel.
+       */
+      conditions: Array<Shared.Condition>;
+    }
+  }
+
+  /**
+   * A set of settings for a specific channel. Currently, this can only be a list of
+   * conditions to apply.
+   */
+  export interface PreferenceSetChannelSetting {
+    /**
+     * A list of conditions to apply to a specific channel.
+     */
+    conditions: Array<Shared.Condition>;
   }
 
   /**
@@ -187,9 +285,29 @@ export namespace PreferenceSetRequest {
     channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
 
     /**
+     * Channel preferences.
+     */
+    channels?: {
+      [key: string]: boolean | PreferenceSetWorkflowCategorySettingObject.PreferenceSetChannelSetting;
+    } | null;
+
+    /**
      * A list of conditions to apply to a channel type.
      */
     conditions?: Array<Shared.Condition> | null;
+  }
+
+  export namespace PreferenceSetWorkflowCategorySettingObject {
+    /**
+     * A set of settings for a specific channel. Currently, this can only be a list of
+     * conditions to apply.
+     */
+    export interface PreferenceSetChannelSetting {
+      /**
+       * A list of conditions to apply to a specific channel.
+       */
+      conditions: Array<Shared.Condition>;
+    }
   }
 }
 
