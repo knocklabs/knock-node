@@ -365,13 +365,16 @@ export class Objects extends APIResource {
    *     __persistence_strategy__: 'merge',
    *     categories: {
    *       marketing: false,
-   *       transactional: { channel_types: { email: false } },
+   *       transactional: { ... },
    *     },
    *     channel_types: { email: true },
+   *     channels: {
+   *       '2f641633-95d3-4555-9222-9f1eb7888a80': { ... },
+   *       'aef6e715-df82-4ab6-b61e-b743e249f7b6': true,
+   *     },
+   *     commercial_subscribed: true,
    *     workflows: {
-   *       'dinosaurs-loose': {
-   *         channel_types: { email: false },
-   *       },
+   *       'dinosaurs-loose': { ... },
    *     },
    *   },
    * );
@@ -703,9 +706,9 @@ export interface ObjectSetChannelDataParams {
    * Channel data for a given channel type.
    */
   data:
-    | ChannelDataAPI.PushChannelData
-    | ChannelDataAPI.OneSignalChannelData
-    | ObjectSetChannelDataParams.AwsSnsPushChannelData
+    | ObjectSetChannelDataParams.PushChannelDataTokensOnly
+    | ObjectSetChannelDataParams.AwssnsPushChannelDataTargetArNsOnly
+    | ObjectSetChannelDataParams.OneSignalChannelDataPlayerIDsOnly
     | ChannelDataAPI.SlackChannelData
     | ChannelDataAPI.MsTeamsChannelData
     | ChannelDataAPI.DiscordChannelData;
@@ -713,14 +716,34 @@ export interface ObjectSetChannelDataParams {
 
 export namespace ObjectSetChannelDataParams {
   /**
+   * Push channel data.
+   */
+  export interface PushChannelDataTokensOnly {
+    /**
+     * A list of push channel tokens.
+     */
+    tokens: Array<string>;
+  }
+
+  /**
    * AWS SNS push channel data.
    */
-  export interface AwsSnsPushChannelData {
+  export interface AwssnsPushChannelDataTargetArNsOnly {
     /**
      * A list of platform endpoint ARNs. See
      * [Setting up an Amazon SNS platform endpoint for mobile notifications](https://docs.aws.amazon.com/sns/latest/dg/mobile-platform-endpoint.html).
      */
     target_arns: Array<string>;
+  }
+
+  /**
+   * OneSignal channel data.
+   */
+  export interface OneSignalChannelDataPlayerIDsOnly {
+    /**
+     * A list of OneSignal player IDs.
+     */
+    player_ids: Array<string>;
   }
 }
 
@@ -745,6 +768,17 @@ export interface ObjectSetPreferencesParams {
   channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
 
   /**
+   * Channel preferences.
+   */
+  channels?: { [key: string]: boolean | ObjectSetPreferencesParams.PreferenceSetChannelSetting } | null;
+
+  /**
+   * Whether the recipient is subscribed to commercial communications. When false,
+   * the recipient will not receive commercial workflow notifications.
+   */
+  commercial_subscribed?: boolean | null;
+
+  /**
    * An object where the key is the workflow key and the values are the preference
    * settings for that workflow.
    */
@@ -765,9 +799,40 @@ export namespace ObjectSetPreferencesParams {
     channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
 
     /**
+     * Channel preferences.
+     */
+    channels?: {
+      [key: string]: boolean | PreferenceSetWorkflowCategorySettingObject.PreferenceSetChannelSetting;
+    } | null;
+
+    /**
      * A list of conditions to apply to a channel type.
      */
     conditions?: Array<Shared.Condition> | null;
+  }
+
+  export namespace PreferenceSetWorkflowCategorySettingObject {
+    /**
+     * A set of settings for a specific channel. Currently, this can only be a list of
+     * conditions to apply.
+     */
+    export interface PreferenceSetChannelSetting {
+      /**
+       * A list of conditions to apply to a specific channel.
+       */
+      conditions: Array<Shared.Condition>;
+    }
+  }
+
+  /**
+   * A set of settings for a specific channel. Currently, this can only be a list of
+   * conditions to apply.
+   */
+  export interface PreferenceSetChannelSetting {
+    /**
+     * A list of conditions to apply to a specific channel.
+     */
+    conditions: Array<Shared.Condition>;
   }
 
   /**
@@ -781,9 +846,29 @@ export namespace ObjectSetPreferencesParams {
     channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
 
     /**
+     * Channel preferences.
+     */
+    channels?: {
+      [key: string]: boolean | PreferenceSetWorkflowCategorySettingObject.PreferenceSetChannelSetting;
+    } | null;
+
+    /**
      * A list of conditions to apply to a channel type.
      */
     conditions?: Array<Shared.Condition> | null;
+  }
+
+  export namespace PreferenceSetWorkflowCategorySettingObject {
+    /**
+     * A set of settings for a specific channel. Currently, this can only be a list of
+     * conditions to apply.
+     */
+    export interface PreferenceSetChannelSetting {
+      /**
+       * A list of conditions to apply to a specific channel.
+       */
+      conditions: Array<Shared.Condition>;
+    }
   }
 }
 

@@ -22,12 +22,12 @@ export interface ChannelData {
    * Channel data for a given channel type.
    */
   data:
-    | PushChannelData
+    | ChannelData.PushChannelDataFull
+    | ChannelData.AwssnsPushChannelDataFull
+    | ChannelData.OneSignalChannelDataPlayerIDsOnly
     | SlackChannelData
     | MsTeamsChannelData
-    | DiscordChannelData
-    | OneSignalChannelData
-    | ChannelData.AwsSnsPushChannelData;
+    | DiscordChannelData;
 
   /**
    * The type of provider.
@@ -46,14 +46,94 @@ export interface ChannelData {
 
 export namespace ChannelData {
   /**
+   * Push channel data.
+   */
+  export interface PushChannelDataFull {
+    /**
+     * A list of devices. Each device contains a token, and optionally a locale and
+     * timezone.
+     */
+    devices: Array<PushChannelDataFull.Device>;
+
+    /**
+     * A list of push channel tokens.
+     */
+    tokens: Array<string>;
+  }
+
+  export namespace PushChannelDataFull {
+    export interface Device {
+      /**
+       * The device token to send the push notification to.
+       */
+      token: string;
+
+      /**
+       * The locale of the object. Used for
+       * [message localization](/concepts/translations).
+       */
+      locale?: string | null;
+
+      /**
+       * The timezone of the object. Must be a
+       * valid [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+       * Used
+       * for [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
+       */
+      timezone?: string | null;
+    }
+  }
+
+  /**
    * AWS SNS push channel data.
    */
-  export interface AwsSnsPushChannelData {
+  export interface AwssnsPushChannelDataFull {
+    /**
+     * A list of devices. Each device contains a target_arn, and optionally a locale
+     * and timezone.
+     */
+    devices: Array<AwssnsPushChannelDataFull.Device>;
+
     /**
      * A list of platform endpoint ARNs. See
      * [Setting up an Amazon SNS platform endpoint for mobile notifications](https://docs.aws.amazon.com/sns/latest/dg/mobile-platform-endpoint.html).
      */
     target_arns: Array<string>;
+  }
+
+  export namespace AwssnsPushChannelDataFull {
+    export interface Device {
+      /**
+       * The ARN of a platform endpoint associated with a platform application and a
+       * device token. See
+       * [Setting up an Amazon SNS platform endpoint for mobile notifications](https://docs.aws.amazon.com/sns/latest/dg/mobile-platform-endpoint.html).
+       */
+      target_arn: string;
+
+      /**
+       * The locale of the object. Used for
+       * [message localization](/concepts/translations).
+       */
+      locale?: string | null;
+
+      /**
+       * The timezone of the object. Must be a
+       * valid [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+       * Used
+       * for [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
+       */
+      timezone?: string | null;
+    }
+  }
+
+  /**
+   * OneSignal channel data.
+   */
+  export interface OneSignalChannelDataPlayerIDsOnly {
+    /**
+     * A list of OneSignal player IDs.
+     */
+    player_ids: Array<string>;
   }
 }
 
@@ -65,9 +145,9 @@ export interface ChannelDataRequest {
    * Channel data for a given channel type.
    */
   data:
-    | PushChannelData
-    | OneSignalChannelData
-    | ChannelDataRequest.AwsSnsPushChannelData
+    | ChannelDataRequest.PushChannelDataTokensOnly
+    | ChannelDataRequest.AwssnsPushChannelDataTargetArNsOnly
+    | ChannelDataRequest.OneSignalChannelDataPlayerIDsOnly
     | SlackChannelData
     | MsTeamsChannelData
     | DiscordChannelData;
@@ -75,14 +155,34 @@ export interface ChannelDataRequest {
 
 export namespace ChannelDataRequest {
   /**
+   * Push channel data.
+   */
+  export interface PushChannelDataTokensOnly {
+    /**
+     * A list of push channel tokens.
+     */
+    tokens: Array<string>;
+  }
+
+  /**
    * AWS SNS push channel data.
    */
-  export interface AwsSnsPushChannelData {
+  export interface AwssnsPushChannelDataTargetArNsOnly {
     /**
      * A list of platform endpoint ARNs. See
      * [Setting up an Amazon SNS platform endpoint for mobile notifications](https://docs.aws.amazon.com/sns/latest/dg/mobile-platform-endpoint.html).
      */
     target_arns: Array<string>;
+  }
+
+  /**
+   * OneSignal channel data.
+   */
+  export interface OneSignalChannelDataPlayerIDsOnly {
+    /**
+     * A list of OneSignal player IDs.
+     */
+    player_ids: Array<string>;
   }
 }
 
@@ -137,9 +237,9 @@ export namespace DiscordChannelData {
  */
 export type InlineChannelDataRequest = {
   [key: string]:
-    | PushChannelData
-    | OneSignalChannelData
-    | InlineChannelDataRequest.AwsSnsPushChannelData
+    | InlineChannelDataRequest.PushChannelDataTokensOnly
+    | InlineChannelDataRequest.AwssnsPushChannelDataTargetArNsOnly
+    | InlineChannelDataRequest.OneSignalChannelDataPlayerIDsOnly
     | SlackChannelData
     | MsTeamsChannelData
     | DiscordChannelData;
@@ -147,14 +247,34 @@ export type InlineChannelDataRequest = {
 
 export namespace InlineChannelDataRequest {
   /**
+   * Push channel data.
+   */
+  export interface PushChannelDataTokensOnly {
+    /**
+     * A list of push channel tokens.
+     */
+    tokens: Array<string>;
+  }
+
+  /**
    * AWS SNS push channel data.
    */
-  export interface AwsSnsPushChannelData {
+  export interface AwssnsPushChannelDataTargetArNsOnly {
     /**
      * A list of platform endpoint ARNs. See
      * [Setting up an Amazon SNS platform endpoint for mobile notifications](https://docs.aws.amazon.com/sns/latest/dg/mobile-platform-endpoint.html).
      */
     target_arns: Array<string>;
+  }
+
+  /**
+   * OneSignal channel data.
+   */
+  export interface OneSignalChannelDataPlayerIDsOnly {
+    /**
+     * A list of OneSignal player IDs.
+     */
+    player_ids: Array<string>;
   }
 }
 
@@ -225,26 +345,6 @@ export namespace MsTeamsChannelData {
 }
 
 /**
- * OneSignal channel data.
- */
-export interface OneSignalChannelData {
-  /**
-   * A list of OneSignal player IDs.
-   */
-  player_ids: Array<string>;
-}
-
-/**
- * Push channel data.
- */
-export interface PushChannelData {
-  /**
-   * A list of push channel tokens.
-   */
-  tokens: Array<string>;
-}
-
-/**
  * Slack channel data.
  */
 export interface SlackChannelData {
@@ -308,8 +408,6 @@ export declare namespace ChannelData {
     type DiscordChannelData as DiscordChannelData,
     type InlineChannelDataRequest as InlineChannelDataRequest,
     type MsTeamsChannelData as MsTeamsChannelData,
-    type OneSignalChannelData as OneSignalChannelData,
-    type PushChannelData as PushChannelData,
     type SlackChannelData as SlackChannelData,
   };
 }

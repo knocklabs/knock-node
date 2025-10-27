@@ -55,6 +55,7 @@ describe('resource schedules', () => {
                     ],
                   },
                 },
+                channels: { 'aef6e715-df82-4ab6-b61e-b743e249f7b6': true },
                 conditions: [
                   { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
                 ],
@@ -70,6 +71,13 @@ describe('resource schedules', () => {
                 conditions: [{ argument: 'US', operator: 'equal_to', variable: 'recipient.country_code' }],
               },
             },
+            channels: {
+              '2f641633-95d3-4555-9222-9f1eb7888a80': {
+                conditions: [{ argument: 'US', operator: 'equal_to', variable: 'recipient.country_code' }],
+              },
+              'aef6e715-df82-4ab6-b61e-b743e249f7b6': true,
+            },
+            commercial_subscribed: true,
             workflows: {
               'dinosaurs-loose': {
                 channel_types: {
@@ -84,6 +92,7 @@ describe('resource schedules', () => {
                     ],
                   },
                 },
+                channels: { 'aef6e715-df82-4ab6-b61e-b743e249f7b6': true },
                 conditions: [
                   { argument: 'frog_genome', operator: 'contains', variable: 'specimen.dna_sequence' },
                 ],

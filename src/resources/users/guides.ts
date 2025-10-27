@@ -142,50 +142,149 @@ export interface GuideGetChannelResponse {
   /**
    * A list of guides.
    */
-  guides: Array<GuideGetChannelResponse.Guide>;
+  entries: Array<GuideGetChannelResponse.Entry>;
 
   /**
-   * The recipient of the guide.
+   * A map of guide group keys to their last display timestamps.
    */
-  recipient?: GuideGetChannelResponse.Recipient | null;
+  guide_group_display_logs: { [key: string]: string };
+
+  /**
+   * A list of guide groups with their display sequences and intervals.
+   */
+  guide_groups: Array<GuideGetChannelResponse.GuideGroup>;
 }
 
 export namespace GuideGetChannelResponse {
-  export interface Guide {
+  export interface Entry {
     /**
      * The unique identifier for the guide.
      */
     id?: string;
 
     /**
+     * The typename of the schema.
+     */
+    __typename?: string;
+
+    /**
+     * A list of URL Patterns to evaluate user's current location to activate the
+     * guide, if matched
+     */
+    activation_url_patterns?: Array<Entry.ActivationURLPattern>;
+
+    /**
+     * A list of URL rules to evaluate user's current location to activate the guide,
+     * if matched
+     */
+    activation_url_rules?: Array<Entry.ActivationURLRule>;
+
+    /**
      * Whether the guide is active.
      */
     active?: boolean;
 
-    /**
-     * The content of the guide.
-     */
-    content?: string;
+    bypass_global_group_limit?: boolean;
+
+    channel_id?: string;
+
+    inserted_at?: string;
 
     /**
-     * The metadata of the guide.
+     * The key of the guide.
      */
-    metadata?: { [key: string]: unknown };
+    key?: string;
+
+    semver?: string;
+
+    steps?: Array<Entry.Step>;
 
     /**
-     * The title of the guide.
+     * The type of the guide.
      */
-    title?: string;
+    type?: string;
+
+    updated_at?: string;
   }
 
-  /**
-   * The recipient of the guide.
-   */
-  export interface Recipient {
-    /**
-     * Unique identifier for the recipient.
-     */
-    id?: string;
+  export namespace Entry {
+    export interface ActivationURLPattern {
+      /**
+       * The directive for the URL pattern ('allow' or 'block')
+       */
+      directive?: string;
+
+      /**
+       * The pathname pattern to match (supports wildcards like /\*)
+       */
+      pathname?: string;
+    }
+
+    export interface ActivationURLRule {
+      /**
+       * The value to compare against
+       */
+      argument?: string;
+
+      /**
+       * The directive for the URL pattern ('allow' or 'block')
+       */
+      directive?: string;
+
+      /**
+       * The comparison operator ('contains' or 'equal_to')
+       */
+      operator?: string;
+
+      /**
+       * The variable to evaluate ('pathname')
+       */
+      variable?: string;
+    }
+
+    export interface Step {
+      content?: { [key: string]: unknown };
+
+      message?: Step.Message;
+
+      ref?: string;
+
+      schema_key?: string;
+
+      schema_semver?: string;
+
+      schema_variant_key?: string;
+    }
+
+    export namespace Step {
+      export interface Message {
+        id?: string | null;
+
+        archived_at?: string | null;
+
+        interacted_at?: string | null;
+
+        link_clicked_at?: string | null;
+
+        read_at?: string | null;
+
+        seen_at?: string | null;
+      }
+    }
+  }
+
+  export interface GuideGroup {
+    __typename?: string;
+
+    display_interval?: number;
+
+    display_sequence?: Array<string>;
+
+    inserted_at?: string;
+
+    key?: string;
+
+    updated_at?: string;
   }
 }
 
