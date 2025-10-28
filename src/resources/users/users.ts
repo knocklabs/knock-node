@@ -749,7 +749,9 @@ export interface UserSetChannelDataParams {
    */
   data:
     | UserSetChannelDataParams.PushChannelDataTokensOnly
+    | UserSetChannelDataParams.PushChannelDataDevicesOnly
     | UserSetChannelDataParams.AwssnsPushChannelDataTargetArNsOnly
+    | UserSetChannelDataParams.AwssnsPushChannelDataDevicesOnly
     | UserSetChannelDataParams.OneSignalChannelDataPlayerIDsOnly
     | ChannelDataAPI.SlackChannelData
     | ChannelDataAPI.MsTeamsChannelData
@@ -768,6 +770,40 @@ export namespace UserSetChannelDataParams {
   }
 
   /**
+   * Push channel data.
+   */
+  export interface PushChannelDataDevicesOnly {
+    /**
+     * A list of devices. Each device contains a token, and optionally a locale and
+     * timezone.
+     */
+    devices: Array<PushChannelDataDevicesOnly.Device>;
+  }
+
+  export namespace PushChannelDataDevicesOnly {
+    export interface Device {
+      /**
+       * The device token to send the push notification to.
+       */
+      token: string;
+
+      /**
+       * The locale of the object. Used for
+       * [message localization](/concepts/translations).
+       */
+      locale?: string | null;
+
+      /**
+       * The timezone of the object. Must be a
+       * valid [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+       * Used
+       * for [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
+       */
+      timezone?: string | null;
+    }
+  }
+
+  /**
    * AWS SNS push channel data.
    */
   export interface AwssnsPushChannelDataTargetArNsOnly {
@@ -776,6 +812,42 @@ export namespace UserSetChannelDataParams {
      * [Setting up an Amazon SNS platform endpoint for mobile notifications](https://docs.aws.amazon.com/sns/latest/dg/mobile-platform-endpoint.html).
      */
     target_arns: Array<string>;
+  }
+
+  /**
+   * AWS SNS push channel data.
+   */
+  export interface AwssnsPushChannelDataDevicesOnly {
+    /**
+     * A list of devices. Each device contains a target_arn, and optionally a locale
+     * and timezone.
+     */
+    devices: Array<AwssnsPushChannelDataDevicesOnly.Device>;
+  }
+
+  export namespace AwssnsPushChannelDataDevicesOnly {
+    export interface Device {
+      /**
+       * The ARN of a platform endpoint associated with a platform application and a
+       * device token. See
+       * [Setting up an Amazon SNS platform endpoint for mobile notifications](https://docs.aws.amazon.com/sns/latest/dg/mobile-platform-endpoint.html).
+       */
+      target_arn: string;
+
+      /**
+       * The locale of the object. Used for
+       * [message localization](/concepts/translations).
+       */
+      locale?: string | null;
+
+      /**
+       * The timezone of the object. Must be a
+       * valid [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+       * Used
+       * for [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
+       */
+      timezone?: string | null;
+    }
   }
 
   /**
