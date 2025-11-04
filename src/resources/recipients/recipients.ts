@@ -4,17 +4,23 @@ import { APIResource } from '../../core/resource';
 import * as ObjectsAPI from '../objects/objects';
 import * as ChannelDataAPI from './channel-data';
 import {
+  AwsSnsPushChannelDataDevicesOnly,
+  AwsSnsPushChannelDataTargetArnsOnly,
   ChannelData,
   ChannelDataRequest,
   DiscordChannelData,
   InlineChannelDataRequest,
   MsTeamsChannelData,
+  OneSignalChannelDataPlayerIDsOnly,
+  PushChannelDataDevicesOnly,
+  PushChannelDataTokensOnly,
   SlackChannelData,
 } from './channel-data';
 import * as PreferencesAPI from './preferences';
 import {
   InlinePreferenceSetRequest,
   PreferenceSet,
+  PreferenceSetChannelSetting,
   PreferenceSetChannelTypeSetting,
   PreferenceSetChannelTypes,
   PreferenceSetRequest,
@@ -81,6 +87,7 @@ export declare namespace Recipients {
     Preferences as Preferences,
     type InlinePreferenceSetRequest as InlinePreferenceSetRequest,
     type PreferenceSet as PreferenceSet,
+    type PreferenceSetChannelSetting as PreferenceSetChannelSetting,
     type PreferenceSetChannelTypeSetting as PreferenceSetChannelTypeSetting,
     type PreferenceSetChannelTypes as PreferenceSetChannelTypes,
     type PreferenceSetRequest as PreferenceSetRequest,
@@ -88,10 +95,15 @@ export declare namespace Recipients {
 
   export {
     type ChannelData as ChannelData,
+    type AwsSnsPushChannelDataDevicesOnly as AwsSnsPushChannelDataDevicesOnly,
+    type AwsSnsPushChannelDataTargetArnsOnly as AwsSnsPushChannelDataTargetArnsOnly,
     type ChannelDataRequest as ChannelDataRequest,
     type DiscordChannelData as DiscordChannelData,
     type InlineChannelDataRequest as InlineChannelDataRequest,
     type MsTeamsChannelData as MsTeamsChannelData,
+    type OneSignalChannelDataPlayerIDsOnly as OneSignalChannelDataPlayerIDsOnly,
+    type PushChannelDataDevicesOnly as PushChannelDataDevicesOnly,
+    type PushChannelDataTokensOnly as PushChannelDataTokensOnly,
     type SlackChannelData as SlackChannelData,
   };
 }

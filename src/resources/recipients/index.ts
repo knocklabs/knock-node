@@ -2,16 +2,22 @@
 
 export {
   ChannelData,
+  type AwsSnsPushChannelDataDevicesOnly,
+  type AwsSnsPushChannelDataTargetArnsOnly,
   type ChannelDataRequest,
   type DiscordChannelData,
   type InlineChannelDataRequest,
   type MsTeamsChannelData,
+  type OneSignalChannelDataPlayerIDsOnly,
+  type PushChannelDataDevicesOnly,
+  type PushChannelDataTokensOnly,
   type SlackChannelData,
 } from './channel-data';
 export {
   Preferences,
   type InlinePreferenceSetRequest,
   type PreferenceSet,
+  type PreferenceSetChannelSetting,
   type PreferenceSetChannelTypeSetting,
   type PreferenceSetChannelTypes,
   type PreferenceSetRequest,
