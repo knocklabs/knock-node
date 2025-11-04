@@ -25,6 +25,7 @@ Types:
 
 - <code><a href="./src/resources/recipients/preferences.ts">InlinePreferenceSetRequest</a></code>
 - <code><a href="./src/resources/recipients/preferences.ts">PreferenceSet</a></code>
+- <code><a href="./src/resources/recipients/preferences.ts">PreferenceSetChannelSetting</a></code>
 - <code><a href="./src/resources/recipients/preferences.ts">PreferenceSetChannelTypeSetting</a></code>
 - <code><a href="./src/resources/recipients/preferences.ts">PreferenceSetChannelTypes</a></code>
 - <code><a href="./src/resources/recipients/preferences.ts">PreferenceSetRequest</a></code>
@@ -33,11 +34,16 @@ Types:
 
 Types:
 
+- <code><a href="./src/resources/recipients/channel-data.ts">AwsSnsPushChannelDataDevicesOnly</a></code>
+- <code><a href="./src/resources/recipients/channel-data.ts">AwsSnsPushChannelDataTargetArnsOnly</a></code>
 - <code><a href="./src/resources/recipients/channel-data.ts">ChannelData</a></code>
 - <code><a href="./src/resources/recipients/channel-data.ts">ChannelDataRequest</a></code>
 - <code><a href="./src/resources/recipients/channel-data.ts">DiscordChannelData</a></code>
 - <code><a href="./src/resources/recipients/channel-data.ts">InlineChannelDataRequest</a></code>
 - <code><a href="./src/resources/recipients/channel-data.ts">MsTeamsChannelData</a></code>
+- <code><a href="./src/resources/recipients/channel-data.ts">OneSignalChannelDataPlayerIDsOnly</a></code>
+- <code><a href="./src/resources/recipients/channel-data.ts">PushChannelDataDevicesOnly</a></code>
+- <code><a href="./src/resources/recipients/channel-data.ts">PushChannelDataTokensOnly</a></code>
 - <code><a href="./src/resources/recipients/channel-data.ts">SlackChannelData</a></code>
 
 # Users

@@ -748,117 +748,14 @@ export interface UserSetChannelDataParams {
    * Channel data for a given channel type.
    */
   data:
-    | UserSetChannelDataParams.PushChannelDataTokensOnly
-    | UserSetChannelDataParams.PushChannelDataDevicesOnly
-    | UserSetChannelDataParams.AwssnsPushChannelDataTargetArNsOnly
-    | UserSetChannelDataParams.AwssnsPushChannelDataDevicesOnly
-    | UserSetChannelDataParams.OneSignalChannelDataPlayerIDsOnly
+    | ChannelDataAPI.PushChannelDataTokensOnly
+    | ChannelDataAPI.PushChannelDataDevicesOnly
+    | ChannelDataAPI.AwsSnsPushChannelDataTargetArnsOnly
+    | ChannelDataAPI.AwsSnsPushChannelDataDevicesOnly
+    | ChannelDataAPI.OneSignalChannelDataPlayerIDsOnly
     | ChannelDataAPI.SlackChannelData
     | ChannelDataAPI.MsTeamsChannelData
     | ChannelDataAPI.DiscordChannelData;
-}
-
-export namespace UserSetChannelDataParams {
-  /**
-   * Push channel data.
-   */
-  export interface PushChannelDataTokensOnly {
-    /**
-     * A list of push channel tokens.
-     */
-    tokens: Array<string>;
-  }
-
-  /**
-   * Push channel data.
-   */
-  export interface PushChannelDataDevicesOnly {
-    /**
-     * A list of devices. Each device contains a token, and optionally a locale and
-     * timezone.
-     */
-    devices: Array<PushChannelDataDevicesOnly.Device>;
-  }
-
-  export namespace PushChannelDataDevicesOnly {
-    export interface Device {
-      /**
-       * The device token to send the push notification to.
-       */
-      token: string;
-
-      /**
-       * The locale of the object. Used for
-       * [message localization](/concepts/translations).
-       */
-      locale?: string | null;
-
-      /**
-       * The timezone of the object. Must be a
-       * valid [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
-       * Used
-       * for [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
-       */
-      timezone?: string | null;
-    }
-  }
-
-  /**
-   * AWS SNS push channel data.
-   */
-  export interface AwssnsPushChannelDataTargetArNsOnly {
-    /**
-     * A list of platform endpoint ARNs. See
-     * [Setting up an Amazon SNS platform endpoint for mobile notifications](https://docs.aws.amazon.com/sns/latest/dg/mobile-platform-endpoint.html).
-     */
-    target_arns: Array<string>;
-  }
-
-  /**
-   * AWS SNS push channel data.
-   */
-  export interface AwssnsPushChannelDataDevicesOnly {
-    /**
-     * A list of devices. Each device contains a target_arn, and optionally a locale
-     * and timezone.
-     */
-    devices: Array<AwssnsPushChannelDataDevicesOnly.Device>;
-  }
-
-  export namespace AwssnsPushChannelDataDevicesOnly {
-    export interface Device {
-      /**
-       * The ARN of a platform endpoint associated with a platform application and a
-       * device token. See
-       * [Setting up an Amazon SNS platform endpoint for mobile notifications](https://docs.aws.amazon.com/sns/latest/dg/mobile-platform-endpoint.html).
-       */
-      target_arn: string;
-
-      /**
-       * The locale of the object. Used for
-       * [message localization](/concepts/translations).
-       */
-      locale?: string | null;
-
-      /**
-       * The timezone of the object. Must be a
-       * valid [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
-       * Used
-       * for [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
-       */
-      timezone?: string | null;
-    }
-  }
-
-  /**
-   * OneSignal channel data.
-   */
-  export interface OneSignalChannelDataPlayerIDsOnly {
-    /**
-     * A list of OneSignal player IDs.
-     */
-    player_ids: Array<string>;
-  }
 }
 
 export interface UserSetPreferencesParams {
@@ -884,7 +781,7 @@ export interface UserSetPreferencesParams {
   /**
    * Channel preferences.
    */
-  channels?: { [key: string]: boolean | UserSetPreferencesParams.PreferenceSetChannelSetting } | null;
+  channels?: { [key: string]: boolean | PreferencesAPI.PreferenceSetChannelSetting } | null;
 
   /**
    * Whether the recipient is subscribed to commercial communications. When false,
@@ -915,38 +812,12 @@ export namespace UserSetPreferencesParams {
     /**
      * Channel preferences.
      */
-    channels?: {
-      [key: string]: boolean | PreferenceSetWorkflowCategorySettingObject.PreferenceSetChannelSetting;
-    } | null;
+    channels?: { [key: string]: boolean | PreferencesAPI.PreferenceSetChannelSetting } | null;
 
     /**
      * A list of conditions to apply to a channel type.
      */
     conditions?: Array<Shared.Condition> | null;
-  }
-
-  export namespace PreferenceSetWorkflowCategorySettingObject {
-    /**
-     * A set of settings for a specific channel. Currently, this can only be a list of
-     * conditions to apply.
-     */
-    export interface PreferenceSetChannelSetting {
-      /**
-       * A list of conditions to apply to a specific channel.
-       */
-      conditions: Array<Shared.Condition>;
-    }
-  }
-
-  /**
-   * A set of settings for a specific channel. Currently, this can only be a list of
-   * conditions to apply.
-   */
-  export interface PreferenceSetChannelSetting {
-    /**
-     * A list of conditions to apply to a specific channel.
-     */
-    conditions: Array<Shared.Condition>;
   }
 
   /**
@@ -962,27 +833,12 @@ export namespace UserSetPreferencesParams {
     /**
      * Channel preferences.
      */
-    channels?: {
-      [key: string]: boolean | PreferenceSetWorkflowCategorySettingObject.PreferenceSetChannelSetting;
-    } | null;
+    channels?: { [key: string]: boolean | PreferencesAPI.PreferenceSetChannelSetting } | null;
 
     /**
      * A list of conditions to apply to a channel type.
      */
     conditions?: Array<Shared.Condition> | null;
-  }
-
-  export namespace PreferenceSetWorkflowCategorySettingObject {
-    /**
-     * A set of settings for a specific channel. Currently, this can only be a list of
-     * conditions to apply.
-     */
-    export interface PreferenceSetChannelSetting {
-      /**
-       * A list of conditions to apply to a specific channel.
-       */
-      conditions: Array<Shared.Condition>;
-    }
   }
 }
 

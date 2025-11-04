@@ -5,6 +5,53 @@ import { APIResource } from '../../core/resource';
 export class ChannelData extends APIResource {}
 
 /**
+ * AWS SNS push channel data.
+ */
+export interface AwsSnsPushChannelDataDevicesOnly {
+  /**
+   * A list of devices. Each device contains a target_arn, and optionally a locale
+   * and timezone.
+   */
+  devices: Array<AwsSnsPushChannelDataDevicesOnly.Device>;
+}
+
+export namespace AwsSnsPushChannelDataDevicesOnly {
+  export interface Device {
+    /**
+     * The ARN of a platform endpoint associated with a platform application and a
+     * device token. See
+     * [Setting up an Amazon SNS platform endpoint for mobile notifications](https://docs.aws.amazon.com/sns/latest/dg/mobile-platform-endpoint.html).
+     */
+    target_arn: string;
+
+    /**
+     * The locale of the object. Used for
+     * [message localization](/concepts/translations).
+     */
+    locale?: string | null;
+
+    /**
+     * The timezone of the object. Must be a
+     * valid [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+     * Used
+     * for [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
+     */
+    timezone?: string | null;
+  }
+}
+
+/**
+ * AWS SNS push channel data.
+ */
+export interface AwsSnsPushChannelDataTargetArnsOnly {
+  /**
+   * A list of platform endpoint ARNs. See
+   * [Setting up an Amazon SNS platform endpoint for mobile notifications](https://docs.aws.amazon.com/sns/latest/dg/mobile-platform-endpoint.html).
+   */
+  target_arns: Array<string>;
+}
+
+/**
  * Channel data for a given channel type.
  */
 export interface ChannelData {
@@ -24,7 +71,7 @@ export interface ChannelData {
   data:
     | ChannelData.PushChannelDataFull
     | ChannelData.AwssnsPushChannelDataFull
-    | ChannelData.OneSignalChannelDataPlayerIDsOnly
+    | OneSignalChannelDataPlayerIDsOnly
     | SlackChannelData
     | MsTeamsChannelData
     | DiscordChannelData;
@@ -125,16 +172,6 @@ export namespace ChannelData {
       timezone?: string | null;
     }
   }
-
-  /**
-   * OneSignal channel data.
-   */
-  export interface OneSignalChannelDataPlayerIDsOnly {
-    /**
-     * A list of OneSignal player IDs.
-     */
-    player_ids: Array<string>;
-  }
 }
 
 /**
@@ -145,117 +182,14 @@ export interface ChannelDataRequest {
    * Channel data for a given channel type.
    */
   data:
-    | ChannelDataRequest.PushChannelDataTokensOnly
-    | ChannelDataRequest.PushChannelDataDevicesOnly
-    | ChannelDataRequest.AwssnsPushChannelDataTargetArNsOnly
-    | ChannelDataRequest.AwssnsPushChannelDataDevicesOnly
-    | ChannelDataRequest.OneSignalChannelDataPlayerIDsOnly
+    | PushChannelDataTokensOnly
+    | PushChannelDataDevicesOnly
+    | AwsSnsPushChannelDataTargetArnsOnly
+    | AwsSnsPushChannelDataDevicesOnly
+    | OneSignalChannelDataPlayerIDsOnly
     | SlackChannelData
     | MsTeamsChannelData
     | DiscordChannelData;
-}
-
-export namespace ChannelDataRequest {
-  /**
-   * Push channel data.
-   */
-  export interface PushChannelDataTokensOnly {
-    /**
-     * A list of push channel tokens.
-     */
-    tokens: Array<string>;
-  }
-
-  /**
-   * Push channel data.
-   */
-  export interface PushChannelDataDevicesOnly {
-    /**
-     * A list of devices. Each device contains a token, and optionally a locale and
-     * timezone.
-     */
-    devices: Array<PushChannelDataDevicesOnly.Device>;
-  }
-
-  export namespace PushChannelDataDevicesOnly {
-    export interface Device {
-      /**
-       * The device token to send the push notification to.
-       */
-      token: string;
-
-      /**
-       * The locale of the object. Used for
-       * [message localization](/concepts/translations).
-       */
-      locale?: string | null;
-
-      /**
-       * The timezone of the object. Must be a
-       * valid [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
-       * Used
-       * for [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
-       */
-      timezone?: string | null;
-    }
-  }
-
-  /**
-   * AWS SNS push channel data.
-   */
-  export interface AwssnsPushChannelDataTargetArNsOnly {
-    /**
-     * A list of platform endpoint ARNs. See
-     * [Setting up an Amazon SNS platform endpoint for mobile notifications](https://docs.aws.amazon.com/sns/latest/dg/mobile-platform-endpoint.html).
-     */
-    target_arns: Array<string>;
-  }
-
-  /**
-   * AWS SNS push channel data.
-   */
-  export interface AwssnsPushChannelDataDevicesOnly {
-    /**
-     * A list of devices. Each device contains a target_arn, and optionally a locale
-     * and timezone.
-     */
-    devices: Array<AwssnsPushChannelDataDevicesOnly.Device>;
-  }
-
-  export namespace AwssnsPushChannelDataDevicesOnly {
-    export interface Device {
-      /**
-       * The ARN of a platform endpoint associated with a platform application and a
-       * device token. See
-       * [Setting up an Amazon SNS platform endpoint for mobile notifications](https://docs.aws.amazon.com/sns/latest/dg/mobile-platform-endpoint.html).
-       */
-      target_arn: string;
-
-      /**
-       * The locale of the object. Used for
-       * [message localization](/concepts/translations).
-       */
-      locale?: string | null;
-
-      /**
-       * The timezone of the object. Must be a
-       * valid [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
-       * Used
-       * for [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
-       */
-      timezone?: string | null;
-    }
-  }
-
-  /**
-   * OneSignal channel data.
-   */
-  export interface OneSignalChannelDataPlayerIDsOnly {
-    /**
-     * A list of OneSignal player IDs.
-     */
-    player_ids: Array<string>;
-  }
 }
 
 /**
@@ -309,118 +243,15 @@ export namespace DiscordChannelData {
  */
 export type InlineChannelDataRequest = {
   [key: string]:
-    | InlineChannelDataRequest.PushChannelDataTokensOnly
-    | InlineChannelDataRequest.PushChannelDataDevicesOnly
-    | InlineChannelDataRequest.AwssnsPushChannelDataTargetArNsOnly
-    | InlineChannelDataRequest.AwssnsPushChannelDataDevicesOnly
-    | InlineChannelDataRequest.OneSignalChannelDataPlayerIDsOnly
+    | PushChannelDataTokensOnly
+    | PushChannelDataDevicesOnly
+    | AwsSnsPushChannelDataTargetArnsOnly
+    | AwsSnsPushChannelDataDevicesOnly
+    | OneSignalChannelDataPlayerIDsOnly
     | SlackChannelData
     | MsTeamsChannelData
     | DiscordChannelData;
 };
-
-export namespace InlineChannelDataRequest {
-  /**
-   * Push channel data.
-   */
-  export interface PushChannelDataTokensOnly {
-    /**
-     * A list of push channel tokens.
-     */
-    tokens: Array<string>;
-  }
-
-  /**
-   * Push channel data.
-   */
-  export interface PushChannelDataDevicesOnly {
-    /**
-     * A list of devices. Each device contains a token, and optionally a locale and
-     * timezone.
-     */
-    devices: Array<PushChannelDataDevicesOnly.Device>;
-  }
-
-  export namespace PushChannelDataDevicesOnly {
-    export interface Device {
-      /**
-       * The device token to send the push notification to.
-       */
-      token: string;
-
-      /**
-       * The locale of the object. Used for
-       * [message localization](/concepts/translations).
-       */
-      locale?: string | null;
-
-      /**
-       * The timezone of the object. Must be a
-       * valid [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
-       * Used
-       * for [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
-       */
-      timezone?: string | null;
-    }
-  }
-
-  /**
-   * AWS SNS push channel data.
-   */
-  export interface AwssnsPushChannelDataTargetArNsOnly {
-    /**
-     * A list of platform endpoint ARNs. See
-     * [Setting up an Amazon SNS platform endpoint for mobile notifications](https://docs.aws.amazon.com/sns/latest/dg/mobile-platform-endpoint.html).
-     */
-    target_arns: Array<string>;
-  }
-
-  /**
-   * AWS SNS push channel data.
-   */
-  export interface AwssnsPushChannelDataDevicesOnly {
-    /**
-     * A list of devices. Each device contains a target_arn, and optionally a locale
-     * and timezone.
-     */
-    devices: Array<AwssnsPushChannelDataDevicesOnly.Device>;
-  }
-
-  export namespace AwssnsPushChannelDataDevicesOnly {
-    export interface Device {
-      /**
-       * The ARN of a platform endpoint associated with a platform application and a
-       * device token. See
-       * [Setting up an Amazon SNS platform endpoint for mobile notifications](https://docs.aws.amazon.com/sns/latest/dg/mobile-platform-endpoint.html).
-       */
-      target_arn: string;
-
-      /**
-       * The locale of the object. Used for
-       * [message localization](/concepts/translations).
-       */
-      locale?: string | null;
-
-      /**
-       * The timezone of the object. Must be a
-       * valid [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
-       * Used
-       * for [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
-       */
-      timezone?: string | null;
-    }
-  }
-
-  /**
-   * OneSignal channel data.
-   */
-  export interface OneSignalChannelDataPlayerIDsOnly {
-    /**
-     * A list of OneSignal player IDs.
-     */
-    player_ids: Array<string>;
-  }
-}
 
 /**
  * Microsoft Teams channel data.
@@ -489,6 +320,60 @@ export namespace MsTeamsChannelData {
 }
 
 /**
+ * OneSignal channel data.
+ */
+export interface OneSignalChannelDataPlayerIDsOnly {
+  /**
+   * A list of OneSignal player IDs.
+   */
+  player_ids: Array<string>;
+}
+
+/**
+ * Push channel data.
+ */
+export interface PushChannelDataDevicesOnly {
+  /**
+   * A list of devices. Each device contains a token, and optionally a locale and
+   * timezone.
+   */
+  devices: Array<PushChannelDataDevicesOnly.Device>;
+}
+
+export namespace PushChannelDataDevicesOnly {
+  export interface Device {
+    /**
+     * The device token to send the push notification to.
+     */
+    token: string;
+
+    /**
+     * The locale of the object. Used for
+     * [message localization](/concepts/translations).
+     */
+    locale?: string | null;
+
+    /**
+     * The timezone of the object. Must be a
+     * valid [tz database time zone string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+     * Used
+     * for [recurring schedules](/concepts/schedules#scheduling-workflows-with-recurring-schedules-for-recipients).
+     */
+    timezone?: string | null;
+  }
+}
+
+/**
+ * Push channel data.
+ */
+export interface PushChannelDataTokensOnly {
+  /**
+   * A list of push channel tokens.
+   */
+  tokens: Array<string>;
+}
+
+/**
  * Slack channel data.
  */
 export interface SlackChannelData {
@@ -547,11 +432,16 @@ export namespace SlackChannelData {
 
 export declare namespace ChannelData {
   export {
+    type AwsSnsPushChannelDataDevicesOnly as AwsSnsPushChannelDataDevicesOnly,
+    type AwsSnsPushChannelDataTargetArnsOnly as AwsSnsPushChannelDataTargetArnsOnly,
     type ChannelData as ChannelData,
     type ChannelDataRequest as ChannelDataRequest,
     type DiscordChannelData as DiscordChannelData,
     type InlineChannelDataRequest as InlineChannelDataRequest,
     type MsTeamsChannelData as MsTeamsChannelData,
+    type OneSignalChannelDataPlayerIDsOnly as OneSignalChannelDataPlayerIDsOnly,
+    type PushChannelDataDevicesOnly as PushChannelDataDevicesOnly,
+    type PushChannelDataTokensOnly as PushChannelDataTokensOnly,
     type SlackChannelData as SlackChannelData,
   };
 }
