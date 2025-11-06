@@ -298,6 +298,7 @@ export class Objects extends APIResource {
    *       },
    *     },
    *     locale: 'en-US',
+   *     name: 'My product',
    *     preferences: {
    *       default: {
    *         channel_types: { email: true },
@@ -443,6 +444,11 @@ export interface InlineObjectRequest {
    * Timestamp when the resource was created.
    */
   created_at?: string | null;
+
+  /**
+   * An optional name for the object.
+   */
+  name?: string | null;
 
   /**
    * Inline set preferences for a recipient, where the key is the preference set id.
@@ -682,6 +688,11 @@ export interface ObjectSetParams {
    * [message localization](/concepts/translations).
    */
   locale?: string | null;
+
+  /**
+   * An optional name for the object.
+   */
+  name?: string | null;
 
   /**
    * Inline set preferences for a recipient, where the key is the preference set id.
