@@ -29,7 +29,7 @@ export class Bulk extends APIResource {
    * @example
    * ```ts
    * const bulkOperation = await client.tenants.bulk.set({
-   *   tenants: ['[object Object]'],
+   *   tenants: [{ id: 'tenant_1', name: 'Acme Corp, Inc.' }],
    * });
    * ```
    */
