@@ -65,25 +65,7 @@ export class Bulk extends APIResource {
    * ```ts
    * const bulkOperation = await client.objects.bulk.set(
    *   'collection',
-   *   {
-   *     objects: [
-   *       {
-   *         id: 'project_1',
-   *         name: {
-   *           '0': 'M',
-   *           '1': 'y',
-   *           '2': ' ',
-   *           '3': 'p',
-   *           '4': 'r',
-   *           '5': 'o',
-   *           '6': 'j',
-   *           '7': 'e',
-   *           '8': 'c',
-   *           '9': 't',
-   *         },
-   *       },
-   *     ],
-   *   },
+   *   { objects: [{ id: 'project_1', name: 'My project' }] },
    * );
    * ```
    */
@@ -151,6 +133,11 @@ export namespace BulkSetParams {
      * Timestamp when the resource was created.
      */
     created_at?: string | null;
+
+    /**
+     * An optional name for the object.
+     */
+    name?: string | null;
 
     /**
      * Inline set preferences for a recipient, where the key is the preference set id.

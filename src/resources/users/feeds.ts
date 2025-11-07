@@ -292,6 +292,14 @@ export interface FeedListItemsParams extends EntriesCursorParams {
   has_tenant?: boolean;
 
   /**
+   * The locale to render the feed items in. Must be in the IETF 5646 format (e.g.
+   * `en-US`). When not provided, will default to the locale that the feed items were
+   * rendered in. Only available for enterprise plan customers using custom
+   * translations.
+   */
+  locale?: string;
+
+  /**
    * The workflow key associated with the message in the feed.
    */
   source?: string;

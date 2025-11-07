@@ -146,6 +146,11 @@ export interface ClientOptions {
   apiKey?: string | undefined;
 
   /**
+   * The slug of an existing branch
+   */
+  branch?: string | null | undefined;
+
+  /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
    * Defaults to process.env['KNOCK_BASE_URL'].
@@ -219,6 +224,7 @@ export interface ClientOptions {
  */
 export class Knock {
   apiKey: string;
+  branch: string | null;
 
   baseURL: string;
   maxRetries: number;
@@ -236,6 +242,7 @@ export class Knock {
    * API Client for interfacing with the Knock API.
    *
    * @param {string | undefined} [opts.apiKey=process.env['KNOCK_API_KEY'] ?? undefined]
+   * @param {string | null | undefined} [opts.branch=process.env['KNOCK_BRANCH'] ?? null]
    * @param {string} [opts.baseURL=process.env['KNOCK_BASE_URL'] ?? https://api.knock.app] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
@@ -247,6 +254,7 @@ export class Knock {
   constructor({
     baseURL = readEnv('KNOCK_BASE_URL'),
     apiKey = readEnv('KNOCK_API_KEY'),
+    branch = readEnv('KNOCK_BRANCH') ?? null,
     ...opts
   }: ClientOptions = {}) {
     if (apiKey === undefined) {
@@ -257,6 +265,7 @@ export class Knock {
 
     const options: ClientOptions = {
       apiKey,
+      branch,
       ...opts,
       baseURL: baseURL || `https://api.knock.app`,
     };
@@ -280,6 +289,7 @@ export class Knock {
     this.idempotencyHeader = 'Idempotency-Key';
 
     this.apiKey = apiKey;
+    this.branch = branch;
   }
 
   /**
@@ -296,6 +306,7 @@ export class Knock {
       fetch: this.fetch,
       fetchOptions: this.fetchOptions,
       apiKey: this.apiKey,
+      branch: this.branch,
       ...options,
     });
     return client;
@@ -759,6 +770,7 @@ export class Knock {
         'X-Stainless-Retry-Count': String(retryCount),
         ...(options.timeout ? { 'X-Stainless-Timeout': String(Math.trunc(options.timeout / 1000)) } : {}),
         ...getPlatformHeaders(),
+        'X-Knock-Branch': this.branch,
       },
       await this.authHeaders(options),
       this._options.defaultHeaders,

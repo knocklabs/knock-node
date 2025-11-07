@@ -298,6 +298,7 @@ export class Objects extends APIResource {
    *       },
    *     },
    *     locale: 'en-US',
+   *     name: 'My product',
    *     preferences: {
    *       default: {
    *         channel_types: { email: true },
@@ -443,6 +444,11 @@ export interface InlineObjectRequest {
    * Timestamp when the resource was created.
    */
   created_at?: string | null;
+
+  /**
+   * An optional name for the object.
+   */
+  name?: string | null;
 
   /**
    * Inline set preferences for a recipient, where the key is the preference set id.
@@ -684,6 +690,11 @@ export interface ObjectSetParams {
   locale?: string | null;
 
   /**
+   * An optional name for the object.
+   */
+  name?: string | null;
+
+  /**
    * Inline set preferences for a recipient, where the key is the preference set id.
    * Preferences that are set inline will be merged into any existing preferences
    * rather than replacing them.
@@ -706,45 +717,14 @@ export interface ObjectSetChannelDataParams {
    * Channel data for a given channel type.
    */
   data:
-    | ObjectSetChannelDataParams.PushChannelDataTokensOnly
-    | ObjectSetChannelDataParams.AwssnsPushChannelDataTargetArNsOnly
-    | ObjectSetChannelDataParams.OneSignalChannelDataPlayerIDsOnly
+    | ChannelDataAPI.PushChannelDataTokensOnly
+    | ChannelDataAPI.PushChannelDataDevicesOnly
+    | ChannelDataAPI.AwsSnsPushChannelDataTargetArnsOnly
+    | ChannelDataAPI.AwsSnsPushChannelDataDevicesOnly
+    | ChannelDataAPI.OneSignalChannelDataPlayerIDsOnly
     | ChannelDataAPI.SlackChannelData
     | ChannelDataAPI.MsTeamsChannelData
     | ChannelDataAPI.DiscordChannelData;
-}
-
-export namespace ObjectSetChannelDataParams {
-  /**
-   * Push channel data.
-   */
-  export interface PushChannelDataTokensOnly {
-    /**
-     * A list of push channel tokens.
-     */
-    tokens: Array<string>;
-  }
-
-  /**
-   * AWS SNS push channel data.
-   */
-  export interface AwssnsPushChannelDataTargetArNsOnly {
-    /**
-     * A list of platform endpoint ARNs. See
-     * [Setting up an Amazon SNS platform endpoint for mobile notifications](https://docs.aws.amazon.com/sns/latest/dg/mobile-platform-endpoint.html).
-     */
-    target_arns: Array<string>;
-  }
-
-  /**
-   * OneSignal channel data.
-   */
-  export interface OneSignalChannelDataPlayerIDsOnly {
-    /**
-     * A list of OneSignal player IDs.
-     */
-    player_ids: Array<string>;
-  }
 }
 
 export interface ObjectSetPreferencesParams {
@@ -770,7 +750,7 @@ export interface ObjectSetPreferencesParams {
   /**
    * Channel preferences.
    */
-  channels?: { [key: string]: boolean | ObjectSetPreferencesParams.PreferenceSetChannelSetting } | null;
+  channels?: { [key: string]: boolean | PreferencesAPI.PreferenceSetChannelSetting } | null;
 
   /**
    * Whether the recipient is subscribed to commercial communications. When false,
@@ -801,38 +781,12 @@ export namespace ObjectSetPreferencesParams {
     /**
      * Channel preferences.
      */
-    channels?: {
-      [key: string]: boolean | PreferenceSetWorkflowCategorySettingObject.PreferenceSetChannelSetting;
-    } | null;
+    channels?: { [key: string]: boolean | PreferencesAPI.PreferenceSetChannelSetting } | null;
 
     /**
      * A list of conditions to apply to a channel type.
      */
     conditions?: Array<Shared.Condition> | null;
-  }
-
-  export namespace PreferenceSetWorkflowCategorySettingObject {
-    /**
-     * A set of settings for a specific channel. Currently, this can only be a list of
-     * conditions to apply.
-     */
-    export interface PreferenceSetChannelSetting {
-      /**
-       * A list of conditions to apply to a specific channel.
-       */
-      conditions: Array<Shared.Condition>;
-    }
-  }
-
-  /**
-   * A set of settings for a specific channel. Currently, this can only be a list of
-   * conditions to apply.
-   */
-  export interface PreferenceSetChannelSetting {
-    /**
-     * A list of conditions to apply to a specific channel.
-     */
-    conditions: Array<Shared.Condition>;
   }
 
   /**
@@ -848,27 +802,12 @@ export namespace ObjectSetPreferencesParams {
     /**
      * Channel preferences.
      */
-    channels?: {
-      [key: string]: boolean | PreferenceSetWorkflowCategorySettingObject.PreferenceSetChannelSetting;
-    } | null;
+    channels?: { [key: string]: boolean | PreferencesAPI.PreferenceSetChannelSetting } | null;
 
     /**
      * A list of conditions to apply to a channel type.
      */
     conditions?: Array<Shared.Condition> | null;
-  }
-
-  export namespace PreferenceSetWorkflowCategorySettingObject {
-    /**
-     * A set of settings for a specific channel. Currently, this can only be a list of
-     * conditions to apply.
-     */
-    export interface PreferenceSetChannelSetting {
-      /**
-       * A list of conditions to apply to a specific channel.
-       */
-      conditions: Array<Shared.Condition>;
-    }
   }
 }
 

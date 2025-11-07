@@ -66,6 +66,7 @@ export class Tenants extends APIResource {
    * @example
    * ```ts
    * const tenant = await client.tenants.set('id', {
+   *   name: 'Jurassic Park',
    *   settings: {
    *     branding: {
    *       icon_url:
@@ -180,6 +181,11 @@ export interface TenantRequest {
   channel_data?: ChannelDataAPI.InlineChannelDataRequest | null;
 
   /**
+   * An optional name for the tenant.
+   */
+  name?: string | null;
+
+  /**
    * Inline set preferences for a recipient, where the key is the preference set id.
    * Preferences that are set inline will be merged into any existing preferences
    * rather than replacing them.
@@ -257,6 +263,11 @@ export interface TenantSetParams {
    * A request to set channel data for a type of channel inline.
    */
   channel_data?: ChannelDataAPI.InlineChannelDataRequest | null;
+
+  /**
+   * An optional name for the tenant.
+   */
+  name?: string | null;
 
   /**
    * The settings for the tenant. Includes branding and preference set.

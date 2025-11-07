@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.22.0 (2025-11-07)
+
+Full Changelog: [v1.21.0...v1.22.0](https://github.com/knocklabs/knock-node/compare/v1.21.0...v1.22.0)
+
+### Features
+
+* **api:** api update ([4101e59](https://github.com/knocklabs/knock-node/commit/4101e595ed49391a31fcfede5cb5520e899b907a))
+* **api:** api update ([a9ab9c2](https://github.com/knocklabs/knock-node/commit/a9ab9c2304d4d0b4ad89ee89d7c02a40cb4bbffc))
+* **api:** api update ([ec69761](https://github.com/knocklabs/knock-node/commit/ec697610ee6debb36513ab603d6cc5b2bc1b4bc1))
+* **api:** api update ([db3f887](https://github.com/knocklabs/knock-node/commit/db3f8877a8fbaff81be5afa8009babb280c6b278))
+* **api:** api update ([0856821](https://github.com/knocklabs/knock-node/commit/0856821f07617745297f0bb399e4af91d0d2515b))
+* **api:** api update ([c5c9bfc](https://github.com/knocklabs/knock-node/commit/c5c9bfc55d80633fba0127fbdb8d0e6352112c09))
+* **api:** support specifying a branch ([fb9ffe0](https://github.com/knocklabs/knock-node/commit/fb9ffe0eb4c9b704fcb6dab7be7dad466f6392a0))
+* correct channel data schemas ([80c1f82](https://github.com/knocklabs/knock-node/commit/80c1f8217463c80ead6424c3e6a1954d0d3a5fba))
+
 ## 1.21.0 (2025-10-24)
 
 Full Changelog: [v1.20.0...v1.21.0](https://github.com/knocklabs/knock-node/compare/v1.20.0...v1.21.0)
