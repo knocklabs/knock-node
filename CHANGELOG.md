@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.22.1 (2025-11-12)
+
+Full Changelog: [v1.22.0...v1.22.1](https://github.com/knocklabs/knock-node/compare/v1.22.0...v1.22.1)
+
+### Bug Fixes
+
+* **kno-9922:** fix unexpected 422 errors, better array handling ([#141](https://github.com/knocklabs/knock-node/issues/141)) ([a265a62](https://github.com/knocklabs/knock-node/commit/a265a62525147707ada8524b839ea754a9a7bcf3))
+
 ## 1.22.0 (2025-11-07)
 
 Full Changelog: [v1.21.0...v1.22.0](https://github.com/knocklabs/knock-node/compare/v1.21.0...v1.22.0)
