@@ -15,6 +15,14 @@ describe(stringifyQuery, () => {
         'e=f',
       )}=${encodeURIComponent('g&h')}`,
     ],
+    [
+      { objects: [{ id: '123', collection: 'example' }] },
+      'objects%5B%5D%5Bid%5D=123&objects%5B%5D%5Bcollection%5D=example',
+    ],
+    [
+      { include: ['preferences'], objects: [{ id: '123', collection: 'example' }] },
+      'include%5B%5D=preferences&objects%5B%5D%5Bid%5D=123&objects%5B%5D%5Bcollection%5D=example',
+    ],
   ]) {
     it(`${JSON.stringify(input)} -> ${expected}`, () => {
       expect(stringifyQuery(input)).toEqual(expected);
