@@ -21,7 +21,12 @@ describe(stringifyQuery, () => {
       'objects%5B0%5D%5Bid%5D=1&objects%5B0%5D%5Bcollection%5D=teams',
     ],
     [
-      { objects: [{ id: '1', collection: 'teams' }, { id: '2', collection: 'projects' }] },
+      {
+        objects: [
+          { id: '1', collection: 'teams' },
+          { id: '2', collection: 'projects' },
+        ],
+      },
       'objects%5B0%5D%5Bid%5D=1&objects%5B0%5D%5Bcollection%5D=teams&objects%5B1%5D%5Bid%5D=2&objects%5B1%5D%5Bcollection%5D=projects',
     ],
     // Test simple arrays - should use brackets format (brackets are URL encoded)

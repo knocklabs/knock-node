@@ -333,16 +333,16 @@ export class Knock {
 
   /**
    * Stringify query parameters with proper array formatting.
-   * 
+   *
    * We need to handle two types of arrays differently:
    * 1. Simple arrays (primitives) → use 'brackets' format: `tags[]=tag1&tags[]=tag2`
    * 2. Arrays of objects → use 'indices' format: `objects[0][id]=1&objects[0][collection]=teams`
-   * 
+   *
    * Why we can't use a single arrayFormat for everything:
    * If we used 'indices' for simple arrays, `include: ["preferences"]` would serialize as
    * `include[0]=preferences`, which the backend incorrectly parses as a map `{"0": "preferences"}`
    * instead of an array `["preferences"]`.
-   * 
+   *
    * By separating them, we ensure the backend receives the correct data structure for each type.
    */
   protected stringifyQuery(query: Record<string, unknown>): string {
@@ -410,8 +410,6 @@ export class Knock {
     if (typeof query === 'object' && query && !Array.isArray(query)) {
       url.search = this.stringifyQuery(query as Record<string, unknown>);
     }
-
-    console.log(url.toString());
 
     return url.toString();
   }
