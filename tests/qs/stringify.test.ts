@@ -2230,3 +2230,14 @@ describe('stringifies empty keys', function () {
     );
   });
 });
+
+describe('arrays of objects formatting', function () {
+  test('formats arrays of objects using indices', function () {
+    expect(
+      stringify(
+        { objects: [{ id: 1, collection: 'teams' }] },
+        { encodeValuesOnly: true, arrayFormat: 'indices' },
+      ),
+    ).toBe('objects[0][id]=1&objects[0][collection]=teams');
+  });
+});
