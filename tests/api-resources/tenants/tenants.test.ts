@@ -56,6 +56,18 @@ describe('resource tenants', () => {
   });
 
   // Prism doesn't support callbacks yet
+  test.skip('get: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.tenants.get(
+        'id',
+        { resolve_full_preference_settings: true },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Knock.NotFoundError);
+  });
+
+  // Prism doesn't support callbacks yet
   test.skip('set', async () => {
     const responsePromise = client.tenants.set('id', {});
     const rawResponse = await responsePromise.asResponse();

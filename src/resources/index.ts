@@ -72,6 +72,7 @@ export {
   type Tenant,
   type TenantRequest,
   type TenantListParams,
+  type TenantGetParams,
   type TenantSetParams,
   type TenantsEntriesCursor,
 } from './tenants/tenants';
