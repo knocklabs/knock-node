@@ -103,6 +103,7 @@ import {
 import {
   InlineTenantRequest,
   Tenant,
+  TenantGetParams,
   TenantListParams,
   TenantRequest,
   TenantSetParams,
@@ -980,6 +981,7 @@ export declare namespace Knock {
     type TenantRequest as TenantRequest,
     type TenantsEntriesCursor as TenantsEntriesCursor,
     type TenantListParams as TenantListParams,
+    type TenantGetParams as TenantGetParams,
     type TenantSetParams as TenantSetParams,
   };
 

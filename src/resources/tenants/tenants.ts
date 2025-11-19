@@ -55,8 +55,12 @@ export class Tenants extends APIResource {
    * const tenant = await client.tenants.get('id');
    * ```
    */
-  get(id: string, options?: RequestOptions): APIPromise<Tenant> {
-    return this._client.get(path`/v1/tenants/${id}`, options);
+  get(
+    id: string,
+    query: TenantGetParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<Tenant> {
+    return this._client.get(path`/v1/tenants/${id}`, { query, ...options });
   }
 
   /**
@@ -79,8 +83,13 @@ export class Tenants extends APIResource {
    * });
    * ```
    */
-  set(id: string, body: TenantSetParams, options?: RequestOptions): APIPromise<Tenant> {
-    return this._client.put(path`/v1/tenants/${id}`, { body, ...options });
+  set(id: string, params: TenantSetParams, options?: RequestOptions): APIPromise<Tenant> {
+    const { resolve_full_preference_settings, ...body } = params;
+    return this._client.put(path`/v1/tenants/${id}`, {
+      query: { resolve_full_preference_settings },
+      body,
+      ...options,
+    });
   }
 }
 
@@ -258,19 +267,35 @@ export interface TenantListParams extends EntriesCursorParams {
   tenant_id?: string;
 }
 
+export interface TenantGetParams {
+  /**
+   * When true, merges environment-level default preferences into the tenant's
+   * `settings.preference_set` field before returning the response. Defaults to
+   * false.
+   */
+  resolve_full_preference_settings?: boolean;
+}
+
 export interface TenantSetParams {
   /**
-   * A request to set channel data for a type of channel inline.
+   * Query param: When true, merges environment-level default preferences into the
+   * tenant's `settings.preference_set` field before returning the response. Defaults
+   * to false.
+   */
+  resolve_full_preference_settings?: boolean;
+
+  /**
+   * Body param: A request to set channel data for a type of channel inline.
    */
   channel_data?: ChannelDataAPI.InlineChannelDataRequest | null;
 
   /**
-   * An optional name for the tenant.
+   * Body param: An optional name for the tenant.
    */
   name?: string | null;
 
   /**
-   * The settings for the tenant. Includes branding and preference set.
+   * Body param: The settings for the tenant. Includes branding and preference set.
    */
   settings?: TenantSetParams.Settings;
 
@@ -332,6 +357,7 @@ export declare namespace Tenants {
     type TenantRequest as TenantRequest,
     type TenantsEntriesCursor as TenantsEntriesCursor,
     type TenantListParams as TenantListParams,
+    type TenantGetParams as TenantGetParams,
     type TenantSetParams as TenantSetParams,
   };
 

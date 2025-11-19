@@ -156,7 +156,7 @@ Methods:
 
 - <code title="get /v1/tenants">client.tenants.<a href="./src/resources/tenants/tenants.ts">list</a>({ ...params }) -> TenantsEntriesCursor</code>
 - <code title="delete /v1/tenants/{id}">client.tenants.<a href="./src/resources/tenants/tenants.ts">delete</a>(id) -> void</code>
-- <code title="get /v1/tenants/{id}">client.tenants.<a href="./src/resources/tenants/tenants.ts">get</a>(id) -> Tenant</code>
+- <code title="get /v1/tenants/{id}">client.tenants.<a href="./src/resources/tenants/tenants.ts">get</a>(id, { ...params }) -> Tenant</code>
 - <code title="put /v1/tenants/{id}">client.tenants.<a href="./src/resources/tenants/tenants.ts">set</a>(id, { ...params }) -> Tenant</code>
 
 ## Bulk
