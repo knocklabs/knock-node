@@ -32,7 +32,7 @@ describe('resource bulk', () => {
   // Prism doesn't support callbacks yet
   test.skip('addSubscriptions: only required params', async () => {
     const responsePromise = client.objects.bulk.addSubscriptions('projects', {
-      subscriptions: [{ recipients: [{ id: 'user_1' }] }],
+      subscriptions: [{ id: 'project-1', recipients: [{ id: 'user_1' }] }],
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -48,6 +48,7 @@ describe('resource bulk', () => {
     const response = await client.objects.bulk.addSubscriptions('projects', {
       subscriptions: [
         {
+          id: 'project-1',
           recipients: [
             {
               id: 'user_1',
