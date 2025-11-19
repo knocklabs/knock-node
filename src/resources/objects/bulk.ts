@@ -87,13 +87,21 @@ export interface BulkDeleteParams {
 
 export interface BulkAddSubscriptionsParams {
   /**
-   * A list of subscriptions.
+   * A nested list of subscriptions.
    */
   subscriptions: Array<BulkAddSubscriptionsParams.Subscription>;
 }
 
 export namespace BulkAddSubscriptionsParams {
+  /**
+   * A list of subscriptions. 1 subscribed-to id, and N subscriber recipients.
+   */
   export interface Subscription {
+    /**
+     * Unique identifier for the object.
+     */
+    id: string;
+
     /**
      * The recipients of the subscription. You can subscribe up to 100 recipients to an
      * object at a time.
