@@ -59,6 +59,44 @@ export class Bulk extends APIResource {
   }
 
   /**
+   * Delete subscriptions for many objects in a single collection type. If a
+   * subscription for an object in the collection doesn't exist, it will be skipped.
+   *
+   * @example
+   * ```ts
+   * const bulkOperation =
+   *   await client.objects.bulk.deleteSubscriptions(
+   *     'projects',
+   *     {
+   *       subscriptions: [
+   *         {
+   *           id: 'subscribed-to-object-1',
+   *           recipients: [
+   *             {
+   *               collection: 'projects',
+   *               id: 'subscriber-project-1',
+   *             },
+   *             'subscriber-user-1',
+   *           ],
+   *         },
+   *         {
+   *           id: 'subscribed-to-object-2',
+   *           recipients: ['subscriber-user-2'],
+   *         },
+   *       ],
+   *     },
+   *   );
+   * ```
+   */
+  deleteSubscriptions(
+    collection: string,
+    body: BulkDeleteSubscriptionsParams,
+    options?: RequestOptions,
+  ): APIPromise<BulkOperationsAPI.BulkOperation> {
+    return this._client.post(path`/v1/objects/${collection}/bulk/subscriptions/delete`, { body, ...options });
+  }
+
+  /**
    * Bulk sets up to 1,000 objects at a time in the specified collection.
    *
    * @example
@@ -115,6 +153,31 @@ export namespace BulkAddSubscriptionsParams {
   }
 }
 
+export interface BulkDeleteSubscriptionsParams {
+  /**
+   * A nested list of subscriptions.
+   */
+  subscriptions: Array<BulkDeleteSubscriptionsParams.Subscription>;
+}
+
+export namespace BulkDeleteSubscriptionsParams {
+  /**
+   * A list of subscriptions. 1 subscribed-to id, and N subscriber recipients.
+   */
+  export interface Subscription {
+    /**
+     * Unique identifier for the object.
+     */
+    id: string;
+
+    /**
+     * The recipients of the subscription. You can subscribe up to 100 recipients to an
+     * object at a time.
+     */
+    recipients: Array<RecipientsAPI.RecipientReference>;
+  }
+}
+
 export interface BulkSetParams {
   /**
    * A list of objects.
@@ -162,6 +225,7 @@ export declare namespace Bulk {
   export {
     type BulkDeleteParams as BulkDeleteParams,
     type BulkAddSubscriptionsParams as BulkAddSubscriptionsParams,
+    type BulkDeleteSubscriptionsParams as BulkDeleteSubscriptionsParams,
     type BulkSetParams as BulkSetParams,
   };
 }

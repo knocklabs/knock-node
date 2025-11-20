@@ -136,6 +136,36 @@ describe('resource bulk', () => {
   });
 
   // Prism doesn't support callbacks yet
+  test.skip('deleteSubscriptions: only required params', async () => {
+    const responsePromise = client.objects.bulk.deleteSubscriptions('projects', {
+      subscriptions: [
+        { id: 'subscribed-to-object-1', recipients: [{}, 'subscriber-user-1'] },
+        { id: 'subscribed-to-object-2', recipients: ['subscriber-user-2'] },
+      ],
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism doesn't support callbacks yet
+  test.skip('deleteSubscriptions: required and optional params', async () => {
+    const response = await client.objects.bulk.deleteSubscriptions('projects', {
+      subscriptions: [
+        {
+          id: 'subscribed-to-object-1',
+          recipients: [{ id: 'subscriber-project-1', collection: 'projects' }, 'subscriber-user-1'],
+        },
+        { id: 'subscribed-to-object-2', recipients: ['subscriber-user-2'] },
+      ],
+    });
+  });
+
+  // Prism doesn't support callbacks yet
   test.skip('set: only required params', async () => {
     const responsePromise = client.objects.bulk.set('collection', { objects: [{ id: 'project_1' }] });
     const rawResponse = await responsePromise.asResponse();
