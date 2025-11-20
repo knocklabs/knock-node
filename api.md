@@ -142,6 +142,7 @@ Methods:
 
 - <code title="post /v1/objects/{collection}/bulk/delete">client.objects.bulk.<a href="./src/resources/objects/bulk.ts">delete</a>(collection, { ...params }) -> BulkOperation</code>
 - <code title="post /v1/objects/{collection}/bulk/subscriptions/add">client.objects.bulk.<a href="./src/resources/objects/bulk.ts">addSubscriptions</a>(collection, { ...params }) -> BulkOperation</code>
+- <code title="post /v1/objects/{collection}/bulk/subscriptions/delete">client.objects.bulk.<a href="./src/resources/objects/bulk.ts">deleteSubscriptions</a>(collection, { ...params }) -> BulkOperation</code>
 - <code title="post /v1/objects/{collection}/bulk/set">client.objects.bulk.<a href="./src/resources/objects/bulk.ts">set</a>(collection, { ...params }) -> BulkOperation</code>
 
 # Tenants

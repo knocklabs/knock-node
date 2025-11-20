@@ -5,7 +5,13 @@ import * as Shared from '../shared';
 import * as MessagesAPI from '../messages/messages';
 import { MessagesItemsCursor } from '../messages/messages';
 import * as BulkAPI from './bulk';
-import { Bulk, BulkAddSubscriptionsParams, BulkDeleteParams, BulkSetParams } from './bulk';
+import {
+  Bulk,
+  BulkAddSubscriptionsParams,
+  BulkDeleteParams,
+  BulkDeleteSubscriptionsParams,
+  BulkSetParams,
+} from './bulk';
 import * as ChannelDataAPI from '../recipients/channel-data';
 import * as PreferencesAPI from '../recipients/preferences';
 import * as RecipientsAPI from '../recipients/recipients';
@@ -836,6 +842,7 @@ export declare namespace Objects {
     Bulk as Bulk,
     type BulkDeleteParams as BulkDeleteParams,
     type BulkAddSubscriptionsParams as BulkAddSubscriptionsParams,
+    type BulkDeleteSubscriptionsParams as BulkDeleteSubscriptionsParams,
     type BulkSetParams as BulkSetParams,
   };
 }
