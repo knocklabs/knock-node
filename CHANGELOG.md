@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.24.0 (2025-11-20)
+
+Full Changelog: [v1.23.0...v1.24.0](https://github.com/knocklabs/knock-node/compare/v1.23.0...v1.24.0)
+
+### Features
+
+* **api:** Add bulk delete subscriptions ([2adc8a2](https://github.com/knocklabs/knock-node/commit/2adc8a26d9d793ab1c7e392320f5dd9df74ad07f))
+* **api:** api update ([a7ff6e1](https://github.com/knocklabs/knock-node/commit/a7ff6e115f0b8f1663c177a357635ac8d7bbf320))
+
 ## 1.23.0 (2025-11-19)
 
 Full Changelog: [v1.22.1...v1.23.0](https://github.com/knocklabs/knock-node/compare/v1.22.1...v1.23.0)
