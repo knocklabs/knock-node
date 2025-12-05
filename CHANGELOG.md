@@ -1,5 +1,27 @@
 # Changelog
 
+## 1.25.0 (2025-12-05)
+
+Full Changelog: [v1.24.0...v1.25.0](https://github.com/knocklabs/knock-node/compare/v1.24.0...v1.25.0)
+
+### Features
+
+* **api:** api update ([e8dbe57](https://github.com/knocklabs/knock-node/commit/e8dbe57590f3b3edfe09b803c39ca37e82d582bb))
+
+
+### Bug Fixes
+
+* **mcp:** correct code tool API endpoint ([13d5357](https://github.com/knocklabs/knock-node/commit/13d535776c5cc97e45883f3b631ecd06f2be83c5))
+* **mcp:** return correct lines on typescript errors ([a2343bf](https://github.com/knocklabs/knock-node/commit/a2343bf76d4d5cd0b683afae088eb3f201ffa70a))
+
+
+### Chores
+
+* **client:** fix logger property type ([422d2a7](https://github.com/knocklabs/knock-node/commit/422d2a79a1dca5f0841fa428487d62c0bbc456a8))
+* **internal:** codegen related update ([613af21](https://github.com/knocklabs/knock-node/commit/613af214cfea08cd46e10dda5292bd0b21b68dd3))
+* **internal:** codegen related update ([281a4e4](https://github.com/knocklabs/knock-node/commit/281a4e400fff105dea85135fdcd35fafe7ebbe7e))
+* **internal:** upgrade eslint ([6f09ada](https://github.com/knocklabs/knock-node/commit/6f09adab71cfc9fa0a12faf1ae462be25b0592d8))
+
 ## 1.24.0 (2025-11-20)
 
 Full Changelog: [v1.23.0...v1.24.0](https://github.com/knocklabs/knock-node/compare/v1.23.0...v1.24.0)
