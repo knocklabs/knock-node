@@ -473,6 +473,18 @@ export namespace Message {
      * Whether this message was generated from a workflow, broadcast, or guide.
      */
     type?: 'broadcast' | 'workflow' | 'guide';
+
+    /**
+     * The unique identifier for the workflow recipient run that generated this
+     * message. Only present for workflow/broadcast messages.
+     */
+    workflow_recipient_run_id?: string | null;
+
+    /**
+     * The unique identifier for the workflow run that generated this message. Only
+     * present for workflow/broadcast messages.
+     */
+    workflow_run_id?: string | null;
   }
 
   /**
