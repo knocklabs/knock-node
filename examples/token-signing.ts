@@ -76,6 +76,28 @@ async function advancedTokenSigning() {
   }
 }
 
+/**
+ * Example 3: Unique tokens with jti
+ *
+ * JWT tokens use second-precision timestamps, so tokens generated within
+ * the same second are identical. Use shouldGenerateJti to include a unique
+ * JWT ID (jti) claim, ensuring each token is unique.
+ */
+async function uniqueTokenSigning() {
+  try {
+    const token = await signUserToken('user-1', {
+      shouldGenerateJit: true,
+    });
+    console.log('Token with jti:', token);
+
+    const decoded = decodeToken(token);
+    console.log('Decoded token:', JSON.stringify(decoded, null, 2));
+    console.log('JWT ID (jti):', decoded.jti);
+  } catch (error) {
+    console.error('Error signing token:', error);
+  }
+}
+
 // Run the examples
 (async () => {
   console.log('===== Knock Token Signing Examples =====');
@@ -84,5 +106,8 @@ async function advancedTokenSigning() {
   console.log('\n---\n');
 
   await advancedTokenSigning();
+  console.log('\n---\n');
+
+  await uniqueTokenSigning();
   console.log('\n===== End of Examples =====');
 })();
