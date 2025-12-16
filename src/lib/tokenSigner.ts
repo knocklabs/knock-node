@@ -34,7 +34,7 @@ export interface SignUserTokenOptions {
    * If true, generates a JWT ID (jti) and includes it in the token
    * @default false
    */
-  shouldGenerateJit?: boolean | undefined;
+  shouldGenerateJti?: boolean | undefined;
 }
 
 /**
@@ -147,7 +147,7 @@ export async function signUserToken(userId: string, options?: SignUserTokenOptio
     grants: maybePrepareUserTokenGrants(options?.grants),
     iat: currentTime,
     exp: currentTime + expireInSeconds,
-    ...(options?.shouldGenerateJit && { jti: uuid4() }),
+    ...(options?.shouldGenerateJti && { jti: uuid4() }),
   };
 
   return createJWT(header, payload, signingKey);

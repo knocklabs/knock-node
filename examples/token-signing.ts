@@ -86,7 +86,7 @@ async function advancedTokenSigning() {
 async function uniqueTokenSigning() {
   try {
     const token = await signUserToken('user-1', {
-      shouldGenerateJit: true,
+      shouldGenerateJti: true,
     });
     console.log('Token with jti:', token);
 

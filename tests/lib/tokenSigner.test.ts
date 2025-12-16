@@ -47,9 +47,9 @@ describe('signUserToken', () => {
     expect(signUserToken).toBeDefined();
   });
 
-  describe('shouldGenerateJit', () => {
-    it('should include a jti when shouldGenerateJit is true', async () => {
-      const inputToken = await signUserToken('user-1', { signingKey, shouldGenerateJit: true });
+  describe('shouldGenerateJti', () => {
+    it('should include a jti when shouldGenerateJti is true', async () => {
+      const inputToken = await signUserToken('user-1', { signingKey, shouldGenerateJti: true });
       const actualPayload = decodeJwtPayloadRecord(inputToken);
 
       expect(actualPayload['jti']).toEqual(expect.any(String));
@@ -57,23 +57,23 @@ describe('signUserToken', () => {
     });
 
     it.each([false, undefined])(
-      'should not include a jti when shouldGenerateJit is %s',
-      async (shouldGenerateJit) => {
-        const inputTokenFalse = await signUserToken('user-1', { signingKey, shouldGenerateJit });
+      'should not include a jti when shouldGenerateJti is %s',
+      async (shouldGenerateJti) => {
+        const inputTokenFalse = await signUserToken('user-1', { signingKey, shouldGenerateJti });
         const actualPayloadFalse = decodeJwtPayloadRecord(inputTokenFalse);
         expect(actualPayloadFalse['jti']).toBeUndefined();
       },
     );
 
-    it('should generate a different jti per token when shouldGenerateJit is true', async () => {
+    it('should generate a different jti per token when shouldGenerateJti is true', async () => {
       // To make this check deterministic, we need to mock the system time,
-      // with the parameter shouldGenerateJit as true, tokens should be
+      // with the parameter shouldGenerateJti as true, tokens should be
       // different even if the head and payload are the same.
       jest.useFakeTimers();
       jest.setSystemTime(new Date('2025-01-01T00:00:00Z'));
 
-      const inputToken1 = await signUserToken('user-1', { signingKey, shouldGenerateJit: true });
-      const inputToken2 = await signUserToken('user-1', { signingKey, shouldGenerateJit: true });
+      const inputToken1 = await signUserToken('user-1', { signingKey, shouldGenerateJti: true });
+      const inputToken2 = await signUserToken('user-1', { signingKey, shouldGenerateJti: true });
 
       const actualPayload1 = decodeJwtPayloadRecord(inputToken1);
       const actualPayload2 = decodeJwtPayloadRecord(inputToken2);
@@ -83,12 +83,12 @@ describe('signUserToken', () => {
       expect(actualPayload1['jti']).not.toEqual(actualPayload2['jti']);
     });
 
-    it('should generate the same token when the head and payload are the same and shouldGenerateJit is false', async () => {
+    it('should generate the same token when the head and payload are the same and shouldGenerateJti is false', async () => {
       jest.useFakeTimers();
       jest.setSystemTime(new Date('2025-01-01T00:00:00Z'));
 
-      const inputToken1 = await signUserToken('user-1', { signingKey, shouldGenerateJit: false });
-      const inputToken2 = await signUserToken('user-1', { signingKey, shouldGenerateJit: false });
+      const inputToken1 = await signUserToken('user-1', { signingKey, shouldGenerateJti: false });
+      const inputToken2 = await signUserToken('user-1', { signingKey, shouldGenerateJti: false });
 
       expect(inputToken1).toEqual(inputToken2);
     });
