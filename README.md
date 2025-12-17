@@ -292,6 +292,8 @@ import { signUserToken, buildUserTokenGrant, Grants } from '@knocklabs/node';
 const token = await signUserToken('user-1', {
   // Token valid for 12 hours (43200 seconds)
   expiresInSeconds: 43200,
+  // Generate a unique JWT ID (jti) to ensure token uniqueness (optional)
+  shouldGenerateJti: true,
   // Grants for tenant and object access
   grants: [
     // Grant access to a tenant
