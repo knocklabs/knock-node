@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.27.0 (2025-12-29)
+
+Full Changelog: [v1.26.0...v1.27.0](https://github.com/knocklabs/knock-node/compare/v1.26.0...v1.27.0)
+
+### Features
+
+* **tokenSigner:** add optional jti claim to prevent duplicate tokens ([#147](https://github.com/knocklabs/knock-node/issues/147)) ([66bd591](https://github.com/knocklabs/knock-node/commit/66bd5913d8160c6f41c988cf351a8a663df96702))
+
 ## 1.26.0 (2025-12-09)
 
 Full Changelog: [v1.25.0...v1.26.0](https://github.com/knocklabs/knock-node/compare/v1.25.0...v1.26.0)
