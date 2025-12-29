@@ -3,6 +3,7 @@
  */
 
 import { type JWTHeaderParameters, type JWTPayload, SignJWT, importPKCS8 } from 'jose';
+import { uuid4 } from '../internal/utils/uuid';
 import type { TokenEntity, TokenGrant, TokenGrantOptions } from './userTokens';
 
 // Default hostname for Knock API
@@ -28,6 +29,12 @@ export interface SignUserTokenOptions {
    * Grants to include in the token
    */
   grants?: TokenGrant[] | undefined;
+
+  /**
+   * If true, generates a JWT ID (jti) and includes it in the token
+   * @default false
+   */
+  shouldGenerateJti?: boolean | undefined;
 }
 
 /**
@@ -140,6 +147,7 @@ export async function signUserToken(userId: string, options?: SignUserTokenOptio
     grants: maybePrepareUserTokenGrants(options?.grants),
     iat: currentTime,
     exp: currentTime + expireInSeconds,
+    ...(options?.shouldGenerateJti && { jti: uuid4() }),
   };
 
   return createJWT(header, payload, signingKey);
