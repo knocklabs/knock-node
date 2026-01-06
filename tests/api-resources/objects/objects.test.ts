@@ -26,7 +26,12 @@ describe('resource objects', () => {
     await expect(
       client.objects.list(
         'collection',
-        { after: 'after', before: 'before', include: ['preferences'], page_size: 0 },
+        {
+          after: 'after',
+          before: 'before',
+          include: ['preferences'],
+          page_size: 0,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Knock.NotFoundError);
@@ -151,7 +156,12 @@ describe('resource objects', () => {
           before: 'before',
           channel_id: 'channel_id',
           engagement_status: ['seen'],
-          inserted_at: { gt: 'gt', gte: 'gte', lt: 'lt', lte: 'lte' },
+          inserted_at: {
+            gt: 'gt',
+            gte: 'gte',
+            lt: 'lt',
+            lte: 'lte',
+          },
           message_ids: ['string'],
           page_size: 0,
           source: 'source',
@@ -198,7 +208,13 @@ describe('resource objects', () => {
       client.objects.listSchedules(
         'collection',
         'id',
-        { after: 'after', before: 'before', page_size: 0, tenant: 'tenant', workflow: 'workflow' },
+        {
+          after: 'after',
+          before: 'before',
+          page_size: 0,
+          tenant: 'tenant',
+          workflow: 'workflow',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Knock.NotFoundError);

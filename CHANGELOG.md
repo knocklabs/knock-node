@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.27.1 (2026-01-06)
+
+Full Changelog: [v1.27.0...v1.27.1](https://github.com/knocklabs/knock-node/compare/v1.27.0...v1.27.1)
+
+### Chores
+
+* break long lines in snippets into multiline ([f3328b4](https://github.com/knocklabs/knock-node/commit/f3328b46674d1e5ba50e9b4f884926dcd4ef7e3c))
+* **internal:** codegen related update ([c48d266](https://github.com/knocklabs/knock-node/commit/c48d2661b5cff60d817390c3e44c646b2c9d859f))
+
 ## 1.27.0 (2025-12-29)
 
 Full Changelog: [v1.26.0...v1.27.0](https://github.com/knocklabs/knock-node/compare/v1.26.0...v1.27.0)
