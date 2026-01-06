@@ -30,7 +30,12 @@ describe('resource messages', () => {
           before: 'before',
           channel_id: 'channel_id',
           engagement_status: ['seen'],
-          inserted_at: { gt: 'gt', gte: 'gte', lt: 'lt', lte: 'lte' },
+          inserted_at: {
+            gt: 'gt',
+            gte: 'gte',
+            lt: 'lt',
+            lte: 'lte',
+          },
           message_ids: ['string'],
           page_size: 0,
           source: 'source',
@@ -100,7 +105,12 @@ describe('resource messages', () => {
     await expect(
       client.messages.listActivities(
         'message_id',
-        { after: 'after', before: 'before', page_size: 0, trigger_data: 'trigger_data' },
+        {
+          after: 'after',
+          before: 'before',
+          page_size: 0,
+          trigger_data: 'trigger_data',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Knock.NotFoundError);
@@ -124,7 +134,11 @@ describe('resource messages', () => {
     await expect(
       client.messages.listDeliveryLogs(
         'message_id',
-        { after: 'after', before: 'before', page_size: 0 },
+        {
+          after: 'after',
+          before: 'before',
+          page_size: 0,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Knock.NotFoundError);
@@ -148,7 +162,11 @@ describe('resource messages', () => {
     await expect(
       client.messages.listEvents(
         'message_id',
-        { after: 'after', before: 'before', page_size: 0 },
+        {
+          after: 'after',
+          before: 'before',
+          page_size: 0,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Knock.NotFoundError);

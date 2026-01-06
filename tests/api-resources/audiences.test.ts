@@ -23,7 +23,12 @@ describe('resource audiences', () => {
   // Prism doesn't support callbacks yet
   test.skip('addMembers: required and optional params', async () => {
     const response = await client.audiences.addMembers('key', {
-      members: [{ user: { id: 'dr_sattler' }, tenant: 'ingen_isla_nublar' }],
+      members: [
+        {
+          user: { id: 'dr_sattler' },
+          tenant: 'ingen_isla_nublar',
+        },
+      ],
     });
   });
 
@@ -54,7 +59,12 @@ describe('resource audiences', () => {
   // Prism doesn't support callbacks yet
   test.skip('removeMembers: required and optional params', async () => {
     const response = await client.audiences.removeMembers('key', {
-      members: [{ user: { id: 'dr_sattler' }, tenant: 'ingen_isla_nublar' }],
+      members: [
+        {
+          user: { id: 'dr_sattler' },
+          tenant: 'ingen_isla_nublar',
+        },
+      ],
     });
   });
 });

@@ -71,7 +71,12 @@ describe('resource msTeams', () => {
   test.skip('listTeams: required and optional params', async () => {
     const response = await client.providers.msTeams.listTeams('channel_id', {
       ms_teams_tenant_object: 'ms_teams_tenant_object',
-      query_options: { $filter: '$filter', $select: '$select', $skiptoken: '$skiptoken', $top: 0 },
+      query_options: {
+        $filter: '$filter',
+        $select: '$select',
+        $skiptoken: '$skiptoken',
+        $top: 0,
+      },
     });
   });
 
