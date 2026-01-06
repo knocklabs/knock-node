@@ -37,7 +37,12 @@ describe('resource users', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.users.list(
-        { after: 'after', before: 'before', include: ['preferences'], page_size: 0 },
+        {
+          after: 'after',
+          before: 'before',
+          include: ['preferences'],
+          page_size: 0,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Knock.NotFoundError);
@@ -127,7 +132,12 @@ describe('resource users', () => {
           before: 'before',
           channel_id: 'channel_id',
           engagement_status: ['seen'],
-          inserted_at: { gt: 'gt', gte: 'gte', lt: 'lt', lte: 'lte' },
+          inserted_at: {
+            gt: 'gt',
+            gte: 'gte',
+            lt: 'lt',
+            lte: 'lte',
+          },
           message_ids: ['string'],
           page_size: 0,
           source: 'source',
@@ -173,7 +183,13 @@ describe('resource users', () => {
     await expect(
       client.users.listSchedules(
         'user_id',
-        { after: 'after', before: 'before', page_size: 0, tenant: 'tenant', workflow: 'workflow' },
+        {
+          after: 'after',
+          before: 'before',
+          page_size: 0,
+          tenant: 'tenant',
+          workflow: 'workflow',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Knock.NotFoundError);
@@ -197,7 +213,13 @@ describe('resource users', () => {
     await expect(
       client.users.listSubscriptions(
         'user_id',
-        { after: 'after', before: 'before', include: ['preferences'], objects: ['user_123'], page_size: 0 },
+        {
+          after: 'after',
+          before: 'before',
+          include: ['preferences'],
+          objects: ['user_123'],
+          page_size: 0,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Knock.NotFoundError);

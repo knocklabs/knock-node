@@ -27,7 +27,11 @@ describe('resource guides', () => {
       client.users.guides.getChannel(
         'user_id',
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        { data: 'data', tenant: 'tenant', type: 'type' },
+        {
+          data: 'data',
+          tenant: 'tenant',
+          type: 'type',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Knock.NotFoundError);
@@ -58,9 +62,17 @@ describe('resource guides', () => {
       guide_key: 'tour_notification',
       guide_step_ref: 'lab_tours',
       content: { body: 'bar', title: 'bar' },
-      data: { next_time: 'bar', spots_left: 'bar', tour_id: 'bar' },
+      data: {
+        next_time: 'bar',
+        spots_left: 'bar',
+        tour_id: 'bar',
+      },
       is_final: false,
-      metadata: { cta: 'bar', theme: 'bar', type: 'bar' },
+      metadata: {
+        cta: 'bar',
+        theme: 'bar',
+        type: 'bar',
+      },
       tenant: 'ingen_isla_nublar',
     });
   });
@@ -90,9 +102,17 @@ describe('resource guides', () => {
       guide_key: 'tour_notification',
       guide_step_ref: 'lab_tours',
       content: { body: 'bar', title: 'bar' },
-      data: { next_time: 'bar', spots_left: 'bar', tour_id: 'bar' },
+      data: {
+        next_time: 'bar',
+        spots_left: 'bar',
+        tour_id: 'bar',
+      },
       is_final: false,
-      metadata: { cta: 'bar', theme: 'bar', type: 'bar' },
+      metadata: {
+        cta: 'bar',
+        theme: 'bar',
+        type: 'bar',
+      },
       tenant: 'ingen_isla_nublar',
     });
   });
@@ -122,9 +142,17 @@ describe('resource guides', () => {
       guide_key: 'tour_notification',
       guide_step_ref: 'lab_tours',
       content: { body: 'bar', title: 'bar' },
-      data: { next_time: 'bar', spots_left: 'bar', tour_id: 'bar' },
+      data: {
+        next_time: 'bar',
+        spots_left: 'bar',
+        tour_id: 'bar',
+      },
       is_final: false,
-      metadata: { cta: 'bar', theme: 'bar', type: 'bar' },
+      metadata: {
+        cta: 'bar',
+        theme: 'bar',
+        type: 'bar',
+      },
       tenant: 'ingen_isla_nublar',
     });
   });
