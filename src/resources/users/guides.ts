@@ -153,6 +153,11 @@ export interface GuideGetChannelResponse {
    * A list of guide groups with their display sequences and intervals.
    */
   guide_groups: Array<GuideGetChannelResponse.GuideGroup>;
+
+  /**
+   * Markers for guides the user is not eligible to see.
+   */
+  ineligible_guides: Array<GuideGetChannelResponse.IneligibleGuide>;
 }
 
 export namespace GuideGetChannelResponse {
@@ -285,6 +290,27 @@ export namespace GuideGetChannelResponse {
     key?: string;
 
     updated_at?: string;
+  }
+
+  export interface IneligibleGuide {
+    /**
+     * The guide's key identifier
+     */
+    key: string;
+
+    /**
+     * Human-readable explanation of ineligibility
+     */
+    message: string;
+
+    /**
+     * Reason code for ineligibility
+     */
+    reason:
+      | 'guide_not_active'
+      | 'marked_as_archived'
+      | 'target_conditions_not_met'
+      | 'not_in_target_audience';
   }
 }
 
