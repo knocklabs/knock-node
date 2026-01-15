@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.28.0 (2026-01-15)
+
+Full Changelog: [v1.27.0...v1.28.0](https://github.com/knocklabs/knock-node/compare/v1.27.0...v1.28.0)
+
+### Features
+
+* **api:** api update ([c1b0cc6](https://github.com/knocklabs/knock-node/commit/c1b0cc69997f6ab19c11aae57d8efcac0ccbe946))
+
+
+### Chores
+
+* break long lines in snippets into multiline ([f3328b4](https://github.com/knocklabs/knock-node/commit/f3328b46674d1e5ba50e9b4f884926dcd4ef7e3c))
+* **internal:** codegen related update ([c48d266](https://github.com/knocklabs/knock-node/commit/c48d2661b5cff60d817390c3e44c646b2c9d859f))
+* **internal:** upgrade babel, qs, js-yaml ([8df5742](https://github.com/knocklabs/knock-node/commit/8df5742b2bc264a09c6bf12e90fd6929b4781d01))
+
 ## 1.27.0 (2025-12-29)
 
 Full Changelog: [v1.26.0...v1.27.0](https://github.com/knocklabs/knock-node/compare/v1.26.0...v1.27.0)
