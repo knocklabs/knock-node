@@ -25,7 +25,13 @@ describe('resource tenants', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.tenants.list(
-        { after: 'after', before: 'before', name: 'name', page_size: 0, tenant_id: 'tenant_id' },
+        {
+          after: 'after',
+          before: 'before',
+          name: 'name',
+          page_size: 0,
+          tenant_id: 'tenant_id',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Knock.NotFoundError);
