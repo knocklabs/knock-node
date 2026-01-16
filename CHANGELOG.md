@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.29.0 (2026-01-16)
+
+Full Changelog: [v1.28.0...v1.29.0](https://github.com/knocklabs/knock-node/compare/v1.28.0...v1.29.0)
+
+### Features
+
+* **api:** api update ([bf382c0](https://github.com/knocklabs/knock-node/commit/bf382c0bf162077e7c28b65551085f461f8592c0))
+
+
+### Chores
+
+* **internal:** update `actions/checkout` version ([2048a84](https://github.com/knocklabs/knock-node/commit/2048a84ada13831beeb378d9b938bedf2f78eba4))
+
 ## 1.28.0 (2026-01-15)
 
 Full Changelog: [v1.27.0...v1.28.0](https://github.com/knocklabs/knock-node/compare/v1.27.0...v1.28.0)
