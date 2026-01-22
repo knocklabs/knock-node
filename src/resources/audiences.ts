@@ -18,7 +18,11 @@ export class Audiences extends APIResource {
    *   members: [
    *     {
    *       tenant: 'ingen_isla_nublar',
-   *       user: { id: 'dr_sattler' },
+   *       user: {
+   *         email: 'ellie@ingen.net',
+   *         id: 'dr_sattler',
+   *         name: 'Dr. Ellie Sattler',
+   *       },
    *     },
    *   ],
    * });
@@ -50,7 +54,7 @@ export class Audiences extends APIResource {
    * @example
    * ```ts
    * await client.audiences.removeMembers('key', {
-   *   members: [{ user: {} }],
+   *   members: [{ user: { id: 'dr_sattler' } }],
    * });
    * ```
    */
@@ -123,26 +127,17 @@ export namespace AudienceAddMembersParams {
    */
   export interface Member {
     /**
-     * An object containing the user's ID.
+     * A set of parameters to inline-identify a user with. Inline identifying the user
+     * will ensure that the user is available before the request is executed in Knock.
+     * It will perform an upsert for the user you're supplying, replacing any
+     * properties specified.
      */
-    user: Member.User;
+    user: UsersAPI.InlineIdentifyUserRequest;
 
     /**
      * The unique identifier for the tenant.
      */
     tenant?: string | null;
-  }
-
-  export namespace Member {
-    /**
-     * An object containing the user's ID.
-     */
-    export interface User {
-      /**
-       * The unique identifier of the user.
-       */
-      id?: string;
-    }
   }
 }
 
@@ -159,26 +154,17 @@ export namespace AudienceRemoveMembersParams {
    */
   export interface Member {
     /**
-     * An object containing the user's ID.
+     * A set of parameters to inline-identify a user with. Inline identifying the user
+     * will ensure that the user is available before the request is executed in Knock.
+     * It will perform an upsert for the user you're supplying, replacing any
+     * properties specified.
      */
-    user: Member.User;
+    user: UsersAPI.InlineIdentifyUserRequest;
 
     /**
      * The unique identifier for the tenant.
      */
     tenant?: string | null;
-  }
-
-  export namespace Member {
-    /**
-     * An object containing the user's ID.
-     */
-    export interface User {
-      /**
-       * The unique identifier of the user.
-       */
-      id?: string;
-    }
   }
 }
 
