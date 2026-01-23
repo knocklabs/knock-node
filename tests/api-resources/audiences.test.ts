@@ -10,7 +10,7 @@ const client = new Knock({
 describe('resource audiences', () => {
   // Prism doesn't support callbacks yet
   test.skip('addMembers: only required params', async () => {
-    const responsePromise = client.audiences.addMembers('key', { members: [{ user: {} }] });
+    const responsePromise = client.audiences.addMembers('key', { members: [{ user: { id: 'dr_sattler' } }] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -25,7 +25,108 @@ describe('resource audiences', () => {
     const response = await client.audiences.addMembers('key', {
       members: [
         {
-          user: { id: 'dr_sattler' },
+          user: {
+            id: 'dr_sattler',
+            avatar: 'avatar',
+            channel_data: { '97c5837d-c65c-4d54-aa39-080eeb81c69d': { tokens: ['push_token_123'] } },
+            created_at: '2019-12-27T18:11:19.117Z',
+            email: 'ellie@ingen.net',
+            locale: 'locale',
+            name: 'Dr. Ellie Sattler',
+            phone_number: 'phone_number',
+            preferences: {
+              default: {
+                __persistence_strategy__: 'merge',
+                categories: {
+                  marketing: false,
+                  transactional: {
+                    channel_types: {
+                      chat: true,
+                      email: false,
+                      http: true,
+                      in_app_feed: true,
+                      push: true,
+                      sms: {
+                        conditions: [
+                          {
+                            argument: 'US',
+                            operator: 'equal_to',
+                            variable: 'recipient.country_code',
+                          },
+                        ],
+                      },
+                    },
+                    channels: { 'aef6e715-df82-4ab6-b61e-b743e249f7b6': true },
+                    conditions: [
+                      {
+                        argument: 'frog_genome',
+                        operator: 'contains',
+                        variable: 'specimen.dna_sequence',
+                      },
+                    ],
+                  },
+                },
+                channel_types: {
+                  chat: true,
+                  email: true,
+                  http: true,
+                  in_app_feed: true,
+                  push: true,
+                  sms: {
+                    conditions: [
+                      {
+                        argument: 'US',
+                        operator: 'equal_to',
+                        variable: 'recipient.country_code',
+                      },
+                    ],
+                  },
+                },
+                channels: {
+                  '2f641633-95d3-4555-9222-9f1eb7888a80': {
+                    conditions: [
+                      {
+                        argument: 'US',
+                        operator: 'equal_to',
+                        variable: 'recipient.country_code',
+                      },
+                    ],
+                  },
+                  'aef6e715-df82-4ab6-b61e-b743e249f7b6': true,
+                },
+                commercial_subscribed: true,
+                workflows: {
+                  'dinosaurs-loose': {
+                    channel_types: {
+                      chat: true,
+                      email: true,
+                      http: true,
+                      in_app_feed: true,
+                      push: true,
+                      sms: {
+                        conditions: [
+                          {
+                            argument: 'US',
+                            operator: 'equal_to',
+                            variable: 'recipient.country_code',
+                          },
+                        ],
+                      },
+                    },
+                    channels: { 'aef6e715-df82-4ab6-b61e-b743e249f7b6': true },
+                    conditions: [
+                      {
+                        argument: 'frog_genome',
+                        operator: 'contains',
+                        variable: 'specimen.dna_sequence',
+                      },
+                    ],
+                  },
+                },
+              },
+            },
+            timezone: 'America/New_York',
+          },
           tenant: 'ingen_isla_nublar',
         },
       ],
@@ -46,7 +147,9 @@ describe('resource audiences', () => {
 
   // Prism doesn't support callbacks yet
   test.skip('removeMembers: only required params', async () => {
-    const responsePromise = client.audiences.removeMembers('key', { members: [{ user: {} }] });
+    const responsePromise = client.audiences.removeMembers('key', {
+      members: [{ user: { id: 'dr_sattler' } }],
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -61,7 +164,108 @@ describe('resource audiences', () => {
     const response = await client.audiences.removeMembers('key', {
       members: [
         {
-          user: { id: 'dr_sattler' },
+          user: {
+            id: 'dr_sattler',
+            avatar: 'avatar',
+            channel_data: { '97c5837d-c65c-4d54-aa39-080eeb81c69d': { tokens: ['push_token_123'] } },
+            created_at: '2019-12-27T18:11:19.117Z',
+            email: 'ellie@ingen.net',
+            locale: 'locale',
+            name: 'Dr. Ellie Sattler',
+            phone_number: 'phone_number',
+            preferences: {
+              default: {
+                __persistence_strategy__: 'merge',
+                categories: {
+                  marketing: false,
+                  transactional: {
+                    channel_types: {
+                      chat: true,
+                      email: false,
+                      http: true,
+                      in_app_feed: true,
+                      push: true,
+                      sms: {
+                        conditions: [
+                          {
+                            argument: 'US',
+                            operator: 'equal_to',
+                            variable: 'recipient.country_code',
+                          },
+                        ],
+                      },
+                    },
+                    channels: { 'aef6e715-df82-4ab6-b61e-b743e249f7b6': true },
+                    conditions: [
+                      {
+                        argument: 'frog_genome',
+                        operator: 'contains',
+                        variable: 'specimen.dna_sequence',
+                      },
+                    ],
+                  },
+                },
+                channel_types: {
+                  chat: true,
+                  email: true,
+                  http: true,
+                  in_app_feed: true,
+                  push: true,
+                  sms: {
+                    conditions: [
+                      {
+                        argument: 'US',
+                        operator: 'equal_to',
+                        variable: 'recipient.country_code',
+                      },
+                    ],
+                  },
+                },
+                channels: {
+                  '2f641633-95d3-4555-9222-9f1eb7888a80': {
+                    conditions: [
+                      {
+                        argument: 'US',
+                        operator: 'equal_to',
+                        variable: 'recipient.country_code',
+                      },
+                    ],
+                  },
+                  'aef6e715-df82-4ab6-b61e-b743e249f7b6': true,
+                },
+                commercial_subscribed: true,
+                workflows: {
+                  'dinosaurs-loose': {
+                    channel_types: {
+                      chat: true,
+                      email: true,
+                      http: true,
+                      in_app_feed: true,
+                      push: true,
+                      sms: {
+                        conditions: [
+                          {
+                            argument: 'US',
+                            operator: 'equal_to',
+                            variable: 'recipient.country_code',
+                          },
+                        ],
+                      },
+                    },
+                    channels: { 'aef6e715-df82-4ab6-b61e-b743e249f7b6': true },
+                    conditions: [
+                      {
+                        argument: 'frog_genome',
+                        operator: 'contains',
+                        variable: 'specimen.dna_sequence',
+                      },
+                    ],
+                  },
+                },
+              },
+            },
+            timezone: 'America/New_York',
+          },
           tenant: 'ingen_isla_nublar',
         },
       ],
