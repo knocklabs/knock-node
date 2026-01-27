@@ -26,8 +26,10 @@ export interface Condition {
     | 'contains_all'
     | 'is_timestamp'
     | 'is_not_timestamp'
-    | 'is_timestamp_after'
+    | 'is_timestamp_on_or_after'
     | 'is_timestamp_before'
+    | 'is_timestamp_on_or_after_date'
+    | 'is_timestamp_before_date'
     | 'is_timestamp_between'
     | 'is_audience_member'
     | 'is_not_audience_member';

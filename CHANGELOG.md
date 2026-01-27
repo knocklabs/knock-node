@@ -1,5 +1,29 @@
 # Changelog
 
+## 1.29.0 (2026-01-27)
+
+Full Changelog: [v1.28.0...v1.29.0](https://github.com/knocklabs/knock-node/compare/v1.28.0...v1.29.0)
+
+### Features
+
+* **api:** api update ([8ff53b4](https://github.com/knocklabs/knock-node/commit/8ff53b4798307b7d4a3feb5febdb3bfb3c039c43))
+* **api:** api update ([77ebc62](https://github.com/knocklabs/knock-node/commit/77ebc623dcba86c33fd0685bf622fb372be47b91))
+* **api:** api update ([510da52](https://github.com/knocklabs/knock-node/commit/510da5211c4d52dc3ff9aedc0a95a1ce689bd1dd))
+* **api:** api update ([4ef0068](https://github.com/knocklabs/knock-node/commit/4ef00687d3d26bd308a9e4f4540492c4f6bbe3c7))
+* **api:** api update ([9aa302a](https://github.com/knocklabs/knock-node/commit/9aa302a18b8ce1b77a6d07c418e328640084bf04))
+* **api:** api update ([35bdbf0](https://github.com/knocklabs/knock-node/commit/35bdbf0694f7f29d5b5e4ad38d18d9a5fcec2f94))
+* **api:** api update ([026e846](https://github.com/knocklabs/knock-node/commit/026e8466fb87b4f879755f222ad526ba8db956e8))
+* **api:** api update ([10316df](https://github.com/knocklabs/knock-node/commit/10316df12a84166f5b2933be7a5aa73f9e43cec6))
+* **api:** api update ([8fecb72](https://github.com/knocklabs/knock-node/commit/8fecb721112dee9e4b106d42f297c174a4271361))
+* **api:** api update ([bf382c0](https://github.com/knocklabs/knock-node/commit/bf382c0bf162077e7c28b65551085f461f8592c0))
+
+
+### Chores
+
+* **ci:** upgrade `actions/github-script` ([d3c6eed](https://github.com/knocklabs/knock-node/commit/d3c6eed42a83abd3e529c299edf4fa61b67ed58a))
+* **internal:** codegen related update ([5def577](https://github.com/knocklabs/knock-node/commit/5def577b5e605cdd62e2d8e98d98543fc936e0b9))
+* **internal:** update `actions/checkout` version ([2048a84](https://github.com/knocklabs/knock-node/commit/2048a84ada13831beeb378d9b938bedf2f78eba4))
+
 ## 1.28.0 (2026-01-15)
 
 Full Changelog: [v1.27.0...v1.28.0](https://github.com/knocklabs/knock-node/compare/v1.27.0...v1.28.0)
