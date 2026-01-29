@@ -223,6 +223,11 @@ export namespace GuideGetChannelResponse {
        * The pathname pattern to match (supports wildcards like /\*)
        */
       pathname?: string;
+
+      /**
+       * The search query params to match
+       */
+      search?: string;
     }
 
     export interface ActivationURLRule {
@@ -232,7 +237,7 @@ export namespace GuideGetChannelResponse {
       argument?: string;
 
       /**
-       * The directive for the URL pattern ('allow' or 'block')
+       * The directive for the URL rule ('allow' or 'block')
        */
       directive?: string;
 
