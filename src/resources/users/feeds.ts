@@ -290,6 +290,13 @@ export interface FeedListItemsParams extends EntriesCursorParams {
   archived?: 'exclude' | 'include' | 'only';
 
   /**
+   * Comma-separated list of field paths to exclude from the response. Use dot
+   * notation for nested fields (e.g., `entries.archived_at`). Limited to 3 levels
+   * deep.
+   */
+  exclude?: string;
+
+  /**
    * Whether the feed items have a tenant.
    */
   has_tenant?: boolean;

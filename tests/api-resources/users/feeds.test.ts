@@ -43,6 +43,7 @@ describe('resource feeds', () => {
           after: 'after',
           archived: 'exclude',
           before: 'before',
+          exclude: 'exclude',
           has_tenant: true,
           locale: 'locale',
           page_size: 0,
