@@ -46,7 +46,6 @@ describe('resource feeds', () => {
           exclude: 'exclude',
           has_tenant: true,
           locale: 'locale',
-          mode: 'compact',
           page_size: 0,
           source: 'source',
           status: 'unread',

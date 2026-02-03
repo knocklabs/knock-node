@@ -310,14 +310,6 @@ export interface FeedListItemsParams extends EntriesCursorParams {
   locale?: string;
 
   /**
-   * The mode to render the feed items in. Can be `compact` or `rich`. Defaults to
-   * `rich`. When `mode` is `compact`, feed items will not have `activities` and
-   * `total_activities` fields, and the `data` field will not include nested arrays
-   * and objects.
-   */
-  mode?: 'compact' | 'rich';
-
-  /**
    * The workflow key associated with the message in the feed.
    */
   source?: string;
