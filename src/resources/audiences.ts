@@ -116,7 +116,7 @@ export interface AudienceListMembersResponse {
 
 export interface AudienceAddMembersParams {
   /**
-   * A list of audience members to add. Limited to 1,000 members per request.
+   * A list of audience members to add. You can add up to 1,000 members per request.
    */
   members: Array<AudienceAddMembersParams.Member>;
 }
@@ -143,7 +143,8 @@ export namespace AudienceAddMembersParams {
 
 export interface AudienceRemoveMembersParams {
   /**
-   * A list of audience members to remove.
+   * A list of audience members to remove. You can remove up to 1,000 members per
+   * request.
    */
   members: Array<AudienceRemoveMembersParams.Member>;
 }
