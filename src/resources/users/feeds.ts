@@ -301,6 +301,8 @@ export interface FeedListItemsParams extends EntriesCursorParams {
    */
   has_tenant?: boolean;
 
+  inserted_at?: FeedListItemsParams.InsertedAt;
+
   /**
    * The locale to render the feed items in. Must be in the IETF 5646 format (e.g.
    * `en-US`). When not provided, will default to the locale that the feed items were
@@ -333,6 +335,30 @@ export interface FeedListItemsParams extends EntriesCursorParams {
    * The workflow categories of the feed items.
    */
   workflow_categories?: Array<string>;
+}
+
+export namespace FeedListItemsParams {
+  export interface InsertedAt {
+    /**
+     * Limits the results to items inserted after the given date.
+     */
+    gt?: string;
+
+    /**
+     * Limits the results to items inserted after or on the given date.
+     */
+    gte?: string;
+
+    /**
+     * Limits the results to items inserted before the given date.
+     */
+    lt?: string;
+
+    /**
+     * Limits the results to items inserted before or on the given date.
+     */
+    lte?: string;
+  }
 }
 
 export declare namespace Feeds {
