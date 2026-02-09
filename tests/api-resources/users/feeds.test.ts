@@ -45,6 +45,12 @@ describe('resource feeds', () => {
           before: 'before',
           exclude: 'exclude',
           has_tenant: true,
+          inserted_at: {
+            gt: 'gt',
+            gte: 'gte',
+            lt: 'lt',
+            lte: 'lte',
+          },
           locale: 'locale',
           page_size: 0,
           source: 'source',
