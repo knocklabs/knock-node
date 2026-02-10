@@ -52,6 +52,7 @@ describe('resource feeds', () => {
             lte: 'lte',
           },
           locale: 'locale',
+          mode: 'compact',
           page_size: 0,
           source: 'source',
           status: 'unread',
