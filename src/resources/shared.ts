@@ -23,6 +23,8 @@ export interface Condition {
     | 'not_contains'
     | 'empty'
     | 'not_empty'
+    | 'exists'
+    | 'not_exists'
     | 'contains_all'
     | 'is_timestamp'
     | 'is_not_timestamp'
