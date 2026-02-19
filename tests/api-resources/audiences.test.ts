@@ -130,6 +130,7 @@ describe('resource audiences', () => {
           tenant: 'ingen_isla_nublar',
         },
       ],
+      create_audience: true,
     });
   });
 

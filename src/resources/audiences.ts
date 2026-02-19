@@ -28,8 +28,10 @@ export class Audiences extends APIResource {
    * });
    * ```
    */
-  addMembers(key: string, body: AudienceAddMembersParams, options?: RequestOptions): APIPromise<void> {
+  addMembers(key: string, params: AudienceAddMembersParams, options?: RequestOptions): APIPromise<void> {
+    const { create_audience, ...body } = params;
     return this._client.post(path`/v1/audiences/${key}/members`, {
+      query: { create_audience },
       body,
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
@@ -116,9 +118,15 @@ export interface AudienceListMembersResponse {
 
 export interface AudienceAddMembersParams {
   /**
-   * A list of audience members to add. You can add up to 1,000 members per request.
+   * Body param: A list of audience members to add. You can add up to 1,000 members
+   * per request.
    */
   members: Array<AudienceAddMembersParams.Member>;
+
+  /**
+   * Query param: Create the audience if it does not exist.
+   */
+  create_audience?: boolean;
 }
 
 export namespace AudienceAddMembersParams {
