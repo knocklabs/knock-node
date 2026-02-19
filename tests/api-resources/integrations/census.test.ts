@@ -8,7 +8,7 @@ const client = new Knock({
 });
 
 describe('resource census', () => {
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('customDestination: only required params', async () => {
     const responsePromise = client.integrations.census.customDestination({
       id: 'id',
@@ -24,7 +24,7 @@ describe('resource census', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('customDestination: required and optional params', async () => {
     const response = await client.integrations.census.customDestination({
       id: 'id',

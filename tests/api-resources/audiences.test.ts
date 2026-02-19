@@ -8,7 +8,7 @@ const client = new Knock({
 });
 
 describe('resource audiences', () => {
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('addMembers: only required params', async () => {
     const responsePromise = client.audiences.addMembers('key', { members: [{ user: { id: 'dr_sattler' } }] });
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource audiences', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('addMembers: required and optional params', async () => {
     const response = await client.audiences.addMembers('key', {
       members: [
@@ -133,7 +133,7 @@ describe('resource audiences', () => {
     });
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('listMembers', async () => {
     const responsePromise = client.audiences.listMembers('key');
     const rawResponse = await responsePromise.asResponse();
@@ -145,7 +145,7 @@ describe('resource audiences', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('removeMembers: only required params', async () => {
     const responsePromise = client.audiences.removeMembers('key', {
       members: [{ user: { id: 'dr_sattler' } }],
@@ -159,7 +159,7 @@ describe('resource audiences', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('removeMembers: required and optional params', async () => {
     const response = await client.audiences.removeMembers('key', {
       members: [
