@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.29.1 (2026-02-23)
+
+Full Changelog: [v1.29.0...v1.29.1](https://github.com/knocklabs/knock-node/compare/v1.29.0...v1.29.1)
+
+### Chores
+
+* update SDK settings ([8860951](https://github.com/knocklabs/knock-node/commit/886095149e61025945d3f3456776392160b4e1fd))
+
 ## 1.29.0 (2026-02-23)
 
 Full Changelog: [v1.28.0...v1.29.0](https://github.com/knocklabs/knock-node/compare/v1.28.0...v1.29.0)
