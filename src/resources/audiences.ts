@@ -18,14 +18,20 @@ export class Audiences extends APIResource {
    *   members: [
    *     {
    *       tenant: 'ingen_isla_nublar',
-   *       user: { id: 'dr_sattler' },
+   *       user: {
+   *         email: 'ellie@ingen.net',
+   *         id: 'dr_sattler',
+   *         name: 'Dr. Ellie Sattler',
+   *       },
    *     },
    *   ],
    * });
    * ```
    */
-  addMembers(key: string, body: AudienceAddMembersParams, options?: RequestOptions): APIPromise<void> {
+  addMembers(key: string, params: AudienceAddMembersParams, options?: RequestOptions): APIPromise<void> {
+    const { create_audience, ...body } = params;
     return this._client.post(path`/v1/audiences/${key}/members`, {
+      query: { create_audience },
       body,
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
@@ -50,7 +56,7 @@ export class Audiences extends APIResource {
    * @example
    * ```ts
    * await client.audiences.removeMembers('key', {
-   *   members: [{ user: {} }],
+   *   members: [{ user: { id: 'dr_sattler' } }],
    * });
    * ```
    */
@@ -112,9 +118,15 @@ export interface AudienceListMembersResponse {
 
 export interface AudienceAddMembersParams {
   /**
-   * A list of audience members to add. Limited to 1,000 members per request.
+   * Body param: A list of audience members to add. You can add up to 1,000 members
+   * per request.
    */
   members: Array<AudienceAddMembersParams.Member>;
+
+  /**
+   * Query param: Create the audience if it does not exist.
+   */
+  create_audience?: boolean;
 }
 
 export namespace AudienceAddMembersParams {
@@ -123,32 +135,24 @@ export namespace AudienceAddMembersParams {
    */
   export interface Member {
     /**
-     * An object containing the user's ID.
+     * A set of parameters to inline-identify a user with. Inline identifying the user
+     * will ensure that the user is available before the request is executed in Knock.
+     * It will perform an upsert for the user you're supplying, replacing any
+     * properties specified.
      */
-    user: Member.User;
+    user: UsersAPI.InlineIdentifyUserRequest;
 
     /**
      * The unique identifier for the tenant.
      */
     tenant?: string | null;
   }
-
-  export namespace Member {
-    /**
-     * An object containing the user's ID.
-     */
-    export interface User {
-      /**
-       * The unique identifier of the user.
-       */
-      id?: string;
-    }
-  }
 }
 
 export interface AudienceRemoveMembersParams {
   /**
-   * A list of audience members to remove.
+   * A list of audience members to remove. You can remove up to 1,000 members per
+   * request.
    */
   members: Array<AudienceRemoveMembersParams.Member>;
 }
@@ -159,26 +163,17 @@ export namespace AudienceRemoveMembersParams {
    */
   export interface Member {
     /**
-     * An object containing the user's ID.
+     * A set of parameters to inline-identify a user with. Inline identifying the user
+     * will ensure that the user is available before the request is executed in Knock.
+     * It will perform an upsert for the user you're supplying, replacing any
+     * properties specified.
      */
-    user: Member.User;
+    user: UsersAPI.InlineIdentifyUserRequest;
 
     /**
      * The unique identifier for the tenant.
      */
     tenant?: string | null;
-  }
-
-  export namespace Member {
-    /**
-     * An object containing the user's ID.
-     */
-    export interface User {
-      /**
-       * The unique identifier of the user.
-       */
-      id?: string;
-    }
   }
 }
 

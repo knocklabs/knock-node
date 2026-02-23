@@ -8,7 +8,7 @@ const client = new Knock({
 });
 
 describe('resource objects', () => {
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('list', async () => {
     const responsePromise = client.objects.list('collection');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource objects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -37,7 +37,7 @@ describe('resource objects', () => {
     ).rejects.toThrow(Knock.NotFoundError);
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('delete', async () => {
     const responsePromise = client.objects.delete('collection', 'id');
     const rawResponse = await responsePromise.asResponse();
@@ -49,7 +49,7 @@ describe('resource objects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('addSubscriptions: only required params', async () => {
     const responsePromise = client.objects.addSubscriptions('collection', 'object_id', {
       recipients: ['user_1', 'user_2'],
@@ -63,7 +63,7 @@ describe('resource objects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('addSubscriptions: required and optional params', async () => {
     const response = await client.objects.addSubscriptions('collection', 'object_id', {
       recipients: ['user_1', 'user_2'],
@@ -71,7 +71,7 @@ describe('resource objects', () => {
     });
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('deleteSubscriptions: only required params', async () => {
     const responsePromise = client.objects.deleteSubscriptions('collection', 'object_id', {
       recipients: ['user_123'],
@@ -85,14 +85,14 @@ describe('resource objects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('deleteSubscriptions: required and optional params', async () => {
     const response = await client.objects.deleteSubscriptions('collection', 'object_id', {
       recipients: ['user_123'],
     });
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('get', async () => {
     const responsePromise = client.objects.get('collection', 'id');
     const rawResponse = await responsePromise.asResponse();
@@ -104,7 +104,7 @@ describe('resource objects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('getChannelData', async () => {
     const responsePromise = client.objects.getChannelData(
       'collection',
@@ -120,7 +120,7 @@ describe('resource objects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('getPreferences', async () => {
     const responsePromise = client.objects.getPreferences('collection', 'object_id', 'default');
     const rawResponse = await responsePromise.asResponse();
@@ -132,7 +132,7 @@ describe('resource objects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('listMessages', async () => {
     const responsePromise = client.objects.listMessages('projects', 'project-123');
     const rawResponse = await responsePromise.asResponse();
@@ -144,7 +144,7 @@ describe('resource objects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('listMessages: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -177,7 +177,7 @@ describe('resource objects', () => {
     ).rejects.toThrow(Knock.NotFoundError);
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('listPreferences', async () => {
     const responsePromise = client.objects.listPreferences('collection', 'object_id');
     const rawResponse = await responsePromise.asResponse();
@@ -189,7 +189,7 @@ describe('resource objects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('listSchedules', async () => {
     const responsePromise = client.objects.listSchedules('collection', 'id');
     const rawResponse = await responsePromise.asResponse();
@@ -201,7 +201,7 @@ describe('resource objects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('listSchedules: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -220,7 +220,7 @@ describe('resource objects', () => {
     ).rejects.toThrow(Knock.NotFoundError);
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('listSubscriptions', async () => {
     const responsePromise = client.objects.listSubscriptions('collection', 'object_id');
     const rawResponse = await responsePromise.asResponse();
@@ -232,7 +232,7 @@ describe('resource objects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('listSubscriptions: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -253,7 +253,7 @@ describe('resource objects', () => {
     ).rejects.toThrow(Knock.NotFoundError);
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('set', async () => {
     const responsePromise = client.objects.set('collection', 'id', {});
     const rawResponse = await responsePromise.asResponse();
@@ -265,7 +265,7 @@ describe('resource objects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('setChannelData: only required params', async () => {
     const responsePromise = client.objects.setChannelData(
       'collection',
@@ -282,7 +282,7 @@ describe('resource objects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('setChannelData: required and optional params', async () => {
     const response = await client.objects.setChannelData(
       'collection',
@@ -292,7 +292,7 @@ describe('resource objects', () => {
     );
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('setPreferences', async () => {
     const responsePromise = client.objects.setPreferences('collection', 'object_id', 'default', {});
     const rawResponse = await responsePromise.asResponse();
@@ -304,7 +304,7 @@ describe('resource objects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('unsetChannelData', async () => {
     const responsePromise = client.objects.unsetChannelData(
       'collection',

@@ -39,6 +39,9 @@ export class Feeds extends APIResource {
    *   along with a user token.
    * - This endpoint’s rate limit is always scoped per-user and per-environment. This
    *   is true even for requests made without a signed user token.
+   * - Any [attachments](/integrations/email/attachments) present in trigger data are
+   *   automatically excluded from both the `data` and `activities` fields of
+   *   `UserInAppFeedResponse`.
    *
    * @example
    * ```ts
@@ -287,9 +290,18 @@ export interface FeedListItemsParams extends EntriesCursorParams {
   archived?: 'exclude' | 'include' | 'only';
 
   /**
+   * Comma-separated list of field paths to exclude from the response. Use dot
+   * notation for nested fields (e.g., `entries.archived_at`). Limited to 3 levels
+   * deep.
+   */
+  exclude?: string;
+
+  /**
    * Whether the feed items have a tenant.
    */
   has_tenant?: boolean;
+
+  inserted_at?: FeedListItemsParams.InsertedAt;
 
   /**
    * The locale to render the feed items in. Must be in the IETF 5646 format (e.g.
@@ -298,6 +310,14 @@ export interface FeedListItemsParams extends EntriesCursorParams {
    * translations.
    */
   locale?: string;
+
+  /**
+   * The mode to render the feed items in. Can be `compact` or `rich`. Defaults to
+   * `rich`. When `mode` is `compact`, feed items will not have `activities` and
+   * `total_activities` fields; the `data` field will not include nested arrays and
+   * objects; and the `actors` field will only have up to one actor.
+   */
+  mode?: 'compact' | 'rich';
 
   /**
    * The workflow key associated with the message in the feed.
@@ -323,6 +343,30 @@ export interface FeedListItemsParams extends EntriesCursorParams {
    * The workflow categories of the feed items.
    */
   workflow_categories?: Array<string>;
+}
+
+export namespace FeedListItemsParams {
+  export interface InsertedAt {
+    /**
+     * Limits the results to items inserted after the given date.
+     */
+    gt?: string;
+
+    /**
+     * Limits the results to items inserted after or on the given date.
+     */
+    gte?: string;
+
+    /**
+     * Limits the results to items inserted before the given date.
+     */
+    lt?: string;
+
+    /**
+     * Limits the results to items inserted before or on the given date.
+     */
+    lte?: string;
+  }
 }
 
 export declare namespace Feeds {

@@ -609,22 +609,22 @@ export interface ObjectListMessagesParams extends ItemsCursorParams {
 export namespace ObjectListMessagesParams {
   export interface InsertedAt {
     /**
-     * Limits the results to messages inserted after the given date.
+     * Limits the results to items inserted after the given date.
      */
     gt?: string;
 
     /**
-     * Limits the results to messages inserted after or on the given date.
+     * Limits the results to items inserted after or on the given date.
      */
     gte?: string;
 
     /**
-     * Limits the results to messages inserted before the given date.
+     * Limits the results to items inserted before the given date.
      */
     lt?: string;
 
     /**
-     * Limits the results to messages inserted before or on the given date.
+     * Limits the results to items inserted before or on the given date.
      */
     lte?: string;
   }

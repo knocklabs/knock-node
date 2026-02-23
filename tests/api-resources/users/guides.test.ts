@@ -8,7 +8,7 @@ const client = new Knock({
 });
 
 describe('resource guides', () => {
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('getChannel', async () => {
     const responsePromise = client.users.guides.getChannel('user_id', '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource guides', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('getChannel: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -37,7 +37,7 @@ describe('resource guides', () => {
     ).rejects.toThrow(Knock.NotFoundError);
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('markMessageAsArchived: only required params', async () => {
     const responsePromise = client.users.guides.markMessageAsArchived('user_id', 'message_id', {
       channel_id: '123e4567-e89b-12d3-a456-426614174000',
@@ -54,7 +54,7 @@ describe('resource guides', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('markMessageAsArchived: required and optional params', async () => {
     const response = await client.users.guides.markMessageAsArchived('user_id', 'message_id', {
       channel_id: '123e4567-e89b-12d3-a456-426614174000',
@@ -77,7 +77,7 @@ describe('resource guides', () => {
     });
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('markMessageAsInteracted: only required params', async () => {
     const responsePromise = client.users.guides.markMessageAsInteracted('user_id', 'message_id', {
       channel_id: '123e4567-e89b-12d3-a456-426614174000',
@@ -94,7 +94,7 @@ describe('resource guides', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('markMessageAsInteracted: required and optional params', async () => {
     const response = await client.users.guides.markMessageAsInteracted('user_id', 'message_id', {
       channel_id: '123e4567-e89b-12d3-a456-426614174000',
@@ -117,7 +117,7 @@ describe('resource guides', () => {
     });
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('markMessageAsSeen: only required params', async () => {
     const responsePromise = client.users.guides.markMessageAsSeen('user_id', 'message_id', {
       channel_id: '123e4567-e89b-12d3-a456-426614174000',
@@ -134,7 +134,7 @@ describe('resource guides', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism doesn't support callbacks yet
+  // Mock server doesn't support callbacks yet
   test.skip('markMessageAsSeen: required and optional params', async () => {
     const response = await client.users.guides.markMessageAsSeen('user_id', 'message_id', {
       channel_id: '123e4567-e89b-12d3-a456-426614174000',
