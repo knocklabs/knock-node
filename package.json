@@ -1,6 +1,6 @@
 {
   "name": "@knocklabs/node",
-  "version": "1.28.0",
+  "version": "1.29.0",
   "description": "The official TypeScript library for the Knock API",
   "author": "Knock <support@knock.app>",
   "types": "dist/index.d.ts",
