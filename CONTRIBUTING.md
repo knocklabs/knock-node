@@ -60,7 +60,7 @@ $ yarn link @knocklabs/node
 # With pnpm
 $ pnpm link --global
 $ cd ../my-package
-$ pnpm link -—global @knocklabs/node
+$ pnpm link --global @knocklabs/node
 ```
 
 ## Running tests
