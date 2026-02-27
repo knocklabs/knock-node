@@ -861,16 +861,40 @@ export class Knock {
   static toFile = Uploads.toFile;
 
   recipients: API.Recipients = new API.Recipients(this);
+  /**
+   * A user is an individual from your system, represented in Knock. They are most commonly a recipient of a notification.
+   */
   users: API.Users = new API.Users(this);
+  /**
+   * An object represents a resource in your system that you want to map into Knock.
+   */
   objects: API.Objects = new API.Objects(this);
+  /**
+   * A tenant represents a top-level entity from your system, like a company, organization, account, or workspace.
+   */
   tenants: API.Tenants = new API.Tenants(this);
+  /**
+   * A bulk operation is a set of changes applied across zero or more records triggered via a call to the Knock API and performed asynchronously.
+   */
   bulkOperations: API.BulkOperations = new API.BulkOperations(this);
+  /**
+   * A message sent to a single recipient on a channel.
+   */
   messages: API.Messages = new API.Messages(this);
   providers: API.Providers = new API.Providers(this);
   integrations: API.Integrations = new API.Integrations(this);
+  /**
+   * A workflow is a structured set of steps that is triggered to produce notifications sent over channels.
+   */
   workflows: API.Workflows = new API.Workflows(this);
+  /**
+   * A schedule is a per-recipient, timezone-aware configuration for when to invoke a workflow.
+   */
   schedules: API.Schedules = new API.Schedules(this);
   channels: API.Channels = new API.Channels(this);
+  /**
+   * An Audience is a segment of users.
+   */
   audiences: API.Audiences = new API.Audiences(this);
 }
 

@@ -5,6 +5,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * A user is an individual from your system, represented in Knock. They are most commonly a recipient of a notification.
+ */
 export class Guides extends APIResource {
   /**
    * Returns a list of eligible in-app guides for a specific user and channel.

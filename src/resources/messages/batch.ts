@@ -5,6 +5,9 @@ import * as MessagesAPI from './messages';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
+/**
+ * A message sent to a single recipient on a channel.
+ */
 export class Batch extends APIResource {
   /**
    * Marks the given messages as archived. Archived messages are hidden from the

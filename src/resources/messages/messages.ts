@@ -27,6 +27,9 @@ import { ItemsCursor, type ItemsCursorParams, PagePromise } from '../../core/pag
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * A message sent to a single recipient on a channel.
+ */
 export class Messages extends APIResource {
   batch: BatchAPI.Batch = new BatchAPI.Batch(this._client);
 

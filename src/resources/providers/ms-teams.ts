@@ -6,6 +6,9 @@ import { MsTeamsPagination, type MsTeamsPaginationParams, PagePromise } from '..
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * A provider represents a third-party service that Knock integrates with and is configured via a channel.
+ */
 export class MsTeams extends APIResource {
   /**
    * Check if a connection to Microsoft Teams has been authorized for a given

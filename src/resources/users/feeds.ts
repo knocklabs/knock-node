@@ -8,6 +8,9 @@ import { EntriesCursor, type EntriesCursorParams, PagePromise } from '../../core
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * A user is an individual from your system, represented in Knock. They are most commonly a recipient of a notification.
+ */
 export class Feeds extends APIResource {
   /**
    * Returns the feed settings for a user.

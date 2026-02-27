@@ -9,6 +9,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * A bulk operation is a set of changes applied across zero or more records triggered via a call to the Knock API and performed asynchronously.
+ */
 export class Bulk extends APIResource {
   /**
    * Bulk deletes objects from the specified collection.

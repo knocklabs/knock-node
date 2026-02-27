@@ -11,6 +11,9 @@ import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * A tenant represents a top-level entity from your system, like a company, organization, account, or workspace.
+ */
 export class Tenants extends APIResource {
   bulk: BulkAPI.Bulk = new BulkAPI.Bulk(this._client);
 
