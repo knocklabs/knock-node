@@ -6,6 +6,9 @@ import { PagePromise, SlackChannelsCursor, type SlackChannelsCursorParams } from
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * A provider represents a third-party service that Knock integrates with and is configured via a channel.
+ */
 export class Slack extends APIResource {
   /**
    * Check if a Slack channel is authenticated.

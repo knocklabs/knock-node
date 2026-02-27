@@ -7,6 +7,9 @@ import * as UsersAPI from './users';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
+/**
+ * A bulk operation is a set of changes applied across zero or more records triggered via a call to the Knock API and performed asynchronously.
+ */
 export class Bulk extends APIResource {
   /**
    * Permanently deletes up to 1,000 users at a time.

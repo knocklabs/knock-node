@@ -8,6 +8,9 @@ import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * An Audience is a segment of users.
+ */
 export class Audiences extends APIResource {
   /**
    * Adds one or more members to the specified audience.

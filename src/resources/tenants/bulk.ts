@@ -6,6 +6,9 @@ import * as TenantsAPI from './tenants';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
+/**
+ * A bulk operation is a set of changes applied across zero or more records triggered via a call to the Knock API and performed asynchronously.
+ */
 export class Bulk extends APIResource {
   /**
    * Delete up to 1,000 tenants at a time in a single operation. This operation

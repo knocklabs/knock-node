@@ -9,6 +9,9 @@ import { APIPromise } from '../../core/api-promise';
 import { EntriesCursor, type EntriesCursorParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 
+/**
+ * A schedule is a per-recipient, timezone-aware configuration for when to invoke a workflow.
+ */
 export class Schedules extends APIResource {
   bulk: BulkAPI.Bulk = new BulkAPI.Bulk(this._client);
 

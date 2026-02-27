@@ -45,6 +45,9 @@ import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * A user is an individual from your system, represented in Knock. They are most commonly a recipient of a notification.
+ */
 export class Users extends APIResource {
   feeds: FeedsAPI.Feeds = new FeedsAPI.Feeds(this._client);
   guides: GuidesAPI.Guides = new GuidesAPI.Guides(this._client);
