@@ -196,6 +196,11 @@ export namespace GuideGetChannelResponse {
 
     channel_id?: string;
 
+    /**
+     * URL to this guide in the Knock dashboard
+     */
+    dashboard_url?: string;
+
     inserted_at?: string;
 
     /**
