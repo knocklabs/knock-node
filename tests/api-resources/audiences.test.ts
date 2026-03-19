@@ -8,8 +8,7 @@ const client = new Knock({
 });
 
 describe('resource audiences', () => {
-  // Mock server doesn't support callbacks yet
-  test.skip('addMembers: only required params', async () => {
+  test('addMembers: only required params', async () => {
     const responsePromise = client.audiences.addMembers('key', { members: [{ user: { id: 'dr_sattler' } }] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,8 +19,7 @@ describe('resource audiences', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('addMembers: required and optional params', async () => {
+  test('addMembers: required and optional params', async () => {
     const response = await client.audiences.addMembers('key', {
       members: [
         {
@@ -134,8 +132,7 @@ describe('resource audiences', () => {
     });
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('listMembers', async () => {
+  test('listMembers', async () => {
     const responsePromise = client.audiences.listMembers('key');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -146,8 +143,7 @@ describe('resource audiences', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('removeMembers: only required params', async () => {
+  test('removeMembers: only required params', async () => {
     const responsePromise = client.audiences.removeMembers('key', {
       members: [{ user: { id: 'dr_sattler' } }],
     });
@@ -160,8 +156,7 @@ describe('resource audiences', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('removeMembers: required and optional params', async () => {
+  test('removeMembers: required and optional params', async () => {
     const response = await client.audiences.removeMembers('key', {
       members: [
         {

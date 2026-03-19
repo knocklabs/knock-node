@@ -8,8 +8,7 @@ const client = new Knock({
 });
 
 describe('resource bulk', () => {
-  // Mock server doesn't support callbacks yet
-  test.skip('delete: only required params', async () => {
+  test('delete: only required params', async () => {
     const responsePromise = client.tenants.bulk.delete({ tenant_ids: ['string'] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,13 +19,11 @@ describe('resource bulk', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('delete: required and optional params', async () => {
+  test('delete: required and optional params', async () => {
     const response = await client.tenants.bulk.delete({ tenant_ids: ['string'] });
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('set: only required params', async () => {
+  test('set: only required params', async () => {
     const responsePromise = client.tenants.bulk.set({ tenants: [{ id: 'tenant_1' }] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -37,8 +34,7 @@ describe('resource bulk', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('set: required and optional params', async () => {
+  test('set: required and optional params', async () => {
     const response = await client.tenants.bulk.set({
       tenants: [
         {

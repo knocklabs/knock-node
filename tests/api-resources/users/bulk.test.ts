@@ -8,8 +8,7 @@ const client = new Knock({
 });
 
 describe('resource bulk', () => {
-  // Mock server doesn't support callbacks yet
-  test.skip('delete: only required params', async () => {
+  test('delete: only required params', async () => {
     const responsePromise = client.users.bulk.delete({ user_ids: ['user_1', 'user_2'] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,13 +19,11 @@ describe('resource bulk', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('delete: required and optional params', async () => {
+  test('delete: required and optional params', async () => {
     const response = await client.users.bulk.delete({ user_ids: ['user_1', 'user_2'] });
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('identify: only required params', async () => {
+  test('identify: only required params', async () => {
     const responsePromise = client.users.bulk.identify({ users: [{ id: 'user_1' }] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -37,8 +34,7 @@ describe('resource bulk', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('identify: required and optional params', async () => {
+  test('identify: required and optional params', async () => {
     const response = await client.users.bulk.identify({
       users: [
         {
@@ -147,8 +143,7 @@ describe('resource bulk', () => {
     });
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('setPreferences: only required params', async () => {
+  test('setPreferences: only required params', async () => {
     const responsePromise = client.users.bulk.setPreferences({
       preferences: {},
       user_ids: ['user_1', 'user_2'],
@@ -162,8 +157,7 @@ describe('resource bulk', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('setPreferences: required and optional params', async () => {
+  test('setPreferences: required and optional params', async () => {
     const response = await client.users.bulk.setPreferences({
       preferences: {
         __persistence_strategy__: 'merge',

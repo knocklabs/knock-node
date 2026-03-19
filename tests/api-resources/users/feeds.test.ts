@@ -8,8 +8,7 @@ const client = new Knock({
 });
 
 describe('resource feeds', () => {
-  // Mock server doesn't support callbacks yet
-  test.skip('getSettings', async () => {
+  test('getSettings', async () => {
     const responsePromise = client.users.feeds.getSettings('user_id', '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,8 +19,7 @@ describe('resource feeds', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('listItems', async () => {
+  test('listItems', async () => {
     const responsePromise = client.users.feeds.listItems('user_id', '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -32,8 +30,7 @@ describe('resource feeds', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('listItems: request options and params are passed correctly', async () => {
+  test('listItems: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.users.feeds.listItems(

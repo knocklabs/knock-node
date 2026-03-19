@@ -8,8 +8,7 @@ const client = new Knock({
 });
 
 describe('resource msTeams', () => {
-  // Mock server doesn't support callbacks yet
-  test.skip('checkAuth: only required params', async () => {
+  test('checkAuth: only required params', async () => {
     const responsePromise = client.providers.msTeams.checkAuth('channel_id', {
       ms_teams_tenant_object: 'ms_teams_tenant_object',
     });
@@ -22,15 +21,13 @@ describe('resource msTeams', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('checkAuth: required and optional params', async () => {
+  test('checkAuth: required and optional params', async () => {
     const response = await client.providers.msTeams.checkAuth('channel_id', {
       ms_teams_tenant_object: 'ms_teams_tenant_object',
     });
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('listChannels: only required params', async () => {
+  test('listChannels: only required params', async () => {
     const responsePromise = client.providers.msTeams.listChannels('channel_id', {
       ms_teams_tenant_object: 'ms_teams_tenant_object',
       team_id: 'team_id',
@@ -44,8 +41,7 @@ describe('resource msTeams', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('listChannels: required and optional params', async () => {
+  test('listChannels: required and optional params', async () => {
     const response = await client.providers.msTeams.listChannels('channel_id', {
       ms_teams_tenant_object: 'ms_teams_tenant_object',
       team_id: 'team_id',
@@ -53,8 +49,7 @@ describe('resource msTeams', () => {
     });
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('listTeams: only required params', async () => {
+  test('listTeams: only required params', async () => {
     const responsePromise = client.providers.msTeams.listTeams('channel_id', {
       ms_teams_tenant_object: 'ms_teams_tenant_object',
     });
@@ -67,8 +62,7 @@ describe('resource msTeams', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('listTeams: required and optional params', async () => {
+  test('listTeams: required and optional params', async () => {
     const response = await client.providers.msTeams.listTeams('channel_id', {
       ms_teams_tenant_object: 'ms_teams_tenant_object',
       query_options: {
@@ -80,8 +74,7 @@ describe('resource msTeams', () => {
     });
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('revokeAccess: only required params', async () => {
+  test('revokeAccess: only required params', async () => {
     const responsePromise = client.providers.msTeams.revokeAccess('channel_id', {
       ms_teams_tenant_object: 'ms_teams_tenant_object',
     });
@@ -94,8 +87,7 @@ describe('resource msTeams', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('revokeAccess: required and optional params', async () => {
+  test('revokeAccess: required and optional params', async () => {
     const response = await client.providers.msTeams.revokeAccess('channel_id', {
       ms_teams_tenant_object: 'ms_teams_tenant_object',
     });

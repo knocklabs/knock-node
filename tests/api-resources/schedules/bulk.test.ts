@@ -8,8 +8,7 @@ const client = new Knock({
 });
 
 describe('resource bulk', () => {
-  // Mock server doesn't support callbacks yet
-  test.skip('create: only required params', async () => {
+  test('create: only required params', async () => {
     const responsePromise = client.schedules.bulk.create({
       schedules: [{ workflow: 'comment-created' }, { workflow: 'comment-created' }],
     });
@@ -22,8 +21,7 @@ describe('resource bulk', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('create: required and optional params', async () => {
+  test('create: required and optional params', async () => {
     const response = await client.schedules.bulk.create({
       schedules: [
         {

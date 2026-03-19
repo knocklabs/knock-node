@@ -8,8 +8,7 @@ const client = new Knock({
 });
 
 describe('resource workflows', () => {
-  // Mock server doesn't support callbacks yet
-  test.skip('cancel: only required params', async () => {
+  test('cancel: only required params', async () => {
     const responsePromise = client.workflows.cancel('key', { cancellation_key: 'cancel-workflow-123' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,16 +19,14 @@ describe('resource workflows', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('cancel: required and optional params', async () => {
+  test('cancel: required and optional params', async () => {
     const response = await client.workflows.cancel('key', {
       cancellation_key: 'cancel-workflow-123',
       recipients: ['jhammond'],
     });
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('trigger: only required params', async () => {
+  test('trigger: only required params', async () => {
     const responsePromise = client.workflows.trigger('key', {
       recipients: ['dr_grant', 'dr_sattler', 'dr_malcolm'],
     });
@@ -42,8 +39,7 @@ describe('resource workflows', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('trigger: required and optional params', async () => {
+  test('trigger: required and optional params', async () => {
     const response = await client.workflows.trigger('key', {
       recipients: ['dr_grant', 'dr_sattler', 'dr_malcolm'],
       actor: 'mr_dna',
