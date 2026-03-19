@@ -8,8 +8,7 @@ const client = new Knock({
 });
 
 describe('resource census', () => {
-  // Mock server doesn't support callbacks yet
-  test.skip('customDestination: only required params', async () => {
+  test('customDestination: only required params', async () => {
     const responsePromise = client.integrations.census.customDestination({
       id: 'id',
       jsonrpc: 'jsonrpc',
@@ -24,8 +23,7 @@ describe('resource census', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('customDestination: required and optional params', async () => {
+  test('customDestination: required and optional params', async () => {
     const response = await client.integrations.census.customDestination({
       id: 'id',
       jsonrpc: 'jsonrpc',

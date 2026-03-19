@@ -8,8 +8,7 @@ const client = new Knock({
 });
 
 describe('resource bulk', () => {
-  // Mock server doesn't support callbacks yet
-  test.skip('delete: only required params', async () => {
+  test('delete: only required params', async () => {
     const responsePromise = client.objects.bulk.delete('collection', {
       object_ids: ['obj_123', 'obj_456', 'obj_789'],
     });
@@ -22,15 +21,13 @@ describe('resource bulk', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('delete: required and optional params', async () => {
+  test('delete: required and optional params', async () => {
     const response = await client.objects.bulk.delete('collection', {
       object_ids: ['obj_123', 'obj_456', 'obj_789'],
     });
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('addSubscriptions: only required params', async () => {
+  test('addSubscriptions: only required params', async () => {
     const responsePromise = client.objects.bulk.addSubscriptions('projects', {
       subscriptions: [{ id: 'project-1', recipients: [{ id: 'user_1' }] }],
     });
@@ -43,8 +40,7 @@ describe('resource bulk', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('addSubscriptions: required and optional params', async () => {
+  test('addSubscriptions: required and optional params', async () => {
     const response = await client.objects.bulk.addSubscriptions('projects', {
       subscriptions: [
         {
@@ -159,8 +155,7 @@ describe('resource bulk', () => {
     });
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('deleteSubscriptions: only required params', async () => {
+  test('deleteSubscriptions: only required params', async () => {
     const responsePromise = client.objects.bulk.deleteSubscriptions('projects', {
       subscriptions: [
         { id: 'subscribed-to-object-1', recipients: [{}, 'subscriber-user-1'] },
@@ -176,8 +171,7 @@ describe('resource bulk', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('deleteSubscriptions: required and optional params', async () => {
+  test('deleteSubscriptions: required and optional params', async () => {
     const response = await client.objects.bulk.deleteSubscriptions('projects', {
       subscriptions: [
         {
@@ -189,8 +183,7 @@ describe('resource bulk', () => {
     });
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('set: only required params', async () => {
+  test('set: only required params', async () => {
     const responsePromise = client.objects.bulk.set('collection', { objects: [{ id: 'project_1' }] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -201,8 +194,7 @@ describe('resource bulk', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('set: required and optional params', async () => {
+  test('set: required and optional params', async () => {
     const response = await client.objects.bulk.set('collection', {
       objects: [
         {
