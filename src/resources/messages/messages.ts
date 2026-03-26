@@ -661,6 +661,7 @@ export interface MessageEvent {
   type:
     | 'message.archived'
     | 'message.bounced'
+    | 'message.created'
     | 'message.delivered'
     | 'message.delivery_attempted'
     | 'message.interacted'
