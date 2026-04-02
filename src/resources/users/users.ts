@@ -367,6 +367,21 @@ export class Users extends APIResource {
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
   }
+
+  /**
+   * Unsets the preference set for the user, removing it entirely.
+   *
+   * @example
+   * ```ts
+   * await client.users.unsetPreferences('user_id', 'default');
+   * ```
+   */
+  unsetPreferences(userID: string, id: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/v1/users/${userID}/preferences/${id}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
 }
 
 export type UsersEntriesCursor = EntriesCursor<User>;
