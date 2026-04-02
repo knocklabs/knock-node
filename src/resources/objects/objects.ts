@@ -426,6 +426,30 @@ export class Objects extends APIResource {
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
   }
+
+  /**
+   * Unsets the preference set for the object, removing it entirely.
+   *
+   * @example
+   * ```ts
+   * await client.objects.unsetPreferences(
+   *   'collection',
+   *   'object_id',
+   *   'default',
+   * );
+   * ```
+   */
+  unsetPreferences(
+    collection: string,
+    objectID: string,
+    id: string,
+    options?: RequestOptions,
+  ): APIPromise<void> {
+    return this._client.delete(path`/v1/objects/${collection}/${objectID}/preferences/${id}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
 }
 
 export type ObjectsEntriesCursor = EntriesCursor<Object>;

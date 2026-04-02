@@ -71,6 +71,7 @@ Methods:
 - <code title="put /v1/users/{user_id}/channel_data/{channel_id}">client.users.<a href="./src/resources/users/users.ts">setChannelData</a>(userID, channelID, { ...params }) -> ChannelData</code>
 - <code title="put /v1/users/{user_id}/preferences/{id}">client.users.<a href="./src/resources/users/users.ts">setPreferences</a>(userID, id, { ...params }) -> PreferenceSet</code>
 - <code title="delete /v1/users/{user_id}/channel_data/{channel_id}">client.users.<a href="./src/resources/users/users.ts">unsetChannelData</a>(userID, channelID) -> void</code>
+- <code title="delete /v1/users/{user_id}/preferences/{id}">client.users.<a href="./src/resources/users/users.ts">unsetPreferences</a>(userID, id) -> void</code>
 
 ## Feeds
 
@@ -135,6 +136,7 @@ Methods:
 - <code title="put /v1/objects/{collection}/{object_id}/channel_data/{channel_id}">client.objects.<a href="./src/resources/objects/objects.ts">setChannelData</a>(collection, objectID, channelID, { ...params }) -> ChannelData</code>
 - <code title="put /v1/objects/{collection}/{object_id}/preferences/{id}">client.objects.<a href="./src/resources/objects/objects.ts">setPreferences</a>(collection, objectID, id, { ...params }) -> PreferenceSet</code>
 - <code title="delete /v1/objects/{collection}/{object_id}/channel_data/{channel_id}">client.objects.<a href="./src/resources/objects/objects.ts">unsetChannelData</a>(collection, objectID, channelID) -> void</code>
+- <code title="delete /v1/objects/{collection}/{object_id}/preferences/{id}">client.objects.<a href="./src/resources/objects/objects.ts">unsetPreferences</a>(collection, objectID, id) -> void</code>
 
 ## Bulk
 
