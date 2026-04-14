@@ -11,7 +11,7 @@ import type { APIResponseProps } from './internal/parse';
 import { getPlatformHeaders } from './internal/detect-platform';
 import * as Shims from './internal/shims';
 import * as Opts from './internal/request-options';
-import * as qs from './internal/qs/stringify';
+import { stringifyQuery } from './internal/utils/query';
 import { VERSION } from './version';
 import * as Errors from './core/error';
 import * as Pagination from './core/pagination';
@@ -332,47 +332,8 @@ export class Knock {
     return buildHeaders([{ Authorization: `Bearer ${this.apiKey}` }]);
   }
 
-  /**
-   * Stringify query parameters with proper array formatting.
-   *
-   * We need to handle two types of arrays differently:
-   * 1. Simple arrays (primitives) → use 'brackets' format: `tags[]=tag1&tags[]=tag2`
-   * 2. Arrays of objects → use 'indices' format: `objects[0][id]=1&objects[0][collection]=teams`
-   *
-   * Why we can't use a single arrayFormat for everything:
-   * If we used 'indices' for simple arrays, `include: ["preferences"]` would serialize as
-   * `include[0]=preferences`, which the backend incorrectly parses as a map `{"0": "preferences"}`
-   * instead of an array `["preferences"]`.
-   *
-   * By separating them, we ensure the backend receives the correct data structure for each type.
-   */
-  protected stringifyQuery(query: Record<string, unknown>): string {
-    // Separate arrays of objects from other parameters
-    // Arrays of objects need 'indices' format (e.g., objects[0][id]=1)
-    // Simple arrays need 'brackets' format (e.g., tags[]=tag1)
-    const objectArrays: Record<string, unknown> = {};
-    const otherParams: Record<string, unknown> = {};
-
-    for (const key in query) {
-      const value = query[key];
-      if (Array.isArray(value) && value.length > 0 && typeof value[0] === 'object' && value[0] !== null) {
-        objectArrays[key] = value;
-      } else {
-        otherParams[key] = value;
-      }
-    }
-
-    // Stringify other params with 'brackets' format for simple arrays
-    const otherParamsString = qs.stringify(otherParams, { arrayFormat: 'brackets' });
-
-    // Stringify object arrays with 'indices' format
-    const objectArraysString = qs.stringify(objectArrays, { arrayFormat: 'indices' });
-
-    // Combine both parts
-    if (otherParamsString && objectArraysString) {
-      return `${otherParamsString}&${objectArraysString}`;
-    }
-    return otherParamsString || objectArraysString;
+  protected stringifyQuery(query: Record<string, unknown> | object): string {
+    return stringifyQuery(query);
   }
 
   private getUserAgent(): string {
@@ -404,7 +365,10 @@ export class Knock {
       : new URL(baseURL + (baseURL.endsWith('/') && path.startsWith('/') ? path.slice(1) : path));
 
     const defaultQuery = this.defaultQuery();
-    const pathQuery = Object.fromEntries(url.searchParams);
+    const pathQuery: Record<string, string> = {};
+    url.searchParams.forEach((value, key) => {
+      pathQuery[key] = value;
+    });
     if (!isEmptyObj(defaultQuery) || !isEmptyObj(pathQuery)) {
       query = { ...pathQuery, ...defaultQuery, ...query };
     }

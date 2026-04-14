@@ -3,7 +3,7 @@
 import { stringifyQuery } from '@knocklabs/node/internal/utils/query';
 
 describe(stringifyQuery, () => {
-  for (const [input, expected] of  [
+  for (const [input, expected] of [
     [{ a: '1', b: 2, c: true }, 'a=1&b=2&c=true'],
     [{ a: null, b: false, c: undefined }, 'a=&b=false'],
     [{ 'a/b': 1.28341 }, `${encodeURIComponent('a/b')}=1.28341`],

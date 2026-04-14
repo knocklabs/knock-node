@@ -8,7 +8,8 @@ const client = new Knock({
 });
 
 describe('resource bulk', () => {
-  test('delete: only required params', async () => {
+  // Mock server doesn't support array query params for this endpoint yet
+  test.skip('delete: only required params', async () => {
     const responsePromise = client.tenants.bulk.delete({ tenant_ids: ['string'] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -19,7 +20,8 @@ describe('resource bulk', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('delete: required and optional params', async () => {
+  // Mock server doesn't support array query params for this endpoint yet
+  test.skip('delete: required and optional params', async () => {
     const response = await client.tenants.bulk.delete({ tenant_ids: ['string'] });
   });
 

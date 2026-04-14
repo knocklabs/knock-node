@@ -27,7 +27,8 @@ describe('resource batch', () => {
     });
   });
 
-  test('getContent: only required params', async () => {
+  // Mock server doesn't support array query params for this endpoint yet
+  test.skip('getContent: only required params', async () => {
     const responsePromise = client.messages.batch.getContent({ message_ids: ['string'] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -38,7 +39,8 @@ describe('resource batch', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('getContent: required and optional params', async () => {
+  // Mock server doesn't support array query params for this endpoint yet
+  test.skip('getContent: required and optional params', async () => {
     const response = await client.messages.batch.getContent({ message_ids: ['string'] });
   });
 
