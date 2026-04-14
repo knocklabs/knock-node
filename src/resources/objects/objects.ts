@@ -31,6 +31,9 @@ import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * An object represents a resource in your system that you want to map into Knock.
+ */
 export class Objects extends APIResource {
   bulk: BulkAPI.Bulk = new BulkAPI.Bulk(this._client);
 
@@ -419,6 +422,30 @@ export class Objects extends APIResource {
     options?: RequestOptions,
   ): APIPromise<void> {
     return this._client.delete(path`/v1/objects/${collection}/${objectID}/channel_data/${channelID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
+   * Unsets the preference set for the object, removing it entirely.
+   *
+   * @example
+   * ```ts
+   * await client.objects.unsetPreferences(
+   *   'collection',
+   *   'object_id',
+   *   'default',
+   * );
+   * ```
+   */
+  unsetPreferences(
+    collection: string,
+    objectID: string,
+    id: string,
+    options?: RequestOptions,
+  ): APIPromise<void> {
+    return this._client.delete(path`/v1/objects/${collection}/${objectID}/preferences/${id}`, {
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });

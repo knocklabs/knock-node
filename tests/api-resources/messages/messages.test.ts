@@ -8,8 +8,7 @@ const client = new Knock({
 });
 
 describe('resource messages', () => {
-  // Mock server doesn't support callbacks yet
-  test.skip('list', async () => {
+  test('list', async () => {
     const responsePromise = client.messages.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,8 +19,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('list: request options and params are passed correctly', async () => {
+  test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.messages.list(
@@ -51,8 +49,7 @@ describe('resource messages', () => {
     ).rejects.toThrow(Knock.NotFoundError);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('archive', async () => {
+  test('archive', async () => {
     const responsePromise = client.messages.archive('1jNaXzB2RZX3LY8wVQnfCKyPnv7');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -63,8 +60,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('get', async () => {
+  test('get', async () => {
     const responsePromise = client.messages.get('1jNaXzB2RZX3LY8wVQnfCKyPnv7');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -75,8 +71,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('getContent', async () => {
+  test('getContent', async () => {
     const responsePromise = client.messages.getContent('message_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -87,8 +82,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('listActivities', async () => {
+  test('listActivities', async () => {
     const responsePromise = client.messages.listActivities('message_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -99,8 +93,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('listActivities: request options and params are passed correctly', async () => {
+  test('listActivities: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.messages.listActivities(
@@ -116,8 +109,7 @@ describe('resource messages', () => {
     ).rejects.toThrow(Knock.NotFoundError);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('listDeliveryLogs', async () => {
+  test('listDeliveryLogs', async () => {
     const responsePromise = client.messages.listDeliveryLogs('message_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -128,8 +120,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('listDeliveryLogs: request options and params are passed correctly', async () => {
+  test('listDeliveryLogs: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.messages.listDeliveryLogs(
@@ -144,8 +135,7 @@ describe('resource messages', () => {
     ).rejects.toThrow(Knock.NotFoundError);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('listEvents', async () => {
+  test('listEvents', async () => {
     const responsePromise = client.messages.listEvents('message_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -156,8 +146,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('listEvents: request options and params are passed correctly', async () => {
+  test('listEvents: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.messages.listEvents(
@@ -172,8 +161,7 @@ describe('resource messages', () => {
     ).rejects.toThrow(Knock.NotFoundError);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('markAsInteracted', async () => {
+  test('markAsInteracted', async () => {
     const responsePromise = client.messages.markAsInteracted('1jNaXzB2RZX3LY8wVQnfCKyPnv7');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -184,8 +172,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('markAsInteracted: request options and params are passed correctly', async () => {
+  test('markAsInteracted: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.messages.markAsInteracted(
@@ -196,8 +183,7 @@ describe('resource messages', () => {
     ).rejects.toThrow(Knock.NotFoundError);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('markAsRead', async () => {
+  test('markAsRead', async () => {
     const responsePromise = client.messages.markAsRead('1jNaXzB2RZX3LY8wVQnfCKyPnv7');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -208,8 +194,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('markAsSeen', async () => {
+  test('markAsSeen', async () => {
     const responsePromise = client.messages.markAsSeen('1jNaXzB2RZX3LY8wVQnfCKyPnv7');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -220,8 +205,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('markAsUnread', async () => {
+  test('markAsUnread', async () => {
     const responsePromise = client.messages.markAsUnread('1jNaXzB2RZX3LY8wVQnfCKyPnv7');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -232,8 +216,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('markAsUnseen', async () => {
+  test('markAsUnseen', async () => {
     const responsePromise = client.messages.markAsUnseen('1jNaXzB2RZX3LY8wVQnfCKyPnv7');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -244,8 +227,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('unarchive', async () => {
+  test('unarchive', async () => {
     const responsePromise = client.messages.unarchive('1jNaXzB2RZX3LY8wVQnfCKyPnv7');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

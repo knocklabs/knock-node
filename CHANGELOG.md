@@ -1,5 +1,61 @@
 # Changelog
 
+## 1.30.0 (2026-04-13)
+
+Full Changelog: [v1.29.1...v1.30.0](https://github.com/knocklabs/knock-node/compare/v1.29.1...v1.30.0)
+
+### Features
+
+* **api:** added new unset preferences methods ([ef034f3](https://github.com/knocklabs/knock-node/commit/ef034f36e92bf1c434e00ea0b80453b51ad91e3e))
+* **api:** api update ([e97ff73](https://github.com/knocklabs/knock-node/commit/e97ff730dffebf77d06c6da64744a2a2f5136843))
+* **api:** api update ([6ba7797](https://github.com/knocklabs/knock-node/commit/6ba7797aebc629cb526a4e94135cf7eb47aac125))
+* **api:** api update ([b861ef8](https://github.com/knocklabs/knock-node/commit/b861ef8de13319abf08c625db1017204462603d7))
+* **api:** api update ([b69ef25](https://github.com/knocklabs/knock-node/commit/b69ef2577adc95ab16203d993339aa0ea61e10fe))
+* **api:** api update ([7f43057](https://github.com/knocklabs/knock-node/commit/7f430574c1cfba14a9a64e7c005bcd6aa9e932ca))
+* **api:** api update ([836bb54](https://github.com/knocklabs/knock-node/commit/836bb545eef70224951f4fef62ba476356251d7c))
+* **api:** api update ([9504247](https://github.com/knocklabs/knock-node/commit/9504247796eee3a347e76f82b8c4c41865a04e1d))
+* **api:** api update ([5e38188](https://github.com/knocklabs/knock-node/commit/5e38188721aaa8f4c02f2f26590def5d7f34d5e9))
+* **api:** api update ([db628a2](https://github.com/knocklabs/knock-node/commit/db628a2e75c5c20edc78fa7119ae4b7dcb13214c))
+* **api:** api update ([36949fb](https://github.com/knocklabs/knock-node/commit/36949fbadf62cf10c2408bb50b1d2f841f050caa))
+
+
+### Bug Fixes
+
+* **client:** preserve URL params already embedded in path ([9b062b3](https://github.com/knocklabs/knock-node/commit/9b062b31792b4b68ecaf9d9a10d5810436d6b4af))
+* fix request delays for retrying to be more respectful of high requested delays ([b9d1d6a](https://github.com/knocklabs/knock-node/commit/b9d1d6a6184a9c8a44b3ff2ae5ad078f70c25ef7))
+* **internal:** gitignore generated `oidc` dir ([24c5041](https://github.com/knocklabs/knock-node/commit/24c5041546fa26d3f8069cf7e670d47937310300))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([5f134e8](https://github.com/knocklabs/knock-node/commit/5f134e85d9ab31775099acbb12a86c575e7ebc5f))
+* **ci:** skip uploading artifacts on stainless-internal branches ([6951420](https://github.com/knocklabs/knock-node/commit/6951420c874a6d8d3b2f72147dda6fe200ede0eb))
+* **docs:** add missing descriptions ([58eb5c2](https://github.com/knocklabs/knock-node/commit/58eb5c2402344441b4d61bd2f9a31378f53c07b5))
+* **internal:** codegen related update ([60581bb](https://github.com/knocklabs/knock-node/commit/60581bba25aca1143614599f509726a32c430331))
+* **internal:** codegen related update ([6bceb8d](https://github.com/knocklabs/knock-node/commit/6bceb8dc2acc3efd3a8f94adfcd0bf6441443a9e))
+* **internal:** move stringifyQuery implementation to internal function ([2433b0f](https://github.com/knocklabs/knock-node/commit/2433b0f9ab93b11cc1c83ff95d91f10bab156b95))
+* **internal:** tweak CI branches ([b444a1e](https://github.com/knocklabs/knock-node/commit/b444a1e9af56007830e0a84e5790dab0b8aa0d61))
+* **internal:** update dependencies to address dependabot vulnerabilities ([4757ded](https://github.com/knocklabs/knock-node/commit/4757ded700b3402adeab0e14d86e450f4bd5d869))
+* **internal:** update gitignore ([7006260](https://github.com/knocklabs/knock-node/commit/700626039d62c24034a9d1d26e706d2f001f7ecf))
+* **internal:** update multipart form array serialization ([5f7eac1](https://github.com/knocklabs/knock-node/commit/5f7eac13ba37412baddb30bca3dd821a5089bec8))
+* **test:** do not count install time for mock server timeout ([c1d697b](https://github.com/knocklabs/knock-node/commit/c1d697b1236c6f085fb718e397ac7d586635fe53))
+* **tests:** bump steady to v0.19.4 ([5bd98bb](https://github.com/knocklabs/knock-node/commit/5bd98bb370c4ea54f46749d6f6986334d0c35dfd))
+* **tests:** bump steady to v0.19.5 ([b7e38fb](https://github.com/knocklabs/knock-node/commit/b7e38fb3b3cfec0b500d96ad2aede4f937339366))
+* **tests:** bump steady to v0.19.6 ([e9e77d9](https://github.com/knocklabs/knock-node/commit/e9e77d904b7b76e988001541d0281e7e8a0a2e72))
+* **tests:** bump steady to v0.19.7 ([62ad605](https://github.com/knocklabs/knock-node/commit/62ad605d593c67911dda29d0b159cbae75e1a8a0))
+* **tests:** bump steady to v0.20.1 ([f4e9d22](https://github.com/knocklabs/knock-node/commit/f4e9d22ef5d912c906d1e5970b63501bb1c9780d))
+* **tests:** bump steady to v0.20.2 ([b5e1e99](https://github.com/knocklabs/knock-node/commit/b5e1e997ecabf5601d75cf8ad0bc47492141686a))
+
+
+### Documentation
+
+* improve examples ([60a0422](https://github.com/knocklabs/knock-node/commit/60a0422ff4bdd63d288eb7164d598cd9950d8f5d))
+
+
+### Refactors
+
+* **tests:** switch from prism to steady ([631277a](https://github.com/knocklabs/knock-node/commit/631277a66afa889d5ece4cfb7087c9c657dba98d))
+
 ## 1.29.1 (2026-02-23)
 
 Full Changelog: [v1.29.0...v1.29.1](https://github.com/knocklabs/knock-node/compare/v1.29.0...v1.29.1)

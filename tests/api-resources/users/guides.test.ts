@@ -8,8 +8,7 @@ const client = new Knock({
 });
 
 describe('resource guides', () => {
-  // Mock server doesn't support callbacks yet
-  test.skip('getChannel', async () => {
+  test('getChannel', async () => {
     const responsePromise = client.users.guides.getChannel('user_id', '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,8 +19,7 @@ describe('resource guides', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('getChannel: request options and params are passed correctly', async () => {
+  test('getChannel: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.users.guides.getChannel(
@@ -37,8 +35,7 @@ describe('resource guides', () => {
     ).rejects.toThrow(Knock.NotFoundError);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('markMessageAsArchived: only required params', async () => {
+  test('markMessageAsArchived: only required params', async () => {
     const responsePromise = client.users.guides.markMessageAsArchived('user_id', 'message_id', {
       channel_id: '123e4567-e89b-12d3-a456-426614174000',
       guide_id: '7e9dc78c-b3b1-4127-a54e-71f1899b831a',
@@ -54,8 +51,7 @@ describe('resource guides', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('markMessageAsArchived: required and optional params', async () => {
+  test('markMessageAsArchived: required and optional params', async () => {
     const response = await client.users.guides.markMessageAsArchived('user_id', 'message_id', {
       channel_id: '123e4567-e89b-12d3-a456-426614174000',
       guide_id: '7e9dc78c-b3b1-4127-a54e-71f1899b831a',
@@ -77,8 +73,7 @@ describe('resource guides', () => {
     });
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('markMessageAsInteracted: only required params', async () => {
+  test('markMessageAsInteracted: only required params', async () => {
     const responsePromise = client.users.guides.markMessageAsInteracted('user_id', 'message_id', {
       channel_id: '123e4567-e89b-12d3-a456-426614174000',
       guide_id: '7e9dc78c-b3b1-4127-a54e-71f1899b831a',
@@ -94,8 +89,7 @@ describe('resource guides', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('markMessageAsInteracted: required and optional params', async () => {
+  test('markMessageAsInteracted: required and optional params', async () => {
     const response = await client.users.guides.markMessageAsInteracted('user_id', 'message_id', {
       channel_id: '123e4567-e89b-12d3-a456-426614174000',
       guide_id: '7e9dc78c-b3b1-4127-a54e-71f1899b831a',
@@ -117,8 +111,7 @@ describe('resource guides', () => {
     });
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('markMessageAsSeen: only required params', async () => {
+  test('markMessageAsSeen: only required params', async () => {
     const responsePromise = client.users.guides.markMessageAsSeen('user_id', 'message_id', {
       channel_id: '123e4567-e89b-12d3-a456-426614174000',
       guide_id: '7e9dc78c-b3b1-4127-a54e-71f1899b831a',
@@ -134,8 +127,7 @@ describe('resource guides', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('markMessageAsSeen: required and optional params', async () => {
+  test('markMessageAsSeen: required and optional params', async () => {
     const response = await client.users.guides.markMessageAsSeen('user_id', 'message_id', {
       channel_id: '123e4567-e89b-12d3-a456-426614174000',
       guide_id: '7e9dc78c-b3b1-4127-a54e-71f1899b831a',

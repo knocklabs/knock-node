@@ -5,6 +5,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * A user is an individual from your system, represented in Knock. They are most commonly a recipient of a notification.
+ */
 export class Guides extends APIResource {
   /**
    * Returns a list of eligible in-app guides for a specific user and channel.
@@ -192,6 +195,11 @@ export namespace GuideGetChannelResponse {
     bypass_global_group_limit?: boolean;
 
     channel_id?: string;
+
+    /**
+     * URL to this guide in the Knock dashboard
+     */
+    dashboard_url?: string;
 
     inserted_at?: string;
 

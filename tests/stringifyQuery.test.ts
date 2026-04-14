@@ -1,8 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { Knock } from '@knocklabs/node';
-
-const { stringifyQuery } = Knock.prototype as any;
+import { stringifyQuery } from '@knocklabs/node/internal/utils/query';
 
 describe(stringifyQuery, () => {
   for (const [input, expected] of [
@@ -48,7 +46,7 @@ describe(stringifyQuery, () => {
       { include: ['preferences'], objects: [{ id: 'test-123', collection: 'new' }] },
       'include%5B%5D=preferences&objects%5B0%5D%5Bid%5D=test-123&objects%5B0%5D%5Bcollection%5D=new',
     ],
-  ]) {
+  ] as const) {
     it(`${JSON.stringify(input)} -> ${expected}`, () => {
       expect(stringifyQuery(input)).toEqual(expected);
     });

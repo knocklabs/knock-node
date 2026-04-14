@@ -8,8 +8,7 @@ const client = new Knock({
 });
 
 describe('resource users', () => {
-  // Mock server doesn't support callbacks yet
-  test.skip('update', async () => {
+  test('update', async () => {
     const responsePromise = client.users.update('user_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,8 +19,7 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('list', async () => {
+  test('list', async () => {
     const responsePromise = client.users.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -32,8 +30,7 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('list: request options and params are passed correctly', async () => {
+  test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.users.list(
@@ -48,8 +45,7 @@ describe('resource users', () => {
     ).rejects.toThrow(Knock.NotFoundError);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('delete', async () => {
+  test('delete', async () => {
     const responsePromise = client.users.delete('user_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -60,8 +56,7 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('get', async () => {
+  test('get', async () => {
     const responsePromise = client.users.get('user_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -72,8 +67,7 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('getChannelData', async () => {
+  test('getChannelData', async () => {
     const responsePromise = client.users.getChannelData('user_id', '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -84,8 +78,7 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('getPreferences', async () => {
+  test('getPreferences', async () => {
     const responsePromise = client.users.getPreferences('user_id', 'default');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -96,8 +89,7 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('getPreferences: request options and params are passed correctly', async () => {
+  test('getPreferences: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.users.getPreferences(
@@ -109,8 +101,7 @@ describe('resource users', () => {
     ).rejects.toThrow(Knock.NotFoundError);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('listMessages', async () => {
+  test('listMessages', async () => {
     const responsePromise = client.users.listMessages('user-123');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -121,8 +112,7 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('listMessages: request options and params are passed correctly', async () => {
+  test('listMessages: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.users.listMessages(
@@ -153,8 +143,7 @@ describe('resource users', () => {
     ).rejects.toThrow(Knock.NotFoundError);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('listPreferences', async () => {
+  test('listPreferences', async () => {
     const responsePromise = client.users.listPreferences('user_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -165,8 +154,7 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('listSchedules', async () => {
+  test('listSchedules', async () => {
     const responsePromise = client.users.listSchedules('user_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -177,8 +165,7 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('listSchedules: request options and params are passed correctly', async () => {
+  test('listSchedules: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.users.listSchedules(
@@ -195,8 +182,7 @@ describe('resource users', () => {
     ).rejects.toThrow(Knock.NotFoundError);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('listSubscriptions', async () => {
+  test('listSubscriptions', async () => {
     const responsePromise = client.users.listSubscriptions('user_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -207,8 +193,7 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('listSubscriptions: request options and params are passed correctly', async () => {
+  test('listSubscriptions: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.users.listSubscriptions(
@@ -225,8 +210,7 @@ describe('resource users', () => {
     ).rejects.toThrow(Knock.NotFoundError);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('merge: only required params', async () => {
+  test('merge: only required params', async () => {
     const responsePromise = client.users.merge('user_id', { from_user_id: 'user_1' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -237,13 +221,11 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('merge: required and optional params', async () => {
+  test('merge: required and optional params', async () => {
     const response = await client.users.merge('user_id', { from_user_id: 'user_1' });
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('setChannelData: only required params', async () => {
+  test('setChannelData: only required params', async () => {
     const responsePromise = client.users.setChannelData('user_id', '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       data: { tokens: ['push_token_1'] },
     });
@@ -256,15 +238,13 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('setChannelData: required and optional params', async () => {
+  test('setChannelData: required and optional params', async () => {
     const response = await client.users.setChannelData('user_id', '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       data: { tokens: ['push_token_1'] },
     });
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('setPreferences', async () => {
+  test('setPreferences', async () => {
     const responsePromise = client.users.setPreferences('user_id', 'default', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -275,9 +255,19 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('unsetChannelData', async () => {
+  test('unsetChannelData', async () => {
     const responsePromise = client.users.unsetChannelData('user_id', '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('unsetPreferences', async () => {
+    const responsePromise = client.users.unsetPreferences('user_id', 'default');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

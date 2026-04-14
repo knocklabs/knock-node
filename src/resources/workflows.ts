@@ -8,6 +8,9 @@ import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * A workflow is a structured set of steps that is triggered to produce notifications sent over channels.
+ */
 export class Workflows extends APIResource {
   /**
    * When invoked for a workflow using a specific workflow key and cancellation key,

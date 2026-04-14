@@ -45,6 +45,9 @@ import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * A user is an individual from your system, represented in Knock. They are most commonly a recipient of a notification.
+ */
 export class Users extends APIResource {
   feeds: FeedsAPI.Feeds = new FeedsAPI.Feeds(this._client);
   guides: GuidesAPI.Guides = new GuidesAPI.Guides(this._client);
@@ -360,6 +363,21 @@ export class Users extends APIResource {
    */
   unsetChannelData(userID: string, channelID: string, options?: RequestOptions): APIPromise<void> {
     return this._client.delete(path`/v1/users/${userID}/channel_data/${channelID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
+   * Unsets the preference set for the user, removing it entirely.
+   *
+   * @example
+   * ```ts
+   * await client.users.unsetPreferences('user_id', 'default');
+   * ```
+   */
+  unsetPreferences(userID: string, id: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/v1/users/${userID}/preferences/${id}`, {
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });

@@ -8,8 +8,7 @@ const client = new Knock({
 });
 
 describe('resource hightouch', () => {
-  // Mock server doesn't support callbacks yet
-  test.skip('embeddedDestination: only required params', async () => {
+  test('embeddedDestination: only required params', async () => {
     const responsePromise = client.integrations.hightouch.embeddedDestination({
       id: 'id',
       jsonrpc: 'jsonrpc',
@@ -24,8 +23,7 @@ describe('resource hightouch', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('embeddedDestination: required and optional params', async () => {
+  test('embeddedDestination: required and optional params', async () => {
     const response = await client.integrations.hightouch.embeddedDestination({
       id: 'id',
       jsonrpc: 'jsonrpc',

@@ -8,8 +8,7 @@ const client = new Knock({
 });
 
 describe('resource schedules', () => {
-  // Mock server doesn't support callbacks yet
-  test.skip('create: only required params', async () => {
+  test('create: only required params', async () => {
     const responsePromise = client.schedules.create({
       recipients: ['user_123'],
       workflow: 'comment-created',
@@ -23,8 +22,7 @@ describe('resource schedules', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('create: required and optional params', async () => {
+  test('create: required and optional params', async () => {
     const response = await client.schedules.create({
       recipients: ['user_123'],
       workflow: 'comment-created',
@@ -44,11 +42,43 @@ describe('resource schedules', () => {
               marketing: false,
               transactional: {
                 channel_types: {
-                  chat: true,
+                  chat: {
+                    conditions: [
+                      {
+                        argument: 'US',
+                        operator: 'equal_to',
+                        variable: 'recipient.country_code',
+                      },
+                    ],
+                  },
                   email: false,
-                  http: true,
-                  in_app_feed: true,
-                  push: true,
+                  http: {
+                    conditions: [
+                      {
+                        argument: 'US',
+                        operator: 'equal_to',
+                        variable: 'recipient.country_code',
+                      },
+                    ],
+                  },
+                  in_app_feed: {
+                    conditions: [
+                      {
+                        argument: 'US',
+                        operator: 'equal_to',
+                        variable: 'recipient.country_code',
+                      },
+                    ],
+                  },
+                  push: {
+                    conditions: [
+                      {
+                        argument: 'US',
+                        operator: 'equal_to',
+                        variable: 'recipient.country_code',
+                      },
+                    ],
+                  },
                   sms: {
                     conditions: [
                       {
@@ -70,11 +100,43 @@ describe('resource schedules', () => {
               },
             },
             channel_types: {
-              chat: true,
+              chat: {
+                conditions: [
+                  {
+                    argument: 'US',
+                    operator: 'equal_to',
+                    variable: 'recipient.country_code',
+                  },
+                ],
+              },
               email: true,
-              http: true,
-              in_app_feed: true,
-              push: true,
+              http: {
+                conditions: [
+                  {
+                    argument: 'US',
+                    operator: 'equal_to',
+                    variable: 'recipient.country_code',
+                  },
+                ],
+              },
+              in_app_feed: {
+                conditions: [
+                  {
+                    argument: 'US',
+                    operator: 'equal_to',
+                    variable: 'recipient.country_code',
+                  },
+                ],
+              },
+              push: {
+                conditions: [
+                  {
+                    argument: 'US',
+                    operator: 'equal_to',
+                    variable: 'recipient.country_code',
+                  },
+                ],
+              },
               sms: {
                 conditions: [
                   {
@@ -101,11 +163,43 @@ describe('resource schedules', () => {
             workflows: {
               'dinosaurs-loose': {
                 channel_types: {
-                  chat: true,
+                  chat: {
+                    conditions: [
+                      {
+                        argument: 'US',
+                        operator: 'equal_to',
+                        variable: 'recipient.country_code',
+                      },
+                    ],
+                  },
                   email: true,
-                  http: true,
-                  in_app_feed: true,
-                  push: true,
+                  http: {
+                    conditions: [
+                      {
+                        argument: 'US',
+                        operator: 'equal_to',
+                        variable: 'recipient.country_code',
+                      },
+                    ],
+                  },
+                  in_app_feed: {
+                    conditions: [
+                      {
+                        argument: 'US',
+                        operator: 'equal_to',
+                        variable: 'recipient.country_code',
+                      },
+                    ],
+                  },
+                  push: {
+                    conditions: [
+                      {
+                        argument: 'US',
+                        operator: 'equal_to',
+                        variable: 'recipient.country_code',
+                      },
+                    ],
+                  },
                   sms: {
                     conditions: [
                       {
@@ -148,8 +242,7 @@ describe('resource schedules', () => {
     });
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('update: only required params', async () => {
+  test('update: only required params', async () => {
     const responsePromise = client.schedules.update({
       schedule_ids: ['123e4567-e89b-12d3-a456-426614174000'],
     });
@@ -162,8 +255,7 @@ describe('resource schedules', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('update: required and optional params', async () => {
+  test('update: required and optional params', async () => {
     const response = await client.schedules.update({
       schedule_ids: ['123e4567-e89b-12d3-a456-426614174000'],
       actor: 'string',
@@ -185,8 +277,7 @@ describe('resource schedules', () => {
     });
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('list: only required params', async () => {
+  test('list: only required params', async () => {
     const responsePromise = client.schedules.list({ workflow: 'workflow' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -197,8 +288,7 @@ describe('resource schedules', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('list: required and optional params', async () => {
+  test('list: required and optional params', async () => {
     const response = await client.schedules.list({
       workflow: 'workflow',
       after: 'after',
@@ -209,8 +299,7 @@ describe('resource schedules', () => {
     });
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('delete: only required params', async () => {
+  test('delete: only required params', async () => {
     const responsePromise = client.schedules.delete({
       schedule_ids: ['123e4567-e89b-12d3-a456-426614174000'],
     });
@@ -223,8 +312,7 @@ describe('resource schedules', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('delete: required and optional params', async () => {
+  test('delete: required and optional params', async () => {
     const response = await client.schedules.delete({
       schedule_ids: ['123e4567-e89b-12d3-a456-426614174000'],
     });

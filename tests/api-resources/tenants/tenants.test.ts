@@ -8,8 +8,7 @@ const client = new Knock({
 });
 
 describe('resource tenants', () => {
-  // Mock server doesn't support callbacks yet
-  test.skip('list', async () => {
+  test('list', async () => {
     const responsePromise = client.tenants.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -20,8 +19,7 @@ describe('resource tenants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('list: request options and params are passed correctly', async () => {
+  test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.tenants.list(
@@ -37,8 +35,7 @@ describe('resource tenants', () => {
     ).rejects.toThrow(Knock.NotFoundError);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('delete', async () => {
+  test('delete', async () => {
     const responsePromise = client.tenants.delete('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -49,8 +46,7 @@ describe('resource tenants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('get', async () => {
+  test('get', async () => {
     const responsePromise = client.tenants.get('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -61,8 +57,7 @@ describe('resource tenants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('get: request options and params are passed correctly', async () => {
+  test('get: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.tenants.get(
@@ -73,8 +68,7 @@ describe('resource tenants', () => {
     ).rejects.toThrow(Knock.NotFoundError);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('set', async () => {
+  test('set', async () => {
     const responsePromise = client.tenants.set('id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);

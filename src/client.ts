@@ -11,7 +11,7 @@ import type { APIResponseProps } from './internal/parse';
 import { getPlatformHeaders } from './internal/detect-platform';
 import * as Shims from './internal/shims';
 import * as Opts from './internal/request-options';
-import * as qs from './internal/qs';
+import { stringifyQuery } from './internal/utils/query';
 import { VERSION } from './version';
 import * as Errors from './core/error';
 import * as Pagination from './core/pagination';
@@ -332,47 +332,8 @@ export class Knock {
     return buildHeaders([{ Authorization: `Bearer ${this.apiKey}` }]);
   }
 
-  /**
-   * Stringify query parameters with proper array formatting.
-   *
-   * We need to handle two types of arrays differently:
-   * 1. Simple arrays (primitives) → use 'brackets' format: `tags[]=tag1&tags[]=tag2`
-   * 2. Arrays of objects → use 'indices' format: `objects[0][id]=1&objects[0][collection]=teams`
-   *
-   * Why we can't use a single arrayFormat for everything:
-   * If we used 'indices' for simple arrays, `include: ["preferences"]` would serialize as
-   * `include[0]=preferences`, which the backend incorrectly parses as a map `{"0": "preferences"}`
-   * instead of an array `["preferences"]`.
-   *
-   * By separating them, we ensure the backend receives the correct data structure for each type.
-   */
-  protected stringifyQuery(query: Record<string, unknown>): string {
-    // Separate arrays of objects from other parameters
-    // Arrays of objects need 'indices' format (e.g., objects[0][id]=1)
-    // Simple arrays need 'brackets' format (e.g., tags[]=tag1)
-    const objectArrays: Record<string, unknown> = {};
-    const otherParams: Record<string, unknown> = {};
-
-    for (const key in query) {
-      const value = query[key];
-      if (Array.isArray(value) && value.length > 0 && typeof value[0] === 'object' && value[0] !== null) {
-        objectArrays[key] = value;
-      } else {
-        otherParams[key] = value;
-      }
-    }
-
-    // Stringify other params with 'brackets' format for simple arrays
-    const otherParamsString = qs.stringify(otherParams, { arrayFormat: 'brackets' });
-
-    // Stringify object arrays with 'indices' format
-    const objectArraysString = qs.stringify(objectArrays, { arrayFormat: 'indices' });
-
-    // Combine both parts
-    if (otherParamsString && objectArraysString) {
-      return `${otherParamsString}&${objectArraysString}`;
-    }
-    return otherParamsString || objectArraysString;
+  protected stringifyQuery(query: Record<string, unknown> | object): string {
+    return stringifyQuery(query);
   }
 
   private getUserAgent(): string {
@@ -404,12 +365,16 @@ export class Knock {
       : new URL(baseURL + (baseURL.endsWith('/') && path.startsWith('/') ? path.slice(1) : path));
 
     const defaultQuery = this.defaultQuery();
-    if (!isEmptyObj(defaultQuery)) {
-      query = { ...defaultQuery, ...query };
+    const pathQuery: Record<string, string> = {};
+    url.searchParams.forEach((value, key) => {
+      pathQuery[key] = value;
+    });
+    if (!isEmptyObj(defaultQuery) || !isEmptyObj(pathQuery)) {
+      query = { ...pathQuery, ...defaultQuery, ...query };
     }
 
     if (typeof query === 'object' && query && !Array.isArray(query)) {
-      url.search = this.stringifyQuery(query as Record<string, unknown>);
+      url.search = this.stringifyQuery(query);
     }
 
     return url.toString();
@@ -738,9 +703,9 @@ export class Knock {
       }
     }
 
-    // If the API asks us to wait a certain amount of time (and it's a reasonable amount),
-    // just do what it says, but otherwise calculate a default
-    if (!(timeoutMillis && 0 <= timeoutMillis && timeoutMillis < 60 * 1000)) {
+    // If the API asks us to wait a certain amount of time, just do what it
+    // says, but otherwise calculate a default
+    if (timeoutMillis === undefined) {
       const maxRetries = options.maxRetries ?? this.maxRetries;
       timeoutMillis = this.calculateDefaultRetryTimeoutMillis(retriesRemaining, maxRetries);
     }
@@ -873,7 +838,7 @@ export class Knock {
     ) {
       return {
         bodyHeaders: { 'content-type': 'application/x-www-form-urlencoded' },
-        body: this.stringifyQuery(body as Record<string, unknown>),
+        body: this.stringifyQuery(body),
       };
     } else {
       return this.#encoder({ body, headers });
@@ -900,16 +865,40 @@ export class Knock {
   static toFile = Uploads.toFile;
 
   recipients: API.Recipients = new API.Recipients(this);
+  /**
+   * A user is an individual from your system, represented in Knock. They are most commonly a recipient of a notification.
+   */
   users: API.Users = new API.Users(this);
+  /**
+   * An object represents a resource in your system that you want to map into Knock.
+   */
   objects: API.Objects = new API.Objects(this);
+  /**
+   * A tenant represents a top-level entity from your system, like a company, organization, account, or workspace.
+   */
   tenants: API.Tenants = new API.Tenants(this);
+  /**
+   * A bulk operation is a set of changes applied across zero or more records triggered via a call to the Knock API and performed asynchronously.
+   */
   bulkOperations: API.BulkOperations = new API.BulkOperations(this);
+  /**
+   * A message sent to a single recipient on a channel.
+   */
   messages: API.Messages = new API.Messages(this);
   providers: API.Providers = new API.Providers(this);
   integrations: API.Integrations = new API.Integrations(this);
+  /**
+   * A workflow is a structured set of steps that is triggered to produce notifications sent over channels.
+   */
   workflows: API.Workflows = new API.Workflows(this);
+  /**
+   * A schedule is a per-recipient, timezone-aware configuration for when to invoke a workflow.
+   */
   schedules: API.Schedules = new API.Schedules(this);
   channels: API.Channels = new API.Channels(this);
+  /**
+   * An Audience is a segment of users.
+   */
   audiences: API.Audiences = new API.Audiences(this);
 }
 

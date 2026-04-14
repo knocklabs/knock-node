@@ -8,8 +8,7 @@ const client = new Knock({
 });
 
 describe('resource bulk', () => {
-  // Mock server doesn't support callbacks yet
-  test.skip('create: only required params', async () => {
+  test('create: only required params', async () => {
     const responsePromise = client.schedules.bulk.create({
       schedules: [{ workflow: 'comment-created' }, { workflow: 'comment-created' }],
     });
@@ -22,8 +21,7 @@ describe('resource bulk', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Mock server doesn't support callbacks yet
-  test.skip('create: required and optional params', async () => {
+  test('create: required and optional params', async () => {
     const response = await client.schedules.bulk.create({
       schedules: [
         {
@@ -44,11 +42,43 @@ describe('resource bulk', () => {
                   marketing: false,
                   transactional: {
                     channel_types: {
-                      chat: true,
+                      chat: {
+                        conditions: [
+                          {
+                            argument: 'US',
+                            operator: 'equal_to',
+                            variable: 'recipient.country_code',
+                          },
+                        ],
+                      },
                       email: false,
-                      http: true,
-                      in_app_feed: true,
-                      push: true,
+                      http: {
+                        conditions: [
+                          {
+                            argument: 'US',
+                            operator: 'equal_to',
+                            variable: 'recipient.country_code',
+                          },
+                        ],
+                      },
+                      in_app_feed: {
+                        conditions: [
+                          {
+                            argument: 'US',
+                            operator: 'equal_to',
+                            variable: 'recipient.country_code',
+                          },
+                        ],
+                      },
+                      push: {
+                        conditions: [
+                          {
+                            argument: 'US',
+                            operator: 'equal_to',
+                            variable: 'recipient.country_code',
+                          },
+                        ],
+                      },
                       sms: {
                         conditions: [
                           {
@@ -70,11 +100,43 @@ describe('resource bulk', () => {
                   },
                 },
                 channel_types: {
-                  chat: true,
+                  chat: {
+                    conditions: [
+                      {
+                        argument: 'US',
+                        operator: 'equal_to',
+                        variable: 'recipient.country_code',
+                      },
+                    ],
+                  },
                   email: true,
-                  http: true,
-                  in_app_feed: true,
-                  push: true,
+                  http: {
+                    conditions: [
+                      {
+                        argument: 'US',
+                        operator: 'equal_to',
+                        variable: 'recipient.country_code',
+                      },
+                    ],
+                  },
+                  in_app_feed: {
+                    conditions: [
+                      {
+                        argument: 'US',
+                        operator: 'equal_to',
+                        variable: 'recipient.country_code',
+                      },
+                    ],
+                  },
+                  push: {
+                    conditions: [
+                      {
+                        argument: 'US',
+                        operator: 'equal_to',
+                        variable: 'recipient.country_code',
+                      },
+                    ],
+                  },
                   sms: {
                     conditions: [
                       {
@@ -101,11 +163,43 @@ describe('resource bulk', () => {
                 workflows: {
                   'dinosaurs-loose': {
                     channel_types: {
-                      chat: true,
+                      chat: {
+                        conditions: [
+                          {
+                            argument: 'US',
+                            operator: 'equal_to',
+                            variable: 'recipient.country_code',
+                          },
+                        ],
+                      },
                       email: true,
-                      http: true,
-                      in_app_feed: true,
-                      push: true,
+                      http: {
+                        conditions: [
+                          {
+                            argument: 'US',
+                            operator: 'equal_to',
+                            variable: 'recipient.country_code',
+                          },
+                        ],
+                      },
+                      in_app_feed: {
+                        conditions: [
+                          {
+                            argument: 'US',
+                            operator: 'equal_to',
+                            variable: 'recipient.country_code',
+                          },
+                        ],
+                      },
+                      push: {
+                        conditions: [
+                          {
+                            argument: 'US',
+                            operator: 'equal_to',
+                            variable: 'recipient.country_code',
+                          },
+                        ],
+                      },
                       sms: {
                         conditions: [
                           {
@@ -165,11 +259,43 @@ describe('resource bulk', () => {
                   marketing: false,
                   transactional: {
                     channel_types: {
-                      chat: true,
+                      chat: {
+                        conditions: [
+                          {
+                            argument: 'US',
+                            operator: 'equal_to',
+                            variable: 'recipient.country_code',
+                          },
+                        ],
+                      },
                       email: false,
-                      http: true,
-                      in_app_feed: true,
-                      push: true,
+                      http: {
+                        conditions: [
+                          {
+                            argument: 'US',
+                            operator: 'equal_to',
+                            variable: 'recipient.country_code',
+                          },
+                        ],
+                      },
+                      in_app_feed: {
+                        conditions: [
+                          {
+                            argument: 'US',
+                            operator: 'equal_to',
+                            variable: 'recipient.country_code',
+                          },
+                        ],
+                      },
+                      push: {
+                        conditions: [
+                          {
+                            argument: 'US',
+                            operator: 'equal_to',
+                            variable: 'recipient.country_code',
+                          },
+                        ],
+                      },
                       sms: {
                         conditions: [
                           {
@@ -191,11 +317,43 @@ describe('resource bulk', () => {
                   },
                 },
                 channel_types: {
-                  chat: true,
+                  chat: {
+                    conditions: [
+                      {
+                        argument: 'US',
+                        operator: 'equal_to',
+                        variable: 'recipient.country_code',
+                      },
+                    ],
+                  },
                   email: true,
-                  http: true,
-                  in_app_feed: true,
-                  push: true,
+                  http: {
+                    conditions: [
+                      {
+                        argument: 'US',
+                        operator: 'equal_to',
+                        variable: 'recipient.country_code',
+                      },
+                    ],
+                  },
+                  in_app_feed: {
+                    conditions: [
+                      {
+                        argument: 'US',
+                        operator: 'equal_to',
+                        variable: 'recipient.country_code',
+                      },
+                    ],
+                  },
+                  push: {
+                    conditions: [
+                      {
+                        argument: 'US',
+                        operator: 'equal_to',
+                        variable: 'recipient.country_code',
+                      },
+                    ],
+                  },
                   sms: {
                     conditions: [
                       {
@@ -222,11 +380,43 @@ describe('resource bulk', () => {
                 workflows: {
                   'dinosaurs-loose': {
                     channel_types: {
-                      chat: true,
+                      chat: {
+                        conditions: [
+                          {
+                            argument: 'US',
+                            operator: 'equal_to',
+                            variable: 'recipient.country_code',
+                          },
+                        ],
+                      },
                       email: true,
-                      http: true,
-                      in_app_feed: true,
-                      push: true,
+                      http: {
+                        conditions: [
+                          {
+                            argument: 'US',
+                            operator: 'equal_to',
+                            variable: 'recipient.country_code',
+                          },
+                        ],
+                      },
+                      in_app_feed: {
+                        conditions: [
+                          {
+                            argument: 'US',
+                            operator: 'equal_to',
+                            variable: 'recipient.country_code',
+                          },
+                        ],
+                      },
+                      push: {
+                        conditions: [
+                          {
+                            argument: 'US',
+                            operator: 'equal_to',
+                            variable: 'recipient.country_code',
+                          },
+                        ],
+                      },
                       sms: {
                         conditions: [
                           {
