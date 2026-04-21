@@ -294,6 +294,19 @@ Methods:
 - <code title="post /v1/workflows/{key}/cancel">client.workflows.<a href="./src/resources/workflows.ts">cancel</a>(key, { ...params }) -> void</code>
 - <code title="post /v1/workflows/{key}/trigger">client.workflows.<a href="./src/resources/workflows.ts">trigger</a>(key, { ...params }) -> WorkflowTriggerResponse</code>
 
+# WorkflowRecipientRuns
+
+Types:
+
+- <code><a href="./src/resources/workflow-recipient-runs.ts">WorkflowRecipientRun</a></code>
+- <code><a href="./src/resources/workflow-recipient-runs.ts">WorkflowRecipientRunDetail</a></code>
+- <code><a href="./src/resources/workflow-recipient-runs.ts">WorkflowRecipientRunEvent</a></code>
+
+Methods:
+
+- <code title="get /v1/workflow_recipient_runs">client.workflowRecipientRuns.<a href="./src/resources/workflow-recipient-runs.ts">list</a>({ ...params }) -> WorkflowRecipientRunsItemsCursor</code>
+- <code title="get /v1/workflow_recipient_runs/{id}">client.workflowRecipientRuns.<a href="./src/resources/workflow-recipient-runs.ts">get</a>(id) -> WorkflowRecipientRunDetail</code>
+
 # Schedules
 
 Types:
