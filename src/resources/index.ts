@@ -94,6 +94,14 @@ export {
   type UsersEntriesCursor,
 } from './users/users';
 export {
+  WorkflowRecipientRuns,
+  type WorkflowRecipientRun,
+  type WorkflowRecipientRunDetail,
+  type WorkflowRecipientRunEvent,
+  type WorkflowRecipientRunListParams,
+  type WorkflowRecipientRunsItemsCursor,
+} from './workflow-recipient-runs';
+export {
   Workflows,
   type WorkflowTriggerResponse,
   type WorkflowCancelParams,

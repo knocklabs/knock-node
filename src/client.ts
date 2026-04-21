@@ -38,6 +38,14 @@ import {
 } from './resources/audiences';
 import { BulkOperation, BulkOperations } from './resources/bulk-operations';
 import {
+  WorkflowRecipientRun,
+  WorkflowRecipientRunDetail,
+  WorkflowRecipientRunEvent,
+  WorkflowRecipientRunListParams,
+  WorkflowRecipientRuns,
+  WorkflowRecipientRunsItemsCursor,
+} from './resources/workflow-recipient-runs';
+import {
   WorkflowCancelParams,
   WorkflowTriggerParams,
   WorkflowTriggerResponse,
@@ -892,6 +900,10 @@ export class Knock {
    */
   workflows: API.Workflows = new API.Workflows(this);
   /**
+   * A workflow run represents an individual execution of a workflow for a specific recipient.
+   */
+  workflowRecipientRuns: API.WorkflowRecipientRuns = new API.WorkflowRecipientRuns(this);
+  /**
    * A schedule is a per-recipient, timezone-aware configuration for when to invoke a workflow.
    */
   schedules: API.Schedules = new API.Schedules(this);
@@ -911,6 +923,7 @@ Knock.Messages = Messages;
 Knock.Providers = Providers;
 Knock.Integrations = Integrations;
 Knock.Workflows = Workflows;
+Knock.WorkflowRecipientRuns = WorkflowRecipientRuns;
 Knock.Schedules = Schedules;
 Knock.Channels = Channels;
 Knock.Audiences = Audiences;
@@ -1023,6 +1036,15 @@ export declare namespace Knock {
     type WorkflowTriggerResponse as WorkflowTriggerResponse,
     type WorkflowCancelParams as WorkflowCancelParams,
     type WorkflowTriggerParams as WorkflowTriggerParams,
+  };
+
+  export {
+    WorkflowRecipientRuns as WorkflowRecipientRuns,
+    type WorkflowRecipientRun as WorkflowRecipientRun,
+    type WorkflowRecipientRunDetail as WorkflowRecipientRunDetail,
+    type WorkflowRecipientRunEvent as WorkflowRecipientRunEvent,
+    type WorkflowRecipientRunsItemsCursor as WorkflowRecipientRunsItemsCursor,
+    type WorkflowRecipientRunListParams as WorkflowRecipientRunListParams,
   };
 
   export {

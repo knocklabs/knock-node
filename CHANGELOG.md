@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.31.0 (2026-04-21)
+
+Full Changelog: [v1.30.0...v1.31.0](https://github.com/knocklabs/knock-node/compare/v1.30.0...v1.31.0)
+
+### Features
+
+* **KNO-12791:** Add workflow recipient run APIs ([f0bf2cc](https://github.com/knocklabs/knock-node/commit/f0bf2ccfa6d9fb398ffeb70fd5f1c4b905b2538a))
+
+
+### Chores
+
+* **tests:** bump steady to v0.22.1 ([20638d8](https://github.com/knocklabs/knock-node/commit/20638d8a4040ca2c51be37614d4019d8c3382aa2))
+
 ## 1.30.0 (2026-04-13)
 
 Full Changelog: [v1.29.1...v1.30.0](https://github.com/knocklabs/knock-node/compare/v1.29.1...v1.30.0)
