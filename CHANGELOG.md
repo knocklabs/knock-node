@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.31.1 (2026-04-22)
+
+Full Changelog: [v1.31.0...v1.31.1](https://github.com/knocklabs/knock-node/compare/v1.31.0...v1.31.1)
+
+### Chores
+
+* **internal:** more robust bootstrap script ([545455e](https://github.com/knocklabs/knock-node/commit/545455eed303badf45112b18188bc36624837b3f))
+
 ## 1.31.0 (2026-04-21)
 
 Full Changelog: [v1.30.0...v1.31.0](https://github.com/knocklabs/knock-node/compare/v1.30.0...v1.31.0)
