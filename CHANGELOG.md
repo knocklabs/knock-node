@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.32.0 (2026-04-22)
+
+Full Changelog: [v1.31.1...v1.32.0](https://github.com/knocklabs/knock-node/compare/v1.31.1...v1.32.0)
+
+### Features
+
+* **api:** api update ([cd73fed](https://github.com/knocklabs/knock-node/commit/cd73fed16de9aa6597f14d2bb89161dd001ac349))
+
 ## 1.31.1 (2026-04-22)
 
 Full Changelog: [v1.31.0...v1.31.1](https://github.com/knocklabs/knock-node/compare/v1.31.0...v1.31.1)
