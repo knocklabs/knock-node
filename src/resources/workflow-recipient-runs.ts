@@ -102,10 +102,9 @@ export interface WorkflowRecipientRun {
   workflow_run_id: string;
 
   /**
-   * A reference to a recipient, either a user identifier (string) or an object
-   * reference (ID, collection).
+   * A recipient of a notification, which is either a user or an object.
    */
-  actor?: RecipientsAPI.RecipientReference | null;
+  actor?: RecipientsAPI.Recipient | null;
 
   /**
    * The number of errors encountered during the workflow recipient run.
