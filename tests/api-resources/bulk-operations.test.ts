@@ -2,10 +2,7 @@
 
 import Knock from '@knocklabs/node';
 
-const client = new Knock({
-  apiKey: 'My API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Knock({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource bulkOperations', () => {
   test('get', async () => {

@@ -2,29 +2,9 @@
 
 import { APIResource } from '../../core/resource';
 import * as MsTeamsAPI from './ms-teams';
-import {
-  MsTeamCheckAuthParams,
-  MsTeamCheckAuthResponse,
-  MsTeamListChannelsParams,
-  MsTeamListChannelsResponse,
-  MsTeamListTeamsParams,
-  MsTeamListTeamsResponse,
-  MsTeamListTeamsResponsesMsTeamsPagination,
-  MsTeamRevokeAccessParams,
-  MsTeamRevokeAccessResponse,
-  MsTeams,
-} from './ms-teams';
+import { MsTeamCheckAuthParams, MsTeamCheckAuthResponse, MsTeamListChannelsParams, MsTeamListChannelsResponse, MsTeamListTeamsParams, MsTeamListTeamsResponse, MsTeamListTeamsResponsesMsTeamsPagination, MsTeamRevokeAccessParams, MsTeamRevokeAccessResponse, MsTeams } from './ms-teams';
 import * as SlackAPI from './slack';
-import {
-  Slack,
-  SlackCheckAuthParams,
-  SlackCheckAuthResponse,
-  SlackListChannelsParams,
-  SlackListChannelsResponse,
-  SlackListChannelsResponsesSlackChannelsCursor,
-  SlackRevokeAccessParams,
-  SlackRevokeAccessResponse,
-} from './slack';
+import { Slack, SlackCheckAuthParams, SlackCheckAuthResponse, SlackListChannelsParams, SlackListChannelsResponse, SlackListChannelsResponsesSlackChannelsCursor, SlackRevokeAccessParams, SlackRevokeAccessResponse } from './slack';
 
 export class Providers extends APIResource {
   slack: SlackAPI.Slack = new SlackAPI.Slack(this._client);
@@ -43,7 +23,7 @@ export declare namespace Providers {
     type SlackListChannelsResponsesSlackChannelsCursor as SlackListChannelsResponsesSlackChannelsCursor,
     type SlackCheckAuthParams as SlackCheckAuthParams,
     type SlackListChannelsParams as SlackListChannelsParams,
-    type SlackRevokeAccessParams as SlackRevokeAccessParams,
+    type SlackRevokeAccessParams as SlackRevokeAccessParams
   };
 
   export {
@@ -56,6 +36,6 @@ export declare namespace Providers {
     type MsTeamCheckAuthParams as MsTeamCheckAuthParams,
     type MsTeamListChannelsParams as MsTeamListChannelsParams,
     type MsTeamListTeamsParams as MsTeamListTeamsParams,
-    type MsTeamRevokeAccessParams as MsTeamRevokeAccessParams,
+    type MsTeamRevokeAccessParams as MsTeamRevokeAccessParams
   };
 }

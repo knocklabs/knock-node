@@ -2,10 +2,7 @@
 
 import Knock from '@knocklabs/node';
 
-const client = new Knock({
-  apiKey: 'My API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Knock({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource workflows', () => {
   test('cancel: only required params', async () => {
@@ -20,16 +17,11 @@ describe('resource workflows', () => {
   });
 
   test('cancel: required and optional params', async () => {
-    const response = await client.workflows.cancel('key', {
-      cancellation_key: 'cancel-workflow-123',
-      recipients: ['jhammond'],
-    });
+    const response = await client.workflows.cancel('key', { cancellation_key: 'cancel-workflow-123', recipients: ['jhammond'] });
   });
 
   test('trigger: only required params', async () => {
-    const responsePromise = client.workflows.trigger('key', {
-      recipients: ['dr_grant', 'dr_sattler', 'dr_malcolm'],
-    });
+    const responsePromise = client.workflows.trigger('key', { recipients: ['dr_grant', 'dr_sattler', 'dr_malcolm'] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -41,18 +33,18 @@ describe('resource workflows', () => {
 
   test('trigger: required and optional params', async () => {
     const response = await client.workflows.trigger('key', {
-      recipients: ['dr_grant', 'dr_sattler', 'dr_malcolm'],
-      actor: 'mr_dna',
-      cancellation_key: 'isla_nublar_incident_1993',
-      data: {
-        affected_areas: 'bar',
-        attraction_id: 'bar',
-        evacuation_protocol: 'bar',
-        message: 'bar',
-        severity: 'bar',
-        system_status: 'bar',
-      },
-      tenant: 'ingen_isla_nublar',
-    });
+    recipients: ['dr_grant', 'dr_sattler', 'dr_malcolm'],
+    actor: 'mr_dna',
+    cancellation_key: 'isla_nublar_incident_1993',
+    data: {
+    affected_areas: 'bar',
+    attraction_id: 'bar',
+    evacuation_protocol: 'bar',
+    message: 'bar',
+    severity: 'bar',
+    system_status: 'bar',
+  },
+    tenant: 'ingen_isla_nublar',
+  });
   });
 });

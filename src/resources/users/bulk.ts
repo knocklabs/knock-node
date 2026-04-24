@@ -89,10 +89,7 @@ export class Bulk extends APIResource {
    *   });
    * ```
    */
-  setPreferences(
-    body: BulkSetPreferencesParams,
-    options?: RequestOptions,
-  ): APIPromise<BulkOperationsAPI.BulkOperation> {
+  setPreferences(body: BulkSetPreferencesParams, options?: RequestOptions): APIPromise<BulkOperationsAPI.BulkOperation> {
     return this._client.post('/v1/users/bulk/preferences', { body, ...options });
   }
 }
@@ -127,6 +124,6 @@ export declare namespace Bulk {
   export {
     type BulkDeleteParams as BulkDeleteParams,
     type BulkIdentifyParams as BulkIdentifyParams,
-    type BulkSetPreferencesParams as BulkSetPreferencesParams,
+    type BulkSetPreferencesParams as BulkSetPreferencesParams
   };
 }

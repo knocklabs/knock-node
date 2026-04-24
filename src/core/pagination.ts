@@ -87,8 +87,7 @@ export class PagePromise<
     super(
       client,
       request,
-      async (client, props) =>
-        new Page(client, props.response, await defaultParseResponse(client, props), props.options),
+      async (client, props) => new Page(client, props.response, await defaultParseResponse(client, props), props.options)
     );
   }
 
@@ -132,12 +131,7 @@ export class EntriesCursor<Item> extends AbstractPage<Item> implements EntriesCu
 
   page_info: EntriesCursorResponse.PageInfo;
 
-  constructor(
-    client: Knock,
-    response: Response,
-    body: EntriesCursorResponse<Item>,
-    options: FinalRequestOptions,
-  ) {
+  constructor(client: Knock, response: Response, body: EntriesCursorResponse<Item>, options: FinalRequestOptions) {
     super(client, response, body, options);
 
     this.entries = body.entries || [];
@@ -149,7 +143,7 @@ export class EntriesCursor<Item> extends AbstractPage<Item> implements EntriesCu
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.page_info?.after;
+    const cursor = this.page_info?.after
     if (!cursor) {
       return null;
     }
@@ -189,12 +183,7 @@ export class ItemsCursor<Item> extends AbstractPage<Item> implements ItemsCursor
 
   page_info: ItemsCursorResponse.PageInfo;
 
-  constructor(
-    client: Knock,
-    response: Response,
-    body: ItemsCursorResponse<Item>,
-    options: FinalRequestOptions,
-  ) {
+  constructor(client: Knock, response: Response, body: ItemsCursorResponse<Item>, options: FinalRequestOptions) {
     super(client, response, body, options);
 
     this.items = body.items || [];
@@ -206,7 +195,7 @@ export class ItemsCursor<Item> extends AbstractPage<Item> implements ItemsCursor
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.page_info?.after;
+    const cursor = this.page_info?.after
     if (!cursor) {
       return null;
     }
@@ -233,20 +222,12 @@ export interface SlackChannelsCursorParams {
   'query_options.limit'?: number;
 }
 
-export class SlackChannelsCursor<Item>
-  extends AbstractPage<Item>
-  implements SlackChannelsCursorResponse<Item>
-{
+export class SlackChannelsCursor<Item> extends AbstractPage<Item> implements SlackChannelsCursorResponse<Item> {
   next_cursor: string;
 
   slack_channels: Array<Item>;
 
-  constructor(
-    client: Knock,
-    response: Response,
-    body: SlackChannelsCursorResponse<Item>,
-    options: FinalRequestOptions,
-  ) {
+  constructor(client: Knock, response: Response, body: SlackChannelsCursorResponse<Item>, options: FinalRequestOptions) {
     super(client, response, body, options);
 
     this.next_cursor = body.next_cursor || '';
@@ -258,7 +239,7 @@ export class SlackChannelsCursor<Item>
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.next_cursor;
+    const cursor = this.next_cursor
     if (!cursor) {
       return null;
     }
@@ -290,12 +271,7 @@ export class MsTeamsPagination<Item> extends AbstractPage<Item> implements MsTea
 
   ms_teams_teams: Array<Item>;
 
-  constructor(
-    client: Knock,
-    response: Response,
-    body: MsTeamsPaginationResponse<Item>,
-    options: FinalRequestOptions,
-  ) {
+  constructor(client: Knock, response: Response, body: MsTeamsPaginationResponse<Item>, options: FinalRequestOptions) {
     super(client, response, body, options);
 
     this.skip_token = body.skip_token || '';
@@ -307,7 +283,7 @@ export class MsTeamsPagination<Item> extends AbstractPage<Item> implements MsTea
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const cursor = this.skip_token;
+    const cursor = this.skip_token
     if (!cursor) {
       return null;
     }

@@ -2,10 +2,7 @@
 
 import Knock from '@knocklabs/node';
 
-const client = new Knock({
-  apiKey: 'My API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Knock({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource feeds', () => {
   test('getSettings', async () => {
@@ -32,33 +29,28 @@ describe('resource feeds', () => {
 
   test('listItems: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.users.feeds.listItems(
-        'user_id',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        {
-          after: 'after',
-          archived: 'exclude',
-          before: 'before',
-          exclude: 'exclude',
-          has_tenant: true,
-          inserted_at: {
-            gt: 'gt',
-            gte: 'gte',
-            lt: 'lt',
-            lte: 'lte',
-          },
-          locale: 'locale',
-          mode: 'compact',
-          page_size: 0,
-          source: 'source',
-          status: 'unread',
-          tenant: 'tenant',
-          trigger_data: 'trigger_data',
-          workflow_categories: ['string'],
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Knock.NotFoundError);
+    await expect(client.users.feeds.listItems('user_id', '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    after: 'after',
+    archived: 'exclude',
+    before: 'before',
+    exclude: 'exclude',
+    has_tenant: true,
+    inserted_at: {
+    gt: 'gt',
+    gte: 'gte',
+    lt: 'lt',
+    lte: 'lte',
+  },
+    locale: 'locale',
+    mode: 'compact',
+    page_size: 0,
+    source: 'source',
+    status: 'unread',
+    tenant: 'tenant',
+    trigger_data: 'trigger_data',
+    workflow_categories: ['string'],
+  }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Knock.NotFoundError);
   });
 });

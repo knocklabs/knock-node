@@ -11,5 +11,8 @@ export class Channels extends APIResource {
 Channels.Bulk = Bulk;
 
 export declare namespace Channels {
-  export { Bulk as Bulk, type BulkUpdateMessageStatusParams as BulkUpdateMessageStatusParams };
+  export {
+    Bulk as Bulk,
+    type BulkUpdateMessageStatusParams as BulkUpdateMessageStatusParams
+  };
 }

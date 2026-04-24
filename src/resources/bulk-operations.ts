@@ -119,5 +119,7 @@ export namespace BulkOperation {
 }
 
 export declare namespace BulkOperations {
-  export { type BulkOperation as BulkOperation };
+  export {
+    type BulkOperation as BulkOperation
+  };
 }

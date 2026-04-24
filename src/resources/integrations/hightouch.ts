@@ -8,10 +8,7 @@ export class Hightouch extends APIResource {
   /**
    * Processes a Hightouch embedded destination RPC request.
    */
-  embeddedDestination(
-    body: HightouchEmbeddedDestinationParams,
-    options?: RequestOptions,
-  ): APIPromise<HightouchEmbeddedDestinationResponse> {
+  embeddedDestination(body: HightouchEmbeddedDestinationParams, options?: RequestOptions): APIPromise<HightouchEmbeddedDestinationResponse> {
     return this._client.post('/v1/integrations/hightouch/embedded-destination', { body, ...options });
   }
 }
@@ -53,6 +50,6 @@ export interface HightouchEmbeddedDestinationParams {
 export declare namespace Hightouch {
   export {
     type HightouchEmbeddedDestinationResponse as HightouchEmbeddedDestinationResponse,
-    type HightouchEmbeddedDestinationParams as HightouchEmbeddedDestinationParams,
+    type HightouchEmbeddedDestinationParams as HightouchEmbeddedDestinationParams
   };
 }

@@ -2,10 +2,7 @@
 
 import Knock from '@knocklabs/node';
 
-const client = new Knock({
-  apiKey: 'My API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Knock({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource messages', () => {
   test('list', async () => {
@@ -21,32 +18,29 @@ describe('resource messages', () => {
 
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.messages.list(
-        {
-          after: 'after',
-          before: 'before',
-          channel_id: 'channel_id',
-          engagement_status: ['seen'],
-          inserted_at: {
-            gt: 'gt',
-            gte: 'gte',
-            lt: 'lt',
-            lte: 'lte',
-          },
-          message_ids: ['string'],
-          page_size: 0,
-          source: 'source',
-          status: ['queued'],
-          tenant: 'tenant',
-          trigger_data: 'trigger_data',
-          workflow_categories: ['string'],
-          workflow_recipient_run_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          workflow_run_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Knock.NotFoundError);
+    await expect(client.messages.list({
+    after: 'after',
+    before: 'before',
+    channel_id: 'channel_id',
+    engagement_status: ['seen'],
+    inserted_at: {
+    gt: 'gt',
+    gte: 'gte',
+    lt: 'lt',
+    lte: 'lte',
+  },
+    message_ids: ['string'],
+    page_size: 0,
+    source: 'source',
+    status: ['queued'],
+    tenant: 'tenant',
+    trigger_data: 'trigger_data',
+    workflow_categories: ['string'],
+    workflow_recipient_run_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    workflow_run_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+  }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Knock.NotFoundError);
   });
 
   test('archive', async () => {
@@ -95,18 +89,14 @@ describe('resource messages', () => {
 
   test('listActivities: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.messages.listActivities(
-        'message_id',
-        {
-          after: 'after',
-          before: 'before',
-          page_size: 0,
-          trigger_data: 'trigger_data',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Knock.NotFoundError);
+    await expect(client.messages.listActivities('message_id', {
+    after: 'after',
+    before: 'before',
+    page_size: 0,
+    trigger_data: 'trigger_data',
+  }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Knock.NotFoundError);
   });
 
   test('listDeliveryLogs', async () => {
@@ -122,17 +112,13 @@ describe('resource messages', () => {
 
   test('listDeliveryLogs: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.messages.listDeliveryLogs(
-        'message_id',
-        {
-          after: 'after',
-          before: 'before',
-          page_size: 0,
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Knock.NotFoundError);
+    await expect(client.messages.listDeliveryLogs('message_id', {
+    after: 'after',
+    before: 'before',
+    page_size: 0,
+  }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Knock.NotFoundError);
   });
 
   test('listEvents', async () => {
@@ -148,17 +134,13 @@ describe('resource messages', () => {
 
   test('listEvents: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.messages.listEvents(
-        'message_id',
-        {
-          after: 'after',
-          before: 'before',
-          page_size: 0,
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Knock.NotFoundError);
+    await expect(client.messages.listEvents('message_id', {
+    after: 'after',
+    before: 'before',
+    page_size: 0,
+  }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Knock.NotFoundError);
   });
 
   test('markAsInteracted', async () => {
@@ -174,13 +156,9 @@ describe('resource messages', () => {
 
   test('markAsInteracted: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.messages.markAsInteracted(
-        '1jNaXzB2RZX3LY8wVQnfCKyPnv7',
-        { metadata: { key: 'bar' } },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Knock.NotFoundError);
+    await expect(client.messages.markAsInteracted('1jNaXzB2RZX3LY8wVQnfCKyPnv7', { metadata: { key: 'bar' } }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Knock.NotFoundError);
   });
 
   test('markAsRead', async () => {

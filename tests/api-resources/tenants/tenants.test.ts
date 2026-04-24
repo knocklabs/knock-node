@@ -2,10 +2,7 @@
 
 import Knock from '@knocklabs/node';
 
-const client = new Knock({
-  apiKey: 'My API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Knock({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource tenants', () => {
   test('list', async () => {
@@ -21,18 +18,15 @@ describe('resource tenants', () => {
 
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.tenants.list(
-        {
-          after: 'after',
-          before: 'before',
-          name: 'name',
-          page_size: 0,
-          tenant_id: 'tenant_id',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Knock.NotFoundError);
+    await expect(client.tenants.list({
+    after: 'after',
+    before: 'before',
+    name: 'name',
+    page_size: 0,
+    tenant_id: 'tenant_id',
+  }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Knock.NotFoundError);
   });
 
   test('delete', async () => {
@@ -59,13 +53,9 @@ describe('resource tenants', () => {
 
   test('get: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.tenants.get(
-        'id',
-        { resolve_full_preference_settings: true },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Knock.NotFoundError);
+    await expect(client.tenants.get('id', { resolve_full_preference_settings: true }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Knock.NotFoundError);
   });
 
   test('set', async () => {

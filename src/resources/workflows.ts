@@ -26,11 +26,7 @@ export class Workflows extends APIResource {
    * ```
    */
   cancel(key: string, body: WorkflowCancelParams, options?: RequestOptions): APIPromise<void> {
-    return this._client.post(path`/v1/workflows/${key}/cancel`, {
-      body,
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+    return this._client.post(path`/v1/workflows/${key}/cancel`, { body, ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
   }
 
   /**
@@ -62,11 +58,7 @@ export class Workflows extends APIResource {
    * });
    * ```
    */
-  trigger(
-    key: string,
-    body: WorkflowTriggerParams,
-    options?: RequestOptions,
-  ): APIPromise<WorkflowTriggerResponse> {
+  trigger(key: string, body: WorkflowTriggerParams, options?: RequestOptions): APIPromise<WorkflowTriggerResponse> {
     return this._client.post(path`/v1/workflows/${key}/trigger`, { body, ...options });
   }
 }
@@ -140,6 +132,6 @@ export declare namespace Workflows {
   export {
     type WorkflowTriggerResponse as WorkflowTriggerResponse,
     type WorkflowCancelParams as WorkflowCancelParams,
-    type WorkflowTriggerParams as WorkflowTriggerParams,
+    type WorkflowTriggerParams as WorkflowTriggerParams
   };
 }
