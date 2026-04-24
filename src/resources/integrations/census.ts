@@ -8,10 +8,7 @@ export class Census extends APIResource {
   /**
    * Processes a Census custom destination RPC request.
    */
-  customDestination(
-    body: CensusCustomDestinationParams,
-    options?: RequestOptions,
-  ): APIPromise<CensusCustomDestinationResponse> {
+  customDestination(body: CensusCustomDestinationParams, options?: RequestOptions): APIPromise<CensusCustomDestinationResponse> {
     return this._client.post('/v1/integrations/census/custom-destination', { body, ...options });
   }
 }
@@ -53,6 +50,6 @@ export interface CensusCustomDestinationParams {
 export declare namespace Census {
   export {
     type CensusCustomDestinationResponse as CensusCustomDestinationResponse,
-    type CensusCustomDestinationParams as CensusCustomDestinationParams,
+    type CensusCustomDestinationParams as CensusCustomDestinationParams
   };
 }

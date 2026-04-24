@@ -22,11 +22,7 @@ export class MsTeams extends APIResource {
    * );
    * ```
    */
-  checkAuth(
-    channelID: string,
-    query: MsTeamCheckAuthParams,
-    options?: RequestOptions,
-  ): APIPromise<MsTeamCheckAuthResponse> {
+  checkAuth(channelID: string, query: MsTeamCheckAuthParams, options?: RequestOptions): APIPromise<MsTeamCheckAuthResponse> {
     return this._client.get(path`/v1/providers/ms-teams/${channelID}/auth_check`, { query, ...options });
   }
 
@@ -46,11 +42,7 @@ export class MsTeams extends APIResource {
    *   );
    * ```
    */
-  listChannels(
-    channelID: string,
-    query: MsTeamListChannelsParams,
-    options?: RequestOptions,
-  ): APIPromise<MsTeamListChannelsResponse> {
+  listChannels(channelID: string, query: MsTeamListChannelsParams, options?: RequestOptions): APIPromise<MsTeamListChannelsResponse> {
     return this._client.get(path`/v1/providers/ms-teams/${channelID}/channels`, { query, ...options });
   }
 
@@ -69,16 +61,8 @@ export class MsTeams extends APIResource {
    * }
    * ```
    */
-  listTeams(
-    channelID: string,
-    query: MsTeamListTeamsParams,
-    options?: RequestOptions,
-  ): PagePromise<MsTeamListTeamsResponsesMsTeamsPagination, MsTeamListTeamsResponse> {
-    return this._client.getAPIList(
-      path`/v1/providers/ms-teams/${channelID}/teams`,
-      MsTeamsPagination<MsTeamListTeamsResponse>,
-      { query, ...options },
-    );
+  listTeams(channelID: string, query: MsTeamListTeamsParams, options?: RequestOptions): PagePromise<MsTeamListTeamsResponsesMsTeamsPagination, MsTeamListTeamsResponse> {
+    return this._client.getAPIList(path`/v1/providers/ms-teams/${channelID}/teams`, MsTeamsPagination<MsTeamListTeamsResponse>, { query, ...options });
   }
 
   /**
@@ -93,20 +77,13 @@ export class MsTeams extends APIResource {
    *   );
    * ```
    */
-  revokeAccess(
-    channelID: string,
-    params: MsTeamRevokeAccessParams,
-    options?: RequestOptions,
-  ): APIPromise<MsTeamRevokeAccessResponse> {
-    const { ms_teams_tenant_object } = params;
-    return this._client.put(path`/v1/providers/ms-teams/${channelID}/revoke_access`, {
-      query: { ms_teams_tenant_object },
-      ...options,
-    });
+  revokeAccess(channelID: string, params: MsTeamRevokeAccessParams, options?: RequestOptions): APIPromise<MsTeamRevokeAccessResponse> {
+    const { ms_teams_tenant_object } = params
+    return this._client.put(path`/v1/providers/ms-teams/${channelID}/revoke_access`, { query: { ms_teams_tenant_object }, ...options });
   }
 }
 
-export type MsTeamListTeamsResponsesMsTeamsPagination = MsTeamsPagination<MsTeamListTeamsResponse>;
+export type MsTeamListTeamsResponsesMsTeamsPagination = MsTeamsPagination<MsTeamListTeamsResponse>
 
 /**
  * The response from a Microsoft Teams auth check request.
@@ -298,6 +275,6 @@ export declare namespace MsTeams {
     type MsTeamCheckAuthParams as MsTeamCheckAuthParams,
     type MsTeamListChannelsParams as MsTeamListChannelsParams,
     type MsTeamListTeamsParams as MsTeamListTeamsParams,
-    type MsTeamRevokeAccessParams as MsTeamRevokeAccessParams,
+    type MsTeamRevokeAccessParams as MsTeamRevokeAccessParams
   };
 }
