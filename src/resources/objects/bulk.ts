@@ -24,7 +24,11 @@ export class Bulk extends APIResource {
    * );
    * ```
    */
-  delete(collection: string, body: BulkDeleteParams, options?: RequestOptions): APIPromise<BulkOperationsAPI.BulkOperation> {
+  delete(
+    collection: string,
+    body: BulkDeleteParams,
+    options?: RequestOptions,
+  ): APIPromise<BulkOperationsAPI.BulkOperation> {
     return this._client.post(path`/v1/objects/${collection}/bulk/delete`, { body, ...options });
   }
 
@@ -49,7 +53,11 @@ export class Bulk extends APIResource {
    *   });
    * ```
    */
-  addSubscriptions(collection: string, body: BulkAddSubscriptionsParams, options?: RequestOptions): APIPromise<BulkOperationsAPI.BulkOperation> {
+  addSubscriptions(
+    collection: string,
+    body: BulkAddSubscriptionsParams,
+    options?: RequestOptions,
+  ): APIPromise<BulkOperationsAPI.BulkOperation> {
     return this._client.post(path`/v1/objects/${collection}/bulk/subscriptions/add`, { body, ...options });
   }
 
@@ -83,7 +91,11 @@ export class Bulk extends APIResource {
    *   );
    * ```
    */
-  deleteSubscriptions(collection: string, body: BulkDeleteSubscriptionsParams, options?: RequestOptions): APIPromise<BulkOperationsAPI.BulkOperation> {
+  deleteSubscriptions(
+    collection: string,
+    body: BulkDeleteSubscriptionsParams,
+    options?: RequestOptions,
+  ): APIPromise<BulkOperationsAPI.BulkOperation> {
     return this._client.post(path`/v1/objects/${collection}/bulk/subscriptions/delete`, { body, ...options });
   }
 
@@ -98,7 +110,11 @@ export class Bulk extends APIResource {
    * );
    * ```
    */
-  set(collection: string, body: BulkSetParams, options?: RequestOptions): APIPromise<BulkOperationsAPI.BulkOperation> {
+  set(
+    collection: string,
+    body: BulkSetParams,
+    options?: RequestOptions,
+  ): APIPromise<BulkOperationsAPI.BulkOperation> {
     return this._client.post(path`/v1/objects/${collection}/bulk/set`, { body, ...options });
   }
 }
@@ -204,7 +220,7 @@ export namespace BulkSetParams {
      */
     preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
 
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 }
 
@@ -213,6 +229,6 @@ export declare namespace Bulk {
     type BulkDeleteParams as BulkDeleteParams,
     type BulkAddSubscriptionsParams as BulkAddSubscriptionsParams,
     type BulkDeleteSubscriptionsParams as BulkDeleteSubscriptionsParams,
-    type BulkSetParams as BulkSetParams
+    type BulkSetParams as BulkSetParams,
   };
 }

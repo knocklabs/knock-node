@@ -28,7 +28,10 @@ export class Tenants extends APIResource {
    * }
    * ```
    */
-  list(query: TenantListParams | null | undefined = {}, options?: RequestOptions): PagePromise<TenantsEntriesCursor, Tenant> {
+  list(
+    query: TenantListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<TenantsEntriesCursor, Tenant> {
     return this._client.getAPIList('/v1/tenants', EntriesCursor<Tenant>, { query, ...options });
   }
 
@@ -41,7 +44,10 @@ export class Tenants extends APIResource {
    * ```
    */
   delete(id: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/v1/tenants/${id}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/v1/tenants/${id}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -52,7 +58,11 @@ export class Tenants extends APIResource {
    * const tenant = await client.tenants.get('id');
    * ```
    */
-  get(id: string, query: TenantGetParams | null | undefined = {}, options?: RequestOptions): APIPromise<Tenant> {
+  get(
+    id: string,
+    query: TenantGetParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<Tenant> {
     return this._client.get(path`/v1/tenants/${id}`, { query, ...options });
   }
 
@@ -77,17 +87,21 @@ export class Tenants extends APIResource {
    * ```
    */
   set(id: string, params: TenantSetParams, options?: RequestOptions): APIPromise<Tenant> {
-    const { resolve_full_preference_settings, ...body } = params
-    return this._client.put(path`/v1/tenants/${id}`, { query: { resolve_full_preference_settings }, body, ...options });
+    const { resolve_full_preference_settings, ...body } = params;
+    return this._client.put(path`/v1/tenants/${id}`, {
+      query: { resolve_full_preference_settings },
+      body,
+      ...options,
+    });
   }
 }
 
-export type TenantsEntriesCursor = EntriesCursor<Tenant>
+export type TenantsEntriesCursor = EntriesCursor<Tenant>;
 
 /**
  * An request to set a tenant inline.
  */
-export type InlineTenantRequest = string | TenantRequest
+export type InlineTenantRequest = string | TenantRequest;
 
 /**
  * A tenant entity.
@@ -113,7 +127,7 @@ export interface Tenant {
    */
   settings?: Tenant.Settings | null;
 
-[k: string]: unknown
+  [k: string]: unknown;
 }
 
 export namespace Tenant {
@@ -195,7 +209,7 @@ export interface TenantRequest {
    */
   settings?: TenantRequest.Settings;
 
-[k: string]: unknown
+  [k: string]: unknown;
 }
 
 export namespace TenantRequest {
@@ -288,7 +302,7 @@ export interface TenantSetParams {
    */
   settings?: TenantSetParams.Settings;
 
-[k: string]: unknown
+  [k: string]: unknown;
 }
 
 export namespace TenantSetParams {
@@ -347,12 +361,8 @@ export declare namespace Tenants {
     type TenantsEntriesCursor as TenantsEntriesCursor,
     type TenantListParams as TenantListParams,
     type TenantGetParams as TenantGetParams,
-    type TenantSetParams as TenantSetParams
+    type TenantSetParams as TenantSetParams,
   };
 
-  export {
-    Bulk as Bulk,
-    type BulkDeleteParams as BulkDeleteParams,
-    type BulkSetParams as BulkSetParams
-  };
+  export { Bulk as Bulk, type BulkDeleteParams as BulkDeleteParams, type BulkSetParams as BulkSetParams };
 }

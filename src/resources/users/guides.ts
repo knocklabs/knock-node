@@ -20,7 +20,12 @@ export class Guides extends APIResource {
    * );
    * ```
    */
-  getChannel(userID: string, channelID: string, query: GuideGetChannelParams | null | undefined = {}, options?: RequestOptions): APIPromise<GuideGetChannelResponse> {
+  getChannel(
+    userID: string,
+    channelID: string,
+    query: GuideGetChannelParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<GuideGetChannelResponse> {
     return this._client.get(path`/v1/users/${userID}/guides/${channelID}`, { query, ...options });
   }
 
@@ -43,8 +48,16 @@ export class Guides extends APIResource {
    *   );
    * ```
    */
-  markMessageAsArchived(userID: string, messageID: string, body: GuideMarkMessageAsArchivedParams, options?: RequestOptions): APIPromise<GuideMarkMessageAsArchivedResponse> {
-    return this._client.put(path`/v1/users/${userID}/guides/messages/${messageID}/archived`, { body, ...options });
+  markMessageAsArchived(
+    userID: string,
+    messageID: string,
+    body: GuideMarkMessageAsArchivedParams,
+    options?: RequestOptions,
+  ): APIPromise<GuideMarkMessageAsArchivedResponse> {
+    return this._client.put(path`/v1/users/${userID}/guides/messages/${messageID}/archived`, {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -66,8 +79,16 @@ export class Guides extends APIResource {
    *   );
    * ```
    */
-  markMessageAsInteracted(userID: string, messageID: string, body: GuideMarkMessageAsInteractedParams, options?: RequestOptions): APIPromise<GuideMarkMessageAsInteractedResponse> {
-    return this._client.put(path`/v1/users/${userID}/guides/messages/${messageID}/interacted`, { body, ...options });
+  markMessageAsInteracted(
+    userID: string,
+    messageID: string,
+    body: GuideMarkMessageAsInteractedParams,
+    options?: RequestOptions,
+  ): APIPromise<GuideMarkMessageAsInteractedResponse> {
+    return this._client.put(path`/v1/users/${userID}/guides/messages/${messageID}/interacted`, {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -104,8 +125,16 @@ export class Guides extends APIResource {
    *   );
    * ```
    */
-  markMessageAsSeen(userID: string, messageID: string, body: GuideMarkMessageAsSeenParams, options?: RequestOptions): APIPromise<GuideMarkMessageAsSeenResponse> {
-    return this._client.put(path`/v1/users/${userID}/guides/messages/${messageID}/seen`, { body, ...options });
+  markMessageAsSeen(
+    userID: string,
+    messageID: string,
+    body: GuideMarkMessageAsSeenParams,
+    options?: RequestOptions,
+  ): APIPromise<GuideMarkMessageAsSeenResponse> {
+    return this._client.put(path`/v1/users/${userID}/guides/messages/${messageID}/seen`, {
+      body,
+      ...options,
+    });
   }
 }
 
@@ -290,7 +319,11 @@ export namespace GuideGetChannelResponse {
     /**
      * Reason code for ineligibility
      */
-    reason: 'guide_not_active' | 'marked_as_archived' | 'target_conditions_not_met' | 'not_in_target_audience';
+    reason:
+      | 'guide_not_active'
+      | 'marked_as_archived'
+      | 'target_conditions_not_met'
+      | 'not_in_target_audience';
   }
 }
 
@@ -491,6 +524,6 @@ export declare namespace Guides {
     type GuideGetChannelParams as GuideGetChannelParams,
     type GuideMarkMessageAsArchivedParams as GuideMarkMessageAsArchivedParams,
     type GuideMarkMessageAsInteractedParams as GuideMarkMessageAsInteractedParams,
-    type GuideMarkMessageAsSeenParams as GuideMarkMessageAsSeenParams
+    type GuideMarkMessageAsSeenParams as GuideMarkMessageAsSeenParams,
   };
 }

@@ -32,8 +32,13 @@ export class Audiences extends APIResource {
    * ```
    */
   addMembers(key: string, params: AudienceAddMembersParams, options?: RequestOptions): APIPromise<void> {
-    const { create_audience, ...body } = params
-    return this._client.post(path`/v1/audiences/${key}/members`, { query: { create_audience }, body, ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    const { create_audience, ...body } = params;
+    return this._client.post(path`/v1/audiences/${key}/members`, {
+      query: { create_audience },
+      body,
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -59,7 +64,11 @@ export class Audiences extends APIResource {
    * ```
    */
   removeMembers(key: string, body: AudienceRemoveMembersParams, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/v1/audiences/${key}/members`, { body, ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/v1/audiences/${key}/members`, {
+      body,
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
@@ -176,6 +185,6 @@ export declare namespace Audiences {
     type AudienceMember as AudienceMember,
     type AudienceListMembersResponse as AudienceListMembersResponse,
     type AudienceAddMembersParams as AudienceAddMembersParams,
-    type AudienceRemoveMembersParams as AudienceRemoveMembersParams
+    type AudienceRemoveMembersParams as AudienceRemoveMembersParams,
   };
 }

@@ -128,7 +128,7 @@ export class Schedules extends APIResource {
   }
 }
 
-export type SchedulesEntriesCursor = EntriesCursor<Schedule>
+export type SchedulesEntriesCursor = EntriesCursor<Schedule>;
 
 /**
  * A schedule represents a recurring workflow execution.
@@ -243,17 +243,17 @@ export interface ScheduleRepeatRule {
 /**
  * A list of schedules.
  */
-export type ScheduleCreateResponse = Array<Schedule>
+export type ScheduleCreateResponse = Array<Schedule>;
 
 /**
  * A list of schedules.
  */
-export type ScheduleUpdateResponse = Array<Schedule>
+export type ScheduleUpdateResponse = Array<Schedule>;
 
 /**
  * A list of schedules.
  */
-export type ScheduleDeleteResponse = Array<Schedule>
+export type ScheduleDeleteResponse = Array<Schedule>;
 
 export interface ScheduleCreateParams {
   /**
@@ -380,11 +380,8 @@ export declare namespace Schedules {
     type ScheduleCreateParams as ScheduleCreateParams,
     type ScheduleUpdateParams as ScheduleUpdateParams,
     type ScheduleListParams as ScheduleListParams,
-    type ScheduleDeleteParams as ScheduleDeleteParams
+    type ScheduleDeleteParams as ScheduleDeleteParams,
   };
 
-  export {
-    Bulk as Bulk,
-    type BulkCreateParams as BulkCreateParams
-  };
+  export { Bulk as Bulk, type BulkCreateParams as BulkCreateParams };
 }

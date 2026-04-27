@@ -4,16 +4,14 @@ import { APIResource } from '../../core/resource';
 import * as PreferencesAPI from './preferences';
 import * as Shared from '../shared';
 
-export class Preferences extends APIResource {
-
-}
+export class Preferences extends APIResource {}
 
 /**
  * Inline set preferences for a recipient, where the key is the preference set id.
  * Preferences that are set inline will be merged into any existing preferences
  * rather than replacing them.
  */
-export type InlinePreferenceSetRequest = { [key: string]: PreferenceSetRequest }
+export type InlinePreferenceSetRequest = { [key: string]: PreferenceSetRequest };
 
 /**
  * A preference set represents a specific set of notification preferences for a
@@ -169,7 +167,9 @@ export interface PreferenceSetRequest {
    * An object where the key is the category and the values are the preference
    * settings for that category.
    */
-  categories?: { [key: string]: boolean | PreferenceSetRequest.PreferenceSetWorkflowCategorySettingObject } | null;
+  categories?: {
+    [key: string]: boolean | PreferenceSetRequest.PreferenceSetWorkflowCategorySettingObject;
+  } | null;
 
   /**
    * Channel type preferences.
@@ -191,7 +191,9 @@ export interface PreferenceSetRequest {
    * An object where the key is the workflow key and the values are the preference
    * settings for that workflow.
    */
-  workflows?: { [key: string]: boolean | PreferenceSetRequest.PreferenceSetWorkflowCategorySettingObject } | null;
+  workflows?: {
+    [key: string]: boolean | PreferenceSetRequest.PreferenceSetWorkflowCategorySettingObject;
+  } | null;
 }
 
 export namespace PreferenceSetRequest {
@@ -245,6 +247,6 @@ export declare namespace Preferences {
     type PreferenceSetChannelSetting as PreferenceSetChannelSetting,
     type PreferenceSetChannelTypeSetting as PreferenceSetChannelTypeSetting,
     type PreferenceSetChannelTypes as PreferenceSetChannelTypes,
-    type PreferenceSetRequest as PreferenceSetRequest
+    type PreferenceSetRequest as PreferenceSetRequest,
   };
 }

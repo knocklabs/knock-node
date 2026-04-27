@@ -2,11 +2,16 @@
 
 import Knock from '@knocklabs/node';
 
-const client = new Knock({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
+const client = new Knock({
+  apiKey: 'My API Key',
+  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
+});
 
 describe('resource msTeams', () => {
   test('checkAuth: only required params', async () => {
-    const responsePromise = client.providers.msTeams.checkAuth('channel_id', { ms_teams_tenant_object: 'ms_teams_tenant_object' });
+    const responsePromise = client.providers.msTeams.checkAuth('channel_id', {
+      ms_teams_tenant_object: 'ms_teams_tenant_object',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -17,11 +22,16 @@ describe('resource msTeams', () => {
   });
 
   test('checkAuth: required and optional params', async () => {
-    const response = await client.providers.msTeams.checkAuth('channel_id', { ms_teams_tenant_object: 'ms_teams_tenant_object' });
+    const response = await client.providers.msTeams.checkAuth('channel_id', {
+      ms_teams_tenant_object: 'ms_teams_tenant_object',
+    });
   });
 
   test('listChannels: only required params', async () => {
-    const responsePromise = client.providers.msTeams.listChannels('channel_id', { ms_teams_tenant_object: 'ms_teams_tenant_object', team_id: 'team_id' });
+    const responsePromise = client.providers.msTeams.listChannels('channel_id', {
+      ms_teams_tenant_object: 'ms_teams_tenant_object',
+      team_id: 'team_id',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -33,14 +43,16 @@ describe('resource msTeams', () => {
 
   test('listChannels: required and optional params', async () => {
     const response = await client.providers.msTeams.listChannels('channel_id', {
-    ms_teams_tenant_object: 'ms_teams_tenant_object',
-    team_id: 'team_id',
-    query_options: { $filter: '$filter', $select: '$select' },
-  });
+      ms_teams_tenant_object: 'ms_teams_tenant_object',
+      team_id: 'team_id',
+      query_options: { $filter: '$filter', $select: '$select' },
+    });
   });
 
   test('listTeams: only required params', async () => {
-    const responsePromise = client.providers.msTeams.listTeams('channel_id', { ms_teams_tenant_object: 'ms_teams_tenant_object' });
+    const responsePromise = client.providers.msTeams.listTeams('channel_id', {
+      ms_teams_tenant_object: 'ms_teams_tenant_object',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -52,18 +64,20 @@ describe('resource msTeams', () => {
 
   test('listTeams: required and optional params', async () => {
     const response = await client.providers.msTeams.listTeams('channel_id', {
-    ms_teams_tenant_object: 'ms_teams_tenant_object',
-    query_options: {
-    $filter: '$filter',
-    $select: '$select',
-    $skiptoken: '$skiptoken',
-    $top: 0,
-  },
-  });
+      ms_teams_tenant_object: 'ms_teams_tenant_object',
+      query_options: {
+        $filter: '$filter',
+        $select: '$select',
+        $skiptoken: '$skiptoken',
+        $top: 0,
+      },
+    });
   });
 
   test('revokeAccess: only required params', async () => {
-    const responsePromise = client.providers.msTeams.revokeAccess('channel_id', { ms_teams_tenant_object: 'ms_teams_tenant_object' });
+    const responsePromise = client.providers.msTeams.revokeAccess('channel_id', {
+      ms_teams_tenant_object: 'ms_teams_tenant_object',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -74,6 +88,8 @@ describe('resource msTeams', () => {
   });
 
   test('revokeAccess: required and optional params', async () => {
-    const response = await client.providers.msTeams.revokeAccess('channel_id', { ms_teams_tenant_object: 'ms_teams_tenant_object' });
+    const response = await client.providers.msTeams.revokeAccess('channel_id', {
+      ms_teams_tenant_object: 'ms_teams_tenant_object',
+    });
   });
 });

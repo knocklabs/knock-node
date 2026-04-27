@@ -57,12 +57,21 @@ export class Feeds extends APIResource {
    * }
    * ```
    */
-  listItems(userID: string, id: string, query: FeedListItemsParams | null | undefined = {}, options?: RequestOptions): PagePromise<FeedListItemsResponsesEntriesCursor, FeedListItemsResponse> {
-    return this._client.getAPIList(path`/v1/users/${userID}/feeds/${id}`, EntriesCursor<FeedListItemsResponse>, { query, ...options });
+  listItems(
+    userID: string,
+    id: string,
+    query: FeedListItemsParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<FeedListItemsResponsesEntriesCursor, FeedListItemsResponse> {
+    return this._client.getAPIList(
+      path`/v1/users/${userID}/feeds/${id}`,
+      EntriesCursor<FeedListItemsResponse>,
+      { query, ...options },
+    );
   }
 }
 
-export type FeedListItemsResponsesEntriesCursor = EntriesCursor<FeedListItemsResponse>
+export type FeedListItemsResponsesEntriesCursor = EntriesCursor<FeedListItemsResponse>;
 
 /**
  * The response for the user's feed settings.
@@ -113,7 +122,9 @@ export interface FeedListItemsResponse {
   /**
    * Content blocks that make up the feed item.
    */
-  blocks: Array<FeedListItemsResponse.MessageInAppFeedContentBlock | FeedListItemsResponse.MessageInAppFeedButtonSetBlock>;
+  blocks: Array<
+    FeedListItemsResponse.MessageInAppFeedContentBlock | FeedListItemsResponse.MessageInAppFeedButtonSetBlock
+  >;
 
   /**
    * Additional data associated with the feed item.
@@ -366,6 +377,6 @@ export declare namespace Feeds {
     type FeedGetSettingsResponse as FeedGetSettingsResponse,
     type FeedListItemsResponse as FeedListItemsResponse,
     type FeedListItemsResponsesEntriesCursor as FeedListItemsResponsesEntriesCursor,
-    type FeedListItemsParams as FeedListItemsParams
+    type FeedListItemsParams as FeedListItemsParams,
   };
 }

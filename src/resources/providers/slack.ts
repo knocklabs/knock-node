@@ -21,7 +21,11 @@ export class Slack extends APIResource {
    * );
    * ```
    */
-  checkAuth(channelID: string, query: SlackCheckAuthParams, options?: RequestOptions): APIPromise<SlackCheckAuthResponse> {
+  checkAuth(
+    channelID: string,
+    query: SlackCheckAuthParams,
+    options?: RequestOptions,
+  ): APIPromise<SlackCheckAuthResponse> {
     return this._client.get(path`/v1/providers/slack/${channelID}/auth_check`, { query, ...options });
   }
 
@@ -39,8 +43,16 @@ export class Slack extends APIResource {
    * }
    * ```
    */
-  listChannels(channelID: string, query: SlackListChannelsParams, options?: RequestOptions): PagePromise<SlackListChannelsResponsesSlackChannelsCursor, SlackListChannelsResponse> {
-    return this._client.getAPIList(path`/v1/providers/slack/${channelID}/channels`, SlackChannelsCursor<SlackListChannelsResponse>, { query, ...options });
+  listChannels(
+    channelID: string,
+    query: SlackListChannelsParams,
+    options?: RequestOptions,
+  ): PagePromise<SlackListChannelsResponsesSlackChannelsCursor, SlackListChannelsResponse> {
+    return this._client.getAPIList(
+      path`/v1/providers/slack/${channelID}/channels`,
+      SlackChannelsCursor<SlackListChannelsResponse>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -54,13 +66,20 @@ export class Slack extends APIResource {
    * );
    * ```
    */
-  revokeAccess(channelID: string, params: SlackRevokeAccessParams, options?: RequestOptions): APIPromise<SlackRevokeAccessResponse> {
-    const { access_token_object } = params
-    return this._client.put(path`/v1/providers/slack/${channelID}/revoke_access`, { query: { access_token_object }, ...options });
+  revokeAccess(
+    channelID: string,
+    params: SlackRevokeAccessParams,
+    options?: RequestOptions,
+  ): APIPromise<SlackRevokeAccessResponse> {
+    const { access_token_object } = params;
+    return this._client.put(path`/v1/providers/slack/${channelID}/revoke_access`, {
+      query: { access_token_object },
+      ...options,
+    });
   }
 }
 
-export type SlackListChannelsResponsesSlackChannelsCursor = SlackChannelsCursor<SlackListChannelsResponse>
+export type SlackListChannelsResponsesSlackChannelsCursor = SlackChannelsCursor<SlackListChannelsResponse>;
 
 /**
  * The response from a Slack auth check request.
@@ -195,6 +214,6 @@ export declare namespace Slack {
     type SlackListChannelsResponsesSlackChannelsCursor as SlackListChannelsResponsesSlackChannelsCursor,
     type SlackCheckAuthParams as SlackCheckAuthParams,
     type SlackListChannelsParams as SlackListChannelsParams,
-    type SlackRevokeAccessParams as SlackRevokeAccessParams
+    type SlackRevokeAccessParams as SlackRevokeAccessParams,
   };
 }

@@ -37,7 +37,22 @@ export class Bulk extends APIResource {
    *   );
    * ```
    */
-  updateMessageStatus(channelID: string, action: 'seen' | 'unseen' | 'read' | 'unread' | 'archived' | 'unarchived' | 'interacted' | 'archive' | 'unarchive' | 'delete', body: BulkUpdateMessageStatusParams, options?: RequestOptions): APIPromise<BulkOperationsAPI.BulkOperation> {
+  updateMessageStatus(
+    channelID: string,
+    action:
+      | 'seen'
+      | 'unseen'
+      | 'read'
+      | 'unread'
+      | 'archived'
+      | 'unarchived'
+      | 'interacted'
+      | 'archive'
+      | 'unarchive'
+      | 'delete',
+    body: BulkUpdateMessageStatusParams,
+    options?: RequestOptions,
+  ): APIPromise<BulkOperationsAPI.BulkOperation> {
     return this._client.post(path`/v1/channels/${channelID}/messages/bulk/${action}`, { body, ...options });
   }
 }
@@ -51,12 +66,27 @@ export interface BulkUpdateMessageStatusParams {
   /**
    * Limits the results to messages with the given delivery status.
    */
-  delivery_status?: 'queued' | 'sent' | 'delivered' | 'delivery_attempted' | 'undelivered' | 'not_sent' | 'bounced';
+  delivery_status?:
+    | 'queued'
+    | 'sent'
+    | 'delivered'
+    | 'delivery_attempted'
+    | 'undelivered'
+    | 'not_sent'
+    | 'bounced';
 
   /**
    * Limits the results to messages with the given engagement status.
    */
-  engagement_status?: 'seen' | 'unseen' | 'read' | 'unread' | 'archived' | 'unarchived' | 'link_clicked' | 'interacted';
+  engagement_status?:
+    | 'seen'
+    | 'unseen'
+    | 'read'
+    | 'unread'
+    | 'archived'
+    | 'unarchived'
+    | 'link_clicked'
+    | 'interacted';
 
   /**
    * Limits the results to messages that have a tenant or not.
@@ -97,7 +127,5 @@ export interface BulkUpdateMessageStatusParams {
 }
 
 export declare namespace Bulk {
-  export {
-    type BulkUpdateMessageStatusParams as BulkUpdateMessageStatusParams
-  };
+  export { type BulkUpdateMessageStatusParams as BulkUpdateMessageStatusParams };
 }

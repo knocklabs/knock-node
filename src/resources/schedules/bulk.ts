@@ -114,7 +114,5 @@ export namespace BulkCreateParams {
 }
 
 export declare namespace Bulk {
-  export {
-    type BulkCreateParams as BulkCreateParams
-  };
+  export { type BulkCreateParams as BulkCreateParams };
 }
