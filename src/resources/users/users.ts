@@ -14,11 +14,33 @@ import { SchedulesEntriesCursor } from '../schedules/schedules';
 import * as BulkAPI from './bulk';
 import { Bulk, BulkDeleteParams, BulkIdentifyParams, BulkSetPreferencesParams } from './bulk';
 import * as FeedsAPI from './feeds';
-import { FeedGetSettingsResponse, FeedListItemsParams, FeedListItemsResponse, FeedListItemsResponsesEntriesCursor, Feeds } from './feeds';
+import {
+  FeedGetSettingsResponse,
+  FeedListItemsParams,
+  FeedListItemsResponse,
+  FeedListItemsResponsesEntriesCursor,
+  Feeds,
+} from './feeds';
 import * as GuidesAPI from './guides';
-import { GuideGetChannelParams, GuideGetChannelResponse, GuideMarkMessageAsArchivedParams, GuideMarkMessageAsArchivedResponse, GuideMarkMessageAsInteractedParams, GuideMarkMessageAsInteractedResponse, GuideMarkMessageAsSeenParams, GuideMarkMessageAsSeenResponse, Guides } from './guides';
+import {
+  GuideGetChannelParams,
+  GuideGetChannelResponse,
+  GuideMarkMessageAsArchivedParams,
+  GuideMarkMessageAsArchivedResponse,
+  GuideMarkMessageAsInteractedParams,
+  GuideMarkMessageAsInteractedResponse,
+  GuideMarkMessageAsSeenParams,
+  GuideMarkMessageAsSeenResponse,
+  Guides,
+} from './guides';
 import { APIPromise } from '../../core/api-promise';
-import { EntriesCursor, type EntriesCursorParams, ItemsCursor, type ItemsCursorParams, PagePromise } from '../../core/pagination';
+import {
+  EntriesCursor,
+  type EntriesCursorParams,
+  ItemsCursor,
+  type ItemsCursorParams,
+  PagePromise,
+} from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -76,7 +98,10 @@ export class Users extends APIResource {
    * }
    * ```
    */
-  list(query: UserListParams | null | undefined = {}, options?: RequestOptions): PagePromise<UsersEntriesCursor, User> {
+  list(
+    query: UserListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<UsersEntriesCursor, User> {
     return this._client.getAPIList('/v1/users', EntriesCursor<User>, { query, ...options });
   }
 
@@ -89,7 +114,10 @@ export class Users extends APIResource {
    * ```
    */
   delete(userID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/v1/users/${userID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/v1/users/${userID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -115,7 +143,11 @@ export class Users extends APIResource {
    * );
    * ```
    */
-  getChannelData(userID: string, channelID: string, options?: RequestOptions): APIPromise<ChannelDataAPI.ChannelData> {
+  getChannelData(
+    userID: string,
+    channelID: string,
+    options?: RequestOptions,
+  ): APIPromise<ChannelDataAPI.ChannelData> {
     return this._client.get(path`/v1/users/${userID}/channel_data/${channelID}`, options);
   }
 
@@ -131,7 +163,12 @@ export class Users extends APIResource {
    * );
    * ```
    */
-  getPreferences(userID: string, id: string, query: UserGetPreferencesParams | null | undefined = {}, options?: RequestOptions): APIPromise<PreferencesAPI.PreferenceSet> {
+  getPreferences(
+    userID: string,
+    id: string,
+    query: UserGetPreferencesParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<PreferencesAPI.PreferenceSet> {
     return this._client.get(path`/v1/users/${userID}/preferences/${id}`, { query, ...options });
   }
 
@@ -150,8 +187,15 @@ export class Users extends APIResource {
    * }
    * ```
    */
-  listMessages(userID: string, query: UserListMessagesParams | null | undefined = {}, options?: RequestOptions): PagePromise<MessagesItemsCursor, MessagesAPI.Message> {
-    return this._client.getAPIList(path`/v1/users/${userID}/messages`, ItemsCursor<MessagesAPI.Message>, { query, ...options });
+  listMessages(
+    userID: string,
+    query: UserListMessagesParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<MessagesItemsCursor, MessagesAPI.Message> {
+    return this._client.getAPIList(path`/v1/users/${userID}/messages`, ItemsCursor<MessagesAPI.Message>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -181,8 +225,16 @@ export class Users extends APIResource {
    * }
    * ```
    */
-  listSchedules(userID: string, query: UserListSchedulesParams | null | undefined = {}, options?: RequestOptions): PagePromise<SchedulesEntriesCursor, SchedulesAPI.Schedule> {
-    return this._client.getAPIList(path`/v1/users/${userID}/schedules`, EntriesCursor<SchedulesAPI.Schedule>, { query, ...options });
+  listSchedules(
+    userID: string,
+    query: UserListSchedulesParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<SchedulesEntriesCursor, SchedulesAPI.Schedule> {
+    return this._client.getAPIList(
+      path`/v1/users/${userID}/schedules`,
+      EntriesCursor<SchedulesAPI.Schedule>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -199,8 +251,16 @@ export class Users extends APIResource {
    * }
    * ```
    */
-  listSubscriptions(userID: string, query: UserListSubscriptionsParams | null | undefined = {}, options?: RequestOptions): PagePromise<SubscriptionsEntriesCursor, SubscriptionsAPI.Subscription> {
-    return this._client.getAPIList(path`/v1/users/${userID}/subscriptions`, EntriesCursor<SubscriptionsAPI.Subscription>, { query, ...options });
+  listSubscriptions(
+    userID: string,
+    query: UserListSubscriptionsParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<SubscriptionsEntriesCursor, SubscriptionsAPI.Subscription> {
+    return this._client.getAPIList(
+      path`/v1/users/${userID}/subscriptions`,
+      EntriesCursor<SubscriptionsAPI.Subscription>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -232,7 +292,12 @@ export class Users extends APIResource {
    * );
    * ```
    */
-  setChannelData(userID: string, channelID: string, body: UserSetChannelDataParams, options?: RequestOptions): APIPromise<ChannelDataAPI.ChannelData> {
+  setChannelData(
+    userID: string,
+    channelID: string,
+    body: UserSetChannelDataParams,
+    options?: RequestOptions,
+  ): APIPromise<ChannelDataAPI.ChannelData> {
     return this._client.put(path`/v1/users/${userID}/channel_data/${channelID}`, { body, ...options });
   }
 
@@ -276,7 +341,12 @@ export class Users extends APIResource {
    * );
    * ```
    */
-  setPreferences(userID: string, id: string, body: UserSetPreferencesParams, options?: RequestOptions): APIPromise<PreferencesAPI.PreferenceSet> {
+  setPreferences(
+    userID: string,
+    id: string,
+    body: UserSetPreferencesParams,
+    options?: RequestOptions,
+  ): APIPromise<PreferencesAPI.PreferenceSet> {
     return this._client.put(path`/v1/users/${userID}/preferences/${id}`, { body, ...options });
   }
 
@@ -292,7 +362,10 @@ export class Users extends APIResource {
    * ```
    */
   unsetChannelData(userID: string, channelID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/v1/users/${userID}/channel_data/${channelID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/v1/users/${userID}/channel_data/${channelID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -304,11 +377,14 @@ export class Users extends APIResource {
    * ```
    */
   unsetPreferences(userID: string, id: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/v1/users/${userID}/preferences/${id}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/v1/users/${userID}/preferences/${id}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
-export type UsersEntriesCursor = EntriesCursor<User>
+export type UsersEntriesCursor = EntriesCursor<User>;
 
 /**
  * A set of parameters to identify a user with. Does not include the user ID, as
@@ -367,7 +443,7 @@ export interface IdentifyUserRequest {
    */
   timezone?: string | null;
 
-[k: string]: unknown
+  [k: string]: unknown;
 }
 
 /**
@@ -433,7 +509,7 @@ export interface InlineIdentifyUserRequest {
    */
   timezone?: string | null;
 
-[k: string]: unknown
+  [k: string]: unknown;
 }
 
 /**
@@ -491,13 +567,13 @@ export interface User {
    */
   timezone?: string | null;
 
-[k: string]: unknown
+  [k: string]: unknown;
 }
 
 /**
  * A list of preference sets for the user.
  */
-export type UserListPreferencesResponse = Array<PreferencesAPI.PreferenceSet>
+export type UserListPreferencesResponse = Array<PreferencesAPI.PreferenceSet>;
 
 export interface UserUpdateParams {
   /**
@@ -551,7 +627,7 @@ export interface UserUpdateParams {
    */
   timezone?: string | null;
 
-[k: string]: unknown
+  [k: string]: unknown;
 }
 
 export interface UserListParams extends EntriesCursorParams {
@@ -577,7 +653,9 @@ export interface UserListMessagesParams extends ItemsCursorParams {
   /**
    * Limits the results to messages with the given engagement status.
    */
-  engagement_status?: Array<'seen' | 'unseen' | 'read' | 'unread' | 'archived' | 'unarchived' | 'link_clicked' | 'interacted'>;
+  engagement_status?: Array<
+    'seen' | 'unseen' | 'read' | 'unread' | 'archived' | 'unarchived' | 'link_clicked' | 'interacted'
+  >;
 
   inserted_at?: UserListMessagesParams.InsertedAt;
 
@@ -595,7 +673,9 @@ export interface UserListMessagesParams extends ItemsCursorParams {
   /**
    * Limits the results to messages with the given delivery status.
    */
-  status?: Array<'queued' | 'sent' | 'delivered' | 'delivery_attempted' | 'undelivered' | 'not_sent' | 'bounced'>;
+  status?: Array<
+    'queued' | 'sent' | 'delivered' | 'delivery_attempted' | 'undelivered' | 'not_sent' | 'bounced'
+  >;
 
   /**
    * Limits the results to items with the corresponding tenant.
@@ -685,7 +765,15 @@ export interface UserSetChannelDataParams {
   /**
    * Channel data for a given channel type.
    */
-  data: ChannelDataAPI.PushChannelDataTokensOnly | ChannelDataAPI.PushChannelDataDevicesOnly | ChannelDataAPI.AwsSnsPushChannelDataTargetArnsOnly | ChannelDataAPI.AwsSnsPushChannelDataDevicesOnly | ChannelDataAPI.OneSignalChannelDataPlayerIDsOnly | ChannelDataAPI.SlackChannelData | ChannelDataAPI.MsTeamsChannelData | ChannelDataAPI.DiscordChannelData;
+  data:
+    | ChannelDataAPI.PushChannelDataTokensOnly
+    | ChannelDataAPI.PushChannelDataDevicesOnly
+    | ChannelDataAPI.AwsSnsPushChannelDataTargetArnsOnly
+    | ChannelDataAPI.AwsSnsPushChannelDataDevicesOnly
+    | ChannelDataAPI.OneSignalChannelDataPlayerIDsOnly
+    | ChannelDataAPI.SlackChannelData
+    | ChannelDataAPI.MsTeamsChannelData
+    | ChannelDataAPI.DiscordChannelData;
 }
 
 export interface UserSetPreferencesParams {
@@ -699,7 +787,9 @@ export interface UserSetPreferencesParams {
    * An object where the key is the category and the values are the preference
    * settings for that category.
    */
-  categories?: { [key: string]: boolean | UserSetPreferencesParams.PreferenceSetWorkflowCategorySettingObject } | null;
+  categories?: {
+    [key: string]: boolean | UserSetPreferencesParams.PreferenceSetWorkflowCategorySettingObject;
+  } | null;
 
   /**
    * Channel type preferences.
@@ -721,7 +811,9 @@ export interface UserSetPreferencesParams {
    * An object where the key is the workflow key and the values are the preference
    * settings for that workflow.
    */
-  workflows?: { [key: string]: boolean | UserSetPreferencesParams.PreferenceSetWorkflowCategorySettingObject } | null;
+  workflows?: {
+    [key: string]: boolean | UserSetPreferencesParams.PreferenceSetWorkflowCategorySettingObject;
+  } | null;
 }
 
 export namespace UserSetPreferencesParams {
@@ -787,7 +879,7 @@ export declare namespace Users {
     type UserListSubscriptionsParams as UserListSubscriptionsParams,
     type UserMergeParams as UserMergeParams,
     type UserSetChannelDataParams as UserSetChannelDataParams,
-    type UserSetPreferencesParams as UserSetPreferencesParams
+    type UserSetPreferencesParams as UserSetPreferencesParams,
   };
 
   export {
@@ -795,7 +887,7 @@ export declare namespace Users {
     type FeedGetSettingsResponse as FeedGetSettingsResponse,
     type FeedListItemsResponse as FeedListItemsResponse,
     type FeedListItemsResponsesEntriesCursor as FeedListItemsResponsesEntriesCursor,
-    type FeedListItemsParams as FeedListItemsParams
+    type FeedListItemsParams as FeedListItemsParams,
   };
 
   export {
@@ -807,15 +899,15 @@ export declare namespace Users {
     type GuideGetChannelParams as GuideGetChannelParams,
     type GuideMarkMessageAsArchivedParams as GuideMarkMessageAsArchivedParams,
     type GuideMarkMessageAsInteractedParams as GuideMarkMessageAsInteractedParams,
-    type GuideMarkMessageAsSeenParams as GuideMarkMessageAsSeenParams
+    type GuideMarkMessageAsSeenParams as GuideMarkMessageAsSeenParams,
   };
 
   export {
     Bulk as Bulk,
     type BulkDeleteParams as BulkDeleteParams,
     type BulkIdentifyParams as BulkIdentifyParams,
-    type BulkSetPreferencesParams as BulkSetPreferencesParams
+    type BulkSetPreferencesParams as BulkSetPreferencesParams,
   };
 }
 
-export { type MessagesItemsCursor, type SchedulesEntriesCursor, type SubscriptionsEntriesCursor }
+export { type MessagesItemsCursor, type SchedulesEntriesCursor, type SubscriptionsEntriesCursor };

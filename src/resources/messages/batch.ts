@@ -57,7 +57,10 @@ export class Batch extends APIResource {
    *   });
    * ```
    */
-  markAsInteracted(body: BatchMarkAsInteractedParams, options?: RequestOptions): APIPromise<BatchMarkAsInteractedResponse> {
+  markAsInteracted(
+    body: BatchMarkAsInteractedParams,
+    options?: RequestOptions,
+  ): APIPromise<BatchMarkAsInteractedResponse> {
     return this._client.post('/v1/messages/batch/interacted', { body, ...options });
   }
 
@@ -113,7 +116,10 @@ export class Batch extends APIResource {
    * });
    * ```
    */
-  markAsUnread(body: BatchMarkAsUnreadParams, options?: RequestOptions): APIPromise<BatchMarkAsUnreadResponse> {
+  markAsUnread(
+    body: BatchMarkAsUnreadParams,
+    options?: RequestOptions,
+  ): APIPromise<BatchMarkAsUnreadResponse> {
     return this._client.post('/v1/messages/batch/unread', { body, ...options });
   }
 
@@ -132,7 +138,10 @@ export class Batch extends APIResource {
    * });
    * ```
    */
-  markAsUnseen(body: BatchMarkAsUnseenParams, options?: RequestOptions): APIPromise<BatchMarkAsUnseenResponse> {
+  markAsUnseen(
+    body: BatchMarkAsUnseenParams,
+    options?: RequestOptions,
+  ): APIPromise<BatchMarkAsUnseenResponse> {
     return this._client.post('/v1/messages/batch/unseen', { body, ...options });
   }
 
@@ -159,12 +168,12 @@ export class Batch extends APIResource {
 /**
  * The list of messages that were updated.
  */
-export type BatchArchiveResponse = Array<MessagesAPI.Message>
+export type BatchArchiveResponse = Array<MessagesAPI.Message>;
 
 /**
  * A list of `MessageContents`
  */
-export type BatchGetContentResponse = Array<BatchGetContentResponse.BatchGetContentResponseItem>
+export type BatchGetContentResponse = Array<BatchGetContentResponse.BatchGetContentResponseItem>;
 
 export namespace BatchGetContentResponse {
   /**
@@ -179,7 +188,12 @@ export namespace BatchGetContentResponse {
     /**
      * Content data specific to the channel type.
      */
-    data: BatchGetContentResponseItem.MessageEmailContent | BatchGetContentResponseItem.MessageSMSContent | BatchGetContentResponseItem.MessagePushContent | BatchGetContentResponseItem.MessageChatContent | BatchGetContentResponseItem.MessageInAppFeedContent;
+    data:
+      | BatchGetContentResponseItem.MessageEmailContent
+      | BatchGetContentResponseItem.MessageSMSContent
+      | BatchGetContentResponseItem.MessagePushContent
+      | BatchGetContentResponseItem.MessageChatContent
+      | BatchGetContentResponseItem.MessageInAppFeedContent;
 
     /**
      * Timestamp when the message content was created.
@@ -374,7 +388,10 @@ export namespace BatchGetContentResponse {
       /**
        * The blocks of the message in an app feed.
        */
-      blocks: Array<MessageInAppFeedContent.MessageInAppFeedContentBlock | MessageInAppFeedContent.MessageInAppFeedButtonSetBlock>;
+      blocks: Array<
+        | MessageInAppFeedContent.MessageInAppFeedContentBlock
+        | MessageInAppFeedContent.MessageInAppFeedButtonSetBlock
+      >;
     }
 
     export namespace MessageInAppFeedContent {
@@ -451,32 +468,32 @@ export namespace BatchGetContentResponse {
 /**
  * The list of messages that were updated.
  */
-export type BatchMarkAsInteractedResponse = Array<MessagesAPI.Message>
+export type BatchMarkAsInteractedResponse = Array<MessagesAPI.Message>;
 
 /**
  * The list of messages that were updated.
  */
-export type BatchMarkAsReadResponse = Array<MessagesAPI.Message>
+export type BatchMarkAsReadResponse = Array<MessagesAPI.Message>;
 
 /**
  * The list of messages that were updated.
  */
-export type BatchMarkAsSeenResponse = Array<MessagesAPI.Message>
+export type BatchMarkAsSeenResponse = Array<MessagesAPI.Message>;
 
 /**
  * The list of messages that were updated.
  */
-export type BatchMarkAsUnreadResponse = Array<MessagesAPI.Message>
+export type BatchMarkAsUnreadResponse = Array<MessagesAPI.Message>;
 
 /**
  * The list of messages that were updated.
  */
-export type BatchMarkAsUnseenResponse = Array<MessagesAPI.Message>
+export type BatchMarkAsUnseenResponse = Array<MessagesAPI.Message>;
 
 /**
  * The list of messages that were updated.
  */
-export type BatchUnarchiveResponse = Array<MessagesAPI.Message>
+export type BatchUnarchiveResponse = Array<MessagesAPI.Message>;
 
 export interface BatchArchiveParams {
   /**
@@ -556,6 +573,6 @@ export declare namespace Batch {
     type BatchMarkAsSeenParams as BatchMarkAsSeenParams,
     type BatchMarkAsUnreadParams as BatchMarkAsUnreadParams,
     type BatchMarkAsUnseenParams as BatchMarkAsUnseenParams,
-    type BatchUnarchiveParams as BatchUnarchiveParams
+    type BatchUnarchiveParams as BatchUnarchiveParams,
   };
 }

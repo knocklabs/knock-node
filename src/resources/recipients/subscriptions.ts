@@ -5,11 +5,9 @@ import * as ObjectsAPI from '../objects/objects';
 import * as RecipientsAPI from './recipients';
 import { EntriesCursor } from '../../core/pagination';
 
-export class Subscriptions extends APIResource {
+export class Subscriptions extends APIResource {}
 
-}
-
-export type SubscriptionsEntriesCursor = EntriesCursor<Subscription>
+export type SubscriptionsEntriesCursor = EntriesCursor<Subscription>;
 
 /**
  * A subscription object.
@@ -47,7 +45,5 @@ export interface Subscription {
 }
 
 export declare namespace Subscriptions {
-  export {
-    type Subscription as Subscription
-  };
+  export { type Subscription as Subscription };
 }

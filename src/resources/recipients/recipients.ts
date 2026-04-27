@@ -3,9 +3,29 @@
 import { APIResource } from '../../core/resource';
 import * as ObjectsAPI from '../objects/objects';
 import * as ChannelDataAPI from './channel-data';
-import { AwsSnsPushChannelDataDevicesOnly, AwsSnsPushChannelDataTargetArnsOnly, ChannelData, ChannelDataRequest, DiscordChannelData, InlineChannelDataRequest, MsTeamsChannelData, OneSignalChannelDataPlayerIDsOnly, PushChannelDataDevicesOnly, PushChannelDataTokensOnly, SlackChannelData } from './channel-data';
+import {
+  AwsSnsPushChannelDataDevicesOnly,
+  AwsSnsPushChannelDataTargetArnsOnly,
+  ChannelData,
+  ChannelDataRequest,
+  DiscordChannelData,
+  InlineChannelDataRequest,
+  MsTeamsChannelData,
+  OneSignalChannelDataPlayerIDsOnly,
+  PushChannelDataDevicesOnly,
+  PushChannelDataTokensOnly,
+  SlackChannelData,
+} from './channel-data';
 import * as PreferencesAPI from './preferences';
-import { InlinePreferenceSetRequest, PreferenceSet, PreferenceSetChannelSetting, PreferenceSetChannelTypeSetting, PreferenceSetChannelTypes, PreferenceSetRequest, Preferences } from './preferences';
+import {
+  InlinePreferenceSetRequest,
+  PreferenceSet,
+  PreferenceSetChannelSetting,
+  PreferenceSetChannelTypeSetting,
+  PreferenceSetChannelTypes,
+  PreferenceSetRequest,
+  Preferences,
+} from './preferences';
 import * as SubscriptionsAPI from './subscriptions';
 import { Subscription, Subscriptions } from './subscriptions';
 import * as UsersAPI from '../users/users';
@@ -19,13 +39,13 @@ export class Recipients extends APIResource {
 /**
  * A recipient of a notification, which is either a user or an object.
  */
-export type Recipient = UsersAPI.User | ObjectsAPI.Object
+export type Recipient = UsersAPI.User | ObjectsAPI.Object;
 
 /**
  * A reference to a recipient, either a user identifier (string) or an object
  * reference (ID, collection).
  */
-export type RecipientReference = string | RecipientReference.ObjectReference
+export type RecipientReference = string | RecipientReference.ObjectReference;
 
 export namespace RecipientReference {
   /**
@@ -49,7 +69,7 @@ export namespace RecipientReference {
  * (string), an inline user request (object), or an inline object request, which is
  * determined by the presence of a `collection` property.
  */
-export type RecipientRequest = string | UsersAPI.InlineIdentifyUserRequest | ObjectsAPI.InlineObjectRequest
+export type RecipientRequest = string | UsersAPI.InlineIdentifyUserRequest | ObjectsAPI.InlineObjectRequest;
 
 Recipients.Subscriptions = Subscriptions;
 Recipients.Preferences = Preferences;
@@ -58,13 +78,10 @@ export declare namespace Recipients {
   export {
     type Recipient as Recipient,
     type RecipientReference as RecipientReference,
-    type RecipientRequest as RecipientRequest
+    type RecipientRequest as RecipientRequest,
   };
 
-  export {
-    Subscriptions as Subscriptions,
-    type Subscription as Subscription
-  };
+  export { Subscriptions as Subscriptions, type Subscription as Subscription };
 
   export {
     Preferences as Preferences,
@@ -73,7 +90,7 @@ export declare namespace Recipients {
     type PreferenceSetChannelSetting as PreferenceSetChannelSetting,
     type PreferenceSetChannelTypeSetting as PreferenceSetChannelTypeSetting,
     type PreferenceSetChannelTypes as PreferenceSetChannelTypes,
-    type PreferenceSetRequest as PreferenceSetRequest
+    type PreferenceSetRequest as PreferenceSetRequest,
   };
 
   export {
@@ -87,6 +104,6 @@ export declare namespace Recipients {
     type OneSignalChannelDataPlayerIDsOnly as OneSignalChannelDataPlayerIDsOnly,
     type PushChannelDataDevicesOnly as PushChannelDataDevicesOnly,
     type PushChannelDataTokensOnly as PushChannelDataTokensOnly,
-    type SlackChannelData as SlackChannelData
+    type SlackChannelData as SlackChannelData,
   };
 }

@@ -22,8 +22,14 @@ export class WorkflowRecipientRuns extends APIResource {
    * }
    * ```
    */
-  list(query: WorkflowRecipientRunListParams | null | undefined = {}, options?: RequestOptions): PagePromise<WorkflowRecipientRunsItemsCursor, WorkflowRecipientRun> {
-    return this._client.getAPIList('/v1/workflow_recipient_runs', ItemsCursor<WorkflowRecipientRun>, { query, ...options });
+  list(
+    query: WorkflowRecipientRunListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<WorkflowRecipientRunsItemsCursor, WorkflowRecipientRun> {
+    return this._client.getAPIList('/v1/workflow_recipient_runs', ItemsCursor<WorkflowRecipientRun>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -40,7 +46,7 @@ export class WorkflowRecipientRuns extends APIResource {
   }
 }
 
-export type WorkflowRecipientRunsItemsCursor = ItemsCursor<WorkflowRecipientRun>
+export type WorkflowRecipientRunsItemsCursor = ItemsCursor<WorkflowRecipientRun>;
 
 /**
  * A workflow recipient run represents an individual execution of a workflow for a
@@ -245,6 +251,6 @@ export declare namespace WorkflowRecipientRuns {
     type WorkflowRecipientRunDetail as WorkflowRecipientRunDetail,
     type WorkflowRecipientRunEvent as WorkflowRecipientRunEvent,
     type WorkflowRecipientRunsItemsCursor as WorkflowRecipientRunsItemsCursor,
-    type WorkflowRecipientRunListParams as WorkflowRecipientRunListParams
+    type WorkflowRecipientRunListParams as WorkflowRecipientRunListParams,
   };
 }

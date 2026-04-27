@@ -2,11 +2,16 @@
 
 import Knock from '@knocklabs/node';
 
-const client = new Knock({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
+const client = new Knock({
+  apiKey: 'My API Key',
+  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
+});
 
 describe('resource batch', () => {
   test('archive: only required params', async () => {
-    const responsePromise = client.messages.batch.archive({ message_ids: ['2w3YUpTTOxuDvZFji8OMsKrG176', '2w3YVRbPXMIh8Zq6oBFcVDA5xes'] });
+    const responsePromise = client.messages.batch.archive({
+      message_ids: ['2w3YUpTTOxuDvZFji8OMsKrG176', '2w3YVRbPXMIh8Zq6oBFcVDA5xes'],
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -17,7 +22,9 @@ describe('resource batch', () => {
   });
 
   test('archive: required and optional params', async () => {
-    const response = await client.messages.batch.archive({ message_ids: ['2w3YUpTTOxuDvZFji8OMsKrG176', '2w3YVRbPXMIh8Zq6oBFcVDA5xes'] });
+    const response = await client.messages.batch.archive({
+      message_ids: ['2w3YUpTTOxuDvZFji8OMsKrG176', '2w3YVRbPXMIh8Zq6oBFcVDA5xes'],
+    });
   });
 
   test('getContent: only required params', async () => {
@@ -36,7 +43,9 @@ describe('resource batch', () => {
   });
 
   test('markAsInteracted: only required params', async () => {
-    const responsePromise = client.messages.batch.markAsInteracted({ message_ids: ['1jNaXzB2RZX3LY8wVQnfCKyPnv7'] });
+    const responsePromise = client.messages.batch.markAsInteracted({
+      message_ids: ['1jNaXzB2RZX3LY8wVQnfCKyPnv7'],
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -48,13 +57,15 @@ describe('resource batch', () => {
 
   test('markAsInteracted: required and optional params', async () => {
     const response = await client.messages.batch.markAsInteracted({
-    message_ids: ['1jNaXzB2RZX3LY8wVQnfCKyPnv7'],
-    metadata: { key: 'bar' },
-  });
+      message_ids: ['1jNaXzB2RZX3LY8wVQnfCKyPnv7'],
+      metadata: { key: 'bar' },
+    });
   });
 
   test('markAsRead: only required params', async () => {
-    const responsePromise = client.messages.batch.markAsRead({ message_ids: ['2w3YUpTTOxuDvZFji8OMsKrG176', '2w3YVRbPXMIh8Zq6oBFcVDA5xes'] });
+    const responsePromise = client.messages.batch.markAsRead({
+      message_ids: ['2w3YUpTTOxuDvZFji8OMsKrG176', '2w3YVRbPXMIh8Zq6oBFcVDA5xes'],
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -65,11 +76,15 @@ describe('resource batch', () => {
   });
 
   test('markAsRead: required and optional params', async () => {
-    const response = await client.messages.batch.markAsRead({ message_ids: ['2w3YUpTTOxuDvZFji8OMsKrG176', '2w3YVRbPXMIh8Zq6oBFcVDA5xes'] });
+    const response = await client.messages.batch.markAsRead({
+      message_ids: ['2w3YUpTTOxuDvZFji8OMsKrG176', '2w3YVRbPXMIh8Zq6oBFcVDA5xes'],
+    });
   });
 
   test('markAsSeen: only required params', async () => {
-    const responsePromise = client.messages.batch.markAsSeen({ message_ids: ['2w3YUpTTOxuDvZFji8OMsKrG176', '2w3YVRbPXMIh8Zq6oBFcVDA5xes'] });
+    const responsePromise = client.messages.batch.markAsSeen({
+      message_ids: ['2w3YUpTTOxuDvZFji8OMsKrG176', '2w3YVRbPXMIh8Zq6oBFcVDA5xes'],
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -80,11 +95,15 @@ describe('resource batch', () => {
   });
 
   test('markAsSeen: required and optional params', async () => {
-    const response = await client.messages.batch.markAsSeen({ message_ids: ['2w3YUpTTOxuDvZFji8OMsKrG176', '2w3YVRbPXMIh8Zq6oBFcVDA5xes'] });
+    const response = await client.messages.batch.markAsSeen({
+      message_ids: ['2w3YUpTTOxuDvZFji8OMsKrG176', '2w3YVRbPXMIh8Zq6oBFcVDA5xes'],
+    });
   });
 
   test('markAsUnread: only required params', async () => {
-    const responsePromise = client.messages.batch.markAsUnread({ message_ids: ['2w3YUpTTOxuDvZFji8OMsKrG176', '2w3YVRbPXMIh8Zq6oBFcVDA5xes'] });
+    const responsePromise = client.messages.batch.markAsUnread({
+      message_ids: ['2w3YUpTTOxuDvZFji8OMsKrG176', '2w3YVRbPXMIh8Zq6oBFcVDA5xes'],
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -95,11 +114,15 @@ describe('resource batch', () => {
   });
 
   test('markAsUnread: required and optional params', async () => {
-    const response = await client.messages.batch.markAsUnread({ message_ids: ['2w3YUpTTOxuDvZFji8OMsKrG176', '2w3YVRbPXMIh8Zq6oBFcVDA5xes'] });
+    const response = await client.messages.batch.markAsUnread({
+      message_ids: ['2w3YUpTTOxuDvZFji8OMsKrG176', '2w3YVRbPXMIh8Zq6oBFcVDA5xes'],
+    });
   });
 
   test('markAsUnseen: only required params', async () => {
-    const responsePromise = client.messages.batch.markAsUnseen({ message_ids: ['2w3YUpTTOxuDvZFji8OMsKrG176', '2w3YVRbPXMIh8Zq6oBFcVDA5xes'] });
+    const responsePromise = client.messages.batch.markAsUnseen({
+      message_ids: ['2w3YUpTTOxuDvZFji8OMsKrG176', '2w3YVRbPXMIh8Zq6oBFcVDA5xes'],
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -110,11 +133,15 @@ describe('resource batch', () => {
   });
 
   test('markAsUnseen: required and optional params', async () => {
-    const response = await client.messages.batch.markAsUnseen({ message_ids: ['2w3YUpTTOxuDvZFji8OMsKrG176', '2w3YVRbPXMIh8Zq6oBFcVDA5xes'] });
+    const response = await client.messages.batch.markAsUnseen({
+      message_ids: ['2w3YUpTTOxuDvZFji8OMsKrG176', '2w3YVRbPXMIh8Zq6oBFcVDA5xes'],
+    });
   });
 
   test('unarchive: only required params', async () => {
-    const responsePromise = client.messages.batch.unarchive({ message_ids: ['2w3YUpTTOxuDvZFji8OMsKrG176', '2w3YVRbPXMIh8Zq6oBFcVDA5xes'] });
+    const responsePromise = client.messages.batch.unarchive({
+      message_ids: ['2w3YUpTTOxuDvZFji8OMsKrG176', '2w3YVRbPXMIh8Zq6oBFcVDA5xes'],
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -125,6 +152,8 @@ describe('resource batch', () => {
   });
 
   test('unarchive: required and optional params', async () => {
-    const response = await client.messages.batch.unarchive({ message_ids: ['2w3YUpTTOxuDvZFji8OMsKrG176', '2w3YVRbPXMIh8Zq6oBFcVDA5xes'] });
+    const response = await client.messages.batch.unarchive({
+      message_ids: ['2w3YUpTTOxuDvZFji8OMsKrG176', '2w3YVRbPXMIh8Zq6oBFcVDA5xes'],
+    });
   });
 });

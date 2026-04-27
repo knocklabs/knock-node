@@ -2,7 +2,25 @@
 
 import { APIResource } from '../../core/resource';
 import * as BatchAPI from './batch';
-import { Batch, BatchArchiveParams, BatchArchiveResponse, BatchGetContentParams, BatchGetContentResponse, BatchMarkAsInteractedParams, BatchMarkAsInteractedResponse, BatchMarkAsReadParams, BatchMarkAsReadResponse, BatchMarkAsSeenParams, BatchMarkAsSeenResponse, BatchMarkAsUnreadParams, BatchMarkAsUnreadResponse, BatchMarkAsUnseenParams, BatchMarkAsUnseenResponse, BatchUnarchiveParams, BatchUnarchiveResponse } from './batch';
+import {
+  Batch,
+  BatchArchiveParams,
+  BatchArchiveResponse,
+  BatchGetContentParams,
+  BatchGetContentResponse,
+  BatchMarkAsInteractedParams,
+  BatchMarkAsInteractedResponse,
+  BatchMarkAsReadParams,
+  BatchMarkAsReadResponse,
+  BatchMarkAsSeenParams,
+  BatchMarkAsSeenResponse,
+  BatchMarkAsUnreadParams,
+  BatchMarkAsUnreadResponse,
+  BatchMarkAsUnseenParams,
+  BatchMarkAsUnseenResponse,
+  BatchUnarchiveParams,
+  BatchUnarchiveResponse,
+} from './batch';
 import * as RecipientsAPI from '../recipients/recipients';
 import { APIPromise } from '../../core/api-promise';
 import { ItemsCursor, type ItemsCursorParams, PagePromise } from '../../core/pagination';
@@ -26,7 +44,10 @@ export class Messages extends APIResource {
    * }
    * ```
    */
-  list(query: MessageListParams | null | undefined = {}, options?: RequestOptions): PagePromise<MessagesItemsCursor, Message> {
+  list(
+    query: MessageListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<MessagesItemsCursor, Message> {
     return this._client.getAPIList('/v1/messages', ItemsCursor<Message>, { query, ...options });
   }
 
@@ -87,8 +108,15 @@ export class Messages extends APIResource {
    * }
    * ```
    */
-  listActivities(messageID: string, query: MessageListActivitiesParams | null | undefined = {}, options?: RequestOptions): PagePromise<ActivitiesItemsCursor, Activity> {
-    return this._client.getAPIList(path`/v1/messages/${messageID}/activities`, ItemsCursor<Activity>, { query, ...options });
+  listActivities(
+    messageID: string,
+    query: MessageListActivitiesParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<ActivitiesItemsCursor, Activity> {
+    return this._client.getAPIList(path`/v1/messages/${messageID}/activities`, ItemsCursor<Activity>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -104,8 +132,16 @@ export class Messages extends APIResource {
    * }
    * ```
    */
-  listDeliveryLogs(messageID: string, query: MessageListDeliveryLogsParams | null | undefined = {}, options?: RequestOptions): PagePromise<MessageDeliveryLogsItemsCursor, MessageDeliveryLog> {
-    return this._client.getAPIList(path`/v1/messages/${messageID}/delivery_logs`, ItemsCursor<MessageDeliveryLog>, { query, ...options });
+  listDeliveryLogs(
+    messageID: string,
+    query: MessageListDeliveryLogsParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<MessageDeliveryLogsItemsCursor, MessageDeliveryLog> {
+    return this._client.getAPIList(
+      path`/v1/messages/${messageID}/delivery_logs`,
+      ItemsCursor<MessageDeliveryLog>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -121,8 +157,15 @@ export class Messages extends APIResource {
    * }
    * ```
    */
-  listEvents(messageID: string, query: MessageListEventsParams | null | undefined = {}, options?: RequestOptions): PagePromise<MessageEventsItemsCursor, MessageEvent> {
-    return this._client.getAPIList(path`/v1/messages/${messageID}/events`, ItemsCursor<MessageEvent>, { query, ...options });
+  listEvents(
+    messageID: string,
+    query: MessageListEventsParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<MessageEventsItemsCursor, MessageEvent> {
+    return this._client.getAPIList(path`/v1/messages/${messageID}/events`, ItemsCursor<MessageEvent>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -139,7 +182,11 @@ export class Messages extends APIResource {
    * );
    * ```
    */
-  markAsInteracted(messageID: string, body: MessageMarkAsInteractedParams | null | undefined = {}, options?: RequestOptions): APIPromise<Message> {
+  markAsInteracted(
+    messageID: string,
+    body: MessageMarkAsInteractedParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<Message> {
     return this._client.put(path`/v1/messages/${messageID}/interacted`, { body, ...options });
   }
 
@@ -223,13 +270,13 @@ export class Messages extends APIResource {
   }
 }
 
-export type MessagesItemsCursor = ItemsCursor<Message>
+export type MessagesItemsCursor = ItemsCursor<Message>;
 
-export type ActivitiesItemsCursor = ItemsCursor<Activity>
+export type ActivitiesItemsCursor = ItemsCursor<Activity>;
 
-export type MessageDeliveryLogsItemsCursor = ItemsCursor<MessageDeliveryLog>
+export type MessageDeliveryLogsItemsCursor = ItemsCursor<MessageDeliveryLog>;
 
-export type MessageEventsItemsCursor = ItemsCursor<MessageEvent>
+export type MessageEventsItemsCursor = ItemsCursor<MessageEvent>;
 
 /**
  * An activity associated with a workflow trigger request. Messages produced after
@@ -611,7 +658,23 @@ export interface MessageEvent {
   /**
    * The type of event that occurred.
    */
-  type: 'message.archived' | 'message.bounced' | 'message.created' | 'message.delivered' | 'message.delivery_attempted' | 'message.interacted' | 'message.link_clicked' | 'message.not_sent' | 'message.queued' | 'message.read' | 'message.seen' | 'message.sent' | 'message.unarchived' | 'message.undelivered' | 'message.unread' | 'message.unseen';
+  type:
+    | 'message.archived'
+    | 'message.bounced'
+    | 'message.created'
+    | 'message.delivered'
+    | 'message.delivery_attempted'
+    | 'message.interacted'
+    | 'message.link_clicked'
+    | 'message.not_sent'
+    | 'message.queued'
+    | 'message.read'
+    | 'message.seen'
+    | 'message.sent'
+    | 'message.unarchived'
+    | 'message.undelivered'
+    | 'message.unread'
+    | 'message.unseen';
 
   /**
    * The data associated with the message event. Only present for some event types.
@@ -631,7 +694,12 @@ export interface MessageGetContentResponse {
   /**
    * Content data specific to the channel type.
    */
-  data: MessageGetContentResponse.MessageEmailContent | MessageGetContentResponse.MessageSMSContent | MessageGetContentResponse.MessagePushContent | MessageGetContentResponse.MessageChatContent | MessageGetContentResponse.MessageInAppFeedContent;
+  data:
+    | MessageGetContentResponse.MessageEmailContent
+    | MessageGetContentResponse.MessageSMSContent
+    | MessageGetContentResponse.MessagePushContent
+    | MessageGetContentResponse.MessageChatContent
+    | MessageGetContentResponse.MessageInAppFeedContent;
 
   /**
    * Timestamp when the message content was created.
@@ -826,7 +894,10 @@ export namespace MessageGetContentResponse {
     /**
      * The blocks of the message in an app feed.
      */
-    blocks: Array<MessageInAppFeedContent.MessageInAppFeedContentBlock | MessageInAppFeedContent.MessageInAppFeedButtonSetBlock>;
+    blocks: Array<
+      | MessageInAppFeedContent.MessageInAppFeedContentBlock
+      | MessageInAppFeedContent.MessageInAppFeedButtonSetBlock
+    >;
   }
 
   export namespace MessageInAppFeedContent {
@@ -908,7 +979,9 @@ export interface MessageListParams extends ItemsCursorParams {
   /**
    * Limits the results to messages with the given engagement status.
    */
-  engagement_status?: Array<'seen' | 'unseen' | 'read' | 'unread' | 'archived' | 'unarchived' | 'link_clicked' | 'interacted'>;
+  engagement_status?: Array<
+    'seen' | 'unseen' | 'read' | 'unread' | 'archived' | 'unarchived' | 'link_clicked' | 'interacted'
+  >;
 
   inserted_at?: MessageListParams.InsertedAt;
 
@@ -926,7 +999,9 @@ export interface MessageListParams extends ItemsCursorParams {
   /**
    * Limits the results to messages with the given delivery status.
    */
-  status?: Array<'queued' | 'sent' | 'delivered' | 'delivery_attempted' | 'undelivered' | 'not_sent' | 'bounced'>;
+  status?: Array<
+    'queued' | 'sent' | 'delivered' | 'delivery_attempted' | 'undelivered' | 'not_sent' | 'bounced'
+  >;
 
   /**
    * Limits the results to items with the corresponding tenant.
@@ -988,11 +1063,9 @@ export interface MessageListActivitiesParams extends ItemsCursorParams {
   trigger_data?: string;
 }
 
-export interface MessageListDeliveryLogsParams extends ItemsCursorParams {
-}
+export interface MessageListDeliveryLogsParams extends ItemsCursorParams {}
 
-export interface MessageListEventsParams extends ItemsCursorParams {
-}
+export interface MessageListEventsParams extends ItemsCursorParams {}
 
 export interface MessageMarkAsInteractedParams {
   /**
@@ -1018,7 +1091,7 @@ export declare namespace Messages {
     type MessageListActivitiesParams as MessageListActivitiesParams,
     type MessageListDeliveryLogsParams as MessageListDeliveryLogsParams,
     type MessageListEventsParams as MessageListEventsParams,
-    type MessageMarkAsInteractedParams as MessageMarkAsInteractedParams
+    type MessageMarkAsInteractedParams as MessageMarkAsInteractedParams,
   };
 
   export {
@@ -1038,6 +1111,6 @@ export declare namespace Messages {
     type BatchMarkAsSeenParams as BatchMarkAsSeenParams,
     type BatchMarkAsUnreadParams as BatchMarkAsUnreadParams,
     type BatchMarkAsUnseenParams as BatchMarkAsUnseenParams,
-    type BatchUnarchiveParams as BatchUnarchiveParams
+    type BatchUnarchiveParams as BatchUnarchiveParams,
   };
 }

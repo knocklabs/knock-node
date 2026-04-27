@@ -2,9 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 
-export class ChannelData extends APIResource {
-
-}
+export class ChannelData extends APIResource {}
 
 /**
  * AWS SNS push channel data.
@@ -70,12 +68,27 @@ export interface ChannelData {
   /**
    * Channel data for a given channel type.
    */
-  data: ChannelData.PushChannelDataFull | ChannelData.AwssnsPushChannelDataFull | OneSignalChannelDataPlayerIDsOnly | SlackChannelData | MsTeamsChannelData | DiscordChannelData;
+  data:
+    | ChannelData.PushChannelDataFull
+    | ChannelData.AwssnsPushChannelDataFull
+    | OneSignalChannelDataPlayerIDsOnly
+    | SlackChannelData
+    | MsTeamsChannelData
+    | DiscordChannelData;
 
   /**
    * The type of provider.
    */
-  provider?: 'push_fcm' | 'push_apns' | 'push_aws_sns' | 'push_expo' | 'push_one_signal' | 'chat_slack' | 'chat_ms_teams' | 'chat_discord' | 'http_knock_webhook';
+  provider?:
+    | 'push_fcm'
+    | 'push_apns'
+    | 'push_aws_sns'
+    | 'push_expo'
+    | 'push_one_signal'
+    | 'chat_slack'
+    | 'chat_ms_teams'
+    | 'chat_discord'
+    | 'http_knock_webhook';
 }
 
 export namespace ChannelData {
@@ -168,7 +181,15 @@ export interface ChannelDataRequest {
   /**
    * Channel data for a given channel type.
    */
-  data: PushChannelDataTokensOnly | PushChannelDataDevicesOnly | AwsSnsPushChannelDataTargetArnsOnly | AwsSnsPushChannelDataDevicesOnly | OneSignalChannelDataPlayerIDsOnly | SlackChannelData | MsTeamsChannelData | DiscordChannelData;
+  data:
+    | PushChannelDataTokensOnly
+    | PushChannelDataDevicesOnly
+    | AwsSnsPushChannelDataTargetArnsOnly
+    | AwsSnsPushChannelDataDevicesOnly
+    | OneSignalChannelDataPlayerIDsOnly
+    | SlackChannelData
+    | MsTeamsChannelData
+    | DiscordChannelData;
 }
 
 /**
@@ -178,7 +199,9 @@ export interface DiscordChannelData {
   /**
    * List of Discord channel connections.
    */
-  connections: Array<DiscordChannelData.DiscordChannelConnection | DiscordChannelData.DiscordIncomingWebhookConnection>;
+  connections: Array<
+    DiscordChannelData.DiscordChannelConnection | DiscordChannelData.DiscordIncomingWebhookConnection
+  >;
 }
 
 export namespace DiscordChannelData {
@@ -218,7 +241,17 @@ export namespace DiscordChannelData {
 /**
  * A request to set channel data for a type of channel inline.
  */
-export type InlineChannelDataRequest = { [key: string]: PushChannelDataTokensOnly | PushChannelDataDevicesOnly | AwsSnsPushChannelDataTargetArnsOnly | AwsSnsPushChannelDataDevicesOnly | OneSignalChannelDataPlayerIDsOnly | SlackChannelData | MsTeamsChannelData | DiscordChannelData }
+export type InlineChannelDataRequest = {
+  [key: string]:
+    | PushChannelDataTokensOnly
+    | PushChannelDataDevicesOnly
+    | AwsSnsPushChannelDataTargetArnsOnly
+    | AwsSnsPushChannelDataDevicesOnly
+    | OneSignalChannelDataPlayerIDsOnly
+    | SlackChannelData
+    | MsTeamsChannelData
+    | DiscordChannelData;
+};
 
 /**
  * Microsoft Teams channel data.
@@ -227,7 +260,9 @@ export interface MsTeamsChannelData {
   /**
    * List of Microsoft Teams connections.
    */
-  connections: Array<MsTeamsChannelData.MsTeamsTokenConnection | MsTeamsChannelData.MsTeamsIncomingWebhookConnection>;
+  connections: Array<
+    MsTeamsChannelData.MsTeamsTokenConnection | MsTeamsChannelData.MsTeamsIncomingWebhookConnection
+  >;
 
   /**
    * Microsoft Teams tenant ID.
@@ -407,6 +442,6 @@ export declare namespace ChannelData {
     type OneSignalChannelDataPlayerIDsOnly as OneSignalChannelDataPlayerIDsOnly,
     type PushChannelDataDevicesOnly as PushChannelDataDevicesOnly,
     type PushChannelDataTokensOnly as PushChannelDataTokensOnly,
-    type SlackChannelData as SlackChannelData
+    type SlackChannelData as SlackChannelData,
   };
 }

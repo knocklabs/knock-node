@@ -5,7 +5,13 @@ import * as Shared from '../shared';
 import * as MessagesAPI from '../messages/messages';
 import { MessagesItemsCursor } from '../messages/messages';
 import * as BulkAPI from './bulk';
-import { Bulk, BulkAddSubscriptionsParams, BulkDeleteParams, BulkDeleteSubscriptionsParams, BulkSetParams } from './bulk';
+import {
+  Bulk,
+  BulkAddSubscriptionsParams,
+  BulkDeleteParams,
+  BulkDeleteSubscriptionsParams,
+  BulkSetParams,
+} from './bulk';
 import * as ChannelDataAPI from '../recipients/channel-data';
 import * as PreferencesAPI from '../recipients/preferences';
 import * as RecipientsAPI from '../recipients/recipients';
@@ -14,7 +20,13 @@ import { SubscriptionsEntriesCursor } from '../recipients/subscriptions';
 import * as SchedulesAPI from '../schedules/schedules';
 import { SchedulesEntriesCursor } from '../schedules/schedules';
 import { APIPromise } from '../../core/api-promise';
-import { EntriesCursor, type EntriesCursorParams, ItemsCursor, type ItemsCursorParams, PagePromise } from '../../core/pagination';
+import {
+  EntriesCursor,
+  type EntriesCursorParams,
+  ItemsCursor,
+  type ItemsCursorParams,
+  PagePromise,
+} from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -39,8 +51,15 @@ export class Objects extends APIResource {
    * }
    * ```
    */
-  list(collection: string, query: ObjectListParams | null | undefined = {}, options?: RequestOptions): PagePromise<ObjectsEntriesCursor, Object> {
-    return this._client.getAPIList(path`/v1/objects/${collection}`, EntriesCursor<Object>, { query, ...options });
+  list(
+    collection: string,
+    query: ObjectListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<ObjectsEntriesCursor, Object> {
+    return this._client.getAPIList(path`/v1/objects/${collection}`, EntriesCursor<Object>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -53,7 +72,10 @@ export class Objects extends APIResource {
    * ```
    */
   delete(collection: string, id: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/v1/objects/${collection}/${id}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+    return this._client.delete(path`/v1/objects/${collection}/${id}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -74,7 +96,12 @@ export class Objects extends APIResource {
    * );
    * ```
    */
-  addSubscriptions(collection: string, objectID: string, body: ObjectAddSubscriptionsParams, options?: RequestOptions): APIPromise<ObjectAddSubscriptionsResponse> {
+  addSubscriptions(
+    collection: string,
+    objectID: string,
+    body: ObjectAddSubscriptionsParams,
+    options?: RequestOptions,
+  ): APIPromise<ObjectAddSubscriptionsResponse> {
     return this._client.post(path`/v1/objects/${collection}/${objectID}/subscriptions`, { body, ...options });
   }
 
@@ -92,8 +119,16 @@ export class Objects extends APIResource {
    *   );
    * ```
    */
-  deleteSubscriptions(collection: string, objectID: string, body: ObjectDeleteSubscriptionsParams, options?: RequestOptions): APIPromise<ObjectDeleteSubscriptionsResponse> {
-    return this._client.delete(path`/v1/objects/${collection}/${objectID}/subscriptions`, { body, ...options });
+  deleteSubscriptions(
+    collection: string,
+    objectID: string,
+    body: ObjectDeleteSubscriptionsParams,
+    options?: RequestOptions,
+  ): APIPromise<ObjectDeleteSubscriptionsResponse> {
+    return this._client.delete(path`/v1/objects/${collection}/${objectID}/subscriptions`, {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -121,7 +156,12 @@ export class Objects extends APIResource {
    * );
    * ```
    */
-  getChannelData(collection: string, objectID: string, channelID: string, options?: RequestOptions): APIPromise<ChannelDataAPI.ChannelData> {
+  getChannelData(
+    collection: string,
+    objectID: string,
+    channelID: string,
+    options?: RequestOptions,
+  ): APIPromise<ChannelDataAPI.ChannelData> {
     return this._client.get(path`/v1/objects/${collection}/${objectID}/channel_data/${channelID}`, options);
   }
 
@@ -137,7 +177,12 @@ export class Objects extends APIResource {
    * );
    * ```
    */
-  getPreferences(collection: string, objectID: string, id: string, options?: RequestOptions): APIPromise<PreferencesAPI.PreferenceSet> {
+  getPreferences(
+    collection: string,
+    objectID: string,
+    id: string,
+    options?: RequestOptions,
+  ): APIPromise<PreferencesAPI.PreferenceSet> {
     return this._client.get(path`/v1/objects/${collection}/${objectID}/preferences/${id}`, options);
   }
 
@@ -157,8 +202,17 @@ export class Objects extends APIResource {
    * }
    * ```
    */
-  listMessages(collection: string, id: string, query: ObjectListMessagesParams | null | undefined = {}, options?: RequestOptions): PagePromise<MessagesItemsCursor, MessagesAPI.Message> {
-    return this._client.getAPIList(path`/v1/objects/${collection}/${id}/messages`, ItemsCursor<MessagesAPI.Message>, { query, ...options });
+  listMessages(
+    collection: string,
+    id: string,
+    query: ObjectListMessagesParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<MessagesItemsCursor, MessagesAPI.Message> {
+    return this._client.getAPIList(
+      path`/v1/objects/${collection}/${id}/messages`,
+      ItemsCursor<MessagesAPI.Message>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -172,7 +226,11 @@ export class Objects extends APIResource {
    * );
    * ```
    */
-  listPreferences(collection: string, objectID: string, options?: RequestOptions): APIPromise<ObjectListPreferencesResponse> {
+  listPreferences(
+    collection: string,
+    objectID: string,
+    options?: RequestOptions,
+  ): APIPromise<ObjectListPreferencesResponse> {
     return this._client.get(path`/v1/objects/${collection}/${objectID}/preferences`, options);
   }
 
@@ -190,8 +248,17 @@ export class Objects extends APIResource {
    * }
    * ```
    */
-  listSchedules(collection: string, id: string, query: ObjectListSchedulesParams | null | undefined = {}, options?: RequestOptions): PagePromise<SchedulesEntriesCursor, SchedulesAPI.Schedule> {
-    return this._client.getAPIList(path`/v1/objects/${collection}/${id}/schedules`, EntriesCursor<SchedulesAPI.Schedule>, { query, ...options });
+  listSchedules(
+    collection: string,
+    id: string,
+    query: ObjectListSchedulesParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<SchedulesEntriesCursor, SchedulesAPI.Schedule> {
+    return this._client.getAPIList(
+      path`/v1/objects/${collection}/${id}/schedules`,
+      EntriesCursor<SchedulesAPI.Schedule>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -210,8 +277,17 @@ export class Objects extends APIResource {
    * }
    * ```
    */
-  listSubscriptions(collection: string, objectID: string, query: ObjectListSubscriptionsParams | null | undefined = {}, options?: RequestOptions): PagePromise<SubscriptionsEntriesCursor, SubscriptionsAPI.Subscription> {
-    return this._client.getAPIList(path`/v1/objects/${collection}/${objectID}/subscriptions`, EntriesCursor<SubscriptionsAPI.Subscription>, { query, ...options });
+  listSubscriptions(
+    collection: string,
+    objectID: string,
+    query: ObjectListSubscriptionsParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<SubscriptionsEntriesCursor, SubscriptionsAPI.Subscription> {
+    return this._client.getAPIList(
+      path`/v1/objects/${collection}/${objectID}/subscriptions`,
+      EntriesCursor<SubscriptionsAPI.Subscription>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -266,8 +342,17 @@ export class Objects extends APIResource {
    * );
    * ```
    */
-  setChannelData(collection: string, objectID: string, channelID: string, body: ObjectSetChannelDataParams, options?: RequestOptions): APIPromise<ChannelDataAPI.ChannelData> {
-    return this._client.put(path`/v1/objects/${collection}/${objectID}/channel_data/${channelID}`, { body, ...options });
+  setChannelData(
+    collection: string,
+    objectID: string,
+    channelID: string,
+    body: ObjectSetChannelDataParams,
+    options?: RequestOptions,
+  ): APIPromise<ChannelDataAPI.ChannelData> {
+    return this._client.put(path`/v1/objects/${collection}/${objectID}/channel_data/${channelID}`, {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -305,8 +390,17 @@ export class Objects extends APIResource {
    * );
    * ```
    */
-  setPreferences(collection: string, objectID: string, id: string, body: ObjectSetPreferencesParams, options?: RequestOptions): APIPromise<PreferencesAPI.PreferenceSet> {
-    return this._client.put(path`/v1/objects/${collection}/${objectID}/preferences/${id}`, { body, ...options });
+  setPreferences(
+    collection: string,
+    objectID: string,
+    id: string,
+    body: ObjectSetPreferencesParams,
+    options?: RequestOptions,
+  ): APIPromise<PreferencesAPI.PreferenceSet> {
+    return this._client.put(path`/v1/objects/${collection}/${objectID}/preferences/${id}`, {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -321,8 +415,16 @@ export class Objects extends APIResource {
    * );
    * ```
    */
-  unsetChannelData(collection: string, objectID: string, channelID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/v1/objects/${collection}/${objectID}/channel_data/${channelID}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+  unsetChannelData(
+    collection: string,
+    objectID: string,
+    channelID: string,
+    options?: RequestOptions,
+  ): APIPromise<void> {
+    return this._client.delete(path`/v1/objects/${collection}/${objectID}/channel_data/${channelID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -337,12 +439,20 @@ export class Objects extends APIResource {
    * );
    * ```
    */
-  unsetPreferences(collection: string, objectID: string, id: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/v1/objects/${collection}/${objectID}/preferences/${id}`, { ...options, headers: buildHeaders([{Accept: '*/*'}, options?.headers]) });
+  unsetPreferences(
+    collection: string,
+    objectID: string,
+    id: string,
+    options?: RequestOptions,
+  ): APIPromise<void> {
+    return this._client.delete(path`/v1/objects/${collection}/${objectID}/preferences/${id}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
-export type ObjectsEntriesCursor = EntriesCursor<Object>
+export type ObjectsEntriesCursor = EntriesCursor<Object>;
 
 /**
  * A custom [Object](/concepts/objects) entity which belongs to a collection.
@@ -380,7 +490,7 @@ export interface InlineObjectRequest {
    */
   preferences?: PreferencesAPI.InlinePreferenceSetRequest | null;
 
-[k: string]: unknown
+  [k: string]: unknown;
 }
 
 /**
@@ -421,17 +531,17 @@ export interface Object {
 /**
  * A response containing a list of subscriptions.
  */
-export type ObjectAddSubscriptionsResponse = Array<SubscriptionsAPI.Subscription>
+export type ObjectAddSubscriptionsResponse = Array<SubscriptionsAPI.Subscription>;
 
 /**
  * A response containing a list of subscriptions.
  */
-export type ObjectDeleteSubscriptionsResponse = Array<SubscriptionsAPI.Subscription>
+export type ObjectDeleteSubscriptionsResponse = Array<SubscriptionsAPI.Subscription>;
 
 /**
  * A list of preference sets for the object
  */
-export type ObjectListPreferencesResponse = Array<PreferencesAPI.PreferenceSet>
+export type ObjectListPreferencesResponse = Array<PreferencesAPI.PreferenceSet>;
 
 export interface ObjectListParams extends EntriesCursorParams {
   /**
@@ -470,7 +580,9 @@ export interface ObjectListMessagesParams extends ItemsCursorParams {
   /**
    * Limits the results to messages with the given engagement status.
    */
-  engagement_status?: Array<'seen' | 'unseen' | 'read' | 'unread' | 'archived' | 'unarchived' | 'link_clicked' | 'interacted'>;
+  engagement_status?: Array<
+    'seen' | 'unseen' | 'read' | 'unread' | 'archived' | 'unarchived' | 'link_clicked' | 'interacted'
+  >;
 
   inserted_at?: ObjectListMessagesParams.InsertedAt;
 
@@ -488,7 +600,9 @@ export interface ObjectListMessagesParams extends ItemsCursorParams {
   /**
    * Limits the results to messages with the given delivery status.
    */
-  status?: Array<'queued' | 'sent' | 'delivered' | 'delivery_attempted' | 'undelivered' | 'not_sent' | 'bounced'>;
+  status?: Array<
+    'queued' | 'sent' | 'delivered' | 'delivery_attempted' | 'undelivered' | 'not_sent' | 'bounced'
+  >;
 
   /**
    * Limits the results to items with the corresponding tenant.
@@ -628,14 +742,22 @@ export interface ObjectSetParams {
    */
   timezone?: string | null;
 
-[k: string]: unknown
+  [k: string]: unknown;
 }
 
 export interface ObjectSetChannelDataParams {
   /**
    * Channel data for a given channel type.
    */
-  data: ChannelDataAPI.PushChannelDataTokensOnly | ChannelDataAPI.PushChannelDataDevicesOnly | ChannelDataAPI.AwsSnsPushChannelDataTargetArnsOnly | ChannelDataAPI.AwsSnsPushChannelDataDevicesOnly | ChannelDataAPI.OneSignalChannelDataPlayerIDsOnly | ChannelDataAPI.SlackChannelData | ChannelDataAPI.MsTeamsChannelData | ChannelDataAPI.DiscordChannelData;
+  data:
+    | ChannelDataAPI.PushChannelDataTokensOnly
+    | ChannelDataAPI.PushChannelDataDevicesOnly
+    | ChannelDataAPI.AwsSnsPushChannelDataTargetArnsOnly
+    | ChannelDataAPI.AwsSnsPushChannelDataDevicesOnly
+    | ChannelDataAPI.OneSignalChannelDataPlayerIDsOnly
+    | ChannelDataAPI.SlackChannelData
+    | ChannelDataAPI.MsTeamsChannelData
+    | ChannelDataAPI.DiscordChannelData;
 }
 
 export interface ObjectSetPreferencesParams {
@@ -649,7 +771,9 @@ export interface ObjectSetPreferencesParams {
    * An object where the key is the category and the values are the preference
    * settings for that category.
    */
-  categories?: { [key: string]: boolean | ObjectSetPreferencesParams.PreferenceSetWorkflowCategorySettingObject } | null;
+  categories?: {
+    [key: string]: boolean | ObjectSetPreferencesParams.PreferenceSetWorkflowCategorySettingObject;
+  } | null;
 
   /**
    * Channel type preferences.
@@ -671,7 +795,9 @@ export interface ObjectSetPreferencesParams {
    * An object where the key is the workflow key and the values are the preference
    * settings for that workflow.
    */
-  workflows?: { [key: string]: boolean | ObjectSetPreferencesParams.PreferenceSetWorkflowCategorySettingObject } | null;
+  workflows?: {
+    [key: string]: boolean | ObjectSetPreferencesParams.PreferenceSetWorkflowCategorySettingObject;
+  } | null;
 }
 
 export namespace ObjectSetPreferencesParams {
@@ -736,7 +862,7 @@ export declare namespace Objects {
     type ObjectListSubscriptionsParams as ObjectListSubscriptionsParams,
     type ObjectSetParams as ObjectSetParams,
     type ObjectSetChannelDataParams as ObjectSetChannelDataParams,
-    type ObjectSetPreferencesParams as ObjectSetPreferencesParams
+    type ObjectSetPreferencesParams as ObjectSetPreferencesParams,
   };
 
   export {
@@ -744,8 +870,8 @@ export declare namespace Objects {
     type BulkDeleteParams as BulkDeleteParams,
     type BulkAddSubscriptionsParams as BulkAddSubscriptionsParams,
     type BulkDeleteSubscriptionsParams as BulkDeleteSubscriptionsParams,
-    type BulkSetParams as BulkSetParams
+    type BulkSetParams as BulkSetParams,
   };
 }
 
-export { type MessagesItemsCursor, type SchedulesEntriesCursor, type SubscriptionsEntriesCursor }
+export { type MessagesItemsCursor, type SchedulesEntriesCursor, type SubscriptionsEntriesCursor };

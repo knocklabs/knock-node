@@ -1,4 +1,38 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { Batch, type BatchArchiveResponse, type BatchGetContentResponse, type BatchMarkAsInteractedResponse, type BatchMarkAsReadResponse, type BatchMarkAsSeenResponse, type BatchMarkAsUnreadResponse, type BatchMarkAsUnseenResponse, type BatchUnarchiveResponse, type BatchArchiveParams, type BatchGetContentParams, type BatchMarkAsInteractedParams, type BatchMarkAsReadParams, type BatchMarkAsSeenParams, type BatchMarkAsUnreadParams, type BatchMarkAsUnseenParams, type BatchUnarchiveParams } from './batch';;
-export { Messages, type Activity, type Message, type MessageDeliveryLog, type MessageEvent, type MessageGetContentResponse, type MessageListParams, type MessageListActivitiesParams, type MessageListDeliveryLogsParams, type MessageListEventsParams, type MessageMarkAsInteractedParams, type MessagesItemsCursor, type ActivitiesItemsCursor, type MessageDeliveryLogsItemsCursor, type MessageEventsItemsCursor } from './messages';;
+export {
+  Batch,
+  type BatchArchiveResponse,
+  type BatchGetContentResponse,
+  type BatchMarkAsInteractedResponse,
+  type BatchMarkAsReadResponse,
+  type BatchMarkAsSeenResponse,
+  type BatchMarkAsUnreadResponse,
+  type BatchMarkAsUnseenResponse,
+  type BatchUnarchiveResponse,
+  type BatchArchiveParams,
+  type BatchGetContentParams,
+  type BatchMarkAsInteractedParams,
+  type BatchMarkAsReadParams,
+  type BatchMarkAsSeenParams,
+  type BatchMarkAsUnreadParams,
+  type BatchMarkAsUnseenParams,
+  type BatchUnarchiveParams,
+} from './batch';
+export {
+  Messages,
+  type Activity,
+  type Message,
+  type MessageDeliveryLog,
+  type MessageEvent,
+  type MessageGetContentResponse,
+  type MessageListParams,
+  type MessageListActivitiesParams,
+  type MessageListDeliveryLogsParams,
+  type MessageListEventsParams,
+  type MessageMarkAsInteractedParams,
+  type MessagesItemsCursor,
+  type ActivitiesItemsCursor,
+  type MessageDeliveryLogsItemsCursor,
+  type MessageEventsItemsCursor,
+} from './messages';
