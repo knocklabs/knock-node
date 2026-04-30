@@ -84,11 +84,11 @@ export interface WorkflowTriggerResponse {
 
 export interface WorkflowCancelParams {
   /**
-   * An optional key that is used to reference a specific workflow trigger request
-   * when issuing a [workflow cancellation](/send-notifications/canceling-workflows)
-   * request. Must be provided while triggering a workflow in order to enable
-   * subsequent cancellation. Should be unique across trigger requests to avoid
-   * unintentional cancellations.
+   * A key that is used to reference a specific workflow trigger request when issuing
+   * a [workflow cancellation](/send-notifications/canceling-workflows) request. Must
+   * be provided while triggering a workflow in order to enable subsequent
+   * cancellation. Should be unique across trigger requests to avoid unintentional
+   * cancellations.
    */
   cancellation_key: string;
 
@@ -114,11 +114,11 @@ export interface WorkflowTriggerParams {
   actor?: RecipientsAPI.RecipientRequest | null;
 
   /**
-   * An optional key that is used to reference a specific workflow trigger request
-   * when issuing a [workflow cancellation](/send-notifications/canceling-workflows)
-   * request. Must be provided while triggering a workflow in order to enable
-   * subsequent cancellation. Should be unique across trigger requests to avoid
-   * unintentional cancellations.
+   * A key that is used to reference a specific workflow trigger request when issuing
+   * a [workflow cancellation](/send-notifications/canceling-workflows) request. Must
+   * be provided while triggering a workflow in order to enable subsequent
+   * cancellation. Should be unique across trigger requests to avoid unintentional
+   * cancellations.
    */
   cancellation_key?: string | null;
 
