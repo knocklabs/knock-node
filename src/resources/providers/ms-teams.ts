@@ -129,6 +129,11 @@ export namespace MsTeamCheckAuthResponse {
     ok: boolean;
 
     /**
+     * The Microsoft Teams tenant ID for the connected tenant.
+     */
+    ms_teams_tenant_id?: string | null;
+
+    /**
      * The reason for the Microsoft Teams connection if it is not valid.
      */
     reason?: string | null;
