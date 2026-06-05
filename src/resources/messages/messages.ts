@@ -424,12 +424,6 @@ export interface Message {
   read_at?: string | null;
 
   /**
-   * Recipient contact information captured at email send time. Null for non-email
-   * channels.
-   */
-  recipient_snapshot?: Message.RecipientSnapshot | null;
-
-  /**
    * Timestamp when the message was scheduled to be sent.
    */
   scheduled_at?: string | null;
@@ -532,22 +526,6 @@ export namespace Message {
 
     /**
      * The human-readable name of the channel.
-     */
-    name?: string | null;
-  }
-
-  /**
-   * Recipient contact information captured at email send time. Null for non-email
-   * channels.
-   */
-  export interface RecipientSnapshot {
-    /**
-     * The email address the message was delivered to
-     */
-    email?: string;
-
-    /**
-     * The recipient name at send time
      */
     name?: string | null;
   }
@@ -684,19 +662,19 @@ export interface MessageEvent {
     | 'message.read'
     | 'message.sent'
     | 'message.seen'
-    | 'message.created'
+    | 'message.archived'
     | 'message.queued'
     | 'message.delivered'
+    | 'message.not_sent'
     | 'message.bounced'
     | 'message.undelivered'
-    | 'message.not_sent'
     | 'message.delivery_attempted'
-    | 'message.archived'
     | 'message.link_clicked'
     | 'message.interacted'
+    | 'message.unarchived'
     | 'message.unseen'
     | 'message.unread'
-    | 'message.unarchived';
+    | 'message.created';
 
   /**
    * The data associated with the message event. Only present for some event types.
