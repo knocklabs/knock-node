@@ -58,6 +58,7 @@ export class Workflows extends APIResource {
    *     severity: 'critical',
    *     system_status: 'fences_failing',
    *   },
+   *   settings: { sandbox_mode: true },
    *   tenant: 'ingen_isla_nublar',
    * });
    * ```
@@ -131,9 +132,28 @@ export interface WorkflowTriggerParams {
   data?: { [key: string]: unknown } | null;
 
   /**
+   * Optional settings that control how this workflow trigger is executed.
+   */
+  settings?: WorkflowTriggerParams.Settings | null;
+
+  /**
    * An request to set a tenant inline.
    */
   tenant?: TenantsAPI.InlineTenantRequest | null;
+}
+
+export namespace WorkflowTriggerParams {
+  /**
+   * Optional settings that control how this workflow trigger is executed.
+   */
+  export interface Settings {
+    /**
+     * When set to true, overrides the sandbox mode for all channels in this workflow
+     * run, messages are not delivered to the underlying providers. If false or not
+     * set, the workflow delivers messages normally.
+     */
+    sandbox_mode?: boolean | null;
+  }
 }
 
 export declare namespace Workflows {
