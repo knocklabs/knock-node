@@ -58,7 +58,7 @@ export class Workflows extends APIResource {
    *     severity: 'critical',
    *     system_status: 'fences_failing',
    *   },
-   *   settings: { sandbox_mode: true, skip_delay: true },
+   *   settings: { sandbox_mode: true },
    *   tenant: 'ingen_isla_nublar',
    * });
    * ```
@@ -153,12 +153,6 @@ export namespace WorkflowTriggerParams {
      * set, the workflow delivers messages normally.
      */
     sandbox_mode?: boolean | null;
-
-    /**
-     * When set to true, skips all delay steps in the workflow for this trigger
-     * request. If false or not set, delay steps execute normally.
-     */
-    skip_delay?: boolean | null;
   }
 }
 
