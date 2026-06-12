@@ -52,7 +52,7 @@ describe('resource workflows', () => {
         severity: 'bar',
         system_status: 'bar',
       },
-      settings: { sandbox_mode: true },
+      settings: { sandbox_mode: true, skip_delay: true },
       tenant: 'ingen_isla_nublar',
     });
   });
