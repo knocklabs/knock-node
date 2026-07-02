@@ -229,6 +229,10 @@ describe('resource bulk', () => {
           },
           settings: {
             branding: {
+              dark_icon_url: 'https://example.com/icon_dark.png',
+              dark_logo_url: 'https://example.com/logo_dark.png',
+              dark_primary_color: '#FFFFFF',
+              dark_primary_color_contrast: '#000000',
               icon_url: 'https://example.com/icon.png',
               logo_url: 'https://example.com/logo.png',
               primary_color: '#000000',
