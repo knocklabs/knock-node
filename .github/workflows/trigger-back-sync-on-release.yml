@@ -1,0 +1,24 @@
+# On a published release, notifies the staging repo to sync from production
+# immediately. The logic lives in knocklabs/stainless-workflows (see its
+# README); this stub owns the trigger and the self-routing repo guard.
+#
+# This one RUNS on the PRODUCTION repo — it lands there via the promote, like
+# every other sealed file, and the `if:` guard keeps it inert on staging.
+name: Trigger staging back-sync on release
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch: {}
+
+jobs:
+  notify:
+    # Self-routing guard: must name the PRODUCTION repo.
+    if: github.repository == 'knocklabs/knock-node'
+    permissions:
+      contents: read
+    uses: knocklabs/stainless-workflows/.github/workflows/trigger-back-sync-on-release.yml@main
+    with:
+      staging_repo: knocklabs/knock-node-staging
+    # Forwards STAGING_DISPATCH_TOKEN — the only secret on the production repo.
+    secrets: inherit

@@ -1,0 +1,41 @@
+# Posts a `trunk-synced` commit status to open PRs targeting staging `main` —
+# red while production is ahead (a release isn't back-synced yet), green once
+# the trunks agree. Make it a required status check to pause custom-code
+# merges during the release window. The logic lives in
+# knocklabs/stainless-workflows (see its README); this stub owns the triggers,
+# permissions, and the self-routing repo guard.
+#
+# First-run note: GitHub treats a status check as "required" only once it has
+# been reported at least once. At setup time staging and production are
+# identical, so trigger this workflow once (Run workflow button) BEFORE adding
+# `trunk-synced` to staging main's required checks — the first status is then
+# green rather than missing.
+name: Trunk sync lock
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+  # Re-evaluate the moment the back-sync completes (clears the red) …
+  workflow_run:
+    workflows: ['Sync from production']
+    types: [completed]
+  # … and the moment a release is published (sets the red eagerly).
+  repository_dispatch:
+    types: [prod-released]
+  workflow_dispatch: {}
+  schedule:
+    - cron: '*/30 * * * *'
+
+jobs:
+  lock:
+    # Self-routing guard: must name the STAGING repo. The cron above still
+    # fires in the production repo's copy of this file; the guard skips it there.
+    if: github.repository == 'knocklabs/knock-node-staging'
+    permissions:
+      contents: read
+      statuses: write
+      pull-requests: read
+    uses: knocklabs/stainless-workflows/.github/workflows/trunk-sync-lock.yml@main
+    with:
+      production_repo: knocklabs/knock-node

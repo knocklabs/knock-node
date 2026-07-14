@@ -1,0 +1,37 @@
+# Fast-forwards staging `main` up to production `main`, bringing release
+# commits (and any community contributions) back home. The logic lives in
+# knocklabs/stainless-workflows (see its README); this stub owns the triggers,
+# concurrency, permissions, and the self-routing repo guard.
+#
+# KEEP the workflow name "Sync from production" — trunk-sync-lock.yml's
+# workflow_run trigger matches on it.
+name: Sync from production
+
+on:
+  schedule:
+    # Polls for non-release production changes (e.g. a community PR merged
+    # between releases). Tighten if we take frequent community PRs.
+    - cron: '17 */6 * * *'
+  workflow_dispatch: {}
+  # The eager path: production's trigger-back-sync-on-release.yml fires this
+  # within seconds of a release being published.
+  repository_dispatch:
+    types: [prod-released]
+
+concurrency:
+  group: stlc-sync-from-production
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    # Self-routing guard: must name the STAGING repo. The cron above still
+    # fires in the production repo's copy of this file; the guard skips it there.
+    if: github.repository == 'knocklabs/knock-node-staging'
+    # The fast-forward push to staging `main` uses this GITHUB_TOKEN. If
+    # `trunk-synced` is a required check on staging `main`, add the pushing
+    # identity to the ruleset's bypass list (see the shared repo's README).
+    permissions:
+      contents: write
+    uses: knocklabs/stainless-workflows/.github/workflows/stlc-sync-from-production.yml@main
+    with:
+      production_repo: knocklabs/knock-node

@@ -1,0 +1,26 @@
+# Fast-forwards production `main` up to staging `main`. The logic lives in
+# knocklabs/stainless-workflows (see its README); this stub owns the trigger,
+# permissions, and the self-routing repo guard.
+#
+# This file is sealed custom code: the promote carries it to the production
+# repo along with everything else, where the `if:` guard keeps the job inert.
+name: Promote SDKs
+
+# Manual dispatch: spec/codegen changes accumulate on staging `main`, and a
+# maintainer promotes the batch in one fast-forward when ready to cut a
+# release. To approval-gate each run, add required reviewers to this repo's
+# `production` environment — the reusable workflow's job runs in it.
+on:
+  workflow_dispatch: {}
+
+jobs:
+  promote:
+    # Self-routing guard: must name the STAGING repo.
+    if: github.repository == 'knocklabs/knock-node-staging'
+    permissions:
+      contents: read
+    uses: knocklabs/stainless-workflows/.github/workflows/stlc-promote.yml@main
+    with:
+      production_repo: knocklabs/knock-node
+    # Forwards PRODUCTION_REPO_TOKEN (Contents: write on the production repo).
+    secrets: inherit
