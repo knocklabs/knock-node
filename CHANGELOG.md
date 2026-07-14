@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.34.0 (2026-07-14)
+
+Full Changelog: [v1.33.0...v1.34.0](https://github.com/knocklabs/knock-node/compare/v1.33.0...v1.34.0)
+
+### Features
+
+* set up stlc automation workflows/actions ([4c7a639](https://github.com/knocklabs/knock-node/commit/4c7a63939bfafb356642bad26cea02d4a18226cd))
+
 ## 1.33.0 (2026-07-14)
 
 Full Changelog: [v1.32.0...v1.33.0](https://github.com/knocklabs/knock-node/compare/v1.32.0...v1.33.0)
