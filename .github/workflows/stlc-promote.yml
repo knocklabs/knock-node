@@ -6,17 +6,32 @@
 # repo along with everything else, where the `if:` guard keeps the job inert.
 name: Promote SDKs
 
-# Manual dispatch: spec/codegen changes accumulate on staging `main`, and a
-# maintainer promotes the batch in one fast-forward when ready to cut a
-# release. To approval-gate each run, add required reviewers to this repo's
-# `production` environment — the reusable workflow's job runs in it.
+# Auto-promote: every push to staging `main` promotes as soon as its CI run
+# goes green (via `workflow_run` chained off the `CI` workflow). Manual dispatch
+# stays available to force a promote on demand. To approval-gate each run, add
+# required reviewers to this repo's `production` environment — the reusable
+# workflow's job runs in it.
 on:
   workflow_dispatch: {}
+  # Fires when the `CI` workflow finishes on `main`; the job's `if:` gate below
+  # keeps only the green runs. `workflow_run` triggers off the workflow file on
+  # the default branch, so this takes effect once merged to `main`.
+  workflow_run:
+    workflows: [CI]
+    types:
+      - completed
+    branches:
+      - main
 
 jobs:
   promote:
-    # Self-routing guard: must name the STAGING repo.
-    if: github.repository == 'knocklabs/knock-node-staging'
+    # Self-routing guard: must name the STAGING repo. On a `workflow_run`
+    # trigger, additionally require that the CI run concluded successfully;
+    # manual dispatches always pass this second clause.
+    if: >-
+      github.repository == 'knocklabs/knock-node-staging' &&
+      (github.event_name == 'workflow_dispatch' ||
+       github.event.workflow_run.conclusion == 'success')
     permissions:
       contents: read
     uses: knocklabs/stainless-workflows/.github/workflows/stlc-promote.yml@main
