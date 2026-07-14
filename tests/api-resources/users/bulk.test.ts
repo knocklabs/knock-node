@@ -256,7 +256,7 @@ describe('resource bulk', () => {
   test('setPreferences: required and optional params', async () => {
     const response = await client.users.bulk.setPreferences({
       preferences: {
-        __persistence_strategy__: 'merge',
+        id: 'default',
         categories: {
           marketing: false,
           transactional: {
