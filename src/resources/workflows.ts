@@ -58,6 +58,7 @@ export class Workflows extends APIResource {
    *     severity: 'critical',
    *     system_status: 'fences_failing',
    *   },
+   *   settings: { sandbox_mode: true, skip_delay: true },
    *   tenant: 'ingen_isla_nublar',
    * });
    * ```
@@ -84,11 +85,11 @@ export interface WorkflowTriggerResponse {
 
 export interface WorkflowCancelParams {
   /**
-   * An optional key that is used to reference a specific workflow trigger request
-   * when issuing a [workflow cancellation](/send-notifications/canceling-workflows)
-   * request. Must be provided while triggering a workflow in order to enable
-   * subsequent cancellation. Should be unique across trigger requests to avoid
-   * unintentional cancellations.
+   * A key that is used to reference a specific workflow trigger request when issuing
+   * a [workflow cancellation](/send-notifications/canceling-workflows) request. Must
+   * be provided while triggering a workflow in order to enable subsequent
+   * cancellation. Should be unique across trigger requests to avoid unintentional
+   * cancellations.
    */
   cancellation_key: string;
 
@@ -114,11 +115,11 @@ export interface WorkflowTriggerParams {
   actor?: RecipientsAPI.RecipientRequest | null;
 
   /**
-   * An optional key that is used to reference a specific workflow trigger request
-   * when issuing a [workflow cancellation](/send-notifications/canceling-workflows)
-   * request. Must be provided while triggering a workflow in order to enable
-   * subsequent cancellation. Should be unique across trigger requests to avoid
-   * unintentional cancellations.
+   * A key that is used to reference a specific workflow trigger request when issuing
+   * a [workflow cancellation](/send-notifications/canceling-workflows) request. Must
+   * be provided while triggering a workflow in order to enable subsequent
+   * cancellation. Should be unique across trigger requests to avoid unintentional
+   * cancellations.
    */
   cancellation_key?: string | null;
 
@@ -131,9 +132,34 @@ export interface WorkflowTriggerParams {
   data?: { [key: string]: unknown } | null;
 
   /**
+   * Optional settings that control how this workflow trigger is executed.
+   */
+  settings?: WorkflowTriggerParams.Settings | null;
+
+  /**
    * An request to set a tenant inline.
    */
   tenant?: TenantsAPI.InlineTenantRequest | null;
+}
+
+export namespace WorkflowTriggerParams {
+  /**
+   * Optional settings that control how this workflow trigger is executed.
+   */
+  export interface Settings {
+    /**
+     * When set to true, overrides the sandbox mode for all channels in this workflow
+     * run, messages are not delivered to the underlying providers. If false or not
+     * set, the workflow delivers messages normally.
+     */
+    sandbox_mode?: boolean | null;
+
+    /**
+     * When set to true, skips all delay steps in the workflow for this trigger
+     * request. If false or not set, delay steps execute normally.
+     */
+    skip_delay?: boolean | null;
+  }
 }
 
 export declare namespace Workflows {

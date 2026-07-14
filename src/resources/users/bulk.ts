@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as BulkOperationsAPI from '../bulk-operations';
+import * as Shared from '../shared';
 import * as PreferencesAPI from '../recipients/preferences';
 import * as UsersAPI from './users';
 import { APIPromise } from '../../core/api-promise';
@@ -60,7 +61,6 @@ export class Bulk extends APIResource {
    * const bulkOperation =
    *   await client.users.bulk.setPreferences({
    *     preferences: {
-   *       __persistence_strategy__: 'merge',
    *       categories: {
    *         marketing: false,
    *         transactional: { channel_types: { email: false } },
@@ -79,6 +79,7 @@ export class Bulk extends APIResource {
    *         'aef6e715-df82-4ab6-b61e-b743e249f7b6': true,
    *       },
    *       commercial_subscribed: true,
+   *       id: 'default',
    *       workflows: {
    *         'dinosaurs-loose': {
    *           channel_types: { email: false },
@@ -113,14 +114,100 @@ export interface BulkIdentifyParams {
 
 export interface BulkSetPreferencesParams {
   /**
-   * A request to set a preference set for a recipient.
+   * A preference set to apply in a bulk operation. Always replaces existing
+   * preferences for the specified set.
    */
-  preferences: PreferencesAPI.PreferenceSetRequest;
+  preferences: BulkSetPreferencesParams.Preferences;
 
   /**
    * A list of user IDs.
    */
   user_ids: Array<string>;
+}
+
+export namespace BulkSetPreferencesParams {
+  /**
+   * A preference set to apply in a bulk operation. Always replaces existing
+   * preferences for the specified set.
+   */
+  export interface Preferences {
+    /**
+     * Identifier for the preference set to update. Can be `default` or a tenant ID.
+     */
+    id?: string;
+
+    /**
+     * An object where the key is the category and the values are the preference
+     * settings for that category.
+     */
+    categories?: { [key: string]: boolean | Preferences.PreferenceSetWorkflowCategorySettingObject } | null;
+
+    /**
+     * Channel type preferences.
+     */
+    channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
+
+    /**
+     * Channel preferences.
+     */
+    channels?: { [key: string]: boolean | PreferencesAPI.PreferenceSetChannelSetting } | null;
+
+    /**
+     * Whether the recipient is subscribed to commercial communications. When false,
+     * the recipient will not receive commercial workflow notifications.
+     */
+    commercial_subscribed?: boolean | null;
+
+    /**
+     * An object where the key is the workflow key and the values are the preference
+     * settings for that workflow.
+     */
+    workflows?: { [key: string]: boolean | Preferences.PreferenceSetWorkflowCategorySettingObject } | null;
+  }
+
+  export namespace Preferences {
+    /**
+     * The settings object for a workflow or category, where you can specify channel
+     * types or conditions.
+     */
+    export interface PreferenceSetWorkflowCategorySettingObject {
+      /**
+       * Channel type preferences.
+       */
+      channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
+
+      /**
+       * Channel preferences.
+       */
+      channels?: { [key: string]: boolean | PreferencesAPI.PreferenceSetChannelSetting } | null;
+
+      /**
+       * A list of conditions to apply to a channel type.
+       */
+      conditions?: Array<Shared.Condition> | null;
+    }
+
+    /**
+     * The settings object for a workflow or category, where you can specify channel
+     * types or conditions.
+     */
+    export interface PreferenceSetWorkflowCategorySettingObject {
+      /**
+       * Channel type preferences.
+       */
+      channel_types?: PreferencesAPI.PreferenceSetChannelTypes | null;
+
+      /**
+       * Channel preferences.
+       */
+      channels?: { [key: string]: boolean | PreferencesAPI.PreferenceSetChannelSetting } | null;
+
+      /**
+       * A list of conditions to apply to a channel type.
+       */
+      conditions?: Array<Shared.Condition> | null;
+    }
+  }
 }
 
 export declare namespace Bulk {

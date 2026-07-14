@@ -153,6 +153,28 @@ export namespace Tenant {
      */
     export interface Branding {
       /**
+       * The icon URL for the tenant in dark mode. Falls back to `icon_url` if unset.
+       */
+      dark_icon_url?: string | null;
+
+      /**
+       * The logo URL for the tenant in dark mode. Falls back to `logo_url` if unset.
+       */
+      dark_logo_url?: string | null;
+
+      /**
+       * The primary color for the tenant in dark mode, provided as a hex value. Defaults
+       * to `#FFFFFF`.
+       */
+      dark_primary_color?: string | null;
+
+      /**
+       * The primary color contrast for the tenant in dark mode, provided as a hex value.
+       * Defaults to `#000000`.
+       */
+      dark_primary_color_contrast?: string | null;
+
+      /**
        * The icon URL for the tenant. Must point to a valid image with an image MIME
        * type.
        */
@@ -233,6 +255,28 @@ export namespace TenantRequest {
      * The branding for the tenant.
      */
     export interface Branding {
+      /**
+       * The icon URL for the tenant in dark mode. Falls back to `icon_url` if unset.
+       */
+      dark_icon_url?: string | null;
+
+      /**
+       * The logo URL for the tenant in dark mode. Falls back to `logo_url` if unset.
+       */
+      dark_logo_url?: string | null;
+
+      /**
+       * The primary color for the tenant in dark mode, provided as a hex value. Defaults
+       * to `#FFFFFF`.
+       */
+      dark_primary_color?: string | null;
+
+      /**
+       * The primary color contrast for the tenant in dark mode, provided as a hex value.
+       * Defaults to `#000000`.
+       */
+      dark_primary_color_contrast?: string | null;
+
       /**
        * The icon URL for the tenant. Must point to a valid image with an image MIME
        * type.

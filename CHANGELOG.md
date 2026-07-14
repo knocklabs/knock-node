@@ -1,5 +1,72 @@
 # Changelog
 
+## 1.33.0 (2026-07-14)
+
+Full Changelog: [v1.32.0...v1.33.0](https://github.com/knocklabs/knock-node/compare/v1.32.0...v1.33.0)
+
+### Features
+
+* **api:** api update ([9930098](https://github.com/knocklabs/knock-node/commit/9930098d8850b85e6e0b1a9b85bcf004c23b4f42))
+* **api:** api update ([cc6b0c7](https://github.com/knocklabs/knock-node/commit/cc6b0c7a3604d799c3355a4890db9b76bd111ee8))
+* **api:** api update ([01f9a3b](https://github.com/knocklabs/knock-node/commit/01f9a3b556c7a24c60774e4e89cab076546b9dce))
+* **api:** api update ([4d74cae](https://github.com/knocklabs/knock-node/commit/4d74cae44dafe51c6a729b8505bbfd30b1402349))
+* **api:** api update ([6279969](https://github.com/knocklabs/knock-node/commit/6279969990c40d428c2f01d0c23ce001d3914670))
+* **api:** api update ([0ec2158](https://github.com/knocklabs/knock-node/commit/0ec2158971a8259023cc572351a8dd9a89e6ebe8))
+* **api:** api update ([53016a7](https://github.com/knocklabs/knock-node/commit/53016a7a92147cfd0512f61a030e28e0800f3374))
+* **api:** api update ([0b4d6dc](https://github.com/knocklabs/knock-node/commit/0b4d6dc5a9823ec1a6072d7bbfbdd9237c540825))
+* **api:** api update ([5e3c663](https://github.com/knocklabs/knock-node/commit/5e3c66359bbd3aca172cf8f5b5e5c212d8b9bf1f))
+* **api:** api update ([e0fb1b2](https://github.com/knocklabs/knock-node/commit/e0fb1b29cdddbdd6fad5af41d6d95c6a8b0a4f58))
+* **api:** api update ([a0141bb](https://github.com/knocklabs/knock-node/commit/a0141bb8c26ea1e3d36706ac4a64275ef688b3bc))
+* **api:** api update ([ecf1738](https://github.com/knocklabs/knock-node/commit/ecf1738b0a2223bcb329bc71388ad90921a91495))
+* **api:** api update ([9139e1f](https://github.com/knocklabs/knock-node/commit/9139e1fa90b64e30ad96a66f7253c0c9d3f78e04))
+* **api:** api update ([1c4f5c1](https://github.com/knocklabs/knock-node/commit/1c4f5c1493b0cb3f8200d0c9a7b0407b6eee2121))
+* **api:** api update ([44f5cec](https://github.com/knocklabs/knock-node/commit/44f5ceca59be323ca7493b66539d5b270de340a4))
+* **api:** api update ([3ac3ae4](https://github.com/knocklabs/knock-node/commit/3ac3ae41aa362b502fbdb8465d498190a811bd01))
+* **api:** api update ([b770ff5](https://github.com/knocklabs/knock-node/commit/b770ff588005a4bcf5a8d50014d67e1bf10b2aeb))
+* **api:** api update ([f4b08ad](https://github.com/knocklabs/knock-node/commit/f4b08ade0a8489b450a8361ca279beb25b6c6fc1))
+* **api:** api update ([cf9199a](https://github.com/knocklabs/knock-node/commit/cf9199a4d146f46a01c3e2a0ea09bc8ceb9448b9))
+* **api:** api update ([3ba1fd1](https://github.com/knocklabs/knock-node/commit/3ba1fd1351ffda08ea743ec2147d94a446b48c7a))
+* **api:** api update ([252d36f](https://github.com/knocklabs/knock-node/commit/252d36f8af39e4d3af139ef1f22d9235303df53a))
+* **api:** api update ([c924729](https://github.com/knocklabs/knock-node/commit/c924729cf00fd76836b4cb93cbaf9dbada7d6038))
+* **api:** api update ([df35e78](https://github.com/knocklabs/knock-node/commit/df35e78b6c8436a001557da2d36e54a3860561d7))
+* **api:** api update ([8384093](https://github.com/knocklabs/knock-node/commit/83840936b56f511bae179e5b00a7e0c183174062))
+* **api:** api update ([12acc58](https://github.com/knocklabs/knock-node/commit/12acc58287a641f86f6e8572b644a3dd8148f25a))
+* **api:** api update ([85828c5](https://github.com/knocklabs/knock-node/commit/85828c5e215e709b7522be4624c6f9573023bccf))
+* **api:** api update ([e3af55d](https://github.com/knocklabs/knock-node/commit/e3af55d8a066aefe90883258d64722f5edff721a))
+* **api:** api update ([9ad0ad5](https://github.com/knocklabs/knock-node/commit/9ad0ad5c67c43fcc69c25455c08fc41c60109787))
+* **api:** api update ([b429ae4](https://github.com/knocklabs/knock-node/commit/b429ae4689c38c39614cdf19340eee589c0e96c4))
+* **api:** api update ([912eb7f](https://github.com/knocklabs/knock-node/commit/912eb7f90a37ebd89e3f36dde7741772e3cd7c59))
+* **api:** api update ([4a18222](https://github.com/knocklabs/knock-node/commit/4a182221ba0a459b87a872b666b711713792dd6c))
+* **api:** api update ([66c90a1](https://github.com/knocklabs/knock-node/commit/66c90a1098aef206190231d2a15785305f740ae4))
+* **api:** api update ([a746710](https://github.com/knocklabs/knock-node/commit/a7467104f8370f81ca8c9edffea5ab10492a3595))
+* **api:** api update ([69287b1](https://github.com/knocklabs/knock-node/commit/69287b122ba7818a377e11ca2dd113189d9ac8b3))
+* **api:** api update ([0caebc4](https://github.com/knocklabs/knock-node/commit/0caebc45c79545f2391089ce45d77f70807f9f8f))
+* **api:** api update ([9dbfff2](https://github.com/knocklabs/knock-node/commit/9dbfff222da87c9398415efcf3c0387dc112f35d))
+* **api:** api update ([54c0d88](https://github.com/knocklabs/knock-node/commit/54c0d88e8238333ff5145177a722894baa3ee186))
+* support setting headers via env ([7d3bbe3](https://github.com/knocklabs/knock-node/commit/7d3bbe3c0c9894cb09999d15ffb666cc80b14b40))
+
+
+### Bug Fixes
+
+* **ci:** bump @arethetypeswrong/cli to ^0.18.0 and run CI workflows on Node 24 ([1d2db24](https://github.com/knocklabs/knock-node/commit/1d2db24a0f0b27c073f917d72745730b11eae680))
+* **client:** send content-type header for requests with an omitted optional body ([42896eb](https://github.com/knocklabs/knock-node/commit/42896eb1824ac5a33c7f2f74ae225d6d8136d33f))
+* **kno-9922:** move custom query serialization to src/lib so it survives regeneration ([#157](https://github.com/knocklabs/knock-node/issues/157)) ([979fb8a](https://github.com/knocklabs/knock-node/commit/979fb8acc503f7109be40adf093eab4927e324b6))
+* **typescript:** upgrade tsc-multi so that it works with Node 26 ([e6721f6](https://github.com/knocklabs/knock-node/commit/e6721f60dfff01cf4b48bcde766c2e14231087fb))
+
+
+### Chores
+
+* **format:** run eslint and prettier separately ([66820eb](https://github.com/knocklabs/knock-node/commit/66820ebe3d0cea8834f619f3d5f282148c684be5))
+* **formatter:** run prettier and eslint separately ([be1705d](https://github.com/knocklabs/knock-node/commit/be1705de2b8fd2b5bd804db1ab45dd4e40848e00))
+* **formatter:** run prettier and eslint separately ([b7c31a0](https://github.com/knocklabs/knock-node/commit/b7c31a0e215b2f582b656b58685a93c6f15a126d))
+* **formatter:** run prettier and eslint separately ([7e8c674](https://github.com/knocklabs/knock-node/commit/7e8c674ac85271151bc3657fc39d53b34130bcc9))
+* **formatter:** run prettier and eslint separately ([7294364](https://github.com/knocklabs/knock-node/commit/72943647a0cfcbc9bf33de876c0f1668ec9b0f20))
+* **formatter:** run prettier and eslint separately ([ec2ce1a](https://github.com/knocklabs/knock-node/commit/ec2ce1a53fe1b5b08ef6aedce33d3d80de4b27a4))
+* **formatter:** run prettier and eslint separately ([a4a2c96](https://github.com/knocklabs/knock-node/commit/a4a2c9668233333a46fd75dbc2f4f82af2492df5))
+* **internal:** codegen related update ([7e9bfa7](https://github.com/knocklabs/knock-node/commit/7e9bfa78914f618ee526b135eac0b046ecc65411))
+* redact api-key headers in debug logs ([799fa6c](https://github.com/knocklabs/knock-node/commit/799fa6c196b0552f03bfba11fa32f78e2082e57d))
+* **tests:** remove redundant File import ([ec9e7ae](https://github.com/knocklabs/knock-node/commit/ec9e7aeb0b94cddb94dd04a5ca838c05f5badd53))
+
 ## 1.32.0 (2026-04-22)
 
 Full Changelog: [v1.31.1...v1.32.0](https://github.com/knocklabs/knock-node/compare/v1.31.1...v1.32.0)

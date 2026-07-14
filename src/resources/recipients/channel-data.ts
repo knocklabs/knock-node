@@ -414,9 +414,21 @@ export namespace SlackChannelData {
    */
   export interface SlackIncomingWebhookConnection {
     /**
-     * The URL of the incoming webhook for a Slack connection.
+     * A Slack connection incoming webhook.
      */
-    url: string;
+    incoming_webhook: SlackIncomingWebhookConnection.IncomingWebhook;
+  }
+
+  export namespace SlackIncomingWebhookConnection {
+    /**
+     * A Slack connection incoming webhook.
+     */
+    export interface IncomingWebhook {
+      /**
+       * The URL of the incoming webhook for a Slack connection.
+       */
+      url: string;
+    }
   }
 
   /**

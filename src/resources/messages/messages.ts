@@ -424,6 +424,12 @@ export interface Message {
   read_at?: string | null;
 
   /**
+   * Recipient contact information captured at email send time. Null for non-email
+   * channels.
+   */
+  recipient_snapshot?: Message.RecipientSnapshot | null;
+
+  /**
    * Timestamp when the message was scheduled to be sent.
    */
   scheduled_at?: string | null;
@@ -526,6 +532,22 @@ export namespace Message {
 
     /**
      * The human-readable name of the channel.
+     */
+    name?: string | null;
+  }
+
+  /**
+   * Recipient contact information captured at email send time. Null for non-email
+   * channels.
+   */
+  export interface RecipientSnapshot {
+    /**
+     * The email address the message was delivered to
+     */
+    email?: string;
+
+    /**
+     * The recipient name at send time
      */
     name?: string | null;
   }
@@ -659,22 +681,22 @@ export interface MessageEvent {
    * The type of event that occurred.
    */
   type:
-    | 'message.archived'
-    | 'message.bounced'
-    | 'message.created'
-    | 'message.delivered'
-    | 'message.delivery_attempted'
-    | 'message.interacted'
-    | 'message.link_clicked'
-    | 'message.not_sent'
-    | 'message.queued'
     | 'message.read'
-    | 'message.seen'
     | 'message.sent'
-    | 'message.unarchived'
+    | 'message.seen'
+    | 'message.created'
+    | 'message.queued'
+    | 'message.delivered'
+    | 'message.bounced'
     | 'message.undelivered'
+    | 'message.not_sent'
+    | 'message.delivery_attempted'
+    | 'message.archived'
+    | 'message.link_clicked'
+    | 'message.interacted'
+    | 'message.unseen'
     | 'message.unread'
-    | 'message.unseen';
+    | 'message.unarchived';
 
   /**
    * The data associated with the message event. Only present for some event types.
