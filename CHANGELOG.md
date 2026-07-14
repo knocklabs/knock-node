@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.34.0](https://github.com/knocklabs/knock-node/compare/v1.33.0...v1.34.0) (2026-07-14)
+
+
+### Features
+
+* set publish release settings ([3e7e186](https://github.com/knocklabs/knock-node/commit/3e7e186d20bc8a0f1db334c356e19051b6dfd31c))
+* set up stlc automation workflows/actions ([4c7a639](https://github.com/knocklabs/knock-node/commit/4c7a63939bfafb356642bad26cea02d4a18226cd))
+
+
+### Chores
+
+* trivial test changes ([78c48a2](https://github.com/knocklabs/knock-node/commit/78c48a262635b55c1f568166f9c4b24d1dfc9999))
+
 ## 1.33.0 (2026-07-14)
 
 Full Changelog: [v1.32.0...v1.33.0](https://github.com/knocklabs/knock-node/compare/v1.32.0...v1.33.0)
