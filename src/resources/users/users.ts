@@ -549,7 +549,7 @@ export interface User {
   email?: string | null;
 
   /**
-   * The display name of the user.
+   * Display name of the user.
    */
   name?: string | null;
 
