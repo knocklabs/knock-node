@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.34.0](https://github.com/knocklabs/knock-node/compare/v1.33.0...v1.34.0) (2026-07-16)
+
+
+### Features
+
+* set publish release settings ([3e7e186](https://github.com/knocklabs/knock-node/commit/3e7e186d20bc8a0f1db334c356e19051b6dfd31c))
+* set up stlc automation workflows/actions ([4c7a639](https://github.com/knocklabs/knock-node/commit/4c7a63939bfafb356642bad26cea02d4a18226cd))
+* update api spec to v0.1.1592 ([3e7d8f5](https://github.com/knocklabs/knock-node/commit/3e7d8f5d8524e69dc093fe576bc45113e7bb2f35))
+* update api spec to v0.1.1593 ([0a3d4b9](https://github.com/knocklabs/knock-node/commit/0a3d4b991401240ab02df886b20b9c774a34f6fe))
+* update api spec to v0.1.1594 ([c1941f2](https://github.com/knocklabs/knock-node/commit/c1941f2576c78dccf15637ea5d010f2fb5e9fff8))
+
+
+### Chores
+
+* trivial test changes ([78c48a2](https://github.com/knocklabs/knock-node/commit/78c48a262635b55c1f568166f9c4b24d1dfc9999))
+
 ## 1.33.0 (2026-07-14)
 
 Full Changelog: [v1.32.0...v1.33.0](https://github.com/knocklabs/knock-node/compare/v1.32.0...v1.33.0)
