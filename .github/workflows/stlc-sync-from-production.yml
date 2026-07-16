@@ -27,11 +27,15 @@ jobs:
     # Self-routing guard: must name the STAGING repo. The cron above still
     # fires in the production repo's copy of this file; the guard skips it there.
     if: github.repository == 'knocklabs/knock-node-staging'
-    # The fast-forward push to staging `main` uses this GITHUB_TOKEN. If
-    # `trunk-synced` is a required check on staging `main`, add the pushing
-    # identity to the ruleset's bypass list (see the shared repo's README).
+    # The fast-forward push to staging `main` authenticates as SDK_WRITE_TOKEN's
+    # owner — the same identity codegen pushes with, which bypasses the
+    # PR-required ruleset on `main`. `contents: write` covers the GITHUB_TOKEN
+    # fallback the shared workflow uses when the secret is unset.
     permissions:
       contents: write
     uses: knocklabs/stainless-workflows/.github/workflows/stlc-sync-from-production.yml@main
     with:
       production_repo: knocklabs/knock-node
+    # Forwards SDK_WRITE_TOKEN (and PRODUCTION_REPO_TOKEN, if production were
+    # private) from repo/org secrets.
+    secrets: inherit
