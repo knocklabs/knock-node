@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.34.1](https://github.com/knocklabs/knock-node/compare/v1.34.0...v1.34.1) (2026-07-16)
+
+
+### Chores
+
+* forward SDK_WRITE_TOKEN to the back-sync workflow ([2fac0ed](https://github.com/knocklabs/knock-node/commit/2fac0edfb8efe5b537078049199f0891a7e8334b))
+
 ## [1.34.0](https://github.com/knocklabs/knock-node/compare/v1.33.0...v1.34.0) (2026-07-16)
 
 
