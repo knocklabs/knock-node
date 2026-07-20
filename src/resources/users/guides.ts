@@ -103,22 +103,17 @@ export class Guides extends APIResource {
    *     'message_id',
    *     {
    *       channel_id: '123e4567-e89b-12d3-a456-426614174000',
-   *       guide_id: '7e9dc78c-b3b1-4127-a54e-71f1899b831a',
-   *       guide_key: 'tour_notification',
-   *       guide_step_ref: 'lab_tours',
    *       content: {
    *         body: "Limited spots available for today's behind-the-scenes DNA extraction demonstration.",
    *         title: 'DNA Lab Tour Available',
    *       },
+   *       guide_id: '7e9dc78c-b3b1-4127-a54e-71f1899b831a',
+   *       guide_key: 'tour_notification',
+   *       guide_step_ref: 'lab_tours',
    *       data: {
    *         next_time: '14:30',
    *         spots_left: 8,
    *         tour_id: 'dna_lab_tour',
-   *       },
-   *       metadata: {
-   *         cta: 'Reserve Spot',
-   *         theme: 'amber',
-   *         type: 'banner',
    *       },
    *       tenant: 'ingen_isla_nublar',
    *     },
@@ -396,29 +391,20 @@ export interface GuideMarkMessageAsArchivedParams {
   guide_step_ref: string;
 
   /**
-   * The content of the guide.
-   */
-  content?: { [key: string]: unknown };
-
-  /**
-   * The data of the guide.
-   */
-  data?: { [key: string]: unknown };
-
-  /**
    * Whether the guide is final.
    */
   is_final?: boolean;
 
   /**
-   * The metadata of the guide.
-   */
-  metadata?: { [key: string]: unknown };
-
-  /**
    * The tenant ID of the guide.
    */
-  tenant?: string | null;
+  tenant?: string;
+
+  /**
+   * Whether the guide bypasses its guide group's throttle settings. When true,
+   * archiving the guide does not open a new throttle window.
+   */
+  unthrottled?: boolean;
 }
 
 export interface GuideMarkMessageAsInteractedParams {
@@ -443,29 +429,14 @@ export interface GuideMarkMessageAsInteractedParams {
   guide_step_ref: string;
 
   /**
-   * The content of the guide.
-   */
-  content?: { [key: string]: unknown };
-
-  /**
-   * The data of the guide.
-   */
-  data?: { [key: string]: unknown };
-
-  /**
-   * Whether the guide is final.
-   */
-  is_final?: boolean;
-
-  /**
-   * The metadata of the guide.
+   * Metadata about the interaction.
    */
   metadata?: { [key: string]: unknown };
 
   /**
    * The tenant ID of the guide.
    */
-  tenant?: string | null;
+  tenant?: string;
 }
 
 export interface GuideMarkMessageAsSeenParams {
@@ -473,6 +444,11 @@ export interface GuideMarkMessageAsSeenParams {
    * The unique identifier for the channel.
    */
   channel_id: string;
+
+  /**
+   * The content of the guide.
+   */
+  content: { [key: string]: unknown };
 
   /**
    * The unique identifier for the guide.
@@ -490,29 +466,14 @@ export interface GuideMarkMessageAsSeenParams {
   guide_step_ref: string;
 
   /**
-   * The content of the guide.
-   */
-  content?: { [key: string]: unknown };
-
-  /**
    * The data of the guide.
    */
   data?: { [key: string]: unknown };
 
   /**
-   * Whether the guide is final.
-   */
-  is_final?: boolean;
-
-  /**
-   * The metadata of the guide.
-   */
-  metadata?: { [key: string]: unknown };
-
-  /**
    * The tenant ID of the guide.
    */
-  tenant?: string | null;
+  tenant?: string;
 }
 
 export declare namespace Guides {
