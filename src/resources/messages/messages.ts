@@ -424,8 +424,9 @@ export interface Message {
   read_at?: string | null;
 
   /**
-   * Recipient contact information captured at email send time. Null for non-email
-   * channels.
+   * The destination the message was delivered to, captured at send time. Email
+   * channels carry `email`/`name`; chat channels carry the destination `channel_id`
+   * or `user_id`, or `via_incoming_webhook`. Null when no snapshot was captured.
    */
   recipient_snapshot?: Message.RecipientSnapshot | null;
 
@@ -537,19 +538,35 @@ export namespace Message {
   }
 
   /**
-   * Recipient contact information captured at email send time. Null for non-email
-   * channels.
+   * The destination the message was delivered to, captured at send time. Email
+   * channels carry `email`/`name`; chat channels carry the destination `channel_id`
+   * or `user_id`, or `via_incoming_webhook`. Null when no snapshot was captured.
    */
   export interface RecipientSnapshot {
     /**
-     * The email address the message was delivered to
+     * The chat channel the message was delivered to (chat channels)
      */
-    email?: string;
+    channel_id?: string | null;
 
     /**
-     * The recipient name at send time
+     * The email address the message was delivered to (email channels)
+     */
+    email?: string | null;
+
+    /**
+     * The recipient name at send time (email channels)
      */
     name?: string | null;
+
+    /**
+     * The chat user the message was direct-messaged to (chat channels)
+     */
+    user_id?: string | null;
+
+    /**
+     * Whether the chat message was delivered via an incoming webhook
+     */
+    via_incoming_webhook?: boolean | null;
   }
 }
 
@@ -684,19 +701,19 @@ export interface MessageEvent {
     | 'message.read'
     | 'message.sent'
     | 'message.seen'
-    | 'message.archived'
+    | 'message.created'
     | 'message.queued'
     | 'message.delivered'
-    | 'message.not_sent'
     | 'message.bounced'
     | 'message.undelivered'
+    | 'message.not_sent'
     | 'message.delivery_attempted'
-    | 'message.interacted'
-    | 'message.unarchived'
+    | 'message.archived'
     | 'message.link_clicked'
+    | 'message.interacted'
     | 'message.unseen'
     | 'message.unread'
-    | 'message.created';
+    | 'message.unarchived';
 
   /**
    * The data associated with the message event. Only present for some event types.
