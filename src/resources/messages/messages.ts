@@ -424,9 +424,8 @@ export interface Message {
   read_at?: string | null;
 
   /**
-   * The destination the message was delivered to, captured at send time. Email
-   * channels carry `email`/`name`; chat channels carry the destination `channel_id`
-   * or `user_id`, or `via_incoming_webhook`. Null when no snapshot was captured.
+   * Recipient contact information captured at email send time. Null for non-email
+   * channels.
    */
   recipient_snapshot?: Message.RecipientSnapshot | null;
 
@@ -538,35 +537,19 @@ export namespace Message {
   }
 
   /**
-   * The destination the message was delivered to, captured at send time. Email
-   * channels carry `email`/`name`; chat channels carry the destination `channel_id`
-   * or `user_id`, or `via_incoming_webhook`. Null when no snapshot was captured.
+   * Recipient contact information captured at email send time. Null for non-email
+   * channels.
    */
   export interface RecipientSnapshot {
     /**
-     * The chat channel the message was delivered to (chat channels)
+     * The email address the message was delivered to
      */
-    channel_id?: string | null;
+    email?: string;
 
     /**
-     * The email address the message was delivered to (email channels)
-     */
-    email?: string | null;
-
-    /**
-     * The recipient name at send time (email channels)
+     * The recipient name at send time
      */
     name?: string | null;
-
-    /**
-     * The chat user the message was direct-messaged to (chat channels)
-     */
-    user_id?: string | null;
-
-    /**
-     * Whether the chat message was delivered via an incoming webhook
-     */
-    via_incoming_webhook?: boolean | null;
   }
 }
 
