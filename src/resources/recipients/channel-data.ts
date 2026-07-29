@@ -404,6 +404,11 @@ export namespace SlackChannelData {
     channel_id?: string | null;
 
     /**
+     * Slack channel name.
+     */
+    channel_name?: string | null;
+
+    /**
      * A Slack user ID from the Slack provider.
      */
     user_id?: string | null;
