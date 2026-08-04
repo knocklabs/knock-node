@@ -41,9 +41,11 @@ export interface PreferenceSet {
 
   /**
    * Whether the recipient is subscribed to commercial communications. When false,
-   * the recipient will not receive commercial workflow notifications.
+   * the recipient will not receive commercial workflow notifications. Can also be
+   * set to a settings object with conditions that are evaluated at notification send
+   * time.
    */
-  commercial_subscribed?: boolean | null;
+  commercial_subscribed?: boolean | PreferenceSet.PreferenceSetCommercialSubscribedSetting | null;
 
   /**
    * An object where the key is the workflow key and the values are the preference
@@ -72,6 +74,17 @@ export namespace PreferenceSet {
      * A list of conditions to apply to a channel type.
      */
     conditions?: Array<Shared.Condition> | null;
+  }
+
+  /**
+   * A set of settings for the commercial subscribed preference. Currently, this can
+   * only be a list of conditions to apply.
+   */
+  export interface PreferenceSetCommercialSubscribedSetting {
+    /**
+     * A list of conditions to apply to the commercial subscribed preference.
+     */
+    conditions: Array<Shared.Condition>;
   }
 
   /**
@@ -183,9 +196,11 @@ export interface PreferenceSetRequest {
 
   /**
    * Whether the recipient is subscribed to commercial communications. When false,
-   * the recipient will not receive commercial workflow notifications.
+   * the recipient will not receive commercial workflow notifications. Can also be
+   * set to a settings object with conditions that are evaluated at notification send
+   * time.
    */
-  commercial_subscribed?: boolean | null;
+  commercial_subscribed?: boolean | PreferenceSetRequest.PreferenceSetCommercialSubscribedSetting | null;
 
   /**
    * An object where the key is the workflow key and the values are the preference
@@ -216,6 +231,17 @@ export namespace PreferenceSetRequest {
      * A list of conditions to apply to a channel type.
      */
     conditions?: Array<Shared.Condition> | null;
+  }
+
+  /**
+   * A set of settings for the commercial subscribed preference. Currently, this can
+   * only be a list of conditions to apply.
+   */
+  export interface PreferenceSetCommercialSubscribedSetting {
+    /**
+     * A list of conditions to apply to the commercial subscribed preference.
+     */
+    conditions: Array<Shared.Condition>;
   }
 
   /**
