@@ -701,19 +701,19 @@ export interface MessageEvent {
     | 'message.read'
     | 'message.sent'
     | 'message.seen'
-    | 'message.created'
+    | 'message.archived'
     | 'message.queued'
     | 'message.delivered'
-    | 'message.delivery_attempted'
-    | 'message.undelivered'
-    | 'message.bounced'
     | 'message.not_sent'
-    | 'message.archived'
-    | 'message.link_clicked'
+    | 'message.bounced'
+    | 'message.undelivered'
+    | 'message.delivery_attempted'
     | 'message.interacted'
+    | 'message.unarchived'
+    | 'message.link_clicked'
     | 'message.unseen'
     | 'message.unread'
-    | 'message.unarchived';
+    | 'message.created';
 
   /**
    * The data associated with the message event. Only present for some event types.
