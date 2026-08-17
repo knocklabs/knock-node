@@ -701,18 +701,18 @@ export interface MessageEvent {
     | 'message.read'
     | 'message.sent'
     | 'message.seen'
-    | 'message.not_sent'
     | 'message.created'
     | 'message.queued'
     | 'message.delivered'
     | 'message.delivery_attempted'
     | 'message.undelivered'
     | 'message.bounced'
+    | 'message.not_sent'
     | 'message.archived'
     | 'message.link_clicked'
     | 'message.interacted'
-    | 'message.unseen'
     | 'message.unread'
+    | 'message.unseen'
     | 'message.unarchived';
 
   /**
