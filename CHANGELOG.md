@@ -1,5 +1,42 @@
 # Changelog
 
+## [1.35.0](https://github.com/knocklabs/knock-node/compare/v1.34.0...v1.35.0) (2026-08-21)
+
+
+### Features
+
+* update api spec to v0.1.1599 ([3ca6cfe](https://github.com/knocklabs/knock-node/commit/3ca6cfe76ccbdee39182b1bff54448c812b1c1f0))
+* update api spec to v0.1.1605 ([1bd49ee](https://github.com/knocklabs/knock-node/commit/1bd49eeefd4a673d70d6067e728a62f9cfd10bc7))
+* update api spec to v0.1.1607 ([d7ff60d](https://github.com/knocklabs/knock-node/commit/d7ff60dbf3ef51d647b63c337ce3ecdea50a69a4))
+* update api spec to v0.1.1608 ([edd99ba](https://github.com/knocklabs/knock-node/commit/edd99ba5bb0ebd822315f462480280f57c10452c))
+* update api spec to v0.1.1609 ([b17fe34](https://github.com/knocklabs/knock-node/commit/b17fe34ed21cee2a3694447559b348e3143056fe))
+* update api spec to v0.1.1610 ([8438256](https://github.com/knocklabs/knock-node/commit/8438256827e987543f062a07a03bb504f83d6744))
+* update api spec to v0.1.1611 ([14d8c76](https://github.com/knocklabs/knock-node/commit/14d8c76e7ebe48a958513d8ed91f0175ea370072))
+* update api spec to v0.1.1614 ([061d0d9](https://github.com/knocklabs/knock-node/commit/061d0d9c7e22c444fc2a2090ab6de8b74a8a9921))
+* update api spec to v0.1.1616 ([2ae6ae2](https://github.com/knocklabs/knock-node/commit/2ae6ae269c56d03ae013e333c6d0ba9dc620d4ee))
+* update api spec to v0.1.1617 ([f96e6d8](https://github.com/knocklabs/knock-node/commit/f96e6d8ae29ce666ef00a4c208239fae7e18db5f))
+* update api spec to v0.1.1618 ([ac05b95](https://github.com/knocklabs/knock-node/commit/ac05b953d813a270afb7bb55c35efd89ec364ca8))
+* update api spec to v0.1.1624 ([eacdaa5](https://github.com/knocklabs/knock-node/commit/eacdaa5a8aa8e7c66f5bee6ab9a28d638f7a1c7a))
+* update api spec to v0.1.1627 ([9ad6eb4](https://github.com/knocklabs/knock-node/commit/9ad6eb4d5f8e28443fd98c3823d1e9441c8ce0ce))
+* update api spec to v0.1.1629 ([0f94a63](https://github.com/knocklabs/knock-node/commit/0f94a63c0ea267e0079aa9bf277baf31dbf8adb6))
+* update api spec to v0.1.1630 ([0f09f71](https://github.com/knocklabs/knock-node/commit/0f09f71ce9e5128ae5ea3c9cb16845180e691614))
+* update api spec to v0.1.1631 ([8c50f7f](https://github.com/knocklabs/knock-node/commit/8c50f7faf86679ce17e6c7bdda626893cfc09f09))
+* update api spec to v0.1.1632 ([78c7cde](https://github.com/knocklabs/knock-node/commit/78c7cde3711d57d342e621dad6a86d65171f9c2b))
+* update api spec to v0.1.1636 ([0d1ab2a](https://github.com/knocklabs/knock-node/commit/0d1ab2a08e996f9444c71d3633583870dabed533))
+* update api spec to v0.1.1640 ([f647e32](https://github.com/knocklabs/knock-node/commit/f647e32c886b6dfa937a36d9a3d989de42c08ea5))
+* update api spec to v0.1.1641 ([c9b26ed](https://github.com/knocklabs/knock-node/commit/c9b26ed1479a4f60de78f0948eec6a13e6ffbca5))
+* update api spec to v0.1.1642 ([878e751](https://github.com/knocklabs/knock-node/commit/878e7511668d5a0842fa3dd62fd2af29765ea0b4))
+* update api spec to v0.1.1644 ([0622b11](https://github.com/knocklabs/knock-node/commit/0622b11611abc6cdf4ac1f1786bd765cfb0f81e1))
+* update api spec to v0.1.1649 ([e23612d](https://github.com/knocklabs/knock-node/commit/e23612d13221e8c495b7fc3c7d6ec417f6d5b79c))
+* update api spec to v0.1.1651 ([ac857ed](https://github.com/knocklabs/knock-node/commit/ac857ed280a26a3deca9d2ba720313f47673565b))
+* update api spec to v0.1.1661 ([4c98a42](https://github.com/knocklabs/knock-node/commit/4c98a42e460b647ce320dd00d676d9678a7f29a3))
+* update api spec to v0.1.1662 ([1ca4938](https://github.com/knocklabs/knock-node/commit/1ca49382c258ccd5b6011af068ff57a728206ac8))
+
+
+### Chores
+
+* forward SDK_WRITE_TOKEN to the back-sync workflow ([2fac0ed](https://github.com/knocklabs/knock-node/commit/2fac0edfb8efe5b537078049199f0891a7e8334b))
+
 ## [1.34.0](https://github.com/knocklabs/knock-node/compare/v1.33.0...v1.34.0) (2026-07-16)
 
 
