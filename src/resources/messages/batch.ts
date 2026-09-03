@@ -32,9 +32,10 @@ export class Batch extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.messages.batch.getContent({
-   *   message_ids: ['string'],
-   * });
+   * const messageContents =
+   *   await client.messages.batch.getContent({
+   *     message_ids: ['string'],
+   *   });
    * ```
    */
   getContent(query: BatchGetContentParams, options?: RequestOptions): APIPromise<BatchGetContentResponse> {
@@ -166,6 +167,16 @@ export class Batch extends APIResource {
 }
 
 /**
+ * Request to update the status of multiple messages in batch.
+ */
+export interface BatchMessagesStatusRequest {
+  /**
+   * The message IDs to update the status of.
+   */
+  message_ids: Array<string>;
+}
+
+/**
  * The list of messages that were updated.
  */
 export type BatchArchiveResponse = Array<MessagesAPI.Message>;
@@ -173,297 +184,7 @@ export type BatchArchiveResponse = Array<MessagesAPI.Message>;
 /**
  * A list of `MessageContents`
  */
-export type BatchGetContentResponse = Array<BatchGetContentResponse.BatchGetContentResponseItem>;
-
-export namespace BatchGetContentResponse {
-  /**
-   * The content of a message.
-   */
-  export interface BatchGetContentResponseItem {
-    /**
-     * The typename of the schema.
-     */
-    __typename: string;
-
-    /**
-     * Content data specific to the channel type.
-     */
-    data:
-      | BatchGetContentResponseItem.MessageEmailContent
-      | BatchGetContentResponseItem.MessageSMSContent
-      | BatchGetContentResponseItem.MessagePushContent
-      | BatchGetContentResponseItem.MessageChatContent
-      | BatchGetContentResponseItem.MessageInAppFeedContent;
-
-    /**
-     * Timestamp when the message content was created.
-     */
-    inserted_at: string;
-
-    /**
-     * The unique identifier for the message content.
-     */
-    message_id: string;
-  }
-
-  export namespace BatchGetContentResponseItem {
-    /**
-     * The content of an email message.
-     */
-    export interface MessageEmailContent {
-      /**
-       * The typename of the schema.
-       */
-      __typename: string;
-
-      /**
-       * The sender's email address.
-       */
-      from: string;
-
-      /**
-       * The HTML body of the email message.
-       */
-      html_body: string;
-
-      /**
-       * The subject line of the email message.
-       */
-      subject_line: string;
-
-      /**
-       * The text body of the email message.
-       */
-      text_body: string;
-
-      /**
-       * The recipient's email address.
-       */
-      to: string;
-
-      /**
-       * The BCC email addresses.
-       */
-      bcc?: string | null;
-
-      /**
-       * The CC email addresses.
-       */
-      cc?: string | null;
-
-      /**
-       * The reply-to email address.
-       */
-      reply_to?: string | null;
-    }
-
-    /**
-     * The content of an SMS message.
-     */
-    export interface MessageSMSContent {
-      /**
-       * The typename of the schema.
-       */
-      __typename: string;
-
-      /**
-       * The content body of the SMS message.
-       */
-      body: string;
-
-      /**
-       * The phone number the SMS was sent to.
-       */
-      to: string;
-    }
-
-    /**
-     * Push channel data.
-     */
-    export interface MessagePushContent {
-      /**
-       * The device token to send the push notification to.
-       */
-      token: string;
-
-      /**
-       * The typename of the schema.
-       */
-      __typename: string;
-
-      /**
-       * The content body of the push notification.
-       */
-      body: string;
-
-      /**
-       * The title of the push notification.
-       */
-      title: string;
-
-      /**
-       * Additional data payload for the push notification.
-       */
-      data?: { [key: string]: unknown } | null;
-    }
-
-    /**
-     * The content of a chat message.
-     */
-    export interface MessageChatContent {
-      /**
-       * The typename of the schema.
-       */
-      __typename: string;
-
-      /**
-       * The channel data connection from the recipient to the underlying provider.
-       */
-      connection: { [key: string]: unknown };
-
-      /**
-       * The template structure for the chat message.
-       */
-      template: MessageChatContent.Template;
-
-      /**
-       * Additional metadata associated with the chat message.
-       */
-      metadata?: { [key: string]: unknown } | null;
-    }
-
-    export namespace MessageChatContent {
-      /**
-       * The template structure for the chat message.
-       */
-      export interface Template {
-        /**
-         * The blocks of the message in a chat.
-         */
-        blocks?: Array<Template.Block> | null;
-
-        /**
-         * The JSON content of the message.
-         */
-        json_content?: { [key: string]: unknown } | null;
-
-        /**
-         * The summary of the chat message.
-         */
-        summary?: string | null;
-      }
-
-      export namespace Template {
-        /**
-         * A block in a message in a chat.
-         */
-        export interface Block {
-          /**
-           * The actual content of the block.
-           */
-          content: string;
-
-          /**
-           * The name of the block for identification.
-           */
-          name: string;
-
-          /**
-           * The type of block in a message in a chat (text or markdown).
-           */
-          type: 'text' | 'markdown';
-        }
-      }
-    }
-
-    /**
-     * The content of an in-app feed message.
-     */
-    export interface MessageInAppFeedContent {
-      /**
-       * The typename of the schema.
-       */
-      __typename: string;
-
-      /**
-       * The blocks of the message in an app feed.
-       */
-      blocks: Array<
-        | MessageInAppFeedContent.MessageInAppFeedContentBlock
-        | MessageInAppFeedContent.MessageInAppFeedButtonSetBlock
-      >;
-    }
-
-    export namespace MessageInAppFeedContent {
-      /**
-       * A block in a message in an app feed.
-       */
-      export interface MessageInAppFeedContentBlock {
-        /**
-         * The content of the block in a message in an app feed.
-         */
-        content: string;
-
-        /**
-         * The name of the block in a message in an app feed.
-         */
-        name: string;
-
-        /**
-         * The rendered HTML version of the content.
-         */
-        rendered: string;
-
-        /**
-         * The type of block in a message in an app feed.
-         */
-        type: 'markdown' | 'text';
-      }
-
-      /**
-       * A button set block in a message in an app feed.
-       */
-      export interface MessageInAppFeedButtonSetBlock {
-        /**
-         * A list of buttons in an in app feed message.
-         */
-        buttons: Array<MessageInAppFeedButtonSetBlock.Button>;
-
-        /**
-         * The name of the button set in a message in an app feed.
-         */
-        name: string;
-
-        /**
-         * The type of block in a message in an app feed.
-         */
-        type: 'button_set';
-      }
-
-      export namespace MessageInAppFeedButtonSetBlock {
-        /**
-         * A button in an in app feed message.
-         */
-        export interface Button {
-          /**
-           * The action to take when the button is clicked.
-           */
-          action: string;
-
-          /**
-           * The label of the button.
-           */
-          label: string;
-
-          /**
-           * The name of the button.
-           */
-          name: string;
-        }
-      }
-    }
-  }
-}
+export type BatchGetContentResponse = Array<MessagesAPI.MessageContents>;
 
 /**
  * The list of messages that were updated.
@@ -558,6 +279,7 @@ export interface BatchUnarchiveParams {
 
 export declare namespace Batch {
   export {
+    type BatchMessagesStatusRequest as BatchMessagesStatusRequest,
     type BatchArchiveResponse as BatchArchiveResponse,
     type BatchGetContentResponse as BatchGetContentResponse,
     type BatchMarkAsInteractedResponse as BatchMarkAsInteractedResponse,

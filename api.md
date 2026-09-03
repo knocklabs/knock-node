@@ -52,6 +52,9 @@ Types:
 
 - <code><a href="./src/resources/users/users.ts">IdentifyUserRequest</a></code>
 - <code><a href="./src/resources/users/users.ts">InlineIdentifyUserRequest</a></code>
+- <code><a href="./src/resources/users/users.ts">ListSchedulesResponse</a></code>
+- <code><a href="./src/resources/users/users.ts">ListSubscriptionsResponse</a></code>
+- <code><a href="./src/resources/users/users.ts">PreferenceSetCommercialSubscribedSetting</a></code>
 - <code><a href="./src/resources/users/users.ts">User</a></code>
 - <code><a href="./src/resources/users/users.ts">UserListPreferencesResponse</a></code>
 
@@ -89,17 +92,20 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/users/guides.ts">GuideActionResponse</a></code>
+- <code><a href="./src/resources/users/guides.ts">GuideArchivedRequest</a></code>
+- <code><a href="./src/resources/users/guides.ts">GuideInteractedRequest</a></code>
+- <code><a href="./src/resources/users/guides.ts">GuideSeenRequest</a></code>
 - <code><a href="./src/resources/users/guides.ts">GuideGetChannelResponse</a></code>
-- <code><a href="./src/resources/users/guides.ts">GuideMarkMessageAsArchivedResponse</a></code>
-- <code><a href="./src/resources/users/guides.ts">GuideMarkMessageAsInteractedResponse</a></code>
-- <code><a href="./src/resources/users/guides.ts">GuideMarkMessageAsSeenResponse</a></code>
 
 Methods:
 
 - <code title="get /v1/users/{user_id}/guides/{channel_id}">client.users.guides.<a href="./src/resources/users/guides.ts">getChannel</a>(userID, channelID, { ...params }) -> GuideGetChannelResponse</code>
-- <code title="put /v1/users/{user_id}/guides/messages/{message_id}/archived">client.users.guides.<a href="./src/resources/users/guides.ts">markMessageAsArchived</a>(userID, messageID, { ...params }) -> GuideMarkMessageAsArchivedResponse</code>
-- <code title="put /v1/users/{user_id}/guides/messages/{message_id}/interacted">client.users.guides.<a href="./src/resources/users/guides.ts">markMessageAsInteracted</a>(userID, messageID, { ...params }) -> GuideMarkMessageAsInteractedResponse</code>
-- <code title="put /v1/users/{user_id}/guides/messages/{message_id}/seen">client.users.guides.<a href="./src/resources/users/guides.ts">markMessageAsSeen</a>(userID, messageID, { ...params }) -> GuideMarkMessageAsSeenResponse</code>
+- <code title="put /v1/users/{user_id}/guides/messages/archived">client.users.guides.<a href="./src/resources/users/guides.ts">markMessageAsArchived</a>(userID, { ...params }) -> GuideActionResponse</code>
+- <code title="put /v1/users/{user_id}/guides/messages/interacted">client.users.guides.<a href="./src/resources/users/guides.ts">markMessageAsInteracted</a>(userID, { ...params }) -> GuideActionResponse</code>
+- <code title="put /v1/users/{user_id}/guides/messages/seen">client.users.guides.<a href="./src/resources/users/guides.ts">markMessageAsSeen</a>(userID, { ...params }) -> GuideActionResponse</code>
+- <code title="put /v1/users/{user_id}/guides/engagements/reset">client.users.guides.<a href="./src/resources/users/guides.ts">resetGuideEngagements</a>(userID, { ...params }) -> GuideActionResponse</code>
+- <code title="delete /v1/users/{user_id}/guides/messages/archived">client.users.guides.<a href="./src/resources/users/guides.ts">unarchiveGuideMessage</a>(userID, { ...params }) -> GuideActionResponse</code>
 
 ## Bulk
 
@@ -108,6 +114,19 @@ Methods:
 - <code title="post /v1/users/bulk/delete">client.users.bulk.<a href="./src/resources/users/bulk.ts">delete</a>({ ...params }) -> BulkOperation</code>
 - <code title="post /v1/users/bulk/identify">client.users.bulk.<a href="./src/resources/users/bulk.ts">identify</a>({ ...params }) -> BulkOperation</code>
 - <code title="post /v1/users/bulk/preferences">client.users.bulk.<a href="./src/resources/users/bulk.ts">setPreferences</a>({ ...params }) -> BulkOperation</code>
+
+## PreferenceCenter
+
+Types:
+
+- <code><a href="./src/resources/users/preference-center.ts">PreferenceCenterBrandingConfig</a></code>
+- <code><a href="./src/resources/users/preference-center.ts">PreferenceCenterGenerateSignedURLResponse</a></code>
+- <code><a href="./src/resources/users/preference-center.ts">PreferenceCenterGetConfigResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/users/{user_id}/preference_center/signed_url">client.users.preferenceCenter.<a href="./src/resources/users/preference-center.ts">generateSignedURL</a>(userID) -> PreferenceCenterGenerateSignedURLResponse</code>
+- <code title="get /v1/users/{user_id}/preference_center/config">client.users.preferenceCenter.<a href="./src/resources/users/preference-center.ts">getConfig</a>(userID) -> PreferenceCenterGetConfigResponse</code>
 
 # Objects
 
@@ -184,17 +203,20 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/messages/messages.ts">Activity</a></code>
+- <code><a href="./src/resources/messages/messages.ts">ListMessagesResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">Message</a></code>
+- <code><a href="./src/resources/messages/messages.ts">MessageContents</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageDeliveryLog</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageEvent</a></code>
-- <code><a href="./src/resources/messages/messages.ts">MessageGetContentResponse</a></code>
+- <code><a href="./src/resources/messages/messages.ts">MessageInAppFeedButtonSetBlock</a></code>
+- <code><a href="./src/resources/messages/messages.ts">MessageInAppFeedContentBlock</a></code>
 
 Methods:
 
 - <code title="get /v1/messages">client.messages.<a href="./src/resources/messages/messages.ts">list</a>({ ...params }) -> MessagesItemsCursor</code>
 - <code title="put /v1/messages/{message_id}/archived">client.messages.<a href="./src/resources/messages/messages.ts">archive</a>(messageID) -> Message</code>
 - <code title="get /v1/messages/{message_id}">client.messages.<a href="./src/resources/messages/messages.ts">get</a>(messageID) -> Message</code>
-- <code title="get /v1/messages/{message_id}/content">client.messages.<a href="./src/resources/messages/messages.ts">getContent</a>(messageID) -> MessageGetContentResponse</code>
+- <code title="get /v1/messages/{message_id}/content">client.messages.<a href="./src/resources/messages/messages.ts">getContent</a>(messageID) -> MessageContents</code>
 - <code title="get /v1/messages/{message_id}/activities">client.messages.<a href="./src/resources/messages/messages.ts">listActivities</a>(messageID, { ...params }) -> ActivitiesItemsCursor</code>
 - <code title="get /v1/messages/{message_id}/delivery_logs">client.messages.<a href="./src/resources/messages/messages.ts">listDeliveryLogs</a>(messageID, { ...params }) -> MessageDeliveryLogsItemsCursor</code>
 - <code title="get /v1/messages/{message_id}/events">client.messages.<a href="./src/resources/messages/messages.ts">listEvents</a>(messageID, { ...params }) -> MessageEventsItemsCursor</code>
@@ -209,6 +231,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/messages/batch.ts">BatchMessagesStatusRequest</a></code>
 - <code><a href="./src/resources/messages/batch.ts">BatchArchiveResponse</a></code>
 - <code><a href="./src/resources/messages/batch.ts">BatchGetContentResponse</a></code>
 - <code><a href="./src/resources/messages/batch.ts">BatchMarkAsInteractedResponse</a></code>
@@ -343,6 +366,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/audiences.ts">AudienceMember</a></code>
+- <code><a href="./src/resources/audiences.ts">AudienceMemberRequest</a></code>
 - <code><a href="./src/resources/audiences.ts">AudienceListMembersResponse</a></code>
 
 Methods:

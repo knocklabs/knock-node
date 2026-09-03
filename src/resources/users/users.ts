@@ -23,16 +23,26 @@ import {
 } from './feeds';
 import * as GuidesAPI from './guides';
 import {
+  GuideActionResponse,
+  GuideArchivedRequest,
   GuideGetChannelParams,
   GuideGetChannelResponse,
+  GuideInteractedRequest,
   GuideMarkMessageAsArchivedParams,
-  GuideMarkMessageAsArchivedResponse,
   GuideMarkMessageAsInteractedParams,
-  GuideMarkMessageAsInteractedResponse,
   GuideMarkMessageAsSeenParams,
-  GuideMarkMessageAsSeenResponse,
+  GuideResetGuideEngagementsParams,
+  GuideSeenRequest,
+  GuideUnarchiveGuideMessageParams,
   Guides,
 } from './guides';
+import * as PreferenceCenterAPI from './preference-center';
+import {
+  PreferenceCenter,
+  PreferenceCenterBrandingConfig,
+  PreferenceCenterGenerateSignedURLResponse,
+  PreferenceCenterGetConfigResponse,
+} from './preference-center';
 import { APIPromise } from '../../core/api-promise';
 import {
   EntriesCursor,
@@ -52,6 +62,9 @@ export class Users extends APIResource {
   feeds: FeedsAPI.Feeds = new FeedsAPI.Feeds(this._client);
   guides: GuidesAPI.Guides = new GuidesAPI.Guides(this._client);
   bulk: BulkAPI.Bulk = new BulkAPI.Bulk(this._client);
+  preferenceCenter: PreferenceCenterAPI.PreferenceCenter = new PreferenceCenterAPI.PreferenceCenter(
+    this._client,
+  );
 
   /**
    * Create or update a user with the provided identification data. When you identify
@@ -513,6 +526,47 @@ export interface InlineIdentifyUserRequest {
 }
 
 /**
+ * A response containing a list of schedules.
+ */
+export interface ListSchedulesResponse {
+  /**
+   * A list of schedules.
+   */
+  entries: Array<SchedulesAPI.Schedule>;
+
+  /**
+   * Pagination information for a list of resources.
+   */
+  page_info: Shared.PageInfo;
+}
+
+/**
+ * A response containing a list of subscriptions.
+ */
+export interface ListSubscriptionsResponse {
+  /**
+   * A list of subscriptions.
+   */
+  entries: Array<SubscriptionsAPI.Subscription>;
+
+  /**
+   * Pagination information for a list of resources.
+   */
+  page_info: Shared.PageInfo;
+}
+
+/**
+ * A set of settings for the commercial subscribed preference. Currently, this can
+ * only be a list of conditions to apply.
+ */
+export interface PreferenceSetCommercialSubscribedSetting {
+  /**
+   * A list of conditions to apply to the commercial subscribed preference.
+   */
+  conditions: Array<Shared.Condition>;
+}
+
+/**
  * A [User](/concepts/users) represents an individual in your system who can
  * receive notifications through Knock. Users are the most common recipients of
  * notifications and are always referenced by your internal identifier.
@@ -807,7 +861,7 @@ export interface UserSetPreferencesParams {
    * set to a settings object with conditions that are evaluated at notification send
    * time.
    */
-  commercial_subscribed?: boolean | UserSetPreferencesParams.PreferenceSetCommercialSubscribedSetting | null;
+  commercial_subscribed?: boolean | PreferenceSetCommercialSubscribedSetting | null;
 
   /**
    * An object where the key is the workflow key and the values are the preference
@@ -841,17 +895,6 @@ export namespace UserSetPreferencesParams {
   }
 
   /**
-   * A set of settings for the commercial subscribed preference. Currently, this can
-   * only be a list of conditions to apply.
-   */
-  export interface PreferenceSetCommercialSubscribedSetting {
-    /**
-     * A list of conditions to apply to the commercial subscribed preference.
-     */
-    conditions: Array<Shared.Condition>;
-  }
-
-  /**
    * The settings object for a workflow or category, where you can specify channel
    * types or conditions.
    */
@@ -876,11 +919,15 @@ export namespace UserSetPreferencesParams {
 Users.Feeds = Feeds;
 Users.Guides = Guides;
 Users.Bulk = Bulk;
+Users.PreferenceCenter = PreferenceCenter;
 
 export declare namespace Users {
   export {
     type IdentifyUserRequest as IdentifyUserRequest,
     type InlineIdentifyUserRequest as InlineIdentifyUserRequest,
+    type ListSchedulesResponse as ListSchedulesResponse,
+    type ListSubscriptionsResponse as ListSubscriptionsResponse,
+    type PreferenceSetCommercialSubscribedSetting as PreferenceSetCommercialSubscribedSetting,
     type User as User,
     type UserListPreferencesResponse as UserListPreferencesResponse,
     type UsersEntriesCursor as UsersEntriesCursor,
@@ -905,14 +952,17 @@ export declare namespace Users {
 
   export {
     Guides as Guides,
+    type GuideActionResponse as GuideActionResponse,
+    type GuideArchivedRequest as GuideArchivedRequest,
+    type GuideInteractedRequest as GuideInteractedRequest,
+    type GuideSeenRequest as GuideSeenRequest,
     type GuideGetChannelResponse as GuideGetChannelResponse,
-    type GuideMarkMessageAsArchivedResponse as GuideMarkMessageAsArchivedResponse,
-    type GuideMarkMessageAsInteractedResponse as GuideMarkMessageAsInteractedResponse,
-    type GuideMarkMessageAsSeenResponse as GuideMarkMessageAsSeenResponse,
     type GuideGetChannelParams as GuideGetChannelParams,
     type GuideMarkMessageAsArchivedParams as GuideMarkMessageAsArchivedParams,
     type GuideMarkMessageAsInteractedParams as GuideMarkMessageAsInteractedParams,
     type GuideMarkMessageAsSeenParams as GuideMarkMessageAsSeenParams,
+    type GuideResetGuideEngagementsParams as GuideResetGuideEngagementsParams,
+    type GuideUnarchiveGuideMessageParams as GuideUnarchiveGuideMessageParams,
   };
 
   export {
@@ -920,6 +970,13 @@ export declare namespace Users {
     type BulkDeleteParams as BulkDeleteParams,
     type BulkIdentifyParams as BulkIdentifyParams,
     type BulkSetPreferencesParams as BulkSetPreferencesParams,
+  };
+
+  export {
+    PreferenceCenter as PreferenceCenter,
+    type PreferenceCenterBrandingConfig as PreferenceCenterBrandingConfig,
+    type PreferenceCenterGenerateSignedURLResponse as PreferenceCenterGenerateSignedURLResponse,
+    type PreferenceCenterGetConfigResponse as PreferenceCenterGetConfigResponse,
   };
 }
 

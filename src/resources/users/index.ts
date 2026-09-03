@@ -10,19 +10,31 @@ export {
 } from './feeds';
 export {
   Guides,
+  type GuideActionResponse,
+  type GuideArchivedRequest,
+  type GuideInteractedRequest,
+  type GuideSeenRequest,
   type GuideGetChannelResponse,
-  type GuideMarkMessageAsArchivedResponse,
-  type GuideMarkMessageAsInteractedResponse,
-  type GuideMarkMessageAsSeenResponse,
   type GuideGetChannelParams,
   type GuideMarkMessageAsArchivedParams,
   type GuideMarkMessageAsInteractedParams,
   type GuideMarkMessageAsSeenParams,
+  type GuideResetGuideEngagementsParams,
+  type GuideUnarchiveGuideMessageParams,
 } from './guides';
+export {
+  PreferenceCenter,
+  type PreferenceCenterBrandingConfig,
+  type PreferenceCenterGenerateSignedURLResponse,
+  type PreferenceCenterGetConfigResponse,
+} from './preference-center';
 export {
   Users,
   type IdentifyUserRequest,
   type InlineIdentifyUserRequest,
+  type ListSchedulesResponse,
+  type ListSubscriptionsResponse,
+  type PreferenceSetCommercialSubscribedSetting,
   type User,
   type UserListPreferencesResponse,
   type UserUpdateParams,

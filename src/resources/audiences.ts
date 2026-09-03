@@ -105,6 +105,24 @@ export interface AudienceMember {
 }
 
 /**
+ * An audience member.
+ */
+export interface AudienceMemberRequest {
+  /**
+   * A set of parameters to inline-identify a user with. Inline identifying the user
+   * will ensure that the user is available before the request is executed in Knock.
+   * It will perform an upsert for the user you're supplying, replacing any
+   * properties specified.
+   */
+  user: UsersAPI.InlineIdentifyUserRequest;
+
+  /**
+   * The unique identifier for the tenant.
+   */
+  tenant?: string | null;
+}
+
+/**
  * A paginated list of audience members.
  */
 export interface AudienceListMembersResponse {
@@ -124,7 +142,7 @@ export interface AudienceAddMembersParams {
    * Body param: A list of audience members to add. You can add up to 1,000 members
    * per request.
    */
-  members: Array<AudienceAddMembersParams.Member>;
+  members: Array<AudienceMemberRequest>;
 
   /**
    * Query param: Create the audience if it does not exist.
@@ -132,57 +150,18 @@ export interface AudienceAddMembersParams {
   create_audience?: boolean;
 }
 
-export namespace AudienceAddMembersParams {
-  /**
-   * An audience member.
-   */
-  export interface Member {
-    /**
-     * A set of parameters to inline-identify a user with. Inline identifying the user
-     * will ensure that the user is available before the request is executed in Knock.
-     * It will perform an upsert for the user you're supplying, replacing any
-     * properties specified.
-     */
-    user: UsersAPI.InlineIdentifyUserRequest;
-
-    /**
-     * The unique identifier for the tenant.
-     */
-    tenant?: string | null;
-  }
-}
-
 export interface AudienceRemoveMembersParams {
   /**
    * A list of audience members to remove. You can remove up to 1,000 members per
    * request.
    */
-  members: Array<AudienceRemoveMembersParams.Member>;
-}
-
-export namespace AudienceRemoveMembersParams {
-  /**
-   * An audience member.
-   */
-  export interface Member {
-    /**
-     * A set of parameters to inline-identify a user with. Inline identifying the user
-     * will ensure that the user is available before the request is executed in Knock.
-     * It will perform an upsert for the user you're supplying, replacing any
-     * properties specified.
-     */
-    user: UsersAPI.InlineIdentifyUserRequest;
-
-    /**
-     * The unique identifier for the tenant.
-     */
-    tenant?: string | null;
-  }
+  members: Array<AudienceMemberRequest>;
 }
 
 export declare namespace Audiences {
   export {
     type AudienceMember as AudienceMember,
+    type AudienceMemberRequest as AudienceMemberRequest,
     type AudienceListMembersResponse as AudienceListMembersResponse,
     type AudienceAddMembersParams as AudienceAddMembersParams,
     type AudienceRemoveMembersParams as AudienceRemoveMembersParams,

@@ -2,6 +2,7 @@
 
 export {
   Batch,
+  type BatchMessagesStatusRequest,
   type BatchArchiveResponse,
   type BatchGetContentResponse,
   type BatchMarkAsInteractedResponse,
@@ -22,10 +23,13 @@ export {
 export {
   Messages,
   type Activity,
+  type ListMessagesResponse,
   type Message,
+  type MessageContents,
   type MessageDeliveryLog,
   type MessageEvent,
-  type MessageGetContentResponse,
+  type MessageInAppFeedButtonSetBlock,
+  type MessageInAppFeedContentBlock,
   type MessageListParams,
   type MessageListActivitiesParams,
   type MessageListDeliveryLogsParams,

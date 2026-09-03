@@ -35,10 +35,9 @@ export class Guides extends APIResource {
    *
    * @example
    * ```ts
-   * const response =
+   * const guideActionResponse =
    *   await client.users.guides.markMessageAsArchived(
    *     'user_id',
-   *     'message_id',
    *     {
    *       channel_id: '123e4567-e89b-12d3-a456-426614174000',
    *       guide_id: '7e9dc78c-b3b1-4127-a54e-71f1899b831a',
@@ -50,14 +49,10 @@ export class Guides extends APIResource {
    */
   markMessageAsArchived(
     userID: string,
-    messageID: string,
     body: GuideMarkMessageAsArchivedParams,
     options?: RequestOptions,
-  ): APIPromise<GuideMarkMessageAsArchivedResponse> {
-    return this._client.put(path`/v1/users/${userID}/guides/messages/${messageID}/archived`, {
-      body,
-      ...options,
-    });
+  ): APIPromise<GuideActionResponse> {
+    return this._client.put(path`/v1/users/${userID}/guides/messages/archived`, { body, ...options });
   }
 
   /**
@@ -66,10 +61,9 @@ export class Guides extends APIResource {
    *
    * @example
    * ```ts
-   * const response =
+   * const guideActionResponse =
    *   await client.users.guides.markMessageAsInteracted(
    *     'user_id',
-   *     'message_id',
    *     {
    *       channel_id: '123e4567-e89b-12d3-a456-426614174000',
    *       guide_id: '7e9dc78c-b3b1-4127-a54e-71f1899b831a',
@@ -81,14 +75,10 @@ export class Guides extends APIResource {
    */
   markMessageAsInteracted(
     userID: string,
-    messageID: string,
     body: GuideMarkMessageAsInteractedParams,
     options?: RequestOptions,
-  ): APIPromise<GuideMarkMessageAsInteractedResponse> {
-    return this._client.put(path`/v1/users/${userID}/guides/messages/${messageID}/interacted`, {
-      body,
-      ...options,
-    });
+  ): APIPromise<GuideActionResponse> {
+    return this._client.put(path`/v1/users/${userID}/guides/messages/interacted`, { body, ...options });
   }
 
   /**
@@ -97,40 +87,200 @@ export class Guides extends APIResource {
    *
    * @example
    * ```ts
-   * const response =
-   *   await client.users.guides.markMessageAsSeen(
-   *     'user_id',
-   *     'message_id',
-   *     {
-   *       channel_id: '123e4567-e89b-12d3-a456-426614174000',
-   *       content: {
-   *         body: "Limited spots available for today's behind-the-scenes DNA extraction demonstration.",
-   *         title: 'DNA Lab Tour Available',
-   *       },
-   *       guide_id: '7e9dc78c-b3b1-4127-a54e-71f1899b831a',
-   *       guide_key: 'tour_notification',
-   *       guide_step_ref: 'lab_tours',
-   *       data: {
-   *         next_time: '14:30',
-   *         spots_left: 8,
-   *         tour_id: 'dna_lab_tour',
-   *       },
-   *       tenant: 'ingen_isla_nublar',
+   * const guideActionResponse =
+   *   await client.users.guides.markMessageAsSeen('user_id', {
+   *     channel_id: '123e4567-e89b-12d3-a456-426614174000',
+   *     content: {
+   *       body: "Limited spots available for today's behind-the-scenes DNA extraction demonstration.",
+   *       title: 'DNA Lab Tour Available',
    *     },
-   *   );
+   *     guide_id: '7e9dc78c-b3b1-4127-a54e-71f1899b831a',
+   *     guide_key: 'tour_notification',
+   *     guide_step_ref: 'lab_tours',
+   *     data: {
+   *       next_time: '14:30',
+   *       spots_left: 8,
+   *       tour_id: 'dna_lab_tour',
+   *     },
+   *     tenant: 'ingen_isla_nublar',
+   *   });
    * ```
    */
   markMessageAsSeen(
     userID: string,
-    messageID: string,
     body: GuideMarkMessageAsSeenParams,
     options?: RequestOptions,
-  ): APIPromise<GuideMarkMessageAsSeenResponse> {
-    return this._client.put(path`/v1/users/${userID}/guides/messages/${messageID}/seen`, {
-      body,
-      ...options,
-    });
+  ): APIPromise<GuideActionResponse> {
+    return this._client.put(path`/v1/users/${userID}/guides/messages/seen`, { body, ...options });
   }
+
+  /**
+   * Resets the engagement state of a guide for a user, removing the guide's
+   * engagement log entry so the next interaction creates a fresh engagement.
+   *
+   * @example
+   * ```ts
+   * const guideActionResponse =
+   *   await client.users.guides.resetGuideEngagements(
+   *     'user_id',
+   *     { guide_key: 'tour_notification' },
+   *   );
+   * ```
+   */
+  resetGuideEngagements(
+    userID: string,
+    body: GuideResetGuideEngagementsParams,
+    options?: RequestOptions,
+  ): APIPromise<GuideActionResponse> {
+    return this._client.put(path`/v1/users/${userID}/guides/engagements/reset`, { body, ...options });
+  }
+
+  /**
+   * Records that a guide has been unarchived, triggering any associated unarchived
+   * events.
+   *
+   * @example
+   * ```ts
+   * const guideActionResponse =
+   *   await client.users.guides.unarchiveGuideMessage(
+   *     'user_id',
+   *     { guide_key: 'tour_notification' },
+   *   );
+   * ```
+   */
+  unarchiveGuideMessage(
+    userID: string,
+    body: GuideUnarchiveGuideMessageParams,
+    options?: RequestOptions,
+  ): APIPromise<GuideActionResponse> {
+    return this._client.delete(path`/v1/users/${userID}/guides/messages/archived`, { body, ...options });
+  }
+}
+
+/**
+ * A response for a guide action.
+ */
+export interface GuideActionResponse {
+  /**
+   * The status of a guide's action.
+   */
+  status: string;
+}
+
+/**
+ * A request to mark a guide as archived.
+ */
+export interface GuideArchivedRequest {
+  /**
+   * The unique identifier for the channel.
+   */
+  channel_id: string;
+
+  /**
+   * The unique identifier for the guide.
+   */
+  guide_id: string;
+
+  /**
+   * The key of the guide.
+   */
+  guide_key: string;
+
+  /**
+   * The step reference of the guide.
+   */
+  guide_step_ref: string;
+
+  /**
+   * Whether the guide is final.
+   */
+  is_final?: boolean;
+
+  /**
+   * The tenant ID of the guide.
+   */
+  tenant?: string;
+
+  /**
+   * Whether the guide bypasses its guide group's throttle settings. When true,
+   * archiving the guide does not open a new throttle window.
+   */
+  unthrottled?: boolean;
+}
+
+/**
+ * A request to mark a guide as interacted with.
+ */
+export interface GuideInteractedRequest {
+  /**
+   * The unique identifier for the channel.
+   */
+  channel_id: string;
+
+  /**
+   * The unique identifier for the guide.
+   */
+  guide_id: string;
+
+  /**
+   * The key of the guide.
+   */
+  guide_key: string;
+
+  /**
+   * The step reference of the guide.
+   */
+  guide_step_ref: string;
+
+  /**
+   * Metadata about the interaction.
+   */
+  metadata?: { [key: string]: unknown };
+
+  /**
+   * The tenant ID of the guide.
+   */
+  tenant?: string;
+}
+
+/**
+ * A request to mark a guide as seen.
+ */
+export interface GuideSeenRequest {
+  /**
+   * The unique identifier for the channel.
+   */
+  channel_id: string;
+
+  /**
+   * The content of the guide.
+   */
+  content: { [key: string]: unknown };
+
+  /**
+   * The unique identifier for the guide.
+   */
+  guide_id: string;
+
+  /**
+   * The key of the guide.
+   */
+  guide_key: string;
+
+  /**
+   * The step reference of the guide.
+   */
+  guide_step_ref: string;
+
+  /**
+   * The data of the guide.
+   */
+  data?: { [key: string]: unknown };
+
+  /**
+   * The tenant ID of the guide.
+   */
+  tenant?: string;
 }
 
 /**
@@ -322,36 +472,6 @@ export namespace GuideGetChannelResponse {
   }
 }
 
-/**
- * A response for a guide action.
- */
-export interface GuideMarkMessageAsArchivedResponse {
-  /**
-   * The status of a guide's action.
-   */
-  status: string;
-}
-
-/**
- * A response for a guide action.
- */
-export interface GuideMarkMessageAsInteractedResponse {
-  /**
-   * The status of a guide's action.
-   */
-  status: string;
-}
-
-/**
- * A response for a guide action.
- */
-export interface GuideMarkMessageAsSeenResponse {
-  /**
-   * The status of a guide's action.
-   */
-  status: string;
-}
-
 export interface GuideGetChannelParams {
   /**
    * The data (JSON encoded object) to use for targeting and rendering guides.
@@ -476,15 +596,42 @@ export interface GuideMarkMessageAsSeenParams {
   tenant?: string;
 }
 
+export interface GuideResetGuideEngagementsParams {
+  /**
+   * The key of the guide.
+   */
+  guide_key: string;
+
+  /**
+   * The tenant ID of the guide.
+   */
+  tenant?: string;
+}
+
+export interface GuideUnarchiveGuideMessageParams {
+  /**
+   * The key of the guide.
+   */
+  guide_key: string;
+
+  /**
+   * The tenant ID of the guide.
+   */
+  tenant?: string;
+}
+
 export declare namespace Guides {
   export {
+    type GuideActionResponse as GuideActionResponse,
+    type GuideArchivedRequest as GuideArchivedRequest,
+    type GuideInteractedRequest as GuideInteractedRequest,
+    type GuideSeenRequest as GuideSeenRequest,
     type GuideGetChannelResponse as GuideGetChannelResponse,
-    type GuideMarkMessageAsArchivedResponse as GuideMarkMessageAsArchivedResponse,
-    type GuideMarkMessageAsInteractedResponse as GuideMarkMessageAsInteractedResponse,
-    type GuideMarkMessageAsSeenResponse as GuideMarkMessageAsSeenResponse,
     type GuideGetChannelParams as GuideGetChannelParams,
     type GuideMarkMessageAsArchivedParams as GuideMarkMessageAsArchivedParams,
     type GuideMarkMessageAsInteractedParams as GuideMarkMessageAsInteractedParams,
     type GuideMarkMessageAsSeenParams as GuideMarkMessageAsSeenParams,
+    type GuideResetGuideEngagementsParams as GuideResetGuideEngagementsParams,
+    type GuideUnarchiveGuideMessageParams as GuideUnarchiveGuideMessageParams,
   };
 }

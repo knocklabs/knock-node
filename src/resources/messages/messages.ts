@@ -1,6 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as MessagesAPI from './messages';
+import * as Shared from '../shared';
 import * as BatchAPI from './batch';
 import {
   Batch,
@@ -18,6 +20,7 @@ import {
   BatchMarkAsUnreadResponse,
   BatchMarkAsUnseenParams,
   BatchMarkAsUnseenResponse,
+  BatchMessagesStatusRequest,
   BatchUnarchiveParams,
   BatchUnarchiveResponse,
 } from './batch';
@@ -86,12 +89,12 @@ export class Messages extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.messages.getContent(
+   * const messageContents = await client.messages.getContent(
    *   'message_id',
    * );
    * ```
    */
-  getContent(messageID: string, options?: RequestOptions): APIPromise<MessageGetContentResponse> {
+  getContent(messageID: string, options?: RequestOptions): APIPromise<MessageContents> {
     return this._client.get(path`/v1/messages/${messageID}/content`, options);
   }
 
@@ -319,6 +322,21 @@ export interface Activity {
    * Timestamp when the activity was last updated.
    */
   updated_at?: string;
+}
+
+/**
+ * A paginated list of messages.
+ */
+export interface ListMessagesResponse {
+  /**
+   * A list of messages.
+   */
+  items: Array<Message>;
+
+  /**
+   * Pagination information for a list of resources.
+   */
+  page_info: Shared.PageInfo;
 }
 
 /**
@@ -571,160 +589,9 @@ export namespace Message {
 }
 
 /**
- * A message delivery log contains a `request` from Knock to a downstream provider
- * and the `response` that was returned.
- */
-export interface MessageDeliveryLog {
-  /**
-   * The unique identifier for the message delivery log.
-   */
-  id: string;
-
-  /**
-   * The typename of the schema.
-   */
-  __typename: string;
-
-  /**
-   * The ID of the environment in which the message delivery occurred.
-   */
-  environment_id: string;
-
-  /**
-   * Timestamp when the message delivery log was created.
-   */
-  inserted_at: string;
-
-  /**
-   * A message delivery log request.
-   */
-  request: MessageDeliveryLog.Request;
-
-  /**
-   * A message delivery log response.
-   */
-  response: MessageDeliveryLog.Response;
-
-  /**
-   * The name of the service that processed the delivery.
-   */
-  service_name: string;
-}
-
-export namespace MessageDeliveryLog {
-  /**
-   * A message delivery log request.
-   */
-  export interface Request {
-    /**
-     * The body content that was sent with the request.
-     */
-    body?: string | { [key: string]: unknown };
-
-    /**
-     * The headers that were sent with the request.
-     */
-    headers?: { [key: string]: unknown } | null;
-
-    /**
-     * The host to which the request was sent.
-     */
-    host?: string;
-
-    /**
-     * The HTTP method used for the request.
-     */
-    method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
-
-    /**
-     * The path of the URL that was requested.
-     */
-    path?: string;
-
-    /**
-     * The query string of the URL that was requested.
-     */
-    query?: string | null;
-  }
-
-  /**
-   * A message delivery log response.
-   */
-  export interface Response {
-    /**
-     * The body content that was received with the response.
-     */
-    body?: string | { [key: string]: unknown };
-
-    /**
-     * The headers that were received with the response.
-     */
-    headers?: { [key: string]: unknown } | null;
-
-    /**
-     * The HTTP status code of the response.
-     */
-    status?: number;
-  }
-}
-
-/**
- * A message event. Occurs when a message
- * [delivery or engagement status](/send-notifications/message-statuses) changes.
- */
-export interface MessageEvent {
-  /**
-   * The unique identifier for the message event.
-   */
-  id: string;
-
-  /**
-   * The typename of the schema.
-   */
-  __typename: string;
-
-  /**
-   * Timestamp when the event was created.
-   */
-  inserted_at: string;
-
-  /**
-   * A reference to a recipient, either a user identifier (string) or an object
-   * reference (ID, collection).
-   */
-  recipient: RecipientsAPI.RecipientReference;
-
-  /**
-   * The type of event that occurred.
-   */
-  type:
-    | 'message.read'
-    | 'message.sent'
-    | 'message.seen'
-    | 'message.created'
-    | 'message.queued'
-    | 'message.delivered'
-    | 'message.delivery_attempted'
-    | 'message.undelivered'
-    | 'message.bounced'
-    | 'message.not_sent'
-    | 'message.archived'
-    | 'message.link_clicked'
-    | 'message.interacted'
-    | 'message.unread'
-    | 'message.unseen'
-    | 'message.unarchived';
-
-  /**
-   * The data associated with the message event. Only present for some event types.
-   */
-  data?: { [key: string]: unknown } | null;
-}
-
-/**
  * The content of a message.
  */
-export interface MessageGetContentResponse {
+export interface MessageContents {
   /**
    * The typename of the schema.
    */
@@ -734,11 +601,11 @@ export interface MessageGetContentResponse {
    * Content data specific to the channel type.
    */
   data:
-    | MessageGetContentResponse.MessageEmailContent
-    | MessageGetContentResponse.MessageSMSContent
-    | MessageGetContentResponse.MessagePushContent
-    | MessageGetContentResponse.MessageChatContent
-    | MessageGetContentResponse.MessageInAppFeedContent;
+    | MessageContents.MessageEmailContent
+    | MessageContents.MessageSMSContent
+    | MessageContents.MessagePushContent
+    | MessageContents.MessageChatContent
+    | MessageContents.MessageInAppFeedContent;
 
   /**
    * Timestamp when the message content was created.
@@ -751,7 +618,7 @@ export interface MessageGetContentResponse {
   message_id: string;
 }
 
-export namespace MessageGetContentResponse {
+export namespace MessageContents {
   /**
    * The content of an email message.
    */
@@ -933,80 +800,226 @@ export namespace MessageGetContentResponse {
     /**
      * The blocks of the message in an app feed.
      */
-    blocks: Array<
-      | MessageInAppFeedContent.MessageInAppFeedContentBlock
-      | MessageInAppFeedContent.MessageInAppFeedButtonSetBlock
-    >;
+    blocks: Array<MessagesAPI.MessageInAppFeedContentBlock | MessagesAPI.MessageInAppFeedButtonSetBlock>;
+  }
+}
+
+/**
+ * A message delivery log contains a `request` from Knock to a downstream provider
+ * and the `response` that was returned.
+ */
+export interface MessageDeliveryLog {
+  /**
+   * The unique identifier for the message delivery log.
+   */
+  id: string;
+
+  /**
+   * The typename of the schema.
+   */
+  __typename: string;
+
+  /**
+   * The ID of the environment in which the message delivery occurred.
+   */
+  environment_id: string;
+
+  /**
+   * Timestamp when the message delivery log was created.
+   */
+  inserted_at: string;
+
+  /**
+   * A message delivery log request.
+   */
+  request: MessageDeliveryLog.Request;
+
+  /**
+   * A message delivery log response.
+   */
+  response: MessageDeliveryLog.Response;
+
+  /**
+   * The name of the service that processed the delivery.
+   */
+  service_name: string;
+}
+
+export namespace MessageDeliveryLog {
+  /**
+   * A message delivery log request.
+   */
+  export interface Request {
+    /**
+     * The body content that was sent with the request.
+     */
+    body?: string | { [key: string]: unknown };
+
+    /**
+     * The headers that were sent with the request.
+     */
+    headers?: { [key: string]: unknown } | null;
+
+    /**
+     * The host to which the request was sent.
+     */
+    host?: string;
+
+    /**
+     * The HTTP method used for the request.
+     */
+    method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+
+    /**
+     * The path of the URL that was requested.
+     */
+    path?: string;
+
+    /**
+     * The query string of the URL that was requested.
+     */
+    query?: string | null;
   }
 
-  export namespace MessageInAppFeedContent {
+  /**
+   * A message delivery log response.
+   */
+  export interface Response {
     /**
-     * A block in a message in an app feed.
+     * The body content that was received with the response.
      */
-    export interface MessageInAppFeedContentBlock {
-      /**
-       * The content of the block in a message in an app feed.
-       */
-      content: string;
-
-      /**
-       * The name of the block in a message in an app feed.
-       */
-      name: string;
-
-      /**
-       * The rendered HTML version of the content.
-       */
-      rendered: string;
-
-      /**
-       * The type of block in a message in an app feed.
-       */
-      type: 'markdown' | 'text';
-    }
+    body?: string | { [key: string]: unknown };
 
     /**
-     * A button set block in a message in an app feed.
+     * The headers that were received with the response.
      */
-    export interface MessageInAppFeedButtonSetBlock {
-      /**
-       * A list of buttons in an in app feed message.
-       */
-      buttons: Array<MessageInAppFeedButtonSetBlock.Button>;
+    headers?: { [key: string]: unknown } | null;
 
-      /**
-       * The name of the button set in a message in an app feed.
-       */
-      name: string;
-
-      /**
-       * The type of block in a message in an app feed.
-       */
-      type: 'button_set';
-    }
-
-    export namespace MessageInAppFeedButtonSetBlock {
-      /**
-       * A button in an in app feed message.
-       */
-      export interface Button {
-        /**
-         * The action to take when the button is clicked.
-         */
-        action: string;
-
-        /**
-         * The label of the button.
-         */
-        label: string;
-
-        /**
-         * The name of the button.
-         */
-        name: string;
-      }
-    }
+    /**
+     * The HTTP status code of the response.
+     */
+    status?: number;
   }
+}
+
+/**
+ * A message event. Occurs when a message
+ * [delivery or engagement status](/send-notifications/message-statuses) changes.
+ */
+export interface MessageEvent {
+  /**
+   * The unique identifier for the message event.
+   */
+  id: string;
+
+  /**
+   * The typename of the schema.
+   */
+  __typename: string;
+
+  /**
+   * Timestamp when the event was created.
+   */
+  inserted_at: string;
+
+  /**
+   * A reference to a recipient, either a user identifier (string) or an object
+   * reference (ID, collection).
+   */
+  recipient: RecipientsAPI.RecipientReference;
+
+  /**
+   * The type of event that occurred.
+   */
+  type:
+    | 'message.read'
+    | 'message.sent'
+    | 'message.seen'
+    | 'message.created'
+    | 'message.queued'
+    | 'message.delivered'
+    | 'message.delivery_attempted'
+    | 'message.undelivered'
+    | 'message.bounced'
+    | 'message.not_sent'
+    | 'message.archived'
+    | 'message.link_clicked'
+    | 'message.interacted'
+    | 'message.unread'
+    | 'message.unseen'
+    | 'message.unarchived';
+
+  /**
+   * The data associated with the message event. Only present for some event types.
+   */
+  data?: { [key: string]: unknown } | null;
+}
+
+/**
+ * A button set block in a message in an app feed.
+ */
+export interface MessageInAppFeedButtonSetBlock {
+  /**
+   * A list of buttons in an in app feed message.
+   */
+  buttons: Array<MessageInAppFeedButtonSetBlock.Button>;
+
+  /**
+   * The name of the button set in a message in an app feed.
+   */
+  name: string;
+
+  /**
+   * The type of block in a message in an app feed.
+   */
+  type: 'button_set';
+}
+
+export namespace MessageInAppFeedButtonSetBlock {
+  /**
+   * A button in an in app feed message.
+   */
+  export interface Button {
+    /**
+     * The action to take when the button is clicked.
+     */
+    action: string;
+
+    /**
+     * The label of the button.
+     */
+    label: string;
+
+    /**
+     * The name of the button.
+     */
+    name: string;
+  }
+}
+
+/**
+ * A block in a message in an app feed.
+ */
+export interface MessageInAppFeedContentBlock {
+  /**
+   * The content of the block in a message in an app feed.
+   */
+  content: string;
+
+  /**
+   * The name of the block in a message in an app feed.
+   */
+  name: string;
+
+  /**
+   * The rendered HTML version of the content.
+   */
+  rendered: string;
+
+  /**
+   * The type of block in a message in an app feed.
+   */
+  type: 'markdown' | 'text';
 }
 
 export interface MessageListParams extends ItemsCursorParams {
@@ -1118,10 +1131,13 @@ Messages.Batch = Batch;
 export declare namespace Messages {
   export {
     type Activity as Activity,
+    type ListMessagesResponse as ListMessagesResponse,
     type Message as Message,
+    type MessageContents as MessageContents,
     type MessageDeliveryLog as MessageDeliveryLog,
     type MessageEvent as MessageEvent,
-    type MessageGetContentResponse as MessageGetContentResponse,
+    type MessageInAppFeedButtonSetBlock as MessageInAppFeedButtonSetBlock,
+    type MessageInAppFeedContentBlock as MessageInAppFeedContentBlock,
     type MessagesItemsCursor as MessagesItemsCursor,
     type ActivitiesItemsCursor as ActivitiesItemsCursor,
     type MessageDeliveryLogsItemsCursor as MessageDeliveryLogsItemsCursor,
@@ -1135,6 +1151,7 @@ export declare namespace Messages {
 
   export {
     Batch as Batch,
+    type BatchMessagesStatusRequest as BatchMessagesStatusRequest,
     type BatchArchiveResponse as BatchArchiveResponse,
     type BatchGetContentResponse as BatchGetContentResponse,
     type BatchMarkAsInteractedResponse as BatchMarkAsInteractedResponse,

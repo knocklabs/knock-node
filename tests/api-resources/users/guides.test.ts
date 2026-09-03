@@ -36,7 +36,7 @@ describe('resource guides', () => {
   });
 
   test('markMessageAsArchived: only required params', async () => {
-    const responsePromise = client.users.guides.markMessageAsArchived('user_id', 'message_id', {
+    const responsePromise = client.users.guides.markMessageAsArchived('user_id', {
       channel_id: '123e4567-e89b-12d3-a456-426614174000',
       guide_id: '7e9dc78c-b3b1-4127-a54e-71f1899b831a',
       guide_key: 'tour_notification',
@@ -52,7 +52,7 @@ describe('resource guides', () => {
   });
 
   test('markMessageAsArchived: required and optional params', async () => {
-    const response = await client.users.guides.markMessageAsArchived('user_id', 'message_id', {
+    const response = await client.users.guides.markMessageAsArchived('user_id', {
       channel_id: '123e4567-e89b-12d3-a456-426614174000',
       guide_id: '7e9dc78c-b3b1-4127-a54e-71f1899b831a',
       guide_key: 'tour_notification',
@@ -64,7 +64,7 @@ describe('resource guides', () => {
   });
 
   test('markMessageAsInteracted: only required params', async () => {
-    const responsePromise = client.users.guides.markMessageAsInteracted('user_id', 'message_id', {
+    const responsePromise = client.users.guides.markMessageAsInteracted('user_id', {
       channel_id: '123e4567-e89b-12d3-a456-426614174000',
       guide_id: '7e9dc78c-b3b1-4127-a54e-71f1899b831a',
       guide_key: 'tour_notification',
@@ -80,7 +80,7 @@ describe('resource guides', () => {
   });
 
   test('markMessageAsInteracted: required and optional params', async () => {
-    const response = await client.users.guides.markMessageAsInteracted('user_id', 'message_id', {
+    const response = await client.users.guides.markMessageAsInteracted('user_id', {
       channel_id: '123e4567-e89b-12d3-a456-426614174000',
       guide_id: '7e9dc78c-b3b1-4127-a54e-71f1899b831a',
       guide_key: 'tour_notification',
@@ -95,7 +95,7 @@ describe('resource guides', () => {
   });
 
   test('markMessageAsSeen: only required params', async () => {
-    const responsePromise = client.users.guides.markMessageAsSeen('user_id', 'message_id', {
+    const responsePromise = client.users.guides.markMessageAsSeen('user_id', {
       channel_id: '123e4567-e89b-12d3-a456-426614174000',
       content: { body: 'bar', title: 'bar' },
       guide_id: '7e9dc78c-b3b1-4127-a54e-71f1899b831a',
@@ -112,7 +112,7 @@ describe('resource guides', () => {
   });
 
   test('markMessageAsSeen: required and optional params', async () => {
-    const response = await client.users.guides.markMessageAsSeen('user_id', 'message_id', {
+    const response = await client.users.guides.markMessageAsSeen('user_id', {
       channel_id: '123e4567-e89b-12d3-a456-426614174000',
       content: { body: 'bar', title: 'bar' },
       guide_id: '7e9dc78c-b3b1-4127-a54e-71f1899b831a',
@@ -123,6 +123,46 @@ describe('resource guides', () => {
         spots_left: 'bar',
         tour_id: 'bar',
       },
+      tenant: 'ingen_isla_nublar',
+    });
+  });
+
+  test('resetGuideEngagements: only required params', async () => {
+    const responsePromise = client.users.guides.resetGuideEngagements('user_id', {
+      guide_key: 'tour_notification',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('resetGuideEngagements: required and optional params', async () => {
+    const response = await client.users.guides.resetGuideEngagements('user_id', {
+      guide_key: 'tour_notification',
+      tenant: 'ingen_isla_nublar',
+    });
+  });
+
+  test('unarchiveGuideMessage: only required params', async () => {
+    const responsePromise = client.users.guides.unarchiveGuideMessage('user_id', {
+      guide_key: 'tour_notification',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('unarchiveGuideMessage: required and optional params', async () => {
+    const response = await client.users.guides.unarchiveGuideMessage('user_id', {
+      guide_key: 'tour_notification',
       tenant: 'ingen_isla_nublar',
     });
   });

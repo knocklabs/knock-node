@@ -122,9 +122,7 @@ export interface FeedListItemsResponse {
   /**
    * Content blocks that make up the feed item.
    */
-  blocks: Array<
-    FeedListItemsResponse.MessageInAppFeedContentBlock | FeedListItemsResponse.MessageInAppFeedButtonSetBlock
-  >;
+  blocks: Array<MessagesAPI.MessageInAppFeedContentBlock | MessagesAPI.MessageInAppFeedButtonSetBlock>;
 
   /**
    * Additional data associated with the feed item.
@@ -193,73 +191,6 @@ export interface FeedListItemsResponse {
 }
 
 export namespace FeedListItemsResponse {
-  /**
-   * A block in a message in an app feed.
-   */
-  export interface MessageInAppFeedContentBlock {
-    /**
-     * The content of the block in a message in an app feed.
-     */
-    content: string;
-
-    /**
-     * The name of the block in a message in an app feed.
-     */
-    name: string;
-
-    /**
-     * The rendered HTML version of the content.
-     */
-    rendered: string;
-
-    /**
-     * The type of block in a message in an app feed.
-     */
-    type: 'markdown' | 'text';
-  }
-
-  /**
-   * A button set block in a message in an app feed.
-   */
-  export interface MessageInAppFeedButtonSetBlock {
-    /**
-     * A list of buttons in an in app feed message.
-     */
-    buttons: Array<MessageInAppFeedButtonSetBlock.Button>;
-
-    /**
-     * The name of the button set in a message in an app feed.
-     */
-    name: string;
-
-    /**
-     * The type of block in a message in an app feed.
-     */
-    type: 'button_set';
-  }
-
-  export namespace MessageInAppFeedButtonSetBlock {
-    /**
-     * A button in an in app feed message.
-     */
-    export interface Button {
-      /**
-       * The action to take when the button is clicked.
-       */
-      action: string;
-
-      /**
-       * The label of the button.
-       */
-      label: string;
-
-      /**
-       * The name of the button.
-       */
-      name: string;
-    }
-  }
-
   /**
    * Source information for the feed item.
    */
