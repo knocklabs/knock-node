@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.36.0](https://github.com/knocklabs/knock-node/compare/v1.35.0...v1.36.0) (2026-09-10)
+
+
+### Features
+
+* update api spec to v0.1.1694 ([ec2b2f1](https://github.com/knocklabs/knock-node/commit/ec2b2f1ceed406ff30e343d8c02a7b890bcfa734))
+* update api spec to v0.1.1696 ([cfee2be](https://github.com/knocklabs/knock-node/commit/cfee2be79d35c7c1d100e9ab81890c944b4f8f0c))
+* update api spec to v0.1.1697 ([585bb1d](https://github.com/knocklabs/knock-node/commit/585bb1dfcfdaf9c5f4cc35b4131bc9f4d744e426))
+* update api spec to v0.1.1698 ([d1882cf](https://github.com/knocklabs/knock-node/commit/d1882cf81014409d59ebb20ff7576e76d8513292))
+* update api spec to v0.1.1699 ([1e83a3e](https://github.com/knocklabs/knock-node/commit/1e83a3e9a6695f127637801c26063877017f93a0))
+
 ## [1.35.0](https://github.com/knocklabs/knock-node/compare/v1.34.0...v1.35.0) (2026-09-03)
 
 
