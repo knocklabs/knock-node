@@ -213,6 +213,13 @@ export namespace DiscordChannelData {
      * Discord channel ID.
      */
     channel_id: string;
+
+    /**
+     * An optional Knock tenant ID (`knock_tenant_id`) that scopes this connection.
+     * Distinct from provider-specific tenant IDs. When a workflow is triggered with
+     * this tenant, Knock prefers this connection over untagged connections.
+     */
+    knock_tenant_id?: string | null;
   }
 
   /**
@@ -223,6 +230,13 @@ export namespace DiscordChannelData {
      * Discord incoming webhook object.
      */
     incoming_webhook: DiscordIncomingWebhookConnection.IncomingWebhook;
+
+    /**
+     * An optional Knock tenant ID (`knock_tenant_id`) that scopes this connection.
+     * Distinct from provider-specific tenant IDs. When a workflow is triggered with
+     * this tenant, Knock prefers this connection over untagged connections.
+     */
+    knock_tenant_id?: string | null;
   }
 
   export namespace DiscordIncomingWebhookConnection {
@@ -276,6 +290,13 @@ export namespace MsTeamsChannelData {
    */
   export interface MsTeamsTokenConnection {
     /**
+     * An optional Knock tenant ID (`knock_tenant_id`) that scopes this connection.
+     * Distinct from provider-specific tenant IDs. When a workflow is triggered with
+     * this tenant, Knock prefers this connection over untagged connections.
+     */
+    knock_tenant_id?: string | null;
+
+    /**
      * Microsoft Teams channel ID.
      */
     ms_teams_channel_id?: string | null;
@@ -304,6 +325,13 @@ export namespace MsTeamsChannelData {
      * Microsoft Teams incoming webhook.
      */
     incoming_webhook: MsTeamsIncomingWebhookConnection.IncomingWebhook;
+
+    /**
+     * An optional Knock tenant ID (`knock_tenant_id`) that scopes this connection.
+     * Distinct from provider-specific tenant IDs. When a workflow is triggered with
+     * this tenant, Knock prefers this connection over untagged connections.
+     */
+    knock_tenant_id?: string | null;
   }
 
   export namespace MsTeamsIncomingWebhookConnection {
@@ -409,6 +437,13 @@ export namespace SlackChannelData {
     channel_name?: string | null;
 
     /**
+     * An optional Knock tenant ID (`knock_tenant_id`) that scopes this connection.
+     * Distinct from provider-specific tenant IDs. When a workflow is triggered with
+     * this tenant, Knock prefers this connection over untagged connections.
+     */
+    knock_tenant_id?: string | null;
+
+    /**
      * A Slack user ID from the Slack provider.
      */
     user_id?: string | null;
@@ -422,6 +457,13 @@ export namespace SlackChannelData {
      * A Slack connection incoming webhook.
      */
     incoming_webhook: SlackIncomingWebhookConnection.IncomingWebhook;
+
+    /**
+     * An optional Knock tenant ID (`knock_tenant_id`) that scopes this connection.
+     * Distinct from provider-specific tenant IDs. When a workflow is triggered with
+     * this tenant, Knock prefers this connection over untagged connections.
+     */
+    knock_tenant_id?: string | null;
   }
 
   export namespace SlackIncomingWebhookConnection {
