@@ -940,6 +940,7 @@ export interface MessageEvent {
     | 'message.delivery_attempted'
     | 'message.undelivered'
     | 'message.bounced'
+    | 'message.complaint'
     | 'message.read'
     | 'message.unread'
     | 'message.seen'
