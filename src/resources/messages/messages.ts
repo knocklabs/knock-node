@@ -493,6 +493,13 @@ export namespace Message {
     version_id: string;
 
     /**
+     * The branch ancestry of the step that generated the message, outermost first.
+     * Each segment is the branching step and the branch taken. Omitted when the step
+     * is not nested under a branch.
+     */
+    branch_path?: Array<Source.BranchPath> | null;
+
+    /**
      * The step reference for the step in the workflow that generated the message.
      */
     step_ref?: string | null;
@@ -513,6 +520,25 @@ export namespace Message {
      * present for workflow/broadcast messages.
      */
     workflow_run_id?: string | null;
+  }
+
+  export namespace Source {
+    export interface BranchPath {
+      /**
+       * The ID of the branch taken.
+       */
+      branch_id: string;
+
+      /**
+       * The reference of the branching step.
+       */
+      step_ref: string;
+
+      /**
+       * The type of the branching step.
+       */
+      step_type: string;
+    }
   }
 
   /**
