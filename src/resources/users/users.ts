@@ -689,6 +689,12 @@ export interface UserListParams extends EntriesCursorParams {
    * Associated resources to include in the response.
    */
   include?: Array<'preferences'>;
+
+  /**
+   * Sort by insertion order. Pass `asc` for oldest first, or `desc` for newest
+   * first. Defaults to oldest first when omitted.
+   */
+  order?: 'asc' | 'desc';
 }
 
 export interface UserGetPreferencesParams {
