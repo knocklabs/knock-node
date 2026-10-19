@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.40.0](https://github.com/knocklabs/knock-node/compare/v1.39.0...v1.40.0) (2026-10-19)
+
+
+### Features
+
+* List users can now be sorted with the new order parameter (v0.1.1781) ([b94cd3a](https://github.com/knocklabs/knock-node/commit/b94cd3a152b1c4c70b8650414dddb8ddd043bb6c))
+
+
+### Bug Fixes
+
+* Messages now report branch path, and listUsers no longer accepts the order parameter (v0.1.1782) ([59afa40](https://github.com/knocklabs/knock-node/commit/59afa40a1d8508f35fbdfeb0dcd1aeae371f3904))
+
 ## [1.39.0](https://github.com/knocklabs/knock-node/compare/v1.38.0...v1.39.0) (2026-10-13)
 
 
