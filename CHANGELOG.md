@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.41.0](https://github.com/knocklabs/knock-node/compare/v1.40.0...v1.41.0) (2026-10-20)
+
+
+### Features
+
+* List users can now be sorted with the optional order parameter (v0.1.1783) ([10719a5](https://github.com/knocklabs/knock-node/commit/10719a5a02958a28782ee39d51a0569caed0dacc))
+
 ## [1.40.0](https://github.com/knocklabs/knock-node/compare/v1.39.0...v1.40.0) (2026-10-19)
 
 
