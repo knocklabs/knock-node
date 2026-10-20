@@ -38,6 +38,7 @@ describe('resource users', () => {
           after: 'after',
           before: 'before',
           include: ['preferences'],
+          order: 'asc',
           page_size: 0,
         },
         { path: '/_stainless_unknown_path' },
