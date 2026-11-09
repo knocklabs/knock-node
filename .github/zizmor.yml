@@ -1,0 +1,8 @@
+rules:
+  unpinned-uses:
+    config:
+      policies:
+        '*': hash-pin
+  # Secrets aren't in GitHub environments yet. Moving them needs repo settings.
+  secrets-outside-env:
+    disable: true

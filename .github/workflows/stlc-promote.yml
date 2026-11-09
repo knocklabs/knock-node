@@ -16,7 +16,9 @@ on:
   # Fires when the `CI` workflow finishes on `main`; the job's `if:` gate below
   # keeps only the green runs. `workflow_run` triggers off the workflow file on
   # the default branch, so this takes effect once merged to `main`.
-  workflow_run:
+  # zizmor: the shared workflow checks out the default branch, never the
+  # triggering run's code.
+  workflow_run: # zizmor: ignore[dangerous-triggers]
     workflows: [CI]
     types:
       - completed
@@ -34,7 +36,9 @@ jobs:
        github.event.workflow_run.conclusion == 'success')
     permissions:
       contents: read
-    uses: knocklabs/stainless-workflows/.github/workflows/stlc-promote.yml@main
+    # zizmor: the stub tracks the shared logic at @main and inherits secrets by
+    # design, matching every SDK repo (see the stainless-workflows README).
+    uses: knocklabs/stainless-workflows/.github/workflows/stlc-promote.yml@main # zizmor: ignore[unpinned-uses,secrets-inherit]
     with:
       production_repo: knocklabs/knock-node
     # Forwards PRODUCTION_REPO_TOKEN (Contents: write on the production repo).

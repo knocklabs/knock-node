@@ -12,14 +12,22 @@ jobs:
   publish:
     name: publish
     runs-on: ubuntu-latest
+    # npm's trusted publisher config does not check the branch, so publishing is
+    # gated on this environment instead. Its deployment policy allows only main
+    # and the v* release tags, and the npm trusted publisher requires the same
+    # environment name.
+    environment: production-release
     permissions:
       contents: read
       id-token: write
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
 
-      - name: Set up Node
+      # setup-node v3 only caches when `cache` is set, and it isn't here.
+      - name: Set up Node # zizmor: ignore[cache-poisoning]
         uses: actions/setup-node@3235b876344d2a9aa001b8d1453c930bba69e610 # v3.9.1
         with:
           node-version: '26'

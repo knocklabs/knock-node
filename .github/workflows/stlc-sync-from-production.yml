@@ -33,7 +33,9 @@ jobs:
     # fallback the shared workflow uses when the secret is unset.
     permissions:
       contents: write
-    uses: knocklabs/stainless-workflows/.github/workflows/stlc-sync-from-production.yml@main
+    # zizmor: the stub tracks the shared logic at @main and inherits secrets by
+    # design, matching every SDK repo (see the stainless-workflows README).
+    uses: knocklabs/stainless-workflows/.github/workflows/stlc-sync-from-production.yml@main # zizmor: ignore[unpinned-uses,secrets-inherit]
     with:
       production_repo: knocklabs/knock-node
     # Forwards SDK_WRITE_TOKEN (and PRODUCTION_REPO_TOKEN, if production were

@@ -17,7 +17,9 @@ on:
     branches: [main]
     types: [opened, synchronize, reopened]
   # Re-evaluate the moment the back-sync completes (clears the red) …
-  workflow_run:
+  # zizmor: the shared workflow checks out the default branch, never the
+  # triggering run's code.
+  workflow_run: # zizmor: ignore[dangerous-triggers]
     workflows: ['Sync from production']
     types: [completed]
   # … and the moment a release is published (sets the red eagerly).
@@ -36,6 +38,8 @@ jobs:
       contents: read
       statuses: write
       pull-requests: read
-    uses: knocklabs/stainless-workflows/.github/workflows/trunk-sync-lock.yml@main
+    # zizmor: the stub tracks the shared logic at @main by design, matching
+    # every SDK repo (see the stainless-workflows README).
+    uses: knocklabs/stainless-workflows/.github/workflows/trunk-sync-lock.yml@main # zizmor: ignore[unpinned-uses]
     with:
       production_repo: knocklabs/knock-node

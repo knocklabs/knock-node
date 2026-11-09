@@ -17,7 +17,9 @@ jobs:
     if: github.repository == 'knocklabs/knock-node'
     permissions:
       contents: read
-    uses: knocklabs/stainless-workflows/.github/workflows/trigger-back-sync-on-release.yml@main
+    # zizmor: the stub tracks the shared logic at @main and inherits secrets by
+    # design, matching every SDK repo (see the stainless-workflows README).
+    uses: knocklabs/stainless-workflows/.github/workflows/trigger-back-sync-on-release.yml@main # zizmor: ignore[unpinned-uses,secrets-inherit]
     with:
       staging_repo: knocklabs/knock-node-staging
     # Forwards STAGING_DISPATCH_TOKEN — the only secret on the production repo.
