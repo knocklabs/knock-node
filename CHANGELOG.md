@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.41.1](https://github.com/knocklabs/knock-node/compare/v1.41.0...v1.41.1) (2026-11-09)
+
+
+### Chores
+
+* **KNO-16604:** moves CI and the local pin to Node 26 ([#3](https://github.com/knocklabs/knock-node/issues/3)) ([cd02272](https://github.com/knocklabs/knock-node/commit/cd022727369e62be1a4abad4a475be327aa64892))
+
 ## [1.41.0](https://github.com/knocklabs/knock-node/compare/v1.40.0...v1.41.0) (2026-10-20)
 
 
