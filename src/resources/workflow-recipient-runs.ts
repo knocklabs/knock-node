@@ -78,7 +78,7 @@ export interface WorkflowRecipientRun {
    * The current status of the workflow recipient run. One of `queued`, `processing`,
    * `paused`, `completed`, or `cancelled`.
    */
-  status: 'queued' | 'processing' | 'paused' | 'completed' | 'cancelled';
+  status: 'queued' | 'processing' | 'paused' | 'completed' | 'cancelled' | 'exited';
 
   /**
    * Describes how the workflow was triggered.
@@ -232,7 +232,7 @@ export interface WorkflowRecipientRunListParams extends ItemsCursorParams {
   /**
    * Limits the results to workflow recipient runs with the given status.
    */
-  status?: Array<'queued' | 'processing' | 'paused' | 'completed' | 'cancelled'>;
+  status?: Array<'queued' | 'processing' | 'paused' | 'completed' | 'cancelled' | 'exited'>;
 
   /**
    * Limits the results to workflow recipient runs for the given tenant.
