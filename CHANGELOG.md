@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.42.0](https://github.com/knocklabs/knock-node/compare/v1.41.1...v1.42.0) (2026-11-16)
+
+
+### Features
+
+* Filter and read workflow recipient runs with the new exited status (v0.1.1835) ([0581601](https://github.com/knocklabs/knock-node/commit/058160174bb9e72cdf3fa4d482ca819d006b8bc5))
+
 ## [1.41.1](https://github.com/knocklabs/knock-node/compare/v1.41.0...v1.41.1) (2026-11-09)
 
 
